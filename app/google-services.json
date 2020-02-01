@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "704991108642",
+    "firebase_url": "https://proyectoaexoesqueleto.firebaseio.com",
+    "project_id": "proyectoaexoesqueleto",
+    "storage_bucket": "proyectoaexoesqueleto.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704991108642:android:729482dc79fdac97",
+        "android_client_info": {
+          "package_name": "com.example.exoesqueletov1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704991108642-ceglj2tkgai1i2iba37mb8mlfmhjcjlu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.exoesqueletov1",
+            "certificate_hash": "7e6a2e3a754d605b0a7473c5ae98ca7a2f7afbfc"
+          }
+        },
+        {
+          "client_id": "704991108642-m4nkhc6r3t7v34pc737sgr7sj10gqmr1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg2J5TBNxRM0Xzy-HRDn059-8mxGhqgaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704991108642-m4nkhc6r3t7v34pc737sgr7sj10gqmr1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

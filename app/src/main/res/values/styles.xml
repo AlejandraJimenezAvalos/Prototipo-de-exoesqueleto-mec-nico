@@ -1,0 +1,24 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorRojoClaro</item>
+        <item name="colorPrimaryDark">@color/colorOscuro</item>
+        <item name="colorAccent">@color/colorRojoOscuro</item>
+    </style>
+
+    <style name="AppTheme.">
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:background">@color/colorOscuro</item>
+        <item name="android:textColor">@color/colorBlanco</item>
+    </style>
+
+    <style name="TextView">
+        <item name="android:textColor">@color/colorBlanco</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+</resources>
