@@ -1,14 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragmentos.loginup.LogUpFragment">
+    tools:context=".LogUpFragment"
+    style="@style/AppTheme.azul">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_margin="30sp"
+        app:cardCornerRadius="4sp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
 
-</FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="40sp"
+                    android:textSize="30sp"
+                    style="@style/TextView.ocuro"
+                    android:text="¡Empecemos!"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextView.ocuro"
+                    android:text="Crea una cuenta para obtener\ntodas las funciones"
+                    android:textAlignment="center" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/correo_fragment_logup"
+                    android:layout_width="wrap_content"
+                    android:paddingTop="40sp"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:drawableStart="@drawable/ic_mail"
+                        android:drawablePadding="10sp"
+                        android:layout_width="350sp"
+                        android:layout_height="50sp"
+                        android:paddingStart="15sp"
+                        android:background="@drawable/boton_blanco"
+                        android:hint="Correo"
+                        android:inputType="textEmailAddress"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password_fragment_logup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true"
+                    app:counterMaxLength="15"
+                    app:counterEnabled="true"
+                    android:paddingTop="5sp"
+                    app:passwordToggleEnabled="true">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:drawableStart="@drawable/ic_lock"
+                        android:drawablePadding="20sp"
+                        android:layout_width="350sp"
+                        android:paddingStart="15sp"
+                        android:background="@drawable/boton_blanco"
+                        android:layout_height="wrap_content"
+                        android:hint="Contraseña"
+                        android:inputType="textPassword"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password1_fragment_logup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true"
+                    app:counterMaxLength="15"
+                    android:paddingBottom="30sp"
+                    android:paddingTop="5sp"
+                    app:counterEnabled="true"
+                    app:passwordToggleEnabled="true">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:drawableStart="@drawable/ic_lock"
+                        android:drawablePadding="10sp"
+                        android:layout_width="350sp"
+                        android:paddingStart="15sp"
+                        android:background="@drawable/boton_blanco"
+                        android:layout_height="wrap_content"
+                        android:hint="Contraseña"
+                        android:inputType="textPassword"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/bottom_registrar"
+                    android:layout_width="350sp"
+                    android:layout_height="wrap_content"
+                    android:text="Registrar"
+                    style="@style/Button" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="o"
+                    android:textAlignment="center"
+                    android:padding="20sp"
+                    style="@style/TextView.ocuro"/>
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/AppTheme.rosa">
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="105dp"
+                    android:layout_marginEnd="104dp"
+                    android:paddingTop="20sp"
+                    android:paddingBottom="30sp"
+                    android:text="Puede iniciar sesión con otras\n plataformas sociales"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="29dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                    <ImageView
+                        android:id="@+id/bottom_registrar_faceboock"
+                        android:layout_width="60sp"
+                        android:layout_height="60sp"
+                        android:padding="10sp"
+                        android:src="@mipmap/facebook" />
+
+                    <ImageView
+                        android:id="@+id/bottom_registrar_google"
+                        android:layout_width="60sp"
+                        android:layout_height="60sp"
+                        android:padding="10sp"
+                        android:src="@mipmap/google" />
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="88dp"
+                    android:layout_marginStart="101dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="101dp"
+                    android:paddingTop="30sp"
+                    android:paddingBottom="20sp"
+                    android:text="Si ya tienes una cuenta dirigete\na la derecha para iniciar sesión"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

@@ -11,14 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.exoesqueletov1.clases.Authentication;
 
-public class InicioActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
     private Authentication authentication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inicio);
+        setContentView(R.layout.activity_splash);
         arranque ();
     }
 
@@ -28,10 +28,10 @@ public class InicioActivity extends AppCompatActivity {
         if (!authentication.verificar()) {
             Thread timer = new Thread() {
                 public void run () {
-                    try { sleep(5000); }
+                    try { sleep(3500); }
                     catch (Exception ignored){ }
                     finally {
-                        startActivity(new Intent(InicioActivity.this, LogInUpActivity.class));
+                        startActivity(new Intent(SplashActivity.this, LogInUpActivity.class));
                         finish();
                     }
                 }
