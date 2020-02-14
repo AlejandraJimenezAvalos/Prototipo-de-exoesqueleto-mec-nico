@@ -20,8 +20,8 @@ public class LogInUpActivity extends AppCompatActivity  {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new WelcomeFragment());
-        adapter.addFragment(new LogUpFragment());
         adapter.addFragment(new LogInFragment());
+        adapter.addFragment(new LogUpFragment());
 
         viewPager.setAdapter(adapter);
     }

@@ -3,35 +3,38 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorRojoClaro</item>
+        <item name="colorPrimary">@color/colorRojo</item>
         <item name="colorPrimaryDark">@color/colorOscuro</item>
-        <item name="colorAccent">@color/colorRojoOscuro</item>
+        <item name="colorAccent">@color/colorBlanco</item>
     </style>
 
     <style name="AppTheme.">
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
         <item name="android:background">@color/colorOscuro</item>
-        <item name="android:textColor">@color/colorBlanco</item>
+    </style>
+
+    <style name="AppTheme.blanco">
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/colorBlanco</item>
     </style>
 
     <style name="AppTheme.rosa">
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:background">@color/colorRojoClaro</item>
-        <item name="android:textColor">@color/colorBlanco</item>
+        <item name="android:background">@color/colorRosa</item>
     </style>
 
     <style name="AppTheme.azul">
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
         <item name="android:background">@color/colorBlancoAzulado</item>
-        <item name="android:textColor">@color/colorBlanco</item>
     </style>
 
     <style name="TextView">
         <item name="android:textColor">@color/colorBlanco</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">20sp</item>
 
     </style><style name="TextView.ocuro">
         <item name="android:textColor">@color/colorOscuro</item>
@@ -42,6 +45,23 @@
         <item name="android:background">@drawable/boton_rosa</item>
         <item name="android:textColor">@color/colorBlanco</item>
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="Button.blanco">
+        <item name="android:background">@drawable/boton_blanco</item>
+        <item name="android:textColor">@color/colorRosa</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextField">
+        <item name="android:drawablePadding">10sp</item>
+        <item name="android:layout_width">350sp</item>
+        <item name="android:layout_height">50sp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingStart">15sp</item>
+        <item name="android:paddingEnd">15sp</item>
+        <item name="android:textColor">@color/colorBlanco</item>
+        <item name="android:background">@drawable/boton_borde</item>
     </style>
 
 </resources>

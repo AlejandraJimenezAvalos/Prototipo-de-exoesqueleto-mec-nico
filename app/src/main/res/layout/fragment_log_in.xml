@@ -7,4 +7,99 @@
     tools:context=".LogInFragment"
     style="@style/AppTheme.rosa">
 
+    <ImageView
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:src="@mipmap/logo_rosa"
+        android:layout_margin="20sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextView"
+        android:text="¡Bienvenido!"
+        android:textSize="40sp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/correo_fragment_login"
+        android:layout_width="wrap_content"
+        android:paddingTop="20sp"
+        android:textColorHint="#FFB7B9"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:drawableStart="@drawable/ic_mail"
+            style="@style/TextField"
+            android:hint="Correo"
+            android:inputType="textEmailAddress"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_fragment_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:counterMaxLength="15"
+        app:counterEnabled="true"
+        android:textColorHint="#FFB7B9"
+        android:paddingTop="5sp"
+        app:passwordToggleEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:drawableStart="@drawable/ic_lock"
+            style="@style/TextField"
+            android:hint="Contraseña"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80sp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/iniciar_sesion"
+            style="@style/Button.blanco"
+            android:paddingRight="42sp"
+            android:paddingLeft="42sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Iniciar" />
+
+        <TextView
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="41sp"
+            android:textSize="15sp"
+            android:text="¿Olvidaste tu contraseña?" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="o usa tu cuenta de:"
+        style="@style/TextView"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20sp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iniciar_facebook"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:src="@mipmap/facebook"
+            android:layout_marginRight="20sp"/>
+
+        <ImageView
+            android:id="@+id/iniciar_google"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:src="@mipmap/google"/>
+
+    </LinearLayout>
+
 </LinearLayout>

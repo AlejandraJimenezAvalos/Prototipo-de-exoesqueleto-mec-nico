@@ -5,8 +5,8 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="colorOscuro">#262626</color>
-    <color name="colorRojoOscuro">#D94436</color>
-    <color name="colorRojoClaro">#F25E6B</color>
+    <color name="colorRojo">#D94436</color>
+    <color name="colorRosa">#F25E6B</color>
     <color name="colorBlanco">#F2F2F2</color>
     <color name="colorBlancoAzulado">#F3F6FA</color>
 </resources>

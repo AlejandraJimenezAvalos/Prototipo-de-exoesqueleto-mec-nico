@@ -5,177 +5,138 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LogUpFragment"
-    style="@style/AppTheme.azul">
+    style="@style/AppTheme.rosa">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="30sp"
-        app:cardCornerRadius="4sp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextView"
+        android:text="¿Aún no tienes una cuenta?"
+        android:textSize="30sp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="40sp"
-                    android:textSize="30sp"
-                    style="@style/TextView.ocuro"
-                    android:text="¡Empecemos!"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_fragment_logup"
+        android:layout_width="wrap_content"
+        android:paddingTop="20sp"
+        android:textColorHint="#FFB7B9"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:drawableStart="@drawable/ic_mail"
+            style="@style/TextField"
+            android:hint="Correo"
+            android:inputType="textEmailAddress"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextView.ocuro"
-                    android:text="Crea una cuenta para obtener\ntodas las funciones"
-                    android:textAlignment="center" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password1_fragment_logup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:counterMaxLength="15"
+        app:counterEnabled="true"
+        android:textColorHint="#FFB7B9"
+        android:paddingTop="5sp"
+        app:passwordToggleEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:drawableStart="@drawable/ic_lock"
+            style="@style/TextField"
+            android:hint="Contraseña"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/correo_fragment_logup"
-                    android:layout_width="wrap_content"
-                    android:paddingTop="40sp"
-                    android:layout_height="wrap_content"
-                    app:errorEnabled="true">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:drawableStart="@drawable/ic_mail"
-                        android:drawablePadding="10sp"
-                        android:layout_width="350sp"
-                        android:layout_height="50sp"
-                        android:paddingStart="15sp"
-                        android:background="@drawable/boton_blanco"
-                        android:hint="Correo"
-                        android:inputType="textEmailAddress"/>
-                </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password2_fragment_logup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:errorEnabled="true"
+        app:counterMaxLength="15"
+        app:counterEnabled="true"
+        android:textColorHint="#FFB7B9"
+        android:paddingTop="5sp"
+        app:passwordToggleEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:drawableStart="@drawable/ic_lock"
+            style="@style/TextField"
+            android:hint="Repite la contraseña"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/password_fragment_logup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:errorEnabled="true"
-                    app:counterMaxLength="15"
-                    app:counterEnabled="true"
-                    android:paddingTop="5sp"
-                    app:passwordToggleEnabled="true">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:drawableStart="@drawable/ic_lock"
-                        android:drawablePadding="20sp"
-                        android:layout_width="350sp"
-                        android:paddingStart="15sp"
-                        android:background="@drawable/boton_blanco"
-                        android:layout_height="wrap_content"
-                        android:hint="Contraseña"
-                        android:inputType="textPassword"/>
-                </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:id="@+id/layaout_reCaptcha"
+        android:layout_width="350sp"
+        android:layout_height="70sp"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="10sp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/boton_recaptcha">
+        <CheckBox
+            android:id="@+id/ck_reCaptcha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="50sp"
+            android:text="No soy un robot"/>
+        <ImageView
+            android:layout_width="45sp"
+            android:layout_height="45sp"
+            app:srcCompat="@mipmap/re_captcha_logo" />
+    </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/password1_fragment_logup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:errorEnabled="true"
-                    app:counterMaxLength="15"
-                    android:paddingBottom="30sp"
-                    android:paddingTop="5sp"
-                    app:counterEnabled="true"
-                    app:passwordToggleEnabled="true">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:drawableStart="@drawable/ic_lock"
-                        android:drawablePadding="10sp"
-                        android:layout_width="350sp"
-                        android:paddingStart="15sp"
-                        android:background="@drawable/boton_blanco"
-                        android:layout_height="wrap_content"
-                        android:hint="Contraseña"
-                        android:inputType="textPassword"/>
-                </com.google.android.material.textfield.TextInputLayout>
+    <CheckBox
+        android:id="@+id/ck_terminos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10sp"
+        android:textSize="15sp"
+        android:text="Terminos y condiciones"
+        style="@style/TextView" />
 
-                <Button
-                    android:id="@+id/bottom_registrar"
-                    android:layout_width="350sp"
-                    android:layout_height="wrap_content"
-                    android:text="Registrar"
-                    style="@style/Button" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80sp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="o"
-                    android:textAlignment="center"
-                    android:padding="20sp"
-                    style="@style/TextView.ocuro"/>
-            </LinearLayout>
+        <Button
+            android:id="@+id/bt_registrar"
+            style="@style/Button.blanco"
+            android:layout_width="wrap_content"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp"
+            android:layout_height="wrap_content"
+            android:text="Registrar" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/AppTheme.rosa">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10sp"
+            android:text="o puedes registrarte con:"
+            style="@style/TextView"/>
 
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="105dp"
-                    android:layout_marginEnd="104dp"
-                    android:paddingTop="20sp"
-                    android:paddingBottom="30sp"
-                    android:text="Puede iniciar sesión con otras\n plataformas sociales"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="29dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80sp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-                    <ImageView
-                        android:id="@+id/bottom_registrar_faceboock"
-                        android:layout_width="60sp"
-                        android:layout_height="60sp"
-                        android:padding="10sp"
-                        android:src="@mipmap/facebook" />
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/bt_registrar_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp"
+            style="@style/Button.blanco"
+            android:text="Facebook"/>
 
-                    <ImageView
-                        android:id="@+id/bottom_registrar_google"
-                        android:layout_width="60sp"
-                        android:layout_height="60sp"
-                        android:padding="10sp"
-                        android:src="@mipmap/google" />
-
-                </LinearLayout>
-
-                <TextView
-                    style="@style/TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="88dp"
-                    android:layout_marginStart="101dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="101dp"
-                    android:paddingTop="30sp"
-                    android:paddingBottom="20sp"
-                    android:text="Si ya tienes una cuenta dirigete\na la derecha para iniciar sesión"
-                    android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 </LinearLayout>
