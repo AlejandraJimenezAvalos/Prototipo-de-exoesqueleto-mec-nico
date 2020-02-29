@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Exoesqueleto</string>
-    <string name="facebook_app_id">483272935681198</string> <string name="fb_login_protocol_scheme">fb483272935681198</string>
+    <string name="facebook_app_id">483272935681198</string>
+    <string name="fb_login_protocol_scheme">fb483272935681198</string>
 
 
 

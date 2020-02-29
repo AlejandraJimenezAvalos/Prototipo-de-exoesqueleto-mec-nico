@@ -122,21 +122,4 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="80sp"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/bt_registrar_facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20sp"
-            android:paddingRight="20sp"
-            style="@style/Button.blanco"
-            android:text="Facebook"/>
-
-    </LinearLayout>
-
 </LinearLayout>

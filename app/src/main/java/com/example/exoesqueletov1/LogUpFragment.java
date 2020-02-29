@@ -17,11 +17,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.safetynet.SafetyNet;
@@ -30,24 +35,26 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class LogUpFragment extends Fragment {
 
-    private View view;
-    private static final String KEY = "6LcJnrsUAAAAAKavHRkqVEkRLm8KJo5_pjYuX-uE";
-    private CallbackManager callbackManager;
-
     // wid
     private Button btRegistrar;
-    private LoginButton btFacebook;
-    private ImageView btGoogle;
     private TextInputLayout email;
     private TextInputLayout password1;
     private TextInputLayout password2;
     private LinearLayout linearReCaptcha;
     private CheckBox ckReCaptcha;
     private CheckBox ckTerminos;
+
+    private View view;
+    private static final String KEY = "6LcJnrsUAAAAAKavHRkqVEkRLm8KJo5_pjYuX-uE";
 
     public LogUpFragment() { }
 
@@ -61,45 +68,12 @@ public class LogUpFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        callbackManager = CallbackManager.Factory.create();
-
         this.init();
         this.onClick();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
     private void onClick() {
         btRegistrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        btFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(getContext(), "si se hizo", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancel() {
-                Toast.makeText(getContext(), "se cancelo :c", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Toast.makeText(getContext(), "Errar es humano :c :" + error, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        btGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -163,8 +137,6 @@ public class LogUpFragment extends Fragment {
 
     private void init() {
         btRegistrar = view.findViewById(R.id.bt_registrar);
-        btFacebook = view.findViewById(R.id.bt_registrar_facebook);
-        //btGoogle = view.findViewById(R.id.bt_registrar_google);
         email = view.findViewById(R.id.email_fragment_logup);
         password1 = view.findViewById(R.id.password1_fragment_logup);
         password2 = view.findViewById(R.id.password2_fragment_logup);
@@ -172,6 +144,5 @@ public class LogUpFragment extends Fragment {
         ckReCaptcha = view.findViewById(R.id.ck_reCaptcha);
         ckTerminos = view.findViewById(R.id.ck_terminos);
     }
-
 
 }
