@@ -10,8 +10,6 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.exoesqueletov1.clases.Authentication;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -27,19 +25,20 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!authentication.verificar()) {
-            Thread timer = new Thread() {
-                public void run () {
-                    try { sleep(3500); }
-                    catch (Exception ignored){ }
-                    finally {
+
+        Thread timer = new Thread() {
+            public void run () {
+                try { sleep(3500); }
+                catch (Exception ignored){ }
+                finally {
+                    if (!authentication.verificar()) {
                         startActivity(new Intent(SplashActivity.this, LogInUpActivity.class));
-                        finish();
-                    }
+                    } else startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
                 }
-            };
-            timer.start();
-        }
+            }
+        };
+        timer.start();
     }
 
     private void arranque() {

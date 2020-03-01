@@ -98,28 +98,13 @@
         android:text="Terminos y condiciones"
         style="@style/TextView" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="80sp"
-        android:orientation="horizontal"
-        android:gravity="center">
-
         <Button
             android:id="@+id/bt_registrar"
             style="@style/Button.blanco"
-            android:layout_width="wrap_content"
+            android:layout_width="350sp"
             android:paddingLeft="20sp"
             android:paddingRight="20sp"
             android:layout_height="wrap_content"
             android:text="Registrar" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10sp"
-            android:text="o puedes registrarte con:"
-            style="@style/TextView"/>
-
-    </LinearLayout>
 
 </LinearLayout>
