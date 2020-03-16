@@ -2,17 +2,23 @@ package com.example.exoesqueletov1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.facebook.AccessToken;
+import com.example.exoesqueletov1.clases.AuthenticationClass;
+import com.example.exoesqueletov1.dialog.DialogLostYourPass;
+import com.example.exoesqueletov1.dialog.DialogOops;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -25,14 +31,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.firebase.auth.AuthCredential;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 public class LogInFragment extends Fragment {
 
@@ -53,21 +59,34 @@ public class LogInFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Button btLoging;
+
         view = inflater.inflate(R.layout.fragment_log_in, container, false);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                FirebaseUser user;
+                user = firebaseAuth.getCurrentUser();
                 if (null != user) {
                     startActivity(new Intent(getActivity(), MainActivity.class));
+                    getActivity().finish();
                 }
             }
         };
 
+        btLoging = view.findViewById(R.id.iniciar_sesion);
+        btLoging.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                singIn();
+            }
+        });
+
         initGoogle();
         initFacebook();
+        initLostYourPass();
 
         return view;
     }
@@ -80,8 +99,9 @@ public class LogInFragment extends Fragment {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 GoogleSignInAccount account = result.getSignInAccount();
-                AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-                authWithCredential (credential);
+                assert account != null;
+                new AuthenticationClass(getActivity().getSupportFragmentManager())
+                        .logInWithCredential(GoogleAuthProvider.getCredential(account.getIdToken(), null));
             }
         }
     }
@@ -99,30 +119,31 @@ public class LogInFragment extends Fragment {
     }
 
     private void initFacebook() {
+        LoginButton loginButton;
+
         mCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = view.findViewById(R.id.login_button);
+        loginButton = view.findViewById(R.id.login_button);
         loginButton.setPermissions(Arrays.asList(EMAIL, USER_POSTS));
         loginButton.setFragment(this);
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                AuthCredential credential = FacebookAuthProvider.getCredential(loginResult.getAccessToken().getToken());
-                authWithCredential(credential);
+                new AuthenticationClass(getActivity().getSupportFragmentManager()).logInWithCredential(FacebookAuthProvider.getCredential(loginResult.getAccessToken().getToken()));
             }
 
             @Override
-            public void onCancel() {
-
-            }
+            public void onCancel() { }
 
             @Override
             public void onError(FacebookException error) {
-                // Incertar mensaje de error
+                DialogOops dialogOops = new DialogOops(error.getMessage());
+                dialogOops.show(getActivity().getSupportFragmentManager(), "example");
             }
         });
     }
 
     private void initGoogle() {
+        SignInButton signInButton;
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(WEB_CLIENT_ID)
                 .requestEmail()
@@ -133,26 +154,71 @@ public class LogInFragment extends Fragment {
                 .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(context, "fallo", Toast.LENGTH_SHORT).show();
+                        DialogOops dialogOops = new DialogOops(connectionResult.getErrorMessage());
+                        dialogOops.show(getActivity().getSupportFragmentManager(), "example");
                     }
                 }).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
 
-        SignInButton signInButton = view.findViewById(R.id.login_button_google);
+        signInButton = view.findViewById(R.id.login_button_google);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-                startActivityForResult(signInIntent, GOOGLE_SIGN_IN_REQUEST_CODE);
+                startActivityForResult(Auth.GoogleSignInApi.getSignInIntent(googleApiClient), GOOGLE_SIGN_IN_REQUEST_CODE);
             }
         });
     }
 
-    private void authWithCredential(AuthCredential credential) {
-        firebaseAuth.signInWithCredential(credential).addOnFailureListener(new OnFailureListener() {
+    private void initLostYourPass() {
+        TextView btLostYourPass = view.findViewById(R.id.bt_lost_your_pass);
+        btLostYourPass.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-
+            public void onClick(View v) {
+                DialogLostYourPass dialogLostYourPass = new DialogLostYourPass();
+                dialogLostYourPass.show(getActivity().getSupportFragmentManager(), "example");
             }
         });
     }
+
+    private void singIn() {
+        final TextInputLayout layoutEmail, layoutPass;
+        final String email, password;
+
+        layoutEmail = view.findViewById(R.id.correo_fragment_login);
+        layoutPass = view.findViewById(R.id.password_fragment_login);
+
+        resetWidgets(layoutEmail, layoutPass);
+
+        email = layoutEmail.getEditText().getText().toString();
+        password = layoutPass.getEditText().getText().toString();
+        if(validateFields(email, password, layoutEmail, layoutPass)) { new AuthenticationClass(getFragmentManager()).logIn(email, password); }
+    }
+
+    private void resetWidgets(TextInputLayout layoutEmail, TextInputLayout layoutPassword) {
+        layoutEmail.setError(null);
+        layoutPassword.setError(null);
+        layoutEmail.getEditText().setTextColor(Color.WHITE);
+        layoutPassword.getEditText().setTextColor(Color.WHITE);
+    }
+
+    private boolean validateFields(String email, String password, TextInputLayout layoutEmail, TextInputLayout layoutPassword) {
+        boolean result = false;
+        if (!email.equals("")) {
+            Pattern pattern;
+            pattern = Patterns.EMAIL_ADDRESS;
+            if (pattern.matcher(email).matches()) {
+                if (!password.isEmpty()) { result = true; }
+                else { setError(getString(R.string.error_introducir_pass), layoutPassword); }
+            }
+            else { setError(getString(R.string.error_correo_invalido), layoutEmail); }
+        } else { setError(getString(R.string.error_introducir_email), layoutEmail); }
+        return result;
+    }
+
+    private void setError(String error, TextInputLayout inputLayout) {
+        inputLayout.setError(error);
+        inputLayout.setErrorTextColor(ColorStateList.valueOf(Color.WHITE));
+        inputLayout.setHintTextColor(ColorStateList.valueOf(Color.WHITE));
+        inputLayout.getEditText().setTextColor(Color.BLACK);
+    }
+
 }

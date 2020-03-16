@@ -10,28 +10,30 @@
     <ImageView
         android:layout_width="100sp"
         android:layout_height="100sp"
-        android:src="@mipmap/logo_rosa"
-        android:layout_margin="20sp"/>
+        android:src="@mipmap/logo"
+        android:layout_margin="20sp"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/bienvenido"
         style="@style/TextView"
-        android:text="¡Bienvenido!"
         android:textSize="40sp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/correo_fragment_login"
         android:layout_width="wrap_content"
-        android:paddingTop="20sp"
-        android:textColorHint="#FFB7B9"
         android:layout_height="wrap_content"
+        android:paddingTop="20sp"
+        android:textColorHint="@color/pink"
         app:errorEnabled="true">
+
         <com.google.android.material.textfield.TextInputEditText
-            android:drawableStart="@drawable/ic_mail"
             style="@style/TextField"
-            android:hint="Correo"
-            android:inputType="textEmailAddress"/>
+            android:drawableStart="@drawable/ic_mail"
+            android:hint="@string/correo"
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -41,13 +43,13 @@
         app:errorEnabled="true"
         app:counterMaxLength="15"
         app:counterEnabled="true"
-        android:textColorHint="#FFB7B9"
+        android:textColorHint="@color/pink"
         android:paddingTop="5sp"
         app:passwordToggleEnabled="true">
         <com.google.android.material.textfield.TextInputEditText
             android:drawableStart="@drawable/ic_lock"
             style="@style/TextField"
-            android:hint="Contraseña"
+            android:hint="@string/contrase_a"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,21 +66,22 @@
             android:paddingLeft="42sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Iniciar" />
+            android:text="@string/iniciar" />
 
         <TextView
+            android:id="@+id/bt_lost_your_pass"
             style="@style/TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="41sp"
-            android:textSize="15sp"
-            android:text="¿Olvidaste tu contraseña?" />
+            android:layout_marginStart="41sp"
+            android:text="@string/olvidaste_tu_contrase_a"
+            android:textSize="15sp" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="o usa tu cuenta de:"
+        android:text="@string/o_usa_tu_cuenta_de"
         style="@style/TextView"/>
 
     <com.facebook.login.widget.LoginButton

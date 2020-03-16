@@ -2,6 +2,8 @@
     <string name="app_name">Exoesqueleto</string>
     <string name="facebook_app_id">483272935681198</string>
     <string name="fb_login_protocol_scheme">fb483272935681198</string>
+    <string name="indicaciones_olvide_mi_contraseña">Para recuperar su contraseña debera dirigirse a la bandeja de entrada de su proveedor de correo electronico y buscar un correo con con remitente de Asistencia o (en su defecto), de la dirección asistencia@proyectoaexoesqueleto.firebaseapp.com
+Si no lo encuentra, busque en el apartado del correo no deseado.</string>
     <string name="terminos">Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos.
         Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos.
         Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos.
@@ -9,8 +11,37 @@
         Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos.
         Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos. Ejemplo de terminos.
     </string>
-    <string name="terminos_y_condiciones">Terminos y condiciones</string>
     <string name="aceptar">Aceptar</string>
     <string name="no_acepto">No acepto</string>
     <string name="condicion_terminos">Si no acepta no podrá registrarse ni usar la aplicación</string>
+    <string name="correo">Correo</string>
+    <string name="bienvenido">Bienvenido</string>
+    <string name="o_usa_tu_cuenta_de">o usa tu cuenta de:</string>
+    <string name="olvidaste_tu_contrase_a">¿Olvidaste tu contraseña?</string>
+    <string name="iniciar">Iniciar</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="restablece_contraseña">Introduzca su correo para restablecer su contraseña</string>
+    <string name="error_introducir_email">Debe introducir su correo</string>
+    <string name="error_correo_invalido">Debe introducir un correo valido</string>
+    <string name="error_introducir_pass">Debe introducir su contraseña</string>
+    <string name="terminos_y_condiciones">Terminos y condiciones</string>
+    <string name="registrar">Registrar</string>
+    <string name="repite_la_contrase_a">Repite la contraseña</string>
+    <string name="no_soy_un_robot">No soy un robot</string>
+    <string name="todo">imagen</string>
+    <string name="a_n_no_tienes_una_cuenta">¿Aún no tienes una cuenta?</string>
+    <string name="todo_listo">todo listo</string>
+    <string name="espere_un_momento">espere un momento</string>
+    <string name="salir">Salir</string>
+    <string name="intentar_de_nuevo">Intentar de nuevo</string>
+    <string name="algo_sali_mal">algo salió mal</string>
+    <string name="condición_contraseña">La contraseña debe tener minimo 8 caracteres, maximo 15, al menos una letra mayúscula, al menos una letra minuscula, al menos un dígito, no espacios en blanco y al menos 1 caracter especial</string>
+    <string name="error_pass_no_coincide">Las contraseñas deben coincidir</string>
+    <string name="condicion_casillas">Debe verificar que no es un robot y leer los terminos y condiciones</string>
+    <string name="bienvenido_otra_vez">Bienvenido otra vez</string>
+    <string name="example">example</string>
+    <string name="categor_a">Categoría</string>
+    <string name="cerrar_sesi_n">Cerrar sesión</string>
+    <string name="inicio">Inicio</string>
+    <string name="profile">Profile</string>
 </resources>

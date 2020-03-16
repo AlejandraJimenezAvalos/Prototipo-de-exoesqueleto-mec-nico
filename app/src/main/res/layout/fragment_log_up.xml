@@ -11,20 +11,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/TextView"
-        android:text="¿Aún no tienes una cuenta?"
+        android:text="@string/a_n_no_tienes_una_cuenta"
         android:textSize="30sp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_fragment_logup"
         android:layout_width="wrap_content"
         android:paddingTop="20sp"
-        android:textColorHint="#FFB7B9"
+        android:textColorHint="@color/pink"
         android:layout_height="wrap_content"
         app:errorEnabled="true">
         <com.google.android.material.textfield.TextInputEditText
             android:drawableStart="@drawable/ic_mail"
             style="@style/TextField"
-            android:hint="Correo"
+            android:hint="@string/correo"
             android:inputType="textEmailAddress"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -35,13 +35,13 @@
         app:errorEnabled="true"
         app:counterMaxLength="15"
         app:counterEnabled="true"
-        android:textColorHint="#FFB7B9"
+        android:textColorHint="@color/pink"
         android:paddingTop="5sp"
         app:passwordToggleEnabled="true">
         <com.google.android.material.textfield.TextInputEditText
             android:drawableStart="@drawable/ic_lock"
             style="@style/TextField"
-            android:hint="Contraseña"
+            android:hint="@string/contrase_a"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,13 +52,13 @@
         app:errorEnabled="true"
         app:counterMaxLength="15"
         app:counterEnabled="true"
-        android:textColorHint="#FFB7B9"
+        android:textColorHint="@color/pink"
         android:paddingTop="5sp"
         app:passwordToggleEnabled="true">
         <com.google.android.material.textfield.TextInputEditText
             android:drawableStart="@drawable/ic_lock"
             style="@style/TextField"
-            android:hint="Repite la contraseña"
+            android:hint="@string/repite_la_contrase_a"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +70,7 @@
         android:layout_marginBottom="10sp"
         android:orientation="horizontal"
         android:gravity="center"
-        android:background="@drawable/boton_recaptcha">
+        android:background="@drawable/button_recaptcha">
         <CheckBox
             android:id="@+id/ck_reCaptcha"
             android:layout_width="wrap_content"
@@ -80,13 +80,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="50sp"
-            android:text="No soy un robot"/>
+            android:layout_marginStart="10sp"
+            android:layout_marginEnd="50sp"
+            android:text="@string/no_soy_un_robot"/>
         <ImageView
             android:layout_width="45sp"
             android:layout_height="45sp"
-            app:srcCompat="@mipmap/re_captcha_logo" />
+            app:srcCompat="@mipmap/re_captcha_logo"
+            android:contentDescription="@string/todo" />
     </LinearLayout>
 
     <CheckBox
@@ -95,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10sp"
         android:textSize="15sp"
-        android:text="Terminos y condiciones"
+        android:text="@string/terminos_y_condiciones"
         style="@style/TextView" />
 
         <Button
@@ -105,6 +106,6 @@
             android:paddingLeft="20sp"
             android:paddingRight="20sp"
             android:layout_height="wrap_content"
-            android:text="Registrar" />
+            android:text="@string/registrar" />
 
 </LinearLayout>

@@ -4,9 +4,13 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="colorOscuro">#262626</color>
-    <color name="colorRojo">#D94436</color>
-    <color name="colorRosa">#F25E6B</color>
-    <color name="colorBlanco">#F2F2F2</color>
-    <color name="colorBlancoAzulado">#F3F6FA</color>
+    <color name="white">#F2F2F2</color>
+    <color name="whiteDark">#E1E5EA</color>
+    <color name="green">#4C6B4C</color>
+    <color name="greenDark">#01422C</color>
+    <color name="pink">#B76460</color>
+    <color name="pinkDark">#B40028</color>
+    <color name="blueDark">#000614</color>
+    <color name="blue">#263555</color>
+
 </resources>

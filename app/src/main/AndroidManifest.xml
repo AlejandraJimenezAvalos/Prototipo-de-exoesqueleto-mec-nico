@@ -30,7 +30,7 @@
 
 
         <activity android:name=".MainActivity"/>
-        <activity android:name=".LogInUpActivity"/>
+        <activity android:name=".LogActivity"/>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

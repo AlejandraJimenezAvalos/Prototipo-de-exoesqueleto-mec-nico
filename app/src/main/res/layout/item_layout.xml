@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="70sp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_height="70sp"
+    android:clickable="true"
+    android:padding="3sp"
+    android:background="@color/blueDark"
+    android:focusable="true"
+    android:id="@+id/item_layout">
+
+    <ImageView
+        android:id="@+id/image_icon"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:tint="@color/whiteDark"
+        android:src="@drawable/ic_home"
+        android:background="@drawable/button_border_blue"
+        android:padding="5sp"
+        android:contentDescription="@string/example" />
+
+</LinearLayout>
