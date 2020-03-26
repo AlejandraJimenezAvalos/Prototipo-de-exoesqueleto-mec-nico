@@ -19,11 +19,13 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contrain_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:onClick="handle"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:id="@+id/button_finish_main"
                     android:layout_width="50sp"
                     android:layout_height="50sp"
@@ -33,7 +35,8 @@
                     android:tint="@color/blue"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription"
+                    tools:targetApi="m" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -59,6 +62,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
 
                 <TextView
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:onClick="handle"
                     android:id="@+id/button_singout_main"
                     style="@style/TextView"
@@ -69,9 +73,10 @@
                     android:textAllCaps="true"
                     android:textColor="@color/pinkDark"
                     app:layout_constraintEnd_toStartOf="@+id/image_perfil_main"
-                    app:layout_constraintTop_toBottomOf="@+id/text_view_nombre_main" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_view_nombre_main"
+                    tools:targetApi="m" />
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_perfil_main"
                     android:layout_width="70sp"
                     android:layout_height="70sp"
@@ -80,13 +85,14 @@
                     android:padding="10sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_profile"
+                    android:src="@drawable/ic_profile"
                     android:background="@drawable/button_border_blue"
                     android:contentDescription="@string/example" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
+                android:id="@+id/cake_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextView"
@@ -98,17 +104,16 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_menu"
                 android:layout_width="match_parent"
-                android:layout_height="70sp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginEnd="16sp"/>
 
             <FrameLayout
                 android:id="@+id/container_main"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="16sp"
                 android:layout_marginEnd="16sp"/>
-
         </LinearLayout>
 
     </ScrollView>

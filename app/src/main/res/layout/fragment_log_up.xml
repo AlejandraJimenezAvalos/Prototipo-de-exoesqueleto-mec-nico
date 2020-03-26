@@ -7,105 +7,124 @@
     tools:context=".LogUpFragment"
     style="@style/AppTheme.rosa">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TextView"
-        android:text="@string/a_n_no_tienes_una_cuenta"
-        android:textSize="30sp"/>
+        android:layout_marginStart="25sp"
+        android:layout_marginEnd="25sp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/email_fragment_logup"
-        android:layout_width="wrap_content"
-        android:paddingTop="20sp"
-        android:textColorHint="@color/pink"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true">
-        <com.google.android.material.textfield.TextInputEditText
-            android:drawableStart="@drawable/ic_mail"
-            style="@style/TextField"
-            android:hint="@string/correo"
-            android:inputType="textEmailAddress"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password1_fragment_logup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true"
-        app:counterMaxLength="15"
-        app:counterEnabled="true"
-        android:textColorHint="@color/pink"
-        android:paddingTop="5sp"
-        app:passwordToggleEnabled="true">
-        <com.google.android.material.textfield.TextInputEditText
-            android:drawableStart="@drawable/ic_lock"
-            style="@style/TextField"
-            android:hint="@string/contrase_a"
-            android:inputType="textPassword"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password2_fragment_logup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true"
-        app:counterMaxLength="15"
-        app:counterEnabled="true"
-        android:textColorHint="@color/pink"
-        android:paddingTop="5sp"
-        app:passwordToggleEnabled="true">
-        <com.google.android.material.textfield.TextInputEditText
-            android:drawableStart="@drawable/ic_lock"
-            style="@style/TextField"
-            android:hint="@string/repite_la_contrase_a"
-            android:inputType="textPassword"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:id="@+id/layaout_reCaptcha"
-        android:layout_width="350sp"
-        android:layout_height="70sp"
-        android:layout_marginTop="10sp"
-        android:layout_marginBottom="10sp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="@drawable/button_recaptcha">
-        <CheckBox
-            android:id="@+id/ck_reCaptcha"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="false" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="50sp"
-            android:text="@string/no_soy_un_robot"/>
-        <ImageView
-            android:layout_width="45sp"
-            android:layout_height="45sp"
-            app:srcCompat="@mipmap/re_captcha_logo"
-            android:contentDescription="@string/todo" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:gravity="center">
 
-    <CheckBox
-        android:id="@+id/ck_terminos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10sp"
-        android:textSize="15sp"
-        android:text="@string/terminos_y_condiciones"
-        style="@style/TextView" />
+            <ImageView
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:src="@mipmap/logo"
+                android:layout_margin="20sp"
+                tools:ignore="ContentDescription" />
 
-        <Button
-            android:id="@+id/bt_registrar"
-            style="@style/Button.blanco"
-            android:layout_width="350sp"
-            android:paddingLeft="20sp"
-            android:paddingRight="20sp"
-            android:layout_height="wrap_content"
-            android:text="@string/registrar" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextView"
+                android:text="@string/a_n_no_tienes_una_cuenta"
+                android:textSize="25sp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_fragment_logup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/pink"
+                app:errorEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:drawableStart="@drawable/ic_mail"
+                    style="@style/TextField"
+                    android:hint="@string/correo"
+                    android:inputType="textEmailAddress"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password1_fragment_logup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:counterMaxLength="15"
+                app:counterEnabled="true"
+                android:textColorHint="@color/pink"
+                app:passwordToggleEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:drawableStart="@drawable/ic_lock"
+                    style="@style/TextField"
+                    android:hint="@string/contrase_a"
+                    android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password2_fragment_logup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                app:counterMaxLength="15"
+                app:counterEnabled="true"
+                android:textColorHint="@color/pink"
+                app:passwordToggleEnabled="true">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:drawableStart="@drawable/ic_lock"
+                    style="@style/TextField"
+                    android:hint="@string/repite_la_contrase_a"
+                    android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/layaout_reCaptcha"
+                android:layout_width="match_parent"
+                android:layout_height="70sp"
+                android:layout_margin="16sp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:background="@drawable/button_recaptcha">
+                <CheckBox
+                    android:id="@+id/ck_reCaptcha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="false" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginStart="10sp"
+                    android:layout_marginEnd="50sp"
+                    android:text="@string/no_soy_un_robot"/>
+                <ImageView
+                    android:layout_width="45sp"
+                    android:layout_height="45sp"
+                    app:srcCompat="@mipmap/re_captcha_logo"
+                    android:contentDescription="@string/todo" />
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/ck_terminos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="@string/terminos_y_condiciones"
+                style="@style/TextView" />
+
+            <Button
+                android:id="@+id/bt_registrar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20sp"
+                android:paddingRight="20sp"
+                android:layout_margin="16sp"
+                style="@style/Button.blanco"
+                android:text="@string/registrar" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

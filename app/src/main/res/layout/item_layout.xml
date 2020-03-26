@@ -6,7 +6,11 @@
     android:layout_width="70sp"
     android:layout_height="70sp"
     android:gravity="center"
-    android:background="@color/blueDark">
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
+    android:background="@color/blueDark"
+    android:focusable="true"
+    tools:targetApi="m">
 
     <ImageView
         android:id="@+id/img_user"

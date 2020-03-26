@@ -15,16 +15,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class AuthenticationClass {
+public class Authentication {
 
     private FragmentManager fragmentManager;
     private FirebaseAuth auth;
 
-    public AuthenticationClass() {
+    public Authentication() {
         this.auth = FirebaseAuth.getInstance();
     }
 
-    public AuthenticationClass(FragmentManager fragmentManager) {
+    public Authentication(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
         this.auth = FirebaseAuth.getInstance();
     }

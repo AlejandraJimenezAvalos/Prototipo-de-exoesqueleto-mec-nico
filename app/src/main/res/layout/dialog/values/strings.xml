@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="indicacion_para_registro">Para completar tu registro debes proporcionarnos tus datos.</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="datos_personales">Datos personales</string>
+    <string name="fecha_de_nacimiento">Fecha de nacimiento</string>
+    <string name="dd_mm_aaaa">DD/MM/AAAA</string>
+    <string name="pa_s_de_origen">País</string>
+    <string name="femenino">Femenino</string>
+    <string name="masculino">Masculino</string>
+    <string name="sexo">Sexo</string>
+    <string name="fto_de_perf_l">Foto de perfíl</string>
+    <string name="guardar">Guardar</string>
+    <string name="datos_de_usuario">Datos de usuario</string>
+    <string name="doctor">Doctor</string>
+    <string name="paciente">Paciente</string>
+    <string name="usted_es_un">Usted es</string>
+    <string name="verificaci_n">Verificación</string>
+    <string name="error_image_perfil">Seleccione su imagen de perfil</string>
+    <string name="error_campo">Olvidaste llenar este campo</string>
+    <string name="take_photo">Tomar una foto</string>
+    <string name="chose_from_gallery">Elegir una de la galeria</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="registro_exitoso">Registro exitoso</string>
+    <string-array name="country_arrays">
+        <item>México</item>
+        <item>United States</item>
+    </string-array>
+
+</resources>

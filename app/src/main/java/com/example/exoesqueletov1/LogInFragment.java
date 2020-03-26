@@ -16,7 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.exoesqueletov1.clases.AuthenticationClass;
+import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.dialog.DialogLostYourPass;
 import com.example.exoesqueletov1.dialog.DialogOops;
 import com.facebook.CallbackManager;
@@ -100,7 +100,7 @@ public class LogInFragment extends Fragment {
             if (result.isSuccess()) {
                 GoogleSignInAccount account = result.getSignInAccount();
                 assert account != null;
-                new AuthenticationClass(getActivity().getSupportFragmentManager())
+                new Authentication(getActivity().getSupportFragmentManager())
                         .logInWithCredential(GoogleAuthProvider.getCredential(account.getIdToken(), null));
             }
         }
@@ -128,7 +128,7 @@ public class LogInFragment extends Fragment {
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                new AuthenticationClass(getActivity().getSupportFragmentManager()).logInWithCredential(FacebookAuthProvider.getCredential(loginResult.getAccessToken().getToken()));
+                new Authentication(getActivity().getSupportFragmentManager()).logInWithCredential(FacebookAuthProvider.getCredential(loginResult.getAccessToken().getToken()));
             }
 
             @Override
@@ -190,7 +190,7 @@ public class LogInFragment extends Fragment {
 
         email = layoutEmail.getEditText().getText().toString();
         password = layoutPass.getEditText().getText().toString();
-        if(validateFields(email, password, layoutEmail, layoutPass)) { new AuthenticationClass(getFragmentManager()).logIn(email, password); }
+        if(validateFields(email, password, layoutEmail, layoutPass)) { new Authentication(getFragmentManager()).logIn(email, password); }
     }
 
     private void resetWidgets(TextInputLayout layoutEmail, TextInputLayout layoutPassword) {

@@ -9,11 +9,11 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.exoesqueletov1.clases.AuthenticationClass;
+import com.example.exoesqueletov1.clases.Authentication;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private AuthenticationClass authenticationClass;
+    private Authentication authentication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
                 try { sleep(1000); }
                 catch (Exception ignored){ }
                 finally {
-                    if (!authenticationClass.verifyCurrentUser()) {
+                    if (!authentication.verifyCurrentUser()) {
                         startActivity(new Intent(SplashActivity.this, LogActivity.class));
                     } else startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     finish();
@@ -49,6 +49,6 @@ public class SplashActivity extends AppCompatActivity {
         titulo.startAnimation(animation);
         logo.startAnimation(animation);
         progressBar.startAnimation(animation);
-        authenticationClass = new AuthenticationClass();
+        authentication = new Authentication();
     }
 }

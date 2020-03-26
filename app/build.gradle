@@ -2,6 +2,19 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layout/dialog',
+                            'src/main/res/layout/fragment',
+                            'src/main/res/layout/other',
+                            'src/main/res'
+                    ]
+        }
+    }
+
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
     defaultConfig {
@@ -35,6 +48,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:5.15.3'
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation 'com.google.android.gms:play-services-safetynet:17.0.0'
 

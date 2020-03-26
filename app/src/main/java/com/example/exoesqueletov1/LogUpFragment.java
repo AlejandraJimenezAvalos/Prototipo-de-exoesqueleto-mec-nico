@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.exoesqueletov1.clases.AuthenticationClass;
+import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.dialog.DialogOops;
 import com.google.android.gms.safetynet.SafetyNet;
 import com.google.android.gms.safetynet.SafetyNetApi;
@@ -142,7 +142,7 @@ public class LogUpFragment extends Fragment {
 
     private void createAnAccount(String email, String pass1, String pass2) {
         if (validateFields(email, pass1, pass2)){
-            new AuthenticationClass(getFragmentManager()).logUp(email, pass1);
+            new Authentication(getFragmentManager()).logUp(email, pass1);
         }
     }
 

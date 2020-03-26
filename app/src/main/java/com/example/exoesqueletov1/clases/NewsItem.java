@@ -11,11 +11,11 @@ public class NewsItem {
         this.userPhoto = userPhoto;
     }
 
-    String getTitle() {
+    public String getTitle() {
         return Title;
     }
 
-    int getUserPhoto() {
+    public int getUserPhoto() {
         return userPhoto;
     }
 }

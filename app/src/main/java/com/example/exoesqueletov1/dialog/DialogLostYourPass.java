@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.exoesqueletov1.R;
-import com.example.exoesqueletov1.clases.AuthenticationClass;
+import com.example.exoesqueletov1.clases.Authentication;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Pattern;
@@ -51,7 +51,7 @@ public class DialogLostYourPass extends AppCompatDialogFragment {
                     layoutEmail.setError(null);
                     layoutEmail.getEditText().setTextColor(Color.BLACK);
                     if(validateFields(layoutEmail, email)) {
-                        new AuthenticationClass(getFragmentManager()).sendPasswordReset(email);
+                        new Authentication(getFragmentManager()).sendPasswordReset(email);
                         dismiss();
                     }
                 }
