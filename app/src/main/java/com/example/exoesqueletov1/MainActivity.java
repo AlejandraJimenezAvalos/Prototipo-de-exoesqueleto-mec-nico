@@ -46,37 +46,42 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnMenuLis
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
+        initVerify();
+
+    }
+
+    private void initVerify () {
         final String id = new Authentication().getCurrentUser().getEmail();
         final DialogLoading loading = new DialogLoading();
         loading.show(getSupportFragmentManager(), getString(R.string.example));
 
         FirebaseFirestore.getInstance().collection(id).document(DOCUMENT).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Map<String, Object> data = documentSnapshot.getData();
-                try {
-                    if (Boolean.parseBoolean(String.valueOf(data.get(id)))) {
-                        TextView name = findViewById(R.id.text_view_nombre_main);
-                        name.setText(data.get("name").toString());
-                        FirebaseStorage.getInstance().getReference().child("pictureProfile").child(id)
-                                .getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                            @Override
-                            public void onSuccess(byte[] bytes) {
-                                CircleImageView circleImageView = findViewById(R.id.image_perfil_main);
-                                circleImageView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-                            }
-                        });
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map<String, Object> data = documentSnapshot.getData();
+                        try {
+                            if (Boolean.parseBoolean(String.valueOf(data.get(id)))) {
+                                TextView name = findViewById(R.id.text_view_nombre_main);
+                                name.setText(data.get("name").toString());
+                                FirebaseStorage.getInstance().getReference().child("pictureProfile").child(id)
+                                        .getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] bytes) {
+                                        CircleImageView circleImageView = findViewById(R.id.image_perfil_main);
+                                        circleImageView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+                                    }
+                                });
 
-                        initComponents1();
+                                initComponents1();
+                            }
+                        } catch (Exception e) { initComponents2(); }
+                        loading.dismiss();
                     }
-                } catch (Exception e) { initComponents2(); }
-                loading.dismiss();
-            }
-        });
+                });
     }
 
-    private void initComponents2() {
+    private void initComponents2 () {
         TextView catego = findViewById(R.id.cake_main);
         catego.setVisibility(View.INVISIBLE);
 
@@ -84,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnMenuLis
         fragmentTransaction.commit();
     }
 
-    private void initComponents1() {
+    private void initComponents1 () {
         RecyclerView recyclerMenu = findViewById(R.id.recycler_menu);
         Adapter adapter;
         mData = new ArrayList<>();
@@ -95,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnMenuLis
         recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
-    public void handle (View view) {
+    public void handleMain (View view) {
         switch (view.getId()) {
             case R.id.button_finish_main:
                 finish();

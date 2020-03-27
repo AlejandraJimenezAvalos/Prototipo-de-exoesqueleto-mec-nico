@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:onClick="handle"
+                    android:onClick="handleMain"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:id="@+id/button_finish_main"
                     android:layout_width="50sp"
@@ -63,7 +63,7 @@
 
                 <TextView
                     android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:onClick="handle"
+                    android:onClick="handleMain"
                     android:id="@+id/button_singout_main"
                     style="@style/TextView"
                     android:layout_width="wrap_content"

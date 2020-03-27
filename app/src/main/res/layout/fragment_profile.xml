@@ -121,6 +121,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/text_country_profile"
                 style="@style/TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -181,6 +182,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/text_type_user_profile"
                 style="@style/TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

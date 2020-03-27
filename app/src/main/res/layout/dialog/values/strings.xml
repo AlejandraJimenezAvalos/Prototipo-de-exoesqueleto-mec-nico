@@ -23,6 +23,7 @@
     <string name="chose_from_gallery">Elegir una de la galeria</string>
     <string name="cancelar">Cancelar</string>
     <string name="registro_exitoso">Registro exitoso</string>
+    <string name="try_again">Intente más tarde.</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>
