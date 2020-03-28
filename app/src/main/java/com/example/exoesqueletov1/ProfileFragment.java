@@ -92,7 +92,6 @@ public class ProfileFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "hola", Toast.LENGTH_SHORT).show();
                 if (state) {
                     textInputLayoutName.setError(null);
                     textInputLayoutLastName.setError(null);

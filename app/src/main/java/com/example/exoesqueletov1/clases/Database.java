@@ -16,9 +16,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Database {
+
     private FirebaseFirestore db;
     private FragmentManager fragmentManager;
     private Context context;
+
+    private static final String ID = "id";
+    private static final String USER = "user";
+    private static final String NAME = "name";
+    private static final String VERIFY = "verify";
+    private static final String VERIFY_EMAIL = "verifyEmail";
     private static final String COLLECTION_USERS = "users";
     private static final String DOCUMENT_TYPE = "typeUser";
 
@@ -29,6 +36,8 @@ public class Database {
         this.fragmentManager = fragmentManager;
     }
 
+
+
     public void setDataUser(final String collectionPath, final String document, Map<String, Object> dataUser, String userType) {
         final DialogLoading loading;
         Map<String, Object> dataTypeUser;
@@ -38,13 +47,16 @@ public class Database {
         loading.show(fragmentManager, "exmaple");
 
         dataTypeUser = new HashMap<>();
-        dataTypeUser.put("id", collectionPath);
-        dataTypeUser.put("user", userType);
+
+        dataTypeUser.put(ID, collectionPath);
+        dataTypeUser.put(USER, userType);
 
         dataCollectionUsers = new HashMap<>();
-        dataCollectionUsers.put("id", collectionPath);
-        dataCollectionUsers.put("user", userType);
-        dataCollectionUsers.put("name", dataUser.get("name") + " " + dataUser.get("lastName"));
+        dataCollectionUsers.put(ID, collectionPath);
+        dataCollectionUsers.put(USER, userType);
+        dataCollectionUsers.put(NAME, dataUser.get("name") + " " + dataUser.get("lastName"));
+        dataCollectionUsers.put(VERIFY, false);
+        dataCollectionUsers.put(VERIFY_EMAIL, false);
 
         db.collection(collectionPath).document(document).set(dataUser).isComplete();
         db.collection(collectionPath).document(DOCUMENT_TYPE).set(dataTypeUser).isComplete();

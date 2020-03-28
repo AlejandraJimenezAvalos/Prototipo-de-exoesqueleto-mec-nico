@@ -39,11 +39,13 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/pink"
                 app:errorEnabled="true">
+
                 <com.google.android.material.textfield.TextInputEditText
-                    android:drawableStart="@drawable/ic_mail"
                     style="@style/TextField"
+                    android:drawableStart="@drawable/ic_mail"
                     android:hint="@string/correo"
                     android:inputType="textEmailAddress"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

@@ -41,7 +41,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.NewsViewHolder> implem
 
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
-        //holder.img_user.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
         holder.img_user.setImageResource(mDataFiltered.get(position).getUserPhoto());
     }
 

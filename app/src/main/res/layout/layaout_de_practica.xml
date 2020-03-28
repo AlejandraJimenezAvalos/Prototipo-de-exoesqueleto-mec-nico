@@ -1,48 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/fragment_profile"
+    style="@style/AppTheme."
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/AppTheme.rosa">
+    android:gravity="fill_vertical">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/button_save_profile"
+        style="@style/Button"
+        android:layout_width="200sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="60sp"
-            android:layout_height="60sp"
-            android:padding="10sp"
-            android:src="@mipmap/facebook" />
-
-        <ImageView
-            android:layout_width="60sp"
-            android:layout_height="60sp"
-            android:padding="10sp"
-            android:src="@mipmap/google" />
-
-    </LinearLayout>
+        android:layout_gravity="end"
+        android:layout_margin="10sp"
+        android:text="@string/guardar" />
 
     <TextView
         style="@style/TextView"
         android:layout_width="wrap_content"
-        android:layout_height="88dp"
-        android:layout_marginStart="101dp"
-        android:layout_marginEnd="101dp"
-        android:paddingTop="30sp"
+        android:layout_height="wrap_content"
         android:paddingBottom="20sp"
-        android:text="Si ya tienes una cuenta dirigete\na la derecha para iniciar sesión"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        android:text="@string/datos_de_usuario"
+        android:textSize="20sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    
+
+</LinearLayout>

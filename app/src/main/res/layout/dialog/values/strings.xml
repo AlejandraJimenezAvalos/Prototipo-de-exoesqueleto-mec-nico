@@ -16,7 +16,7 @@
     <string name="doctor">Doctor</string>
     <string name="paciente">Paciente</string>
     <string name="usted_es_un">Usted es</string>
-    <string name="verificaci_n">Verificación</string>
+    <string name="verificaci_n_por_correo">Verificación por correo</string>
     <string name="error_image_perfil">Seleccione su imagen de perfil</string>
     <string name="error_campo">Olvidaste llenar este campo</string>
     <string name="take_photo">Tomar una foto</string>
@@ -24,6 +24,7 @@
     <string name="cancelar">Cancelar</string>
     <string name="registro_exitoso">Registro exitoso</string>
     <string name="try_again">Intente más tarde.</string>
+    <string name="pendientes">Pendientes</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>

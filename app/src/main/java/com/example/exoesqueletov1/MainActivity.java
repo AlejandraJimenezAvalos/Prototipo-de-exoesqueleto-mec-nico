@@ -82,9 +82,6 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnMenuLis
     }
 
     private void initComponents2 () {
-        TextView catego = findViewById(R.id.cake_main);
-        catego.setVisibility(View.INVISIBLE);
-
         fragmentTransaction.replace(R.id.container_main, new ProfileFragment());
         fragmentTransaction.commit();
     }
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnMenuLis
         mData.add(new NewsItem(getString(R.string.profile), R.drawable.ic_profile));
         adapter = new Adapter(this, mData, this);
         recyclerMenu.setAdapter(adapter);
-        recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
     public void handleMain (View view) {
