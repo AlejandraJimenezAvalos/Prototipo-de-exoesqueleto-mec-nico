@@ -12,5 +12,6 @@
     <color name="pinkDark">#B40028</color>
     <color name="blueDark">#000614</color>
     <color name="blue">#263555</color>
+    <color name="blueAccent">#070D1B</color>
 
 </resources>

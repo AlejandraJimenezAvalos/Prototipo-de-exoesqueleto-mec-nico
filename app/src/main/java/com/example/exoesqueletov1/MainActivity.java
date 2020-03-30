@@ -5,15 +5,13 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.exoesqueletov1.clases.Adapter;
+import com.example.exoesqueletov1.clases.MenuAdapter;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.NewsItem;
 import com.example.exoesqueletov1.dialog.DialogLoading;
@@ -30,21 +28,18 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements Adapter.OnMenuListener {
+public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMenuListener {
 
-    private FragmentTransaction fragmentTransaction;
     private List<NewsItem> mData;
     private static final String DOCUMENT = "user";
     private static final long ONE_MEGABYTE = 1024 * 1024;
+    private boolean state = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
 
         initVerify();
 
@@ -61,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnMenuLis
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Map<String, Object> data = documentSnapshot.getData();
                         try {
+                            state = true;
                             if (Boolean.parseBoolean(String.valueOf(data.get(id)))) {
                                 TextView name = findViewById(R.id.text_view_nombre_main);
                                 name.setText(data.get("name").toString());
@@ -82,19 +78,20 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnMenuLis
     }
 
     private void initComponents2 () {
-        fragmentTransaction.replace(R.id.container_main, new ProfileFragment());
-        fragmentTransaction.commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new ProfileLogUpFragment()).commit();
     }
 
     private void initComponents1 () {
         RecyclerView recyclerMenu = findViewById(R.id.recycler_menu);
-        Adapter adapter;
+        MenuAdapter menuAdapter;
         mData = new ArrayList<>();
-        mData.add(new NewsItem(getString(R.string.inicio), R.drawable.ic_home));
+        mData.add(new NewsItem(getString(R.string.inicio), R.drawable.ic_notifications));
         mData.add(new NewsItem(getString(R.string.profile), R.drawable.ic_profile));
-        adapter = new Adapter(this, mData, this);
-        recyclerMenu.setAdapter(adapter);
+        menuAdapter = new MenuAdapter(this, mData, this);
+        recyclerMenu.setAdapter(menuAdapter);
         recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotifyFragment()).commit();
     }
 
     public void handleMain (View view) {
@@ -113,15 +110,15 @@ public class MainActivity extends AppCompatActivity implements Adapter.OnMenuLis
 
     @Override
     public void onMenuClick(int position) {
-        try {
-            if (mData.get(position).getTitle().equals(getString(R.string.inicio))) {
-                Toast.makeText(this, "ini", Toast.LENGTH_SHORT).show();
-            }
-            if (mData.get(position).getTitle().equals(getString(R.string.profile))) {
-                fragmentTransaction.replace(R.id.container_main, new ProfileFragment());
-                fragmentTransaction.commit();
-            }
-        } catch (IllegalStateException ignored) { }
+        Fragment fragment = null;
+        if (mData.get(position).getTitle().equals(getString(R.string.inicio))) {
+            fragment = new NotifyFragment();
+        }
+        if (mData.get(position).getTitle().equals(getString(R.string.profile))) {
+            if (!state) { fragment = new ProfileLogUpFragment(); }
+            else { fragment = new ProfileFragment(); }
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, fragment).commit();
     }
 
 }

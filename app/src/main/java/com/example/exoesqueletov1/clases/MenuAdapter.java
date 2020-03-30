@@ -4,10 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,14 +17,14 @@ import com.example.exoesqueletov1.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.NewsViewHolder> implements Filterable {
+public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.NewsViewHolder> implements Filterable {
 
     private Context mContext;
     private List<NewsItem> itemList;
     private List<NewsItem> mDataFiltered;
     private OnMenuListener onMenuListener;
 
-    public Adapter(Context mContext, List<NewsItem> itemList, OnMenuListener onMenuListener) {
+    public MenuAdapter(Context mContext, List<NewsItem> itemList, OnMenuListener onMenuListener) {
         this.mContext = mContext;
         this.itemList = itemList;
         this.mDataFiltered = itemList;

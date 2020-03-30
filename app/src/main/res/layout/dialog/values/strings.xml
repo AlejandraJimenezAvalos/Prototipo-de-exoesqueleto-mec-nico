@@ -24,7 +24,7 @@
     <string name="cancelar">Cancelar</string>
     <string name="registro_exitoso">Registro exitoso</string>
     <string name="try_again">Intente más tarde.</string>
-    <string name="pendientes">Pendientes</string>
+    <string name="pendientes">Notificaciones</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>
