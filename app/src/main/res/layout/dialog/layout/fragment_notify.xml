@@ -11,8 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pendientes"
-        android:textSize="20sp"
-        style="@style/TextView"/>
+        style="@style/TextView.titulo"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_pending"

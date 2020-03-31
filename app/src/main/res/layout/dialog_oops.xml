@@ -29,13 +29,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="#353535"
                 android:textSize="25sp"
-                android:layout_marginBottom="10sp"
+
                 android:layout_marginTop="30sp"
                 android:text="@string/algo_sali_mal" />
 
             <TextView
                 android:id="@+id/tex_output_error"
-                android:layout_width="200sp"
+                android:layout_width="match_parent"
+                android:layout_margin="20sp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center" />
 
@@ -45,7 +46,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/intentar_de_nuevo"
                 style="@style/Button.gris"
-                android:layout_marginTop="20sp"
                 android:layout_marginBottom="10sp"/>
 
             <Button
@@ -54,7 +54,7 @@
                 android:id="@+id/button_oops_out"
                 android:text="@string/salir"
                 android:layout_marginBottom="50sp"
-                style="@style/Button.gris.borde"/>
+                style="@style/Button.borde.gris"/>
 
         </LinearLayout>
 

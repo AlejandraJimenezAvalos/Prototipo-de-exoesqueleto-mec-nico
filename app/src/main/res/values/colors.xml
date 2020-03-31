@@ -13,5 +13,6 @@
     <color name="blueDark">#000614</color>
     <color name="blue">#263555</color>
     <color name="blueAccent">#070D1B</color>
+    <color name="bluePrimary">#0B1220</color>
 
 </resources>

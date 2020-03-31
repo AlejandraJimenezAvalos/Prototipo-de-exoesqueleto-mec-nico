@@ -44,11 +44,9 @@ public class SplashActivity extends AppCompatActivity {
     private void arranque() {
         ImageView titulo = findViewById(R.id.titulo_image);
         ImageView logo = findViewById(R.id.logo_image);
-        ProgressBar progressBar = findViewById(R.id.progress_circular);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.transition);
         titulo.startAnimation(animation);
         logo.startAnimation(animation);
-        progressBar.startAnimation(animation);
         authentication = new Authentication();
     }
 }

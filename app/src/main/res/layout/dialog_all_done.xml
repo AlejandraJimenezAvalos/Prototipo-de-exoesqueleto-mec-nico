@@ -29,13 +29,13 @@
                 android:layout_height="wrap_content"
                 android:textColor="#353535"
                 android:textSize="25sp"
-                android:layout_marginBottom="10sp"
                 android:layout_marginTop="30sp"
                 android:text="@string/todo_listo" />
 
             <TextView
                 android:id="@+id/text_process"
-                android:layout_width="200sp"
+                android:layout_width="match_parent"
+                android:layout_margin="20sp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center" />
 
@@ -45,8 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/aceptar"
                 style="@style/Button.verde"
-                android:layout_marginBottom="50sp"
-                android:layout_marginTop="30sp"/>
+                android:layout_marginBottom="50sp"/>
 
         </LinearLayout>
 
