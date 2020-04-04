@@ -43,7 +43,7 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NewsViewHo
 
     @Override
     public void onBindViewHolder(@NonNull NotifyAdapter.NewsViewHolder holder, int position) {
-        holder.linearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
+        //holder.linearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
         holder.title.setText(mDataFiltered.get(position).getTitle());
         holder.date.setText(mDataFiltered.get(position).getDate());
         holder.description.setText(mDataFiltered.get(position).getDescription());

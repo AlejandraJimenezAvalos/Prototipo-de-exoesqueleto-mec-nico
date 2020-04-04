@@ -8,7 +8,6 @@
     android:gravity="center"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackgroundBorderless"
-    android:background="@color/blueDark"
     android:focusable="true"
     tools:targetApi="m">
 
@@ -16,7 +15,7 @@
         android:id="@+id/img_user"
         android:layout_width="50sp"
         android:layout_height="50sp"
-        android:background="@drawable/button_border_blue"
+        android:background="@drawable/button_border_withe"
         android:padding="5sp"
         app:srcCompat="@drawable/ic_home" />
 </LinearLayout>

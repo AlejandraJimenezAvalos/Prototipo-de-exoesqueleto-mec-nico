@@ -25,7 +25,13 @@
     <string name="registro_exitoso">Registro exitoso</string>
     <string name="try_again">Intente más tarde.</string>
     <string name="pendientes">Notificaciones</string>
-    <string name="actualizar_perfil">Editar perfil</string>
+    <string name="estudio">Estudio en</string>
+    <string name="telefono">Telefono</string>
+    <string name="celular">Celular</string>
+    <string name="direcci_n">Dirección</string>
+    <string name="introduzca_lo_que_se_le_pide">Introduzca lo que se le pide</string>
+    <string name="description">Descripción</string>
+    <string name="operacion_exitosa">Operación exitosa</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>

@@ -16,7 +16,7 @@
         <item name="android:background">@color/blueDark</item>
     </style>
 
-    <style name="AppTheme.blanco">
+    <style name="AppTheme.withe">
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
         <item name="android:background">@color/white</item>

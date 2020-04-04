@@ -171,6 +171,8 @@ public class ProfileLogUpFragment extends Fragment {
         else { user = "b"; }
 
         new Database(getFragmentManager(), getContext()).setDataUser(id, DOCUMENT_USER, data, user);
+        getActivity().finish();
+        startActivity(new Intent(getContext(), MainActivity.class));
     }
 
     private boolean verify() {
