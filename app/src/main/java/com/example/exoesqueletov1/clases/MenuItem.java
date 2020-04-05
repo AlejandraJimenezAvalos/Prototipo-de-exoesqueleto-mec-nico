@@ -1,12 +1,12 @@
 package com.example.exoesqueletov1.clases;
 
-public class NewsItem {
+public class MenuItem {
 
 
     private String Title;
     private int userPhoto;
 
-    public NewsItem(String title, int userPhoto) {
+    public MenuItem(String title, int userPhoto) {
         Title = title;
         this.userPhoto = userPhoto;
     }
@@ -15,7 +15,7 @@ public class NewsItem {
         return Title;
     }
 
-    public int getUserPhoto() {
+    int getUserPhoto() {
         return userPhoto;
     }
 }

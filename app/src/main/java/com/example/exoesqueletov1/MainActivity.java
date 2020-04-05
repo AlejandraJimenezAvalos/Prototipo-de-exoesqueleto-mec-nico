@@ -1,6 +1,7 @@
 package com.example.exoesqueletov1;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.MenuAdapter;
-import com.example.exoesqueletov1.clases.NewsItem;
+import com.example.exoesqueletov1.clases.MenuItem;
 import com.example.exoesqueletov1.dialog.DialogLoading;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,34 +32,36 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMenuListener {
 
-    private List<NewsItem> mData;
-    private static final String DOCUMENT = "user";
+    private List<MenuItem> mData;
+    private static final String DOCUMENT_USER = "user";
     private static final long ONE_MEGABYTE = 1024 * 1024;
     private boolean state = false;
     private boolean isState = true;
-    private Timer timer;
+    private String typeUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        timer = new Timer();
+        Timer timer = new Timer();
         timer.execute();
 
-        initVerify();
+        verify();
     }
 
     @Override
     public void onMenuClick(int position) {
+
         Fragment fragment = null;
-        if (mData.get(position).getTitle().equals(getString(R.string.inicio))) {
-            fragment = new NotifyFragment();
+
+        if (!state) { fragment = new ProfileLogUpFragment(); }
+        else {
+            if (mData.get(position).getTitle().equals(getString(R.string.inicio))) { fragment = new NotifyFragment(); }
+            if (mData.get(position).getTitle().equals(getString(R.string.profile))) { fragment = new ProfileFragment(); }
+            if (mData.get(position).getTitle().equals(getString(R.string.messages))) { fragment = new MessageFragment(typeUser); }
         }
-        if (mData.get(position).getTitle().equals(getString(R.string.profile))) {
-            if (!state) { fragment = new ProfileLogUpFragment(); }
-            else { fragment = new ProfileFragment(); }
-        }
+
         getSupportFragmentManager().beginTransaction().replace(R.id.container_main, fragment).commit();
     }
 
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
                 final String id = new Authentication().getCurrentUser().getEmail();
                 Timer timer = new Timer();
                 timer.execute();
-                FirebaseFirestore.getInstance().collection(id).document(DOCUMENT).get()
+                FirebaseFirestore.getInstance().collection(id).document(DOCUMENT_USER).get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -102,12 +105,12 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         }
     }
 
-    private void initVerify () {
+    private void verify() {
         final String id = new Authentication().getCurrentUser().getEmail();
         final DialogLoading loading = new DialogLoading();
         loading.show(getSupportFragmentManager(), getString(R.string.example));
 
-        FirebaseFirestore.getInstance().collection(id).document(DOCUMENT).get()
+        FirebaseFirestore.getInstance().collection(id).document(DOCUMENT_USER).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -126,7 +129,19 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
                                     }
                                 });
 
-                                userA();
+                                typeUser = data.get("user").toString();
+
+                                switch (data.get("user").toString()) {
+                                    case "a":
+                                        userA();
+                                        break;
+                                    case "b":
+                                        userB();
+                                        break;
+                                    case "c":
+                                        userC();
+                                        break;
+                                }
                             }
                         } catch (Exception e) { newUser(); }
                         loading.dismiss();
@@ -142,8 +157,37 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         RecyclerView recyclerMenu = findViewById(R.id.recycler_menu);
         MenuAdapter menuAdapter;
         mData = new ArrayList<>();
-        mData.add(new NewsItem(getString(R.string.inicio), R.drawable.ic_notifications));
-        mData.add(new NewsItem(getString(R.string.profile), R.drawable.ic_profile));
+        mData.add(new MenuItem(getString(R.string.inicio), R.drawable.ic_notifications));
+        mData.add(new MenuItem(getString(R.string.profile), R.drawable.ic_profile));
+        mData.add(new MenuItem(getString(R.string.messages), R.drawable.ic_message));
+        menuAdapter = new MenuAdapter(this, mData, this);
+        recyclerMenu.setAdapter(menuAdapter);
+        recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotifyFragment()).commit();
+    }
+
+    private void userB() {
+        RecyclerView recyclerMenu = findViewById(R.id.recycler_menu);
+        MenuAdapter menuAdapter;
+        mData = new ArrayList<>();
+        mData.add(new MenuItem(getString(R.string.inicio), R.drawable.ic_notifications));
+        mData.add(new MenuItem(getString(R.string.profile), R.drawable.ic_profile));
+        mData.add(new MenuItem(getString(R.string.messages), R.drawable.ic_message));
+        menuAdapter = new MenuAdapter(this, mData, this);
+        recyclerMenu.setAdapter(menuAdapter);
+        recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotifyFragment()).commit();
+    }
+
+    private void userC() {
+        RecyclerView recyclerMenu = findViewById(R.id.recycler_menu);
+        MenuAdapter menuAdapter;
+        mData = new ArrayList<>();
+        mData.add(new MenuItem(getString(R.string.inicio), R.drawable.ic_notifications));
+        mData.add(new MenuItem(getString(R.string.profile), R.drawable.ic_profile));
+        mData.add(new MenuItem(getString(R.string.messages), R.drawable.ic_message));
         menuAdapter = new MenuAdapter(this, mData, this);
         recyclerMenu.setAdapter(menuAdapter);
         recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));

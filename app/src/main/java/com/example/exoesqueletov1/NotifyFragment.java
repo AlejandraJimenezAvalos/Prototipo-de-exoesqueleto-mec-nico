@@ -11,17 +11,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.exoesqueletov1.clases.ItemNotify;
+import com.example.exoesqueletov1.clases.NotifyItem;
 import com.example.exoesqueletov1.clases.MenuAdapter;
 import com.example.exoesqueletov1.clases.NotifyAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotifyFragment extends Fragment implements MenuAdapter.OnMenuListener {
+public class NotifyFragment extends Fragment implements NotifyAdapter.OnMenuListener {
 
     private RecyclerView recyclerView;
-    private List<ItemNotify> mData;
+    private List<NotifyItem> mData;
 
     public NotifyFragment() { }
 
@@ -32,24 +32,24 @@ public class NotifyFragment extends Fragment implements MenuAdapter.OnMenuListen
 
         recyclerView = view.findViewById(R.id.recycler_pending);
         mData = new ArrayList<>();
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
-        mData.add(new ItemNotify("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
+        mData.add(new NotifyItem("Hola", "17/01/2020", "ya no se que más poner"));
 
         NotifyAdapter notifyAdapter = new NotifyAdapter(getContext(), mData, this);
 

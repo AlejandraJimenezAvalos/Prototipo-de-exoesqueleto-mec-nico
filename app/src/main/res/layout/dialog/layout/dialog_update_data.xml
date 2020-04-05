@@ -26,7 +26,7 @@
         <com.google.android.material.textfield.TextInputEditText
             style="@style/TextField.rosa"
             android:drawableTint="@color/pinkDark"
-            android:inputType="textEmailAddress"
+            android:inputType="textPersonName"
             tools:targetApi="m" />
     </com.google.android.material.textfield.TextInputLayout>
 

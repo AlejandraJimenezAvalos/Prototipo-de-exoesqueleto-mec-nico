@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,11 +19,11 @@ import java.util.List;
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.NewsViewHolder> implements Filterable {
 
     private Context mContext;
-    private List<NewsItem> itemList;
-    private List<NewsItem> mDataFiltered;
+    private List<MenuItem> itemList;
+    private List<MenuItem> mDataFiltered;
     private OnMenuListener onMenuListener;
 
-    public MenuAdapter(Context mContext, List<NewsItem> itemList, OnMenuListener onMenuListener) {
+    public MenuAdapter(Context mContext, List<MenuItem> itemList, OnMenuListener onMenuListener) {
         this.mContext = mContext;
         this.itemList = itemList;
         this.mDataFiltered = itemList;
@@ -35,7 +34,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.NewsViewHolder
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View layout;
-        layout = LayoutInflater.from(mContext).inflate(R.layout.item_layout,viewGroup,false);
+        layout = LayoutInflater.from(mContext).inflate(R.layout.item_menu,viewGroup,false);
         return new NewsViewHolder(layout, onMenuListener);
     }
 
@@ -59,8 +58,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.NewsViewHolder
                     mDataFiltered = itemList;
                 }
                 else {
-                    List<NewsItem> lstFiltered = new ArrayList<>();
-                    for (NewsItem row : itemList) {
+                    List<MenuItem> lstFiltered = new ArrayList<>();
+                    for (MenuItem row : itemList) {
                         if (row.getTitle().toLowerCase().contains(Key.toLowerCase())){
                             lstFiltered.add(row);
                         }
@@ -74,7 +73,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.NewsViewHolder
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mDataFiltered = (List<NewsItem>) results.values;
+                mDataFiltered = (List<MenuItem>) results.values;
                 notifyDataSetChanged();
             }
         };

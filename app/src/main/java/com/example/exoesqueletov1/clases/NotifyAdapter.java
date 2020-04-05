@@ -4,11 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,11 +20,11 @@ import java.util.List;
 public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NewsViewHolder> implements Filterable  {
 
     private Context mContext;
-    private List<ItemNotify> itemList;
-    private List<ItemNotify> mDataFiltered;
-    private MenuAdapter.OnMenuListener onMenuListener;
+    private List<NotifyItem> itemList;
+    private List<NotifyItem> mDataFiltered;
+    private NotifyAdapter.OnMenuListener onMenuListener;
 
-    public NotifyAdapter(Context mContext, List<ItemNotify> itemList, MenuAdapter.OnMenuListener onMenuListener) {
+    public NotifyAdapter(Context mContext, List<NotifyItem> itemList, NotifyAdapter.OnMenuListener onMenuListener) {
         this.mContext = mContext;
         this.itemList = itemList;
         this.mDataFiltered = itemList;
@@ -43,7 +41,6 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NewsViewHo
 
     @Override
     public void onBindViewHolder(@NonNull NotifyAdapter.NewsViewHolder holder, int position) {
-        //holder.linearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_animation));
         holder.title.setText(mDataFiltered.get(position).getTitle());
         holder.date.setText(mDataFiltered.get(position).getDate());
         holder.description.setText(mDataFiltered.get(position).getDescription());
@@ -64,8 +61,8 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NewsViewHo
                     mDataFiltered = itemList;
                 }
                 else {
-                    List<ItemNotify> lstFiltered = new ArrayList<>();
-                    for (ItemNotify row : itemList) {
+                    List<NotifyItem> lstFiltered = new ArrayList<>();
+                    for (NotifyItem row : itemList) {
                         if (row.getTitle().toLowerCase().contains(Key.toLowerCase())){
                             lstFiltered.add(row);
                         }
@@ -79,7 +76,7 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NewsViewHo
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mDataFiltered = (List<ItemNotify>) results.values;
+                mDataFiltered = (List<NotifyItem>) results.values;
                 notifyDataSetChanged();
             }
         };
@@ -89,12 +86,10 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NewsViewHo
 
         private TextView title, date, description;
         private ImageView buttonGo;
-        private MenuAdapter.OnMenuListener onMenuListener;
-        private LinearLayout linearLayout;
+        private NotifyAdapter.OnMenuListener onMenuListener;
 
-        NewsViewHolder(@NonNull View itemView, MenuAdapter.OnMenuListener onMenuListener) {
+        NewsViewHolder(@NonNull View itemView, NotifyAdapter.OnMenuListener onMenuListener) {
             super(itemView);
-            linearLayout = itemView.findViewById(R.id.item_pending);
             title = itemView.findViewById(R.id.text_title_item_pending);
             date = itemView.findViewById(R.id.text_date_item_pending);
             description = itemView.findViewById(R.id.text_description_item_pending);

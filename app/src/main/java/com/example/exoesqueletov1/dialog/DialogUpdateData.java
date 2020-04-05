@@ -2,7 +2,9 @@ package com.example.exoesqueletov1.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -51,6 +53,15 @@ public class DialogUpdateData extends AppCompatDialogFragment {
 
         textInputLayoutData.getEditText().setHint(data);
         textInputLayoutData.getEditText().setCompoundDrawablesWithIntrinsicBounds(resourse, 0, 0, 0);
+        if (data.equals(getString(R.string.correo))) {
+            textInputLayoutData.getEditText().setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        }
+        if (data.equals(getString(R.string.celular)) || data.equals(getString(R.string.telefono))) {
+            textInputLayoutData.getEditText().setInputType(InputType.TYPE_CLASS_PHONE);
+        }
+        if (data.equals(getString(R.string.direcci_n))) {
+            textInputLayoutData.getEditText().setInputType(InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS);
+        }
 
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override

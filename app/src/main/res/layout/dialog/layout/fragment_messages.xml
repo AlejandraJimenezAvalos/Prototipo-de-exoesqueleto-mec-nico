@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/AppTheme."
+    android:gravity="fill">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="10sp">
+
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
+            android:hint="@string/buscar"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="15sp"
+            android:padding="15sp"
+            android:layout_marginEnd="20sp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/blue"
+            android:background="@drawable/button_blue2"
+            android:autofillHints="0"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/text_fragment_message_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancelar"
+            android:textColor="@color/blue"/>
+
+    </LinearLayout>
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_chats"
+            style="@style/TextView.titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chats"
+            app:layout_constraintEnd_toStartOf="@+id/text_add"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_chats"
+            android:layout_width="300sp"
+            android:layout_height="2sp"
+            android:layout_marginTop="10dp"
+            android:background="@color/pinkDark"
+            app:layout_constraintEnd_toStartOf="@+id/view_add"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_chats" />
+
+        <TextView
+            android:id="@+id/text_add"
+            style="@style/TextView.titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/agregar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_chats"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_add"
+            android:layout_width="300sp"
+            android:layout_height="2sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view_chats"
+            app:layout_constraintTop_toBottomOf="@+id/text_add" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_chats"
+        android:layout_width="match_parent"
+        android:layout_margin="20sp"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

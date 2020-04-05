@@ -1,26 +1,26 @@
 package com.example.exoesqueletov1.clases;
 
-public class ItemNotify {
+public class NotifyItem {
 
     private String title;
     private String date;
     private String description;
 
-    public ItemNotify(String title, String date, String description) {
+    public NotifyItem(String title, String date, String description) {
         this.title = title;
         this.date = date;
         this.description = description;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return title;
     }
 
-    public String getDate() {
+    String getDate() {
         return date;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 }

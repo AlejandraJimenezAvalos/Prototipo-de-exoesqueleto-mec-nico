@@ -32,6 +32,11 @@
     <string name="introduzca_lo_que_se_le_pide">Introduzca lo que se le pide</string>
     <string name="description">Descripción</string>
     <string name="operacion_exitosa">Operación exitosa</string>
+    <string name="messages">Messages</string>
+    <string name="chats">Chats</string>
+    <string name="buscar">buscar</string>
+    <string name="agregar">Agregar</string>
+    <string name="agregar">Agregar</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>
