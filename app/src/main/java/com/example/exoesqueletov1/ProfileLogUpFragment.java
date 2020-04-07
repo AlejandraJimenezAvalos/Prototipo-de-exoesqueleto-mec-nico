@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,10 +22,7 @@ import androidx.fragment.app.Fragment;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.Database;
 import com.example.exoesqueletov1.clases.Storge;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -147,7 +143,7 @@ public class ProfileLogUpFragment extends Fragment {
                             imageViewProfile.setImageBitmap(picturePath);
                             new Storge(getFragmentManager(), "pictureProfile", new Authentication().getCurrentUser().getEmail(),
                                     getContext())
-                                    .setDocument(resultUri);
+                                    .setProfile(resultUri);
                         } catch (IOException ignored) { }
                     }
                     break;

@@ -1,10 +1,18 @@
 package com.example.exoesqueletov1.clases;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.exoesqueletov1.MainActivity;
+import com.example.exoesqueletov1.NotifyFragment;
+import com.example.exoesqueletov1.ProfileLogUpFragment;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.dialog.DialogAllDone;
 import com.example.exoesqueletov1.dialog.DialogLoading;
@@ -13,9 +21,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Database {
 
@@ -43,6 +55,25 @@ public class Database {
         this.context = context;
         db = FirebaseFirestore.getInstance();
         this.fragmentManager = fragmentManager;
+    }
+
+    public void init(final TextView name, final TextView typeUser, final TextView state, final String id, final CircleImageView circleImageView) {
+        FirebaseFirestore.getInstance().collection(id).document(USER).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map<String, Object> data = documentSnapshot.getData();
+                        try {
+                            if (Boolean.parseBoolean(String.valueOf(data.get(id)))) {
+                                name.setText(data.get("name").toString());
+                                new Storge().getProfileImage(circleImageView, id);
+
+                                typeUser.setText(data.get("user").toString());
+                                state.setText("t");
+                            }
+                        } catch (Exception e) { typeUser.setText("n"); }
+                    }
+                });
     }
 
     public void updateData (String collection, String document, Map<String, Object> data) {

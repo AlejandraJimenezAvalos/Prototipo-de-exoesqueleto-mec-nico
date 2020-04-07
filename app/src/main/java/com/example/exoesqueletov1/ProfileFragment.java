@@ -13,13 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,14 +25,9 @@ import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.Database;
 import com.example.exoesqueletov1.clases.Storge;
 import com.example.exoesqueletov1.dialog.DialogUpdateData;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.IOException;
@@ -81,7 +72,11 @@ public class ProfileFragment extends Fragment {
     private static final int ASPECT_RATIO_Y = 1;
     private String user;
 
-    public ProfileFragment() { }
+    private String typeUser;
+
+    ProfileFragment(String typeUser) {
+        this.typeUser = typeUser;
+    }
 
     @Nullable
     @Override
@@ -265,7 +260,7 @@ public class ProfileFragment extends Fragment {
                             circleImageViewProfile.setImageBitmap(picturePath);
                             new Storge(getFragmentManager(), "pictureProfile", new Authentication().getCurrentUser().getEmail(),
                                     getContext())
-                                    .setDocument(resultUri);
+                                    .setProfile(resultUri);
                         } catch (IOException ignored) { }
                     }
                     break;

@@ -88,7 +88,7 @@ public class MessageFragment extends Fragment  implements ChatAdapter.OnMenuList
             @Override
             public void onClick(View v) {
                 if (typeUser.equals("c")) {
-                    DialogOops oops = new DialogOops("Por la seguridad de sus datos, usted no puede buscar personas para platicar con ellas.");
+                    DialogOops oops = new DialogOops("Por la seguridad de sus datos, usted no puede hacer mas amistades.");
                     oops.show(getFragmentManager(), "");
                 } else {
                     stateOnClick = true;

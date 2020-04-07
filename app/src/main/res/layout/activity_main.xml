@@ -24,12 +24,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/contrain_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -88,31 +83,20 @@
                         app:layout_constraintTop_toBottomOf="@+id/text_view_nombre_main"
                         tools:targetApi="m" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/image_perfil_main"
-                        android:layout_width="70sp"
-                        android:layout_height="70sp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:src="@drawable/ic_profile"
-                        android:contentDescription="@string/example" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_menu"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="16sp"
-                    android:layout_marginEnd="30pt"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10sp"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_perfil_main"
+                    android:layout_width="70sp"
+                    android:layout_height="70sp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="20dp"
+                    android:contentDescription="@string/example"
+                    android:src="@drawable/ic_profile"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

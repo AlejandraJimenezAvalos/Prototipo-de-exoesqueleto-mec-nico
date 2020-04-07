@@ -1,8 +1,6 @@
 package com.example.exoesqueletov1;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -14,140 +12,59 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exoesqueletov1.clases.Authentication;
+import com.example.exoesqueletov1.clases.Database;
 import com.example.exoesqueletov1.clases.MenuAdapter;
 import com.example.exoesqueletov1.clases.MenuItem;
+import com.example.exoesqueletov1.clases.Storge;
 import com.example.exoesqueletov1.dialog.DialogLoading;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMenuListener {
 
     private List<MenuItem> mData;
+
     private static final String DOCUMENT_USER = "user";
     private static final long ONE_MEGABYTE = 1024 * 1024;
+
     private boolean state = false;
     private boolean isState = true;
+
     private String typeUser;
+    private String id = new Authentication().getCurrentUser().getEmail();
+
+    private Database database;
+    private DialogLoading loading;
+
+    private CircleImageView circleImageView;
+    private TextView textViewState;
+    private TextView textViewTypeUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        TextView name = findViewById(R.id.text_view_nombre_main);
+        loading = new DialogLoading();
+        loading.show(getSupportFragmentManager(), "loading");
+
+        textViewTypeUser = findViewById(R.id.text_type_user_main);
+        textViewState = findViewById(R.id.text_state_main);
+        circleImageView = findViewById(R.id.image_perfil_main);
+
+        database = new Database(getSupportFragmentManager(), this);
+        database.init(name, textViewTypeUser, textViewState, id, circleImageView);
+
         Timer timer = new Timer();
         timer.execute();
-
-        verify();
     }
 
-    @Override
-    public void onMenuClick(int position) {
-
-        Fragment fragment = null;
-
-        if (!state) { fragment = new ProfileLogUpFragment(); }
-        else {
-            if (mData.get(position).getTitle().equals(getString(R.string.inicio))) { fragment = new NotifyFragment(); }
-            if (mData.get(position).getTitle().equals(getString(R.string.profile))) { fragment = new ProfileFragment(); }
-            if (mData.get(position).getTitle().equals(getString(R.string.messages))) { fragment = new MessageFragment(typeUser); }
-        }
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, fragment).commit();
-    }
-
-    public class Timer extends AsyncTask<Void, Integer, Boolean> {
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            if (isState) {
-                final String id = new Authentication().getCurrentUser().getEmail();
-                Timer timer = new Timer();
-                timer.execute();
-                FirebaseFirestore.getInstance().collection(id).document(DOCUMENT_USER).get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                Map<String, Object> data = documentSnapshot.getData();
-                                try {
-                                    state = true;
-                                    if (Boolean.parseBoolean(String.valueOf(data.get(id)))) {
-                                        TextView name = findViewById(R.id.text_view_nombre_main);
-                                        name.setText(data.get("name").toString());
-                                        FirebaseStorage.getInstance().getReference().child("pictureProfile").child(id)
-                                                .getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                            @Override
-                                            public void onSuccess(byte[] bytes) {
-                                                CircleImageView circleImageView = findViewById(R.id.image_perfil_main);
-                                                circleImageView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-                                            }
-                                        });
-                                    }
-                                } catch (Exception ignored) {  }
-                            }
-                        });
-            }
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            for (int i = 1; i <= 5; i++) { try { Thread.sleep(1000); } catch (InterruptedException ignored) { } }
-            return null;
-        }
-    }
-
-    private void verify() {
-        final String id = new Authentication().getCurrentUser().getEmail();
-        final DialogLoading loading = new DialogLoading();
-        loading.show(getSupportFragmentManager(), getString(R.string.example));
-
-        FirebaseFirestore.getInstance().collection(id).document(DOCUMENT_USER).get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Map<String, Object> data = documentSnapshot.getData();
-                        try {
-                            state = true;
-                            if (Boolean.parseBoolean(String.valueOf(data.get(id)))) {
-                                TextView name = findViewById(R.id.text_view_nombre_main);
-                                name.setText(data.get("name").toString());
-                                FirebaseStorage.getInstance().getReference().child("pictureProfile").child(id)
-                                        .getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                    @Override
-                                    public void onSuccess(byte[] bytes) {
-                                        CircleImageView circleImageView = findViewById(R.id.image_perfil_main);
-                                        circleImageView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-                                    }
-                                });
-
-                                typeUser = data.get("user").toString();
-
-                                switch (data.get("user").toString()) {
-                                    case "a":
-                                        userA();
-                                        break;
-                                    case "b":
-                                        userB();
-                                        break;
-                                    case "c":
-                                        userC();
-                                        break;
-                                }
-                            }
-                        } catch (Exception e) { newUser(); }
-                        loading.dismiss();
-                    }
-                });
-    }
 
     private void newUser() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new ProfileLogUpFragment()).commit();
@@ -193,6 +110,60 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotifyFragment()).commit();
+    }
+
+    @Override
+    public void onMenuClick(int position) {
+
+        Fragment fragment = null;
+
+        if (!state) { fragment = new ProfileLogUpFragment(); }
+        else {
+            if (mData.get(position).getTitle().equals(getString(R.string.inicio))) { fragment = new NotifyFragment(); }
+            if (mData.get(position).getTitle().equals(getString(R.string.profile))) { fragment = new ProfileFragment(typeUser); }
+            if (mData.get(position).getTitle().equals(getString(R.string.messages))) { fragment = new MessageFragment(typeUser); }
+        }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, fragment).commit();
+    }
+
+    public class Timer extends AsyncTask<Void, Integer, Boolean> {
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if (isState) {
+                final String id = new Authentication().getCurrentUser().getEmail();
+                Timer timer = new Timer();
+                timer.execute();
+                new Storge().getProfileImage(circleImageView, id);
+                if (textViewState.getText().equals("t")) {
+                    loading.dismiss();
+                    state = true;
+                    typeUser = textViewTypeUser.getText().toString();
+                    textViewState.setText("");
+                    switch (typeUser) {
+                        case "a":
+                            userA();
+                            break;
+                        case "b":
+                            userB();
+                            break;
+                        case "c":
+                            userC();
+                            break;
+                        case "n":
+                            newUser();
+                            break;
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            for (int i = 1; i <= 5; i++) { try { Thread.sleep(1000); } catch (InterruptedException ignored) { } }
+            return null;
+        }
     }
 
     public void handleMain (View view) {

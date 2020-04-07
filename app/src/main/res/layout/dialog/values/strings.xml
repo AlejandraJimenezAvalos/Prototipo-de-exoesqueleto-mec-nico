@@ -36,7 +36,6 @@
     <string name="chats">Chats</string>
     <string name="buscar">buscar</string>
     <string name="agregar">Agregar</string>
-    <string name="agregar">Agregar</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>
