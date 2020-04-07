@@ -1,5 +1,6 @@
 package com.example.exoesqueletov1;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,16 +30,12 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
 
     private List<MenuItem> mData;
 
-    private static final String DOCUMENT_USER = "user";
-    private static final long ONE_MEGABYTE = 1024 * 1024;
-
     private boolean state = false;
     private boolean isState = true;
 
     private String typeUser;
     private String id = new Authentication().getCurrentUser().getEmail();
 
-    private Database database;
     private DialogLoading loading;
 
     private CircleImageView circleImageView;
@@ -58,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         textViewState = findViewById(R.id.text_state_main);
         circleImageView = findViewById(R.id.image_perfil_main);
 
-        database = new Database(getSupportFragmentManager(), this);
+        Database database = new Database(getSupportFragmentManager(), this);
         database.init(name, textViewTypeUser, textViewState, id, circleImageView);
 
         Timer timer = new Timer();
@@ -127,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         getSupportFragmentManager().beginTransaction().replace(R.id.container_main, fragment).commit();
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class Timer extends AsyncTask<Void, Integer, Boolean> {
 
         @Override
