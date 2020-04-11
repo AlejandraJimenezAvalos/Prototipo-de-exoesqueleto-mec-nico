@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,10 +24,6 @@ import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.Database;
 import com.example.exoesqueletov1.clases.Storge;
 import com.example.exoesqueletov1.dialog.DialogUpdateData;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -50,12 +45,7 @@ public class ProfileFragment extends Fragment {
     private TextView textViewPhone;
     private TextView textViewSchool;
     private CircleImageView circleImageViewProfile;
-    private LinearLayout linearLayoutSchool;
-    private Button buttonOk;
-    private ImageView buttonChangeImage;
 
-    private static final String COLLECTION_USERS = "users";
-    private static final long ONE_MEGABYTE = 1024 * 1024;
     private static final String USER = "user";
     private static final String NAME = "name";
     private static final String ADDRESS = "address";
@@ -65,17 +55,14 @@ public class ProfileFragment extends Fragment {
     private static final String SCHOOL = "school";
     private static final String DESCRIPTION = "description";
     private static final String DOCUMENT_PROFILE = "profile";
-    private static final String PICTURE_PROFILE = "pictureProfile";
     private static final int PICK_IMAGE = 1;
     private static final int CUT_PICTURE = 3535;
     private static final int ASPECT_RATIO_X = 1;
     private static final int ASPECT_RATIO_Y = 1;
-    private String user;
 
-    private String typeUser;
+    private Database database;
 
-    ProfileFragment(String typeUser) {
-        this.typeUser = typeUser;
+    ProfileFragment () {
     }
 
     @Nullable
@@ -92,11 +79,15 @@ public class ProfileFragment extends Fragment {
         textViewPhone = view.findViewById(R.id.text_profile_view_phone);
         textViewSchool = view.findViewById(R.id.text_profile_view_school);
         circleImageViewProfile = view.findViewById(R.id.image_view_profile_view);
-        linearLayoutSchool = view.findViewById(R.id.linear_profile_school);
-        buttonOk = view.findViewById(R.id.button_profile_view_save);
-        buttonChangeImage = view.findViewById(R.id.button_profile_view_image);
+        LinearLayout linearLayoutSchool = view.findViewById(R.id.linear_profile_school);
+        Button buttonOk = view.findViewById(R.id.button_profile_view_save);
+        ImageView buttonChangeImage = view.findViewById(R.id.button_profile_view_image);
 
-        updateProfile ();
+        final String id = new Authentication().getCurrentUser().getEmail();
+
+        database = new Database(getFragmentManager(), getContext());
+        database.getProfile(id, textViewName, textViewUser, textViewDes, textViewMail, textViewAddress, textViewCell,
+                textViewPhone, textViewSchool, circleImageViewProfile, linearLayoutSchool);
 
         textViewDes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +134,13 @@ public class ProfileFragment extends Fragment {
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String user = "a";
                 Map<String, Object> data = new HashMap<>();
+
+                if (textViewUser.getText().equals("Administrador")) { user = "a"; }
+                if (textViewUser.getText().equals("Fisioterapeuta")) { user = "b"; }
+                if (textViewUser.getText().equals("Paciente")) { user = "c"; }
+
                 data.put(NAME, textViewName.getText().toString().trim());
                 data.put(USER, user);
                 data.put(DESCRIPTION, textViewDes.getText().toString().trim());
@@ -152,9 +149,8 @@ public class ProfileFragment extends Fragment {
                 data.put(CELL, textViewCell.getText().toString().trim());
                 data.put(PHONE, textViewPhone.getText().toString().trim());
                 data.put(SCHOOL, textViewSchool.getText().toString().trim());
-                Database database = new Database(getFragmentManager(), getContext());
-                database.updateData(new Authentication().getCurrentUser().getEmail(), DOCUMENT_PROFILE, data);
-                updateProfile();
+
+                database.updateData(id, DOCUMENT_PROFILE, data);
             }
         });
 
@@ -191,57 +187,16 @@ public class ProfileFragment extends Fragment {
         builder.show();
     }
 
-    private void cropCapturedImage(Uri urlImagen){
-        //inicializamos nuestro intent
+    private void cropCapturedImage(Uri urlImagen) {
         Intent cropIntent = new Intent("com.android.camera.action.CROP");
         cropIntent.setDataAndType(urlImagen, "image/*");
-        //Habilitamos el crop en este intent
         cropIntent.putExtra("crop", "true");
         cropIntent.putExtra("aspectX", ASPECT_RATIO_X);
         cropIntent.putExtra("aspectY", ASPECT_RATIO_Y);
-        //indicamos los limites de nuestra imagen a cortar
         cropIntent.putExtra("outputX", 400);
         cropIntent.putExtra("outputY", 250);
-        //True: retornara la imagen como un bitmap, False: retornara la url de la imagen la guardada.
         cropIntent.putExtra("return-data", true);
-        //iniciamos nuestra activity y pasamos un codigo de respuesta.
         startActivityForResult(cropIntent, CUT_PICTURE);
-    }
-
-    private void updateProfile() {
-        final String id = new Authentication().getCurrentUser().getEmail();
-
-        FirebaseFirestore.getInstance().collection(id).document(DOCUMENT_PROFILE).
-                get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                String typeUser = "";
-
-                user = documentSnapshot.getData().get(USER).toString();
-                if (user.equals("a")) { typeUser = "Administrador"; }
-                if (user.equals("b")) { typeUser = "Fisioterapeuta"; }
-                if (user.equals("c")) {
-                    typeUser = "Paciente";
-                    linearLayoutSchool.setVisibility(View.INVISIBLE);
-                }
-                textViewName.setText(documentSnapshot.getData().get(NAME).toString());
-                textViewUser.setText(typeUser);
-                textViewDes.setText(documentSnapshot.getData().get(DESCRIPTION).toString());
-                textViewMail.setText(documentSnapshot.getData().get(EMAIL).toString());
-                textViewAddress.setText(documentSnapshot.getData().get(ADDRESS).toString());
-                textViewCell.setText(documentSnapshot.getData().get(CELL).toString());
-                textViewPhone.setText(documentSnapshot.getData().get(PHONE).toString());
-                textViewSchool.setText(documentSnapshot.getData().get(SCHOOL).toString());
-
-                FirebaseStorage.getInstance().getReference().child(PICTURE_PROFILE).child(id)
-                        .getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        circleImageViewProfile.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-                    }
-                });
-            }
-        });
     }
 
     @Override

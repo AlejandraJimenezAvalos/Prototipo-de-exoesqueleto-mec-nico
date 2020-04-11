@@ -1,6 +1,5 @@
 package com.example.exoesqueletov1;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import androidx.fragment.app.Fragment;
 
 public class WelcomeFragment extends Fragment {
 
-    View view;
+    private View view;
 
     public WelcomeFragment() { }
 

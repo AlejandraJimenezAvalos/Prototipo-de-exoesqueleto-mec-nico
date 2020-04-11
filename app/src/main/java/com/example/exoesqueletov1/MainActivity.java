@@ -28,6 +28,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMenuListener {
 
+    private CircleImageView circleImageView;
+    private TextView textViewState;
+    private TextView textViewTypeUser;
+
     private List<MenuItem> mData;
 
     private boolean state = false;
@@ -37,10 +41,6 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
     private String id = new Authentication().getCurrentUser().getEmail();
 
     private DialogLoading loading;
-
-    private CircleImageView circleImageView;
-    private TextView textViewState;
-    private TextView textViewTypeUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +56,11 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         circleImageView = findViewById(R.id.image_perfil_main);
 
         Database database = new Database(getSupportFragmentManager(), this);
-        database.init(name, textViewTypeUser, textViewState, id, circleImageView);
+        database.initMain(name, textViewTypeUser, textViewState, id, circleImageView);
 
         Timer timer = new Timer();
         timer.execute();
     }
-
 
     private void newUser() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new ProfileLogUpFragment()).commit();
@@ -78,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         recyclerMenu.setAdapter(menuAdapter);
         recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotifyFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotificationFragment(typeUser)).commit();
     }
 
     private void userB() {
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         recyclerMenu.setAdapter(menuAdapter);
         recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotifyFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotificationFragment(typeUser)).commit();
     }
 
     private void userC() {
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         recyclerMenu.setAdapter(menuAdapter);
         recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotifyFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotificationFragment(typeUser)).commit();
     }
 
     @Override
@@ -116,8 +115,8 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
 
         if (!state) { fragment = new ProfileLogUpFragment(); }
         else {
-            if (mData.get(position).getTitle().equals(getString(R.string.inicio))) { fragment = new NotifyFragment(); }
-            if (mData.get(position).getTitle().equals(getString(R.string.profile))) { fragment = new ProfileFragment(typeUser); }
+            if (mData.get(position).getTitle().equals(getString(R.string.inicio))) { fragment = new NotificationFragment(typeUser); }
+            if (mData.get(position).getTitle().equals(getString(R.string.profile))) { fragment = new ProfileFragment(); }
             if (mData.get(position).getTitle().equals(getString(R.string.messages))) { fragment = new MessageFragment(typeUser); }
         }
 

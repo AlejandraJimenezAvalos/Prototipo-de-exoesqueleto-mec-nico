@@ -7,7 +7,7 @@ public class ChatItem {
     private String date;
     private String message;
 
-    public ChatItem(String id, String name, String date, String message) {
+    ChatItem(String id, String name, String date, String message) {
         this.id = id;
         this.name = name;
         this.date = date;

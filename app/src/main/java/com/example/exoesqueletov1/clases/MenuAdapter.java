@@ -93,7 +93,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.NewsViewHolder
 
         @Override
         public void onClick(View v) {
-
             onMenuListener.onMenuClick(getAdapterPosition());
         }
     }

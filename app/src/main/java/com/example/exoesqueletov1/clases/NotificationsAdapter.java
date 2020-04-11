@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,14 +18,14 @@ import com.example.exoesqueletov1.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NewsViewHolder> implements Filterable  {
+public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.NewsViewHolder> implements Filterable  {
 
     private Context mContext;
-    private List<NotifyItem> itemList;
-    private List<NotifyItem> mDataFiltered;
-    private NotifyAdapter.OnMenuListener onMenuListener;
+    private List<NotificationsItem> itemList;
+    private List<NotificationsItem> mDataFiltered;
+    private NotificationsAdapter.OnMenuListener onMenuListener;
 
-    public NotifyAdapter(Context mContext, List<NotifyItem> itemList, NotifyAdapter.OnMenuListener onMenuListener) {
+    public NotificationsAdapter(Context mContext, List<NotificationsItem> itemList, NotificationsAdapter.OnMenuListener onMenuListener) {
         this.mContext = mContext;
         this.itemList = itemList;
         this.mDataFiltered = itemList;
@@ -33,14 +34,14 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NewsViewHo
 
     @NonNull
     @Override
-    public NotifyAdapter.NewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public NotificationsAdapter.NewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View layout;
-        layout = LayoutInflater.from(mContext).inflate(R.layout.item_notify,viewGroup,false);
+        layout = LayoutInflater.from(mContext).inflate(R.layout.item_notification,viewGroup,false);
         return new NewsViewHolder(layout, onMenuListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NotifyAdapter.NewsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NotificationsAdapter.NewsViewHolder holder, int position) {
         holder.title.setText(mDataFiltered.get(position).getTitle());
         holder.date.setText(mDataFiltered.get(position).getDate());
         holder.description.setText(mDataFiltered.get(position).getDescription());
@@ -61,8 +62,8 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NewsViewHo
                     mDataFiltered = itemList;
                 }
                 else {
-                    List<NotifyItem> lstFiltered = new ArrayList<>();
-                    for (NotifyItem row : itemList) {
+                    List<NotificationsItem> lstFiltered = new ArrayList<>();
+                    for (NotificationsItem row : itemList) {
                         if (row.getTitle().toLowerCase().contains(Key.toLowerCase())){
                             lstFiltered.add(row);
                         }
@@ -76,7 +77,7 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NewsViewHo
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mDataFiltered = (List<NotifyItem>) results.values;
+                mDataFiltered = (List<NotificationsItem>) results.values;
                 notifyDataSetChanged();
             }
         };
@@ -85,17 +86,18 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.NewsViewHo
     public static class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView title, date, description;
-        private ImageView buttonGo;
-        private NotifyAdapter.OnMenuListener onMenuListener;
+        private NotificationsAdapter.OnMenuListener onMenuListener;
 
-        NewsViewHolder(@NonNull View itemView, NotifyAdapter.OnMenuListener onMenuListener) {
+        NewsViewHolder(@NonNull View itemView, NotificationsAdapter.OnMenuListener onMenuListener) {
             super(itemView);
+
+            LinearLayout itemPending = itemView.findViewById(R.id.item_pending);
             title = itemView.findViewById(R.id.text_title_item_pending);
             date = itemView.findViewById(R.id.text_date_item_pending);
             description = itemView.findViewById(R.id.text_description_item_pending);
-            buttonGo = itemView.findViewById(R.id.button_go_item_pending);
+
             this.onMenuListener = onMenuListener;
-            buttonGo.setOnClickListener(this);
+            itemPending.setOnClickListener(this);
         }
 
         @Override

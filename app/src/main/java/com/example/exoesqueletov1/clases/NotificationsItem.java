@@ -1,15 +1,19 @@
 package com.example.exoesqueletov1.clases;
 
-public class NotifyItem {
+import java.util.UUID;
+
+public class NotificationsItem {
 
     private String title;
     private String date;
     private String description;
+    private String id;
 
-    public NotifyItem(String title, String date, String description) {
+    public NotificationsItem(String title, String date, String description, String id) {
         this.title = title;
         this.date = date;
         this.description = description;
+        this.id = id;
     }
 
     String getTitle() {
@@ -22,5 +26,9 @@ public class NotifyItem {
 
     String getDescription() {
         return description;
+    }
+
+    String getUuid() {
+        return id;
     }
 }

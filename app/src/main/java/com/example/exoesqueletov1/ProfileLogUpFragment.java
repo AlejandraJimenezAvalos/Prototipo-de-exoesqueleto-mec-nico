@@ -27,6 +27,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -156,15 +157,22 @@ public class ProfileLogUpFragment extends Fragment {
         String id = new Authentication().getCurrentUser().getEmail();
         Map<String, Object> data = new HashMap<>();
 
+        if (!radioButtonPatient.isChecked()) { user = "c"; }
+        else { user = "b"; }
+
         data.put(id, true);
         data.put("id", id);
+        data.put("user", user);
         data.put("name", textInputLayoutName.getEditText().getText().toString().trim());
         data.put("lastName", textInputLayoutLastName.getEditText().getText().toString().trim());
         data.put("date", textInputLayoutDate.getEditText().getText().toString().trim());
         data.put("country", spinnerCountry.getSelectedItem().toString().trim());
         data.put("gender", radioButtonWomen.isChecked());
-        if (!radioButtonPatient.isChecked()) { user = "c"; }
-        else { user = "b"; }
+
+        if (user.equals("b")) {
+            String idChat = UUID.randomUUID().toString();
+            data.put("collectionChats", idChat);
+        }
 
         new Database(getFragmentManager(), getContext()).setDataUser(id, DOCUMENT_USER, data, user);
         getActivity().finish();
