@@ -42,15 +42,21 @@ public class Database implements ChatAdapter.OnMenuListener {
     private List<ChatItem> mData;
     private ChatAdapter chatAdapter;
 
+    private String typeUser;
+
     private boolean stateOnClick = false;
 
     private static final String COLLECTION_USERS = "users";
-    private static final String COLLECTION_CHATS = "collectionChats";
+    private static final String COLLECTION_CHATS = "chats";
     private static final String COLLECTION_NOTIFICATIONS = "notifications";
+
     private static final String DOCUMENT_TYPE = "typeUser";
     private static final String DOCUMENT_PROFILE = "profile";
 
     private static final String ID = "id";
+    private static final String ID_PATIENT = "idPatient";
+    private static final String ID_CHAT = "idChat";
+    private static final String ID_SPECIALIST = "idSpecialist";
     private static final String ID_NEW_USER = "idNewUser";
     private static final String USER = "user";
     private static final String NAME = "name";
@@ -73,7 +79,8 @@ public class Database implements ChatAdapter.OnMenuListener {
     private static final String ADMIN = "a";
 
     private static final int CODE_FRIEND_REQUEST = 0;
-    private static final int CODE_NEW_USER = 1;
+    private static final int CODE_ADMIN_REQUEST = 1;
+    private static final int CODE_NEW_USER = 2;
 
 
     public Database(FragmentManager fragmentManager, Context context) {
@@ -82,7 +89,14 @@ public class Database implements ChatAdapter.OnMenuListener {
         this.fragmentManager = fragmentManager;
     }
 
-    public void getUsers(String typeUser, final RecyclerView recyclerView) {
+    public Database(FragmentManager fragmentManager, Context context, String typeUser) {
+        this.context = context;
+        db = FirebaseFirestore.getInstance();
+        this.fragmentManager = fragmentManager;
+        this.typeUser = typeUser;
+    }
+
+    public void getUsers(final RecyclerView recyclerView) {
         stateOnClick = true;
         if (typeUser.equals("a")) {
             FirebaseFirestore.getInstance().
@@ -101,18 +115,19 @@ public class Database implements ChatAdapter.OnMenuListener {
                                             for (QueryDocumentSnapshot documentC : taskC.getResult()) {
                                                 String id = documentC.getData().get(ID).toString();
                                                 String name = documentC.getData().get(NAME).toString();
-                                                mData.add(new ChatItem(id, name, "", "Pasiente"));
+                                                mData.add(new ChatItem(id, name, "", "Pasiente", ""));
                                             }
 
                                             for (QueryDocumentSnapshot documentB : taskB.getResult()) {
                                                 String id = documentB.getData().get("id").toString();
                                                 String name = documentB.getData().get("name").toString();
-                                                mData.add(new ChatItem(id, name, "", "Fisioterapeuta"));
+                                                mData.add(new ChatItem(id, name, "", "Fisioterapeuta", ""));
                                             }
 
                                             chatAdapter = new ChatAdapter(context, mData, Database.this);
                                             recyclerView.setAdapter(chatAdapter);
-                                            recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+                                            recyclerView.setLayoutManager(new LinearLayoutManager(context,
+                                                    LinearLayoutManager.VERTICAL, false));
 
                                         }
                                     });
@@ -132,9 +147,29 @@ public class Database implements ChatAdapter.OnMenuListener {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String id = document.getData().get("id").toString();
                                 String name = document.getData().get("name").toString();
-                                mData.add(new ChatItem(id, name, "", "Pasiente"));
+                                mData.add(new ChatItem(id, name, "", "Pasiente", ""));
                             }
 
+                            chatAdapter = new ChatAdapter(context, mData, Database.this);
+                            recyclerView.setAdapter(chatAdapter);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(context,
+                                    LinearLayoutManager.VERTICAL, false));
+                        }
+                    });
+        }
+        if (typeUser.equals("c")) {
+            String id = new Authentication().getCurrentUser().getEmail();
+            db.collection(COLLECTION_CHATS).whereEqualTo(ID_PATIENT, id).get().
+                    addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            mData = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (!Boolean.parseBoolean(document.getData().get(STATE).toString())) {
+                                    mData.add(new ChatItem(document.getData().get(ID_SPECIALIST).toString(),
+                                            "", "", context.getString(R.string.do_you_know_this_person), ""));
+                                }
+                            }
                             chatAdapter = new ChatAdapter(context, mData, Database.this);
                             recyclerView.setAdapter(chatAdapter);
                             recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
@@ -143,16 +178,38 @@ public class Database implements ChatAdapter.OnMenuListener {
         }
     }
 
-    public void getChats(String id, RecyclerView recyclerView, String typeUser) {
-        mData = new ArrayList<>();
-
+    public void getChats(final String id, final RecyclerView recyclerView) {
         stateOnClick = false;
 
-        //Aqui incertar los chats
+        String field = "";
+        String otherField = "";
+        mData = new ArrayList<>();
 
-        chatAdapter = new ChatAdapter(context, mData, this);
-        recyclerView.setAdapter(chatAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        if (typeUser.equals("a") || typeUser.equals("b")) {
+            field = ID_SPECIALIST;
+            otherField = ID_PATIENT;
+        }
+        if (typeUser.equals("c")) {
+            field = ID_PATIENT;
+            otherField = ID_SPECIALIST;
+        }
+        final String finalOtherField = otherField;
+        db.collection(COLLECTION_CHATS).whereEqualTo(field, id).get().
+                addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                mData = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    if (Boolean.parseBoolean(document.getData().get(STATE).toString())) {
+                        mData.add(new ChatItem(document.getData().get(finalOtherField).toString(),
+                                "", "", "", document.getData().get(ID_CHAT).toString()));
+                    }
+                }
+                chatAdapter = new ChatAdapter(context, mData, Database.this);
+                recyclerView.setAdapter(chatAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+            }
+        });
     }
 
     public void getProfile(final String id, final TextView textViewName, final TextView textViewUser,
@@ -210,7 +267,8 @@ public class Database implements ChatAdapter.OnMenuListener {
     }
 
     public void updateData (String collection, String document, Map<String, Object> data) {
-        db.collection(collection).document(document).update(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection(collection).document(document).update(data).
+                addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 DialogAllDone dialogAllDone = new DialogAllDone(context.getString(R.string.operacion_exitosa));
@@ -274,14 +332,8 @@ public class Database implements ChatAdapter.OnMenuListener {
         db.collection(COLLECTION_USERS).document(collectionPath).set(dataCollectionUsers);
         db.collection(COLLECTION_NOTIFICATIONS).add(dataNotification);
 
-        if (userType.equals("b")) {
-            Map<String, Object> dataCollectionChats;
-            dataCollectionChats = new HashMap<>();
-            dataCollectionChats.put(STATE, false);
-            db.collection(dataUser.get(COLLECTION_CHATS).toString()).add(dataCollectionChats);
-        }
-
-        db.collection(collectionPath).document(document).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection(collectionPath).document(document).get().
+                addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 loading.dismiss();
@@ -306,7 +358,7 @@ public class Database implements ChatAdapter.OnMenuListener {
             Toast.makeText(context, "chat", Toast.LENGTH_SHORT).show();
         } else {
             DialogFriendRequest request;
-            request = new DialogFriendRequest(mData.get(position).getName(),
+            request = new DialogFriendRequest(typeUser, mData.get(position).getName(),
                     mData.get(position).getMessage(), mData.get(position).getId());
             request.show(fragmentManager, "");
         }

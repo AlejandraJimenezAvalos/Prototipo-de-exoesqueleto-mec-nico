@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,6 +44,9 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         holder.title.setText(mDataFiltered.get(position).getTitle());
         holder.date.setText(mDataFiltered.get(position).getDate());
         holder.description.setText(mDataFiltered.get(position).getDescription());
+        if (mDataFiltered.get(position).isState()) {
+            holder.viewItemPending.setBackgroundResource(R.color.blue);
+        }
     }
 
     @Override
@@ -86,6 +88,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     public static class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView title, date, description;
+        private View viewItemPending;
         private NotificationsAdapter.OnMenuListener onMenuListener;
 
         NewsViewHolder(@NonNull View itemView, NotificationsAdapter.OnMenuListener onMenuListener) {
@@ -95,6 +98,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             title = itemView.findViewById(R.id.text_title_item_pending);
             date = itemView.findViewById(R.id.text_date_item_pending);
             description = itemView.findViewById(R.id.text_description_item_pending);
+            viewItemPending = itemPending.findViewById(R.id.view_item_pending);
 
             this.onMenuListener = onMenuListener;
             itemPending.setOnClickListener(this);

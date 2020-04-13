@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
     private boolean state = false;
     private boolean isState = true;
 
+    private static final int CODE_REGULAR = 1000;
+
     private String typeUser;
     private String id = new Authentication().getCurrentUser().getEmail();
 
@@ -117,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         else {
             if (mData.get(position).getTitle().equals(getString(R.string.inicio))) { fragment = new NotificationFragment(typeUser); }
             if (mData.get(position).getTitle().equals(getString(R.string.profile))) { fragment = new ProfileFragment(); }
-            if (mData.get(position).getTitle().equals(getString(R.string.messages))) { fragment = new MessageFragment(typeUser); }
+            if (mData.get(position).getTitle().equals(getString(R.string.messages))) { fragment = new MessageFragment(typeUser, CODE_REGULAR); }
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_main, fragment).commit();
@@ -178,4 +180,15 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isState = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isState = false;
+    }
 }

@@ -50,6 +50,14 @@ public class ProfileLogUpFragment extends Fragment {
     private static final int ASPECT_RATIO_Y = 1;
     private static final String DOCUMENT_USER = "user";
 
+    private static final String ID = "id";
+    private static final String USER = "user";
+    private static final String NAME = "name";
+    private static final String LAST_NAME = "lastName";
+    private static final String COUNTRY = "country";
+    private static final String GENDER = "gender";
+    private static final String DATE = "date";
+
     public ProfileLogUpFragment() { }
 
     @Nullable
@@ -161,18 +169,13 @@ public class ProfileLogUpFragment extends Fragment {
         else { user = "b"; }
 
         data.put(id, true);
-        data.put("id", id);
-        data.put("user", user);
-        data.put("name", textInputLayoutName.getEditText().getText().toString().trim());
-        data.put("lastName", textInputLayoutLastName.getEditText().getText().toString().trim());
-        data.put("date", textInputLayoutDate.getEditText().getText().toString().trim());
-        data.put("country", spinnerCountry.getSelectedItem().toString().trim());
-        data.put("gender", radioButtonWomen.isChecked());
-
-        if (user.equals("b")) {
-            String idChat = UUID.randomUUID().toString();
-            data.put("collectionChats", idChat);
-        }
+        data.put(ID, id);
+        data.put(USER, user);
+        data.put(NAME, textInputLayoutName.getEditText().getText().toString().trim());
+        data.put(LAST_NAME, textInputLayoutLastName.getEditText().getText().toString().trim());
+        data.put(DATE, textInputLayoutDate.getEditText().getText().toString().trim());
+        data.put(COUNTRY, spinnerCountry.getSelectedItem().toString().trim());
+        data.put(GENDER, radioButtonWomen.isChecked());
 
         new Database(getFragmentManager(), getContext()).setDataUser(id, DOCUMENT_USER, data, user);
         getActivity().finish();

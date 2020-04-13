@@ -1,15 +1,12 @@
 package com.example.exoesqueletov1.clases;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -17,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exoesqueletov1.R;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +29,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
     private List<ChatItem> mDataFiltered;
     private ChatAdapter.OnMenuListener onMenuListener;
 
-    private static final long ONE_MEGABYTE = 1024 * 1024;
+    private static final String DOCUMENT_PROFILE = "profile";
+    private static final String NAME = "name";
+    private static final String USER = "user";
 
-    public ChatAdapter(Context mContext, List<ChatItem> itemList, ChatAdapter.OnMenuListener onMenuListener) {
+
+    ChatAdapter(Context mContext, List<ChatItem> itemList, ChatAdapter.OnMenuListener onMenuListener) {
         this.mContext = mContext;
         this.itemList = itemList;
         this.mDataFiltered = itemList;
@@ -49,19 +50,29 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ChatAdapter.NewsViewHolder holder, int position) {
-        holder.textViewName.setText(mDataFiltered.get(position).getName());
-        holder.textViewMessage.setText(mDataFiltered.get(position).getMessage());
-        holder.textViewDate.setText(mDataFiltered.get(position).getDate());
-        final CircleImageView circleImageView = holder.circleImageViewProfilePhoto;
-        FirebaseStorage.getInstance().getReference().child("pictureProfile").child(mDataFiltered.get(position).getId())
-                .getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap photo = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                circleImageView.setImageBitmap(photo);
-            }
-        });
+    public void onBindViewHolder(@NonNull final ChatAdapter.NewsViewHolder holder, final int position) {
+        if (!mDataFiltered.get(position).getName().equals("")) {
+            holder.textViewName.setText(mDataFiltered.get(position).getName());
+            holder.textViewMessage.setText(mDataFiltered.get(position).getMessage());
+            holder.textViewDate.setText(mDataFiltered.get(position).getDate());
+        } else {
+            FirebaseFirestore.getInstance().collection(mDataFiltered.get(position).getId()).
+                    document(DOCUMENT_PROFILE).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    holder.textViewName.setText(documentSnapshot.getData().get(NAME).toString());
+                    holder.textViewMessage.setText(mDataFiltered.get(position).getMessage());
+                    mDataFiltered.get(position).setName(documentSnapshot.getData().get(NAME).toString());
+                    String typeUser = "";
+                    if (documentSnapshot.getData().get(USER).toString().equals("a")) { typeUser = "Administrador"; }
+                    if (documentSnapshot.getData().get(USER).toString().equals("b")) { typeUser = "Fisioterapeuta"; }
+                    if (documentSnapshot.getData().get(USER).toString().equals("c")) { typeUser = "Pasiente"; }
+
+                    mDataFiltered.get(position).setMessage(typeUser);
+                }
+            });
+        }
+        new Storge().getProfileImage(holder.circleImageViewProfilePhoto, mDataFiltered.get(position).getId());
     }
 
     @Override

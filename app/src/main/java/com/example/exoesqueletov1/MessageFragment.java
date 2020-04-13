@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.Database;
-import com.example.exoesqueletov1.dialog.DialogOops;
 
 public class MessageFragment extends Fragment {
 
@@ -26,9 +26,16 @@ public class MessageFragment extends Fragment {
     private RecyclerView recyclerView;
 
     private String typeUser;
+    private int code;
 
-    MessageFragment(String typeUser) {
+    private static final int CODE_FRIEND_REQUEST = 0;
+    private static final int CODE_ADMIN_REQUEST = 1;
+    private static final int CODE_REGULAR = 1000;
+
+
+    MessageFragment(String typeUser, int code) {
         this.typeUser = typeUser;
+        this.code = code;
     }
 
     @Nullable
@@ -45,8 +52,21 @@ public class MessageFragment extends Fragment {
         editTextSearch = view.findViewById(R.id.search_edit_text);
         recyclerView = view.findViewById(R.id.recycler_chats);
 
-        final Database database = new Database(getFragmentManager(), getContext());
-        database.getChats(id, recyclerView, typeUser);
+        final Database database = new Database(getFragmentManager(), getContext(), typeUser);
+
+        switch (code) {
+            case CODE_FRIEND_REQUEST:
+                database.getUsers(recyclerView);
+                viewAdd.setBackgroundResource(R.color.pinkDark);
+                viewChats.setBackgroundResource(R.color.blueDark);
+                break;
+            case CODE_ADMIN_REQUEST:
+                Toast.makeText(getContext(), "Estamos en ello", Toast.LENGTH_SHORT).show();
+                break;
+            case CODE_REGULAR:
+                database.getChats(id, recyclerView);
+                break;
+        }
 
         editTextSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -68,21 +88,16 @@ public class MessageFragment extends Fragment {
             public void onClick(View v) {
                 viewChats.setBackgroundResource(R.color.pinkDark);
                 viewAdd.setBackgroundResource(R.color.blueDark);
-                database.getChats(id, recyclerView, typeUser);
+                database.getChats(id, recyclerView);
             }
         });
 
         textViewAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (typeUser.equals("c")) {
-                    DialogOops oops = new DialogOops("Por la seguridad de sus datos, usted no puede hacer mas amistades.");
-                    oops.show(getFragmentManager(), "");
-                } else {
-                    viewAdd.setBackgroundResource(R.color.pinkDark);
-                    viewChats.setBackgroundResource(R.color.blueDark);
-                    database.getUsers(typeUser, recyclerView);
-                }
+                viewAdd.setBackgroundResource(R.color.pinkDark);
+                viewChats.setBackgroundResource(R.color.blueDark);
+                database.getUsers(recyclerView);
             }
         });
 

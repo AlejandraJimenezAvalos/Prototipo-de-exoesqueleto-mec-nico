@@ -23,7 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:text="@string/nombre"
         app:layout_constraintBottom_toTopOf="@+id/text_item_chat_message"
         app:layout_constraintStart_toEndOf="@+id/image_item_chat"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +33,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:text="@string/messages"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_item_chat"
         app:layout_constraintTop_toBottomOf="@+id/text_item_chat_name" />
@@ -44,7 +42,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/dd_mm_aaaa"
         android:textColor="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

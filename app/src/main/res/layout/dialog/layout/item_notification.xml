@@ -9,6 +9,7 @@
     android:id="@+id/item_pending">
 
     <View
+        android:id="@+id/view_item_pending"
         android:layout_width="5sp"
         android:layout_height="match_parent"
         android:background="@color/pinkDark"/>

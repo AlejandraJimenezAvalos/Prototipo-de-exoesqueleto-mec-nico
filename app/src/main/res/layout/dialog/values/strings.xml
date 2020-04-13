@@ -36,6 +36,10 @@
     <string name="chats">Chats</string>
     <string name="buscar">buscar</string>
     <string name="agregar">Agregar</string>
+    <string name="more_info">Da click para ver mas informacion</string>
+    <string name="un_admin">Un administrador ponerse en contacto contigo.</string>
+    <string name="un_fisioterapeuta">Un fisioterapeuta ponerse en contacto contigo.</string>
+    <string name="do_you_know_this_person">¿Conoces a esta persona?</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>
