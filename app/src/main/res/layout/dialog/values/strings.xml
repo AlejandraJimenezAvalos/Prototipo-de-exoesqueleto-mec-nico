@@ -40,6 +40,9 @@
     <string name="un_admin">Un administrador ponerse en contacto contigo.</string>
     <string name="un_fisioterapeuta">Un fisioterapeuta ponerse en contacto contigo.</string>
     <string name="do_you_know_this_person">¿Conoces a esta persona?</string>
+    <string name="aa">Aa</string>
+    <string name="habla_con_un">Ya puedes hablar con tu pasiente</string>
+    <string name="request_accept">Han aceptado tu solicitud</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>

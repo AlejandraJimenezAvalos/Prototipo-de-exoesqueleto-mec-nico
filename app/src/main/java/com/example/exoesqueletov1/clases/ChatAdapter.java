@@ -34,7 +34,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
     private static final String USER = "user";
 
 
-    ChatAdapter(Context mContext, List<ChatItem> itemList, ChatAdapter.OnMenuListener onMenuListener) {
+    ChatAdapter(Context mContext, List<ChatItem> itemList, OnMenuListener onMenuListener) {
         this.mContext = mContext;
         this.itemList = itemList;
         this.mDataFiltered = itemList;
@@ -43,7 +43,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
 
     @NonNull
     @Override
-    public ChatAdapter.NewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View layout;
         layout = LayoutInflater.from(mContext).inflate(R.layout.item_chat,viewGroup,false);
         return new NewsViewHolder(layout, onMenuListener);

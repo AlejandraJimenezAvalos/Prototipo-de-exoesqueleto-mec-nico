@@ -1,6 +1,7 @@
 package com.example.exoesqueletov1.clases;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -8,10 +9,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.exoesqueletov1.ChatActivity;
+import com.example.exoesqueletov1.MainActivity;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.dialog.DialogAllDone;
 import com.example.exoesqueletov1.dialog.DialogFriendRequest;
@@ -41,6 +45,7 @@ public class Database implements ChatAdapter.OnMenuListener {
     private Context context;
     private List<ChatItem> mData;
     private ChatAdapter chatAdapter;
+    private FragmentActivity fragmentActivity;
 
     private String typeUser;
 
@@ -81,6 +86,7 @@ public class Database implements ChatAdapter.OnMenuListener {
     private static final int CODE_FRIEND_REQUEST = 0;
     private static final int CODE_ADMIN_REQUEST = 1;
     private static final int CODE_NEW_USER = 2;
+    private static final int CODE_TO_ACCEPT = 3;
 
 
     public Database(FragmentManager fragmentManager, Context context) {
@@ -89,11 +95,12 @@ public class Database implements ChatAdapter.OnMenuListener {
         this.fragmentManager = fragmentManager;
     }
 
-    public Database(FragmentManager fragmentManager, Context context, String typeUser) {
+    public Database(FragmentManager fragmentManager, Context context, String typeUser, FragmentActivity fragmentActivity) {
         this.context = context;
         db = FirebaseFirestore.getInstance();
         this.fragmentManager = fragmentManager;
         this.typeUser = typeUser;
+        this.fragmentActivity = fragmentActivity;
     }
 
     public void getUsers(final RecyclerView recyclerView) {
@@ -200,9 +207,11 @@ public class Database implements ChatAdapter.OnMenuListener {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 mData = new ArrayList<>();
                 for (QueryDocumentSnapshot document : task.getResult()) {
+
                     if (Boolean.parseBoolean(document.getData().get(STATE).toString())) {
                         mData.add(new ChatItem(document.getData().get(finalOtherField).toString(),
-                                "", "", "", document.getData().get(ID_CHAT).toString()));
+                                "", "", "", document.getData().get(ID_CHAT).
+                                toString()));
                     }
                 }
                 chatAdapter = new ChatAdapter(context, mData, Database.this);
@@ -355,7 +364,11 @@ public class Database implements ChatAdapter.OnMenuListener {
     @Override
     public void onMenuClick(int position) {
         if (!stateOnClick) {
-            Toast.makeText(context, "chat", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, ChatActivity.class);
+            intent.putExtra(ID_CHAT, mData.get(position).getIdChat());
+            intent.putExtra(ID_SPECIALIST, mData.get(position).getId());
+            context.startActivity(intent);
+            fragmentActivity.finish();
         } else {
             DialogFriendRequest request;
             request = new DialogFriendRequest(typeUser, mData.get(position).getName(),

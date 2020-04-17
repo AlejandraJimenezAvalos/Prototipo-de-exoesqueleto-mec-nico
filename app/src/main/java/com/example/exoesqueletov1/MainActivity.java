@@ -18,6 +18,10 @@ import com.example.exoesqueletov1.clases.MenuAdapter;
 import com.example.exoesqueletov1.clases.MenuItem;
 import com.example.exoesqueletov1.clases.Storge;
 import com.example.exoesqueletov1.dialog.DialogLoading;
+import com.example.exoesqueletov1.fragments.MessageFragment;
+import com.example.exoesqueletov1.fragments.NotificationFragment;
+import com.example.exoesqueletov1.fragments.ProfileFragment;
+import com.example.exoesqueletov1.fragments.ProfileLogUpFragment;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -121,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
             if (mData.get(position).getTitle().equals(getString(R.string.profile))) { fragment = new ProfileFragment(); }
             if (mData.get(position).getTitle().equals(getString(R.string.messages))) { fragment = new MessageFragment(typeUser, CODE_REGULAR); }
         }
-
         getSupportFragmentManager().beginTransaction().replace(R.id.container_main, fragment).commit();
     }
 
@@ -160,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            for (int i = 1; i <= 5; i++) { try { Thread.sleep(1000); } catch (InterruptedException ignored) { } }
+            for (int i = 1; i <= 2; i++) { try { Thread.sleep(1000); } catch (InterruptedException ignored) { } }
             return null;
         }
     }

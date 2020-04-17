@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1;
+package com.example.exoesqueletov1.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.NotificationsAdapter;
 import com.example.exoesqueletov1.clases.NotificationsItem;
@@ -46,7 +47,7 @@ public class NotificationFragment extends Fragment implements NotificationsAdapt
     private static final int CODE_NEW_USER = 2;
 
 
-    NotificationFragment(String typeUser) {
+    public NotificationFragment(String typeUser) {
         this.typeUser = typeUser;
     }
 

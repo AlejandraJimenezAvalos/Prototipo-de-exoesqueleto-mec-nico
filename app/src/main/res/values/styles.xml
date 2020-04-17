@@ -4,13 +4,22 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/pinkDark</item>
-        <item name="colorPrimaryDark">@color/blueDark</item>
+        <item name="colorPrimaryDark">@color/pinkDark</item>
         <item name="colorAccent">@color/white</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.">
+        <item name="colorPrimary">@color/pinkDark</item>
+        <item name="colorPrimaryDark">@color/blueDark</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
+
+    <style name="AppTheme.blue">
+        <item name="colorPrimary">@color/pinkDark</item>
+        <item name="colorPrimaryDark">@color/blueDark</item>
+        <item name="colorAccent">@color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
         <item name="android:background">@color/blueDark</item>
@@ -26,12 +35,6 @@
         <item name="android:gravity">center</item>
         <item name="android:orientation">vertical</item>
         <item name="android:background">@color/pinkDark</item>
-    </style>
-
-    <style name="AppTheme.azul">
-        <item name="android:gravity">center</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:background">@color/whiteDark</item>
     </style>
 
     <style name="TextView">

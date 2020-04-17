@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1;
+package com.example.exoesqueletov1.fragments;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.Database;
 
@@ -33,7 +34,7 @@ public class MessageFragment extends Fragment {
     private static final int CODE_REGULAR = 1000;
 
 
-    MessageFragment(String typeUser, int code) {
+    public MessageFragment(String typeUser, int code) {
         this.typeUser = typeUser;
         this.code = code;
     }
@@ -52,7 +53,7 @@ public class MessageFragment extends Fragment {
         editTextSearch = view.findViewById(R.id.search_edit_text);
         recyclerView = view.findViewById(R.id.recycler_chats);
 
-        final Database database = new Database(getFragmentManager(), getContext(), typeUser);
+        final Database database = new Database(getFragmentManager(), getContext(), typeUser, getActivity());
 
         switch (code) {
             case CODE_FRIEND_REQUEST:

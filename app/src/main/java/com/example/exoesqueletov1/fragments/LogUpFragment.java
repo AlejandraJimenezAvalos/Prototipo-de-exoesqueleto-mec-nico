@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1;
+package com.example.exoesqueletov1.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.dialog.DialogOops;
 import com.google.android.gms.safetynet.SafetyNet;

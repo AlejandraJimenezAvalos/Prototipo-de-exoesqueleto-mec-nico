@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.exoesqueletov1.clases.ViewPagerAdapter;
+import com.example.exoesqueletov1.fragments.LogInFragment;
+import com.example.exoesqueletov1.fragments.LogUpFragment;
+import com.example.exoesqueletov1.fragments.WelcomeFragment;
 
 public class LogActivity extends AppCompatActivity  {
 

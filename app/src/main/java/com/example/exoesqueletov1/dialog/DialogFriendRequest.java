@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +40,7 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
     private String id;
     private String typeUser;
     private static final String COLLECTION_CHATS = "chats";
+    private static final String COLLECTION_USERS = "users";
     private static final String COLLECTION_NOTIFICATIONS = "notifications";
     private static final String DOCUMENT_PROFILE = "profile";
     private static final String TITLE = "title";
@@ -51,9 +53,13 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
     private static final String ID_PATIENT = "idPatient";
     private static final String ID_CHAT = "idChat";
     private static final String ID_SPECIALIST = "idSpecialist";
+    private static final String SPECIALIST = "specialist";
 
     private static final int CODE_FRIEND_REQUEST = 0;
     private static final int CODE_ADMIN_REQUEST = 1;
+    private static final int CODE_TO_ACCEPT = 3;
+
+    private FirebaseFirestore db;
 
     public DialogFriendRequest(String typeUser, String name, String type, String id) {
         this.name = name;
@@ -69,6 +75,8 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_friend_request, null);
 
+        db = FirebaseFirestore.getInstance();
+
         CircleImageView circleImageView = view.findViewById(R.id.image_dialog_request);
         TextView textViewName = view.findViewById(R.id.text_dialog_request_name);
         TextView textViewType = view.findViewById(R.id.text_dialog_request_type);
@@ -79,7 +87,7 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
 
         textViewName.setText(name);
         textViewType.setText(type);
-        FirebaseFirestore.getInstance().collection(id).document(DOCUMENT_PROFILE).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection(id).document(DOCUMENT_PROFILE).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 textViewDescription.setText(documentSnapshot.getData().get(DESCRIPTION).toString());
@@ -109,22 +117,42 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
     }
 
     private void toAccept(String idUser) {
-        FirebaseFirestore.getInstance().collection(COLLECTION_CHATS).whereEqualTo(ID_PATIENT, idUser).
+
+        final Database database = new Database(getFragmentManager(), getContext());
+        final Map<String, Object> dataNotification = new HashMap<>();
+
+        dataNotification.put(TITLE, getString(R.string.request_accept));
+        dataNotification.put(DESCRIPTION, getString(R.string.more_info));
+        dataNotification.put(CODE, CODE_TO_ACCEPT);
+        dataNotification.put(DATE, DateFormat.format("MMMM d, yyyy ", new Date().getTime()));
+        dataNotification.put(TO, id);
+        dataNotification.put(STATE_NOTIFY, false);
+
+        db.collection(COLLECTION_CHATS).whereEqualTo(ID_PATIENT, idUser).
                 get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
+                for (final QueryDocumentSnapshot document : task.getResult()) {
                     if (document.getData().get(ID_SPECIALIST).toString().equals(id)) {
-                        Map<String, Object> data = document.getData();
+                        final Map<String, Object> data = document.getData();
                         data.remove(STATE);
                         data.put(STATE, true);
-                        FirebaseFirestore.getInstance().collection(COLLECTION_CHATS).
-                                document(document.getId()).update(data).
-                                addOnSuccessListener(new OnSuccessListener<Void>() {
+                        db.collection(COLLECTION_CHATS).document(document.getId()).update(data);
+
+                        db.collection(COLLECTION_USERS).document(new Authentication().
+                                getCurrentUser().getEmail()).get().
+                                addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                     @Override
-                                    public void onSuccess(Void aVoid) {
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        Map<String, Object> dataUsers = documentSnapshot.getData();
+                                        dataUsers.remove(SPECIALIST);
+                                        dataUsers.put(SPECIALIST, true);
+                                        db.collection(COLLECTION_USERS).document(new Authentication().
+                                                getCurrentUser().getEmail()).update(dataUsers);
                                     }
                                 });
+
+                            database.setData(COLLECTION_NOTIFICATIONS, "", dataNotification);
                     }
                 }
             }
@@ -162,10 +190,6 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
             if (typeUser.equals("a")) { dataChats.put(STATE, true); }
 
             database.setData(COLLECTION_CHATS, "", dataChats);
-
-            data.put("hi", "hi");
-
-            FirebaseFirestore.getInstance().collection(idChat).add(data);
         }
     }
 

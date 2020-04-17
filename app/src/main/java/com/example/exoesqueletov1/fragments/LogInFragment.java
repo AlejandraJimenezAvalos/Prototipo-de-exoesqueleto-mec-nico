@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1;
+package com.example.exoesqueletov1.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.exoesqueletov1.MainActivity;
+import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.dialog.DialogLostYourPass;
 import com.example.exoesqueletov1.dialog.DialogOops;

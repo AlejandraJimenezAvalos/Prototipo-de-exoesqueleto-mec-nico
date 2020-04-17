@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogInFragment"
+    tools:context=".fragments.LogInFragment"
     style="@style/AppTheme.rosa">
 
     <ScrollView
@@ -67,7 +67,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="80sp"
+                android:layout_height="wrap_content"
                 android:layout_margin="16sp">
 
                 <Button
@@ -75,22 +75,28 @@
                     style="@style/Button.blanco"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:paddingLeft="42sp"
                     android:paddingRight="42sp"
                     android:text="@string/iniciar"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/bt_lost_your_pass"
                     style="@style/TextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="150sp"
+                    android:textAlignment="textEnd"
                     android:text="@string/olvidaste_tu_contrase_a"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
