@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,10 +27,6 @@ public class MessageFragment extends Fragment {
 
     private String typeUser;
     private int code;
-
-    private static final int CODE_FRIEND_REQUEST = 0;
-    private static final int CODE_ADMIN_REQUEST = 1;
-    private static final int CODE_REGULAR = 1000;
 
 
     public MessageFragment(String typeUser, int code) {
@@ -56,15 +51,13 @@ public class MessageFragment extends Fragment {
         final Database database = new Database(getFragmentManager(), getContext(), typeUser, getActivity());
 
         switch (code) {
-            case CODE_FRIEND_REQUEST:
+            case Database.CODE_NOTIFICATIONS_FRIEND_REQUEST:
                 database.getUsers(recyclerView);
                 viewAdd.setBackgroundResource(R.color.pinkDark);
                 viewChats.setBackgroundResource(R.color.blueDark);
                 break;
-            case CODE_ADMIN_REQUEST:
-                Toast.makeText(getContext(), "Estamos en ello", Toast.LENGTH_SHORT).show();
-                break;
-            case CODE_REGULAR:
+            case Database.CODE_NOTIFICATIONS_ADMIN_REQUEST:
+            case Database.CODE_REGULAR:
                 database.getChats(id, recyclerView);
                 break;
         }

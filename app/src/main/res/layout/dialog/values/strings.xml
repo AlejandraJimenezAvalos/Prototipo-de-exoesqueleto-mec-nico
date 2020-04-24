@@ -43,6 +43,29 @@
     <string name="aa">Aa</string>
     <string name="habla_con_un">Ya puedes hablar con tu pasiente</string>
     <string name="request_accept">Han aceptado tu solicitud</string>
+    <string name="ver_contacto">Ver contacto</string>
+    <string name="vaciar_el_chat">Vaciar el chat</string>
+    <string name="contacto">Contacto</string>
+    <string name="eliminar_de_mi_lista_de_contactos">Eliminar de mi lista de contactos</string>
+    <string name="reportar">Reportar</string>
+    <string name="llamar">Llamar</string>
+    <string name="escribir_un_mail">Escribir un mail</string>
+    <string name="cerrar">Cerrar</string>
+    <string name="opciones">Opciones</string>
+    <string name="complete">Completado</string>
+    <string name="advertencia">Advertencia</string>
+    <string name="confirmacion_contacto">¿Estás seguro de borrar de tu lista de contactos?</string>
+    <string name="cuenta_verificada">Cuenta verificada</string>
+    <string name="cuenta_sin_verificar">Cuenta sin verificar</string>
+    <string name="se_acabo_el_tratamiento">Ya no podemos darle seguimiento</string>
+    <string name="poca_profecionalidad">Poca profesionalidad y mal uso de mi información</string>
+    <string name="reportar_user">¿Desea reportar al usuario?</string>
+    <string name="no">No</string>
+    <string name="click_more_info">Da click para ver mas informacion</string>
+    <string name="report_message">Reporte de infracción</string>
+    <string name="please_write">Por favor relate el motivo de su reporte</string>
+    <string name="de_su_lista_de_contactos">\" te a eliminado de su lista de contactos\"</string>
+    <string name="si">Si</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>

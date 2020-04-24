@@ -47,9 +47,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.NewsView
 
     @Override
     public int getItemViewType(int position) {
-        if (mDataFiltered.get(position).getMyMessage()){
-            return CODE_MY_MESSAGE;
-        } else return CODE_YOUR_MESSAGE;
+        if (mDataFiltered.get(position).getMyMessage()){ return CODE_MY_MESSAGE; }
+        else return CODE_YOUR_MESSAGE;
     }
 
     @SuppressLint("SetTextI18n")

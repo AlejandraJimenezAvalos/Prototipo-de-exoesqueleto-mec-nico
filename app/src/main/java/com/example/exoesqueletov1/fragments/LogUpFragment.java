@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
-import com.example.exoesqueletov1.dialog.DialogOops;
+import com.example.exoesqueletov1.dialogs.DialogOops;
 import com.google.android.gms.safetynet.SafetyNet;
 import com.google.android.gms.safetynet.SafetyNetApi;
 import com.google.android.gms.tasks.OnFailureListener;

@@ -29,11 +29,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
     private List<ChatItem> mDataFiltered;
     private ChatAdapter.OnMenuListener onMenuListener;
 
-    private static final String DOCUMENT_PROFILE = "profile";
-    private static final String NAME = "name";
-    private static final String USER = "user";
-
-
     ChatAdapter(Context mContext, List<ChatItem> itemList, OnMenuListener onMenuListener) {
         this.mContext = mContext;
         this.itemList = itemList;
@@ -57,16 +52,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
             holder.textViewDate.setText(mDataFiltered.get(position).getDate());
         } else {
             FirebaseFirestore.getInstance().collection(mDataFiltered.get(position).getId()).
-                    document(DOCUMENT_PROFILE).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    document(Database.DOCUMENT_PROFILE).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    holder.textViewName.setText(documentSnapshot.getData().get(NAME).toString());
+                    holder.textViewName.setText(documentSnapshot.getData().get(Database.NAME).toString());
                     holder.textViewMessage.setText(mDataFiltered.get(position).getMessage());
-                    mDataFiltered.get(position).setName(documentSnapshot.getData().get(NAME).toString());
+                    mDataFiltered.get(position).setName(documentSnapshot.getData().get(Database.NAME).toString());
                     String typeUser = "";
-                    if (documentSnapshot.getData().get(USER).toString().equals("a")) { typeUser = "Administrador"; }
-                    if (documentSnapshot.getData().get(USER).toString().equals("b")) { typeUser = "Fisioterapeuta"; }
-                    if (documentSnapshot.getData().get(USER).toString().equals("c")) { typeUser = "Pasiente"; }
+                    if (documentSnapshot.getData().get(Database.USER).toString().equals("a")) { typeUser = "Administrador"; }
+                    if (documentSnapshot.getData().get(Database.USER).toString().equals("b")) { typeUser = "Fisioterapeuta"; }
+                    if (documentSnapshot.getData().get(Database.USER).toString().equals("c")) { typeUser = "Pasiente"; }
 
                     mDataFiltered.get(position).setMessage(typeUser);
                 }

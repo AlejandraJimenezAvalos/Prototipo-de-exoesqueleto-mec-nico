@@ -6,7 +6,6 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -15,12 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exoesqueletov1.ChatActivity;
-import com.example.exoesqueletov1.MainActivity;
 import com.example.exoesqueletov1.R;
-import com.example.exoesqueletov1.dialog.DialogAllDone;
-import com.example.exoesqueletov1.dialog.DialogFriendRequest;
-import com.example.exoesqueletov1.dialog.DialogLoading;
-import com.example.exoesqueletov1.dialog.DialogOops;
+import com.example.exoesqueletov1.dialogs.DialogAllDone;
+import com.example.exoesqueletov1.dialogs.DialogFriendRequest;
+import com.example.exoesqueletov1.dialogs.DialogLoading;
+import com.example.exoesqueletov1.dialogs.DialogOops;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,42 +49,56 @@ public class Database implements ChatAdapter.OnMenuListener {
 
     private boolean stateOnClick = false;
 
-    private static final String COLLECTION_USERS = "users";
-    private static final String COLLECTION_CHATS = "chats";
-    private static final String COLLECTION_NOTIFICATIONS = "notifications";
+    public static final String COLLECTION_USERS = "users";
+    public static final String COLLECTION_CHATS = "chats";
+    public static final String COLLECTION_NOTIFICATIONS = "notifications";
 
+    public static final String DOCUMENT_USER = "user";
     private static final String DOCUMENT_TYPE = "typeUser";
-    private static final String DOCUMENT_PROFILE = "profile";
+    public static final String DOCUMENT_PROFILE = "profile";
 
-    private static final String ID = "id";
-    private static final String ID_PATIENT = "idPatient";
-    private static final String ID_CHAT = "idChat";
-    private static final String ID_SPECIALIST = "idSpecialist";
+    public static final String ID = "id";
+    public static final String ID_PATIENT = "idPatient";
+    public static final String ID_CHAT = "idChat";
+    public static final String ID_SPECIALIST = "idSpecialist";
+    public static final String HOUR = "hour";
+    public static final String ID_USER_INFRACTION = "idUserInfraction";
     private static final String ID_NEW_USER = "idNewUser";
-    private static final String USER = "user";
-    private static final String NAME = "name";
+    public static final String LAST_NAME = "lastName";
+    public static final String COUNTRY = "country";
+    public static final String GENDER = "gender";
+    public static final String USER = "user";
+    public static final String NO = "no";
+    public static final String RASON = "rason";
+    public static final String NAME = "name";
+    public static final String MESSAGE = "message";
     private static final String VERIFY = "verify";
     private static final String VERIFY_EMAIL = "verifyEmail";
-    private static final String ADDRESS = "address";
-    private static final String CELL = "cell";
-    private static final String PHONE = "phone";
-    private static final String EMAIL = "email";
-    private static final String SCHOOL = "school";
-    private static final String DESCRIPTION = "description";
-    private static final String SPECIALIST = "specialist";
-    private static final String STATE = "state";
+    public static final String ADDRESS = "address";
+    public static final String FROM = "from";
+    public static final String CELL = "cell";
+    public static final String PHONE = "phone";
+    public static final String EMAIL = "email";
+    public static final String SCHOOL = "school";
+    public static final String DESCRIPTION = "description";
+    public static final String SPECIALIST = "specialist";
+    public static final String STATE = "state";
+    public static final String TITLE = "title";
+    public static final String DATE = "date";
+    public static final String CODE = "code";
+    public static final String STATE_NOTIFY = "stateNotify";
+    public static final String TO = "to";
+    public static final String ADMIN = "a";
 
-    private static final String TITLE = "title";
-    private static final String DATE = "date";
-    private static final String CODE = "code";
-    private static final String STATE_NOTIFY = "stateNotify";
-    private static final String TO = "to";
-    private static final String ADMIN = "a";
+    public static final String REASON_CODE = "reasonCode";
 
-    private static final int CODE_FRIEND_REQUEST = 0;
-    private static final int CODE_ADMIN_REQUEST = 1;
-    private static final int CODE_NEW_USER = 2;
-    private static final int CODE_TO_ACCEPT = 3;
+    public static final int CODE_NOTIFICATIONS_FRIEND_REQUEST = 0;
+    public static final int CODE_NOTIFICATIONS_ADMIN_REQUEST = 1;
+    public static final int CODE_NOTIFICATIONS_NEW_USER = 2;
+    public static final int CODE_NOTIFICATIONS_TO_ACCEPT = 3;
+    public static final int CODE_NOTIFICATIONS_DELET_REQUEST = 4;
+    public static final int CODE_NOTIFICATIONS_DELET_REQUEST_FOR_INFRACTION = 5;
+    public static final int CODE_REGULAR = 1000;
 
 
     public Database(FragmentManager fragmentManager, Context context) {
@@ -95,7 +107,8 @@ public class Database implements ChatAdapter.OnMenuListener {
         this.fragmentManager = fragmentManager;
     }
 
-    public Database(FragmentManager fragmentManager, Context context, String typeUser, FragmentActivity fragmentActivity) {
+    public Database(FragmentManager fragmentManager, Context context, String typeUser,
+                    FragmentActivity fragmentActivity) {
         this.context = context;
         db = FirebaseFirestore.getInstance();
         this.fragmentManager = fragmentManager;
@@ -106,15 +119,12 @@ public class Database implements ChatAdapter.OnMenuListener {
     public void getUsers(final RecyclerView recyclerView) {
         stateOnClick = true;
         if (typeUser.equals("a")) {
-            FirebaseFirestore.getInstance().
-                    collection("users").whereEqualTo("user", "c").get().
+            db.collection("users").whereEqualTo("user", "c").get().
                     addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-
                         @Override
                         public void onComplete(@NonNull final Task<QuerySnapshot> taskC) {
-                            FirebaseFirestore.getInstance().
-                                    collection("users").whereEqualTo("user", "b").get().
-                                    addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            db.collection("users").whereEqualTo("user", "b")
+                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> taskB) {
                                             mData = new ArrayList<>();
@@ -207,24 +217,51 @@ public class Database implements ChatAdapter.OnMenuListener {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 mData = new ArrayList<>();
                 for (QueryDocumentSnapshot document : task.getResult()) {
-
                     if (Boolean.parseBoolean(document.getData().get(STATE).toString())) {
                         mData.add(new ChatItem(document.getData().get(finalOtherField).toString(),
                                 "", "", "", document.getData().get(ID_CHAT).
                                 toString()));
                     }
                 }
-                chatAdapter = new ChatAdapter(context, mData, Database.this);
-                recyclerView.setAdapter(chatAdapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+                if (typeUser.equals("b")) {
+                    db.collection(COLLECTION_CHATS).whereEqualTo(ID_PATIENT, id).get().
+                            addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        if (Boolean.parseBoolean(document.getData().get(STATE)
+                                                .toString())) {
+                                            mData.add(new ChatItem(document.getData()
+                                                    .get(ID_SPECIALIST).toString(),
+                                                    "", "", "", document.
+                                                    getData().get(ID_CHAT).toString()));
+                                        }
+                                    }
+                                    chatAdapter = new ChatAdapter(context, mData,
+                                            Database.this);
+                                    recyclerView.setAdapter(chatAdapter);
+                                    recyclerView.setLayoutManager(new LinearLayoutManager(context,
+                                            LinearLayoutManager.VERTICAL, false));
+                                }
+                            });
+                }
+                if (typeUser.equals("a")) {
+                    chatAdapter = new ChatAdapter(context, mData,
+                            Database.this);
+                    recyclerView.setAdapter(chatAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(context,
+                            LinearLayoutManager.VERTICAL, false));
+                }
             }
         });
     }
 
     public void getProfile(final String id, final TextView textViewName, final TextView textViewUser,
-                           final TextView textViewDes, final TextView textViewMail, final TextView textViewAddress,
-                           final TextView textViewCell, final TextView textViewPhone, final TextView textViewSchool,
-                           final CircleImageView circleImageViewProfile, final LinearLayout linearLayoutSchool) {
+                           final TextView textViewDes, final TextView textViewMail,
+                           final TextView textViewAddress, final TextView textViewCell,
+                           final TextView textViewPhone, final TextView textViewSchool,
+                           final CircleImageView circleImageViewProfile,
+                           final LinearLayout linearLayoutSchool) {
         db.collection(id).document(DOCUMENT_PROFILE).
                 get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -249,6 +286,51 @@ public class Database implements ChatAdapter.OnMenuListener {
                 textViewSchool.setText(documentSnapshot.getData().get(SCHOOL).toString());
 
                 new Storge().getProfileImage(circleImageViewProfile, id);
+            }
+        });
+    }
+
+    public void getAndShowProfile(final String id, final TextView textViewName, final TextView textViewUser,
+                                  final TextView textViewCheck, final TextView textViewMail,
+                                  final TextView textViewAddress, final TextView textViewCell,
+                                  final TextView textViewPhone, final TextView textViewSchool,
+                                  final CircleImageView circleImageViewProfile) {
+        db.collection(id).document(DOCUMENT_PROFILE).
+                get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                String typeUser = "";
+
+                String user = documentSnapshot.getData().get(USER).toString();
+                if (user.equals("a")) { typeUser = "Administrador"; }
+                if (user.equals("b")) { typeUser = "Fisioterapeuta"; }
+                if (user.equals("c")) {
+                    typeUser = "Paciente";
+                    textViewSchool.setVisibility(View.INVISIBLE);
+                }
+                textViewName.setText(documentSnapshot.getData().get(NAME).toString());
+                textViewUser.setText(typeUser);
+                textViewMail.setText(documentSnapshot.getData().get(EMAIL).toString());
+                textViewAddress.setText(documentSnapshot.getData().get(ADDRESS).toString());
+                textViewCell.setText(documentSnapshot.getData().get(CELL).toString());
+                textViewPhone.setText(documentSnapshot.getData().get(PHONE).toString());
+                textViewSchool.setText(documentSnapshot.getData().get(SCHOOL).toString());
+
+                new Storge().getProfileImage(circleImageViewProfile, id);
+            }
+        });
+
+        db.collection(COLLECTION_USERS).document(id).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Map<String, Object> data = task.getResult().getData();
+                if (Boolean.parseBoolean(data.get(VERIFY).toString())) {
+                    textViewCheck.setText(R.string.cuenta_verificada);
+                } else {
+                    textViewCheck.setText(R.string.cuenta_sin_verificar);
+                }
             }
         });
     }
@@ -328,9 +410,9 @@ public class Database implements ChatAdapter.OnMenuListener {
         dataNotification = new HashMap<>();
 
         dataNotification.put(TITLE, "Un nuevo usuario se ha registrado");
-        dataNotification.put(DESCRIPTION, "Da click para ver mas informacion");
+        dataNotification.put(DESCRIPTION, context.getString(R.string.click_more_info));
         dataNotification.put(DATE, DateFormat.format("MMMM d, yyyy ", new Date().getTime()));
-        dataNotification.put(CODE, CODE_NEW_USER);
+        dataNotification.put(CODE, CODE_NOTIFICATIONS_NEW_USER);
         dataNotification.put(TO, ADMIN);
         dataNotification.put(ID_NEW_USER, collectionPath);
         dataNotification.put(STATE_NOTIFY, false);
@@ -367,6 +449,7 @@ public class Database implements ChatAdapter.OnMenuListener {
             Intent intent = new Intent(context, ChatActivity.class);
             intent.putExtra(ID_CHAT, mData.get(position).getIdChat());
             intent.putExtra(ID_SPECIALIST, mData.get(position).getId());
+            intent.putExtra(USER, typeUser);
             context.startActivity(intent);
             fragmentActivity.finish();
         } else {
@@ -390,4 +473,5 @@ public class Database implements ChatAdapter.OnMenuListener {
         }
 
     }
+
 }

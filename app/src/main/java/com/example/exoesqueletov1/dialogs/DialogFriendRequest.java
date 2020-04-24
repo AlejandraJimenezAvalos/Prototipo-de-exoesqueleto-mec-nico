@@ -1,5 +1,6 @@
-package com.example.exoesqueletov1.dialog;
+package com.example.exoesqueletov1.dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -8,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,25 +39,6 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
     private String type;
     private String id;
     private String typeUser;
-    private static final String COLLECTION_CHATS = "chats";
-    private static final String COLLECTION_USERS = "users";
-    private static final String COLLECTION_NOTIFICATIONS = "notifications";
-    private static final String DOCUMENT_PROFILE = "profile";
-    private static final String TITLE = "title";
-    private static final String DATE = "date";
-    private static final String DESCRIPTION = "description";
-    private static final String CODE = "code";
-    private static final String STATE_NOTIFY = "stateNotify";
-    private static final String TO = "to";
-    private static final String STATE = "state";
-    private static final String ID_PATIENT = "idPatient";
-    private static final String ID_CHAT = "idChat";
-    private static final String ID_SPECIALIST = "idSpecialist";
-    private static final String SPECIALIST = "specialist";
-
-    private static final int CODE_FRIEND_REQUEST = 0;
-    private static final int CODE_ADMIN_REQUEST = 1;
-    private static final int CODE_TO_ACCEPT = 3;
 
     private FirebaseFirestore db;
 
@@ -73,7 +54,7 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_friend_request, null);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.dialog_friend_request, null);
 
         db = FirebaseFirestore.getInstance();
 
@@ -87,10 +68,10 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
 
         textViewName.setText(name);
         textViewType.setText(type);
-        db.collection(id).document(DOCUMENT_PROFILE).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection(id).document(Database.DOCUMENT_PROFILE).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                textViewDescription.setText(documentSnapshot.getData().get(DESCRIPTION).toString());
+                textViewDescription.setText(documentSnapshot.getData().get(Database.DESCRIPTION).toString());
             }
         });
 
@@ -121,38 +102,38 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
         final Database database = new Database(getFragmentManager(), getContext());
         final Map<String, Object> dataNotification = new HashMap<>();
 
-        dataNotification.put(TITLE, getString(R.string.request_accept));
-        dataNotification.put(DESCRIPTION, getString(R.string.more_info));
-        dataNotification.put(CODE, CODE_TO_ACCEPT);
-        dataNotification.put(DATE, DateFormat.format("MMMM d, yyyy ", new Date().getTime()));
-        dataNotification.put(TO, id);
-        dataNotification.put(STATE_NOTIFY, false);
+        dataNotification.put(Database.TITLE, getString(R.string.request_accept));
+        dataNotification.put(Database.DESCRIPTION, getString(R.string.more_info));
+        dataNotification.put(Database.CODE, Database.CODE_NOTIFICATIONS_TO_ACCEPT);
+        dataNotification.put(Database.DATE, DateFormat.format("MMMM d, yyyy ", new Date().getTime()));
+        dataNotification.put(Database.TO, id);
+        dataNotification.put(Database.STATE_NOTIFY, false);
 
-        db.collection(COLLECTION_CHATS).whereEqualTo(ID_PATIENT, idUser).
+        db.collection(Database.COLLECTION_CHATS).whereEqualTo(Database.ID_PATIENT, idUser).
                 get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 for (final QueryDocumentSnapshot document : task.getResult()) {
-                    if (document.getData().get(ID_SPECIALIST).toString().equals(id)) {
+                    if (document.getData().get(Database.ID_SPECIALIST).toString().equals(id)) {
                         final Map<String, Object> data = document.getData();
-                        data.remove(STATE);
-                        data.put(STATE, true);
-                        db.collection(COLLECTION_CHATS).document(document.getId()).update(data);
+                        data.remove(Database.STATE);
+                        data.put(Database.STATE, true);
+                        db.collection(Database.COLLECTION_CHATS).document(document.getId()).update(data);
 
-                        db.collection(COLLECTION_USERS).document(new Authentication().
+                        db.collection(Database.COLLECTION_USERS).document(new Authentication().
                                 getCurrentUser().getEmail()).get().
                                 addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                     @Override
                                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                                         Map<String, Object> dataUsers = documentSnapshot.getData();
-                                        dataUsers.remove(SPECIALIST);
-                                        dataUsers.put(SPECIALIST, true);
-                                        db.collection(COLLECTION_USERS).document(new Authentication().
+                                        dataUsers.remove(Database.SPECIALIST);
+                                        dataUsers.put(Database.SPECIALIST, true);
+                                        db.collection(Database.COLLECTION_USERS).document(new Authentication().
                                                 getCurrentUser().getEmail()).update(dataUsers);
                                     }
                                 });
 
-                            database.setData(COLLECTION_NOTIFICATIONS, "", dataNotification);
+                            database.setData(Database.COLLECTION_NOTIFICATIONS, "", dataNotification);
                     }
                 }
             }
@@ -164,32 +145,34 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
         Map<String, Object> dataNotification = new HashMap<>();
         Map<String, Object> dataChats = new HashMap<>();
         String idChat = UUID.randomUUID().toString();
-        Map<String, Object> data = new HashMap<>();
 
         if (typeUser.equals("a") || typeUser.equals("b")) {
             if (typeUser.equals("b")) {
-                dataNotification.put(TITLE, getString(R.string.un_fisioterapeuta));
-                dataNotification.put(CODE, CODE_FRIEND_REQUEST);
+                dataNotification.put(Database.TITLE, getString(R.string.un_fisioterapeuta));
+                dataNotification.put(Database.CODE, Database.CODE_NOTIFICATIONS_FRIEND_REQUEST);
             }
             if (typeUser.equals("a")) {
-                dataNotification.put(TITLE, getString(R.string.un_admin));
-                dataNotification.put(CODE, CODE_ADMIN_REQUEST);
+                dataNotification.put(Database.TITLE, getString(R.string.un_admin));
+                dataNotification.put(Database.CODE, Database.CODE_NOTIFICATIONS_ADMIN_REQUEST);
             }
 
-            dataNotification.put(DESCRIPTION, getString(R.string.more_info));
-            dataNotification.put(DATE, DateFormat.format("MMMM d, yyyy ", new Date().getTime()));
-            dataNotification.put(TO, id);
-            dataNotification.put(STATE_NOTIFY, false);
+            dataNotification.put(Database.DESCRIPTION, getString(R.string.more_info));
+            dataNotification.put(Database.DATE, DateFormat.format("MMMM d, yyyy ", new Date().getTime()));
+            dataNotification.put(Database.TO, id);
+            dataNotification.put(Database.STATE_NOTIFY, false);
 
-            database.setData(COLLECTION_NOTIFICATIONS , "", dataNotification);
+            database.setData(Database.COLLECTION_NOTIFICATIONS , "", dataNotification);
 
-            dataChats.put(ID_SPECIALIST, idUser);
-            dataChats.put(ID_PATIENT, id);
-            dataChats.put(ID_CHAT, idChat);
-            if (typeUser.equals("b")) { dataChats.put(STATE, false); }
-            if (typeUser.equals("a")) { dataChats.put(STATE, true); }
+            dataChats.put(Database.ID_SPECIALIST, idUser);
+            dataChats.put(Database.ID_PATIENT, id);
+            dataChats.put(Database.ID_CHAT, idChat);
+            if (typeUser.equals("b")) { dataChats.put(Database.STATE, false); }
+            if (typeUser.equals("a")) { dataChats.put(Database.STATE, true); }
 
-            database.setData(COLLECTION_CHATS, "", dataChats);
+            database.setData(Database.COLLECTION_CHATS, "", dataChats);
+
+            DialogAllDone dialogAllDone = new DialogAllDone("Solicitud enviada");
+            dialogAllDone.show(getFragmentManager(), "");
         }
     }
 

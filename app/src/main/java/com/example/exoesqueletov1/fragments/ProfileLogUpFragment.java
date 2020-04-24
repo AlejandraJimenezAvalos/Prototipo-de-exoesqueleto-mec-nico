@@ -50,15 +50,6 @@ public class ProfileLogUpFragment extends Fragment {
     private static final int CUT_PICTURE = 3535;
     private static final int ASPECT_RATIO_X = 1;
     private static final int ASPECT_RATIO_Y = 1;
-    private static final String DOCUMENT_USER = "user";
-
-    private static final String ID = "id";
-    private static final String USER = "user";
-    private static final String NAME = "name";
-    private static final String LAST_NAME = "lastName";
-    private static final String COUNTRY = "country";
-    private static final String GENDER = "gender";
-    private static final String DATE = "date";
 
     public ProfileLogUpFragment() { }
 
@@ -171,15 +162,15 @@ public class ProfileLogUpFragment extends Fragment {
         else { user = "b"; }
 
         data.put(id, true);
-        data.put(ID, id);
-        data.put(USER, user);
-        data.put(NAME, textInputLayoutName.getEditText().getText().toString().trim());
-        data.put(LAST_NAME, textInputLayoutLastName.getEditText().getText().toString().trim());
-        data.put(DATE, textInputLayoutDate.getEditText().getText().toString().trim());
-        data.put(COUNTRY, spinnerCountry.getSelectedItem().toString().trim());
-        data.put(GENDER, radioButtonWomen.isChecked());
+        data.put(Database.ID, id);
+        data.put(Database.USER, user);
+        data.put(Database.NAME, textInputLayoutName.getEditText().getText().toString().trim());
+        data.put(Database.LAST_NAME, textInputLayoutLastName.getEditText().getText().toString().trim());
+        data.put(Database.DATE, textInputLayoutDate.getEditText().getText().toString().trim());
+        data.put(Database.COUNTRY, spinnerCountry.getSelectedItem().toString().trim());
+        data.put(Database.GENDER, radioButtonWomen.isChecked());
 
-        new Database(getFragmentManager(), getContext()).setDataUser(id, DOCUMENT_USER, data, user);
+        new Database(getFragmentManager(), getContext()).setDataUser(id, Database.DOCUMENT_USER, data, user);
         getActivity().finish();
         startActivity(new Intent(getContext(), MainActivity.class));
     }

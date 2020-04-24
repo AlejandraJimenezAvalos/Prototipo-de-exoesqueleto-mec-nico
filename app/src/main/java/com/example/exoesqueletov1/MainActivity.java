@@ -17,7 +17,7 @@ import com.example.exoesqueletov1.clases.Database;
 import com.example.exoesqueletov1.clases.MenuAdapter;
 import com.example.exoesqueletov1.clases.MenuItem;
 import com.example.exoesqueletov1.clases.Storge;
-import com.example.exoesqueletov1.dialog.DialogLoading;
+import com.example.exoesqueletov1.dialogs.DialogLoading;
 import com.example.exoesqueletov1.fragments.MessageFragment;
 import com.example.exoesqueletov1.fragments.NotificationFragment;
 import com.example.exoesqueletov1.fragments.ProfileFragment;
@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
 
     private boolean state = false;
     private boolean isState = true;
-
-    private static final int CODE_REGULAR = 1000;
 
     private String typeUser;
     private String id = new Authentication().getCurrentUser().getEmail();
@@ -123,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         else {
             if (mData.get(position).getTitle().equals(getString(R.string.inicio))) { fragment = new NotificationFragment(typeUser); }
             if (mData.get(position).getTitle().equals(getString(R.string.profile))) { fragment = new ProfileFragment(); }
-            if (mData.get(position).getTitle().equals(getString(R.string.messages))) { fragment = new MessageFragment(typeUser, CODE_REGULAR); }
+            if (mData.get(position).getTitle().equals(getString(R.string.messages))) { fragment = new MessageFragment(typeUser, Database.CODE_REGULAR); }
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.container_main, fragment).commit();
     }

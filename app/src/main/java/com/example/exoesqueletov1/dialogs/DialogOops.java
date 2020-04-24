@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.dialog;
+package com.example.exoesqueletov1.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,39 +14,51 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.exoesqueletov1.R;
 
-public class DialogAllDone extends AppCompatDialogFragment {
+public class DialogOops extends AppCompatDialogFragment {
 
     private String message;
 
-    public DialogAllDone(String message) {
+    public DialogOops(String message) {
         this.message = message;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+
+        Button okButton;
+        Button out;
         AlertDialog.Builder builder;
         LayoutInflater inflater;
         View view;
-        Button buttonAllDone;
-        TextView textProcess;
+        TextView texOutputError;
 
         builder = new AlertDialog.Builder(getActivity());
         inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.dialog_all_done, null);
+
+        view = inflater.inflate(R.layout.dialog_oops, null);
         builder.setView(view);
 
-        textProcess = view.findViewById(R.id.text_process);
-        textProcess.setText(message);
-
-        buttonAllDone = view.findViewById(R.id.button_all_done);
-        buttonAllDone.setOnClickListener(new View.OnClickListener() {
+        okButton = view.findViewById(R.id.button_oops);
+        okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
 
+        out = view.findViewById(R.id.button_oops_out);
+        out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
+
+        texOutputError = view.findViewById(R.id.tex_output_error);
+        texOutputError.setText(message);
+
         return builder.create();
     }
+
 }

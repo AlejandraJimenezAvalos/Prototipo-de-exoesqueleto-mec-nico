@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.exoesqueletov1.R;
-import com.example.exoesqueletov1.dialog.DialogAllDone;
-import com.example.exoesqueletov1.dialog.DialogLoading;
-import com.example.exoesqueletov1.dialog.DialogOops;
+import com.example.exoesqueletov1.dialogs.DialogAllDone;
+import com.example.exoesqueletov1.dialogs.DialogLoading;
+import com.example.exoesqueletov1.dialogs.DialogOops;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthCredential;

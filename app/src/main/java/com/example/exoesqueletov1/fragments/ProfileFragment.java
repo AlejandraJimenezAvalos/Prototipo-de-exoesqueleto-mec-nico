@@ -24,7 +24,7 @@ import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.Database;
 import com.example.exoesqueletov1.clases.Storge;
-import com.example.exoesqueletov1.dialog.DialogUpdateData;
+import com.example.exoesqueletov1.dialogs.DialogUpdateData;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,15 +47,6 @@ public class ProfileFragment extends Fragment {
     private TextView textViewSchool;
     private CircleImageView circleImageViewProfile;
 
-    private static final String USER = "user";
-    private static final String NAME = "name";
-    private static final String ADDRESS = "address";
-    private static final String CELL = "cell";
-    private static final String PHONE = "phone";
-    private static final String EMAIL = "email";
-    private static final String SCHOOL = "school";
-    private static final String DESCRIPTION = "description";
-    private static final String DOCUMENT_PROFILE = "profile";
     private static final int PICK_IMAGE = 1;
     private static final int CUT_PICTURE = 3535;
     private static final int ASPECT_RATIO_X = 1;
@@ -142,16 +133,16 @@ public class ProfileFragment extends Fragment {
                 if (textViewUser.getText().equals("Fisioterapeuta")) { user = "b"; }
                 if (textViewUser.getText().equals("Paciente")) { user = "c"; }
 
-                data.put(NAME, textViewName.getText().toString().trim());
-                data.put(USER, user);
-                data.put(DESCRIPTION, textViewDes.getText().toString().trim());
-                data.put(EMAIL, textViewMail.getText().toString().trim());
-                data.put(ADDRESS, textViewAddress.getText().toString().trim());
-                data.put(CELL, textViewCell.getText().toString().trim());
-                data.put(PHONE, textViewPhone.getText().toString().trim());
-                data.put(SCHOOL, textViewSchool.getText().toString().trim());
+                data.put(Database.NAME, textViewName.getText().toString().trim());
+                data.put(Database.USER, user);
+                data.put(Database.DESCRIPTION, textViewDes.getText().toString().trim());
+                data.put(Database.EMAIL, textViewMail.getText().toString().trim());
+                data.put(Database.ADDRESS, textViewAddress.getText().toString().trim());
+                data.put(Database.CELL, textViewCell.getText().toString().trim());
+                data.put(Database.PHONE, textViewPhone.getText().toString().trim());
+                data.put(Database.SCHOOL, textViewSchool.getText().toString().trim());
 
-                database.updateData(id, DOCUMENT_PROFILE, data);
+                database.updateData(id, Database.DOCUMENT_PROFILE, data);
             }
         });
 

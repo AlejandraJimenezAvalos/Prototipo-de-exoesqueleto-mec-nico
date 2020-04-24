@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.dialog;
+package com.example.exoesqueletov1.dialogs;
 
 
 
