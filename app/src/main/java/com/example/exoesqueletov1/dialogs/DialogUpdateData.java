@@ -107,7 +107,7 @@ public class DialogUpdateData extends AppCompatDialogFragment {
                     data.put(Database.DESCRIPTION, getString(R.string.click_more_info));
                     data.put(Database.STATE_NOTIFY, false);
 
-                    data.put(Database.RASON, textInputLayoutData.getEditText().getText().
+                    data.put(Database.REASON, textInputLayoutData.getEditText().getText().
                             toString().trim());
                     data.put(Database.CODE,
                             Database.CODE_NOTIFICATIONS_DELET_REQUEST_FOR_INFRACTION);

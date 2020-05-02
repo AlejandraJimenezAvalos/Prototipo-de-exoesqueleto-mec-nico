@@ -20,6 +20,7 @@ import com.example.exoesqueletov1.clases.Storge;
 import com.example.exoesqueletov1.dialogs.DialogLoading;
 import com.example.exoesqueletov1.fragments.MessageFragment;
 import com.example.exoesqueletov1.fragments.NotificationFragment;
+import com.example.exoesqueletov1.fragments.PairedDevisesFragment;
 import com.example.exoesqueletov1.fragments.ProfileFragment;
 import com.example.exoesqueletov1.fragments.ProfileLogUpFragment;
 import com.facebook.login.LoginManager;
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         MenuAdapter menuAdapter;
         mData = new ArrayList<>();
         mData.add(new MenuItem(getString(R.string.inicio), R.drawable.ic_notifications));
+        mData.add(new MenuItem(getString(R.string.bluetooth), R.drawable.ic_bluetooth));
         mData.add(new MenuItem(getString(R.string.profile), R.drawable.ic_profile));
         mData.add(new MenuItem(getString(R.string.messages), R.drawable.ic_message));
         menuAdapter = new MenuAdapter(this, mData, this);
@@ -119,9 +121,18 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
 
         if (!state) { fragment = new ProfileLogUpFragment(); }
         else {
-            if (mData.get(position).getTitle().equals(getString(R.string.inicio))) { fragment = new NotificationFragment(typeUser); }
-            if (mData.get(position).getTitle().equals(getString(R.string.profile))) { fragment = new ProfileFragment(); }
-            if (mData.get(position).getTitle().equals(getString(R.string.messages))) { fragment = new MessageFragment(typeUser, Database.CODE_REGULAR); }
+            if (mData.get(position).getTitle().equals(getString(R.string.inicio))) {
+                fragment = new NotificationFragment(typeUser);
+            }
+            if (mData.get(position).getTitle().equals(getString(R.string.profile))) {
+                fragment = new ProfileFragment();
+            }
+            if (mData.get(position).getTitle().equals(getString(R.string.messages))) {
+                fragment = new MessageFragment(typeUser, Database.CODE_REGULAR);
+            }
+            if (mData.get(position).getTitle().equals(getString(R.string.bluetooth))) {
+                fragment = new PairedDevisesFragment();
+            }
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.container_main, fragment).commit();
     }

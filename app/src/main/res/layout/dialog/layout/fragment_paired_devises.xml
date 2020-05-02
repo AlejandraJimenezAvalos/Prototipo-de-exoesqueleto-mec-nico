@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/AppTheme.blue">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextView.rosa.titulo"
+        android:layout_margin="16sp"
+        android:text="@string/dispositivos_bluetooth_disponibles"/>
+
+    <Button
+        android:id="@+id/button_paired_devises"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buscar_dispositivos"
+        android:paddingStart="30sp"
+        android:paddingEnd="30sp"
+        style="@style/Button.borde"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="600sp"
+        android:id="@+id/listView"
+        android:layout_margin="16sp"/>
+
+</LinearLayout>

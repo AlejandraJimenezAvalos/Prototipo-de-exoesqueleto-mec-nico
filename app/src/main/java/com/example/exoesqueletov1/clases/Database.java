@@ -59,6 +59,7 @@ public class Database implements ChatAdapter.OnMenuListener {
 
     public static final String ID = "id";
     public static final String ID_PATIENT = "idPatient";
+    public static final String STATE_REPORT = "stateReport";
     public static final String ID_CHAT = "idChat";
     public static final String ID_SPECIALIST = "idSpecialist";
     public static final String HOUR = "hour";
@@ -69,7 +70,7 @@ public class Database implements ChatAdapter.OnMenuListener {
     public static final String GENDER = "gender";
     public static final String USER = "user";
     public static final String NO = "no";
-    public static final String RASON = "rason";
+    public static final String REASON = "reason";
     public static final String NAME = "name";
     public static final String MESSAGE = "message";
     private static final String VERIFY = "verify";
@@ -88,7 +89,7 @@ public class Database implements ChatAdapter.OnMenuListener {
     public static final String CODE = "code";
     public static final String STATE_NOTIFY = "stateNotify";
     public static final String TO = "to";
-    public static final String ADMIN = "a";
+    private static final String ADMIN = "a";
 
     public static final String REASON_CODE = "reasonCode";
 

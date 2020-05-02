@@ -12,14 +12,12 @@ import com.example.exoesqueletov1.fragments.WelcomeFragment;
 
 public class LogActivity extends AppCompatActivity  {
 
-    private ViewPager viewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
 
-        viewPager = findViewById(R.id.pager);
+        ViewPager viewPager = findViewById(R.id.pager);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new WelcomeFragment());
