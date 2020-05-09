@@ -41,11 +41,9 @@ public class PairedDevisesFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_paired_devises, container, false);
 
-        //Calling widgets
         Button buttonPaired = view.findViewById(R.id.button_paired_devises);
         listView = view.findViewById(R.id.listView);
 
-        //if the device has bluetooth
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if (bluetoothAdapter == null) {
@@ -56,6 +54,8 @@ public class PairedDevisesFragment extends Fragment {
             Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(turnBTon, REQUEST_CODE);
         }
+
+        pairedDevicesList();
 
         buttonPaired.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +97,7 @@ public class PairedDevisesFragment extends Fragment {
                     String address = info.substring(info.length() - 17);
                     Intent i = new Intent(getContext(), ControlActivity.class);
 
-                    i.putExtra(DEVICE_ADDRESS, address); //this will be received at ledControl (class) Activity
+                    i.putExtra(DEVICE_ADDRESS, address);
                     startActivity(i);
                 }
             };

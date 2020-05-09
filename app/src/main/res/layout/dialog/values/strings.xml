@@ -81,6 +81,11 @@
     <string name="ejercitar_piernas">Ejercitar piernas</string>
     <string name="levantar_y_bajar_la_pierna_izquierda">Levantar y bajar la pierna izquierda</string>
     <string name="levantar_y_bajar_la_pierna_derecha">Levantar y bajar la pierna derecha</string>
+    <string name="connection_failed">La conexión falló. Verifique que el exoesqueleto esté encendido.</string>
+    <string name="conectar">Conectar</string>
+    <string name="advertencia_bluetooth">Debes establecer una conexión via bluetooth con el exoesqueleto.</string>
+    <string name="play">Play</string>
+    <string name="pausar">Pausar</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>

@@ -30,9 +30,8 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LogUpFragment extends Fragment {
+public class LogUpFragment extends Fragment implements View.OnClickListener {
 
-    // wid
     private Button btRegistrar;
     private TextInputLayout emailLayout;
     private TextInputLayout password1Layout;
@@ -54,82 +53,10 @@ public class LogUpFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_log_up, container, false);
         this.init();
-        this.onClick();
+        btRegistrar.setOnClickListener(this);
+        linearReCaptcha.setOnClickListener(this);
+        ckTerminos.setOnClickListener(this);
         return view;
-    }
-
-    private void onClick() {
-        btRegistrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                emailLayout = view.findViewById(R.id.email_fragment_logup);
-                password1Layout = view.findViewById(R.id.password1_fragment_logup);
-                password2Layout = view.findViewById(R.id.password2_fragment_logup);
-                resetWidgets();
-                createAnAccount (emailLayout.getEditText().getText().toString().trim(),
-                        password1Layout.getEditText().getText().toString().trim(),
-                        password2Layout.getEditText().getText().toString().trim());
-            }
-        });
-
-        linearReCaptcha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SafetyNet.getClient(Objects.requireNonNull(getContext())).verifyWithRecaptcha(KEY)
-                        .addOnSuccessListener(new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
-                            @Override
-                            public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {
-                                String userResponseToken = response.getTokenResult();
-                                if (!userResponseToken.isEmpty()) {
-                                    ckReCaptcha.setChecked(true);
-                                    reCaptchaState = true;
-                                }
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        ckReCaptcha.setChecked(false);
-                        reCaptchaState = false;
-                        DialogOops dialogOops = new DialogOops(e.getMessage());
-                        dialogOops.show(getFragmentManager(), "example");
-                    }
-                });
-            }
-        });
-
-        ckTerminos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle(R.string.terminos_y_condiciones)
-                        .setMessage(R.string.terminos)
-                        .setPositiveButton(R.string.aceptar,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        ckTerminos.setChecked(true);
-                                        terminosState = true;
-                                    }
-                                })
-                        .setNegativeButton(R.string.no_acepto,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        AlertDialog.Builder builder1= new AlertDialog.Builder(getContext());
-                                        builder1.setTitle("¿Esta seguro?").setMessage(R.string.condicion_terminos)
-                                                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        ckTerminos.setChecked(false);
-                                                        terminosState = false;
-                                                    }
-                                                }).show();
-                                    }
-                                }).show();
-            }
-        });
-
     }
 
     private void resetWidgets() {
@@ -190,4 +117,71 @@ public class LogUpFragment extends Fragment {
         ckTerminos = view.findViewById(R.id.ck_terminos);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bt_registrar: {
+                emailLayout = view.findViewById(R.id.email_fragment_logup);
+                password1Layout = view.findViewById(R.id.password1_fragment_logup);
+                password2Layout = view.findViewById(R.id.password2_fragment_logup);
+                resetWidgets();
+                createAnAccount (emailLayout.getEditText().getText().toString().trim(),
+                        password1Layout.getEditText().getText().toString().trim(),
+                        password2Layout.getEditText().getText().toString().trim());
+                break;
+            }
+            case R.id.layaout_reCaptcha: {
+                SafetyNet.getClient(Objects.requireNonNull(getContext())).verifyWithRecaptcha(KEY)
+                        .addOnSuccessListener(new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
+                            @Override
+                            public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {
+                                String userResponseToken = response.getTokenResult();
+                                if (!userResponseToken.isEmpty()) {
+                                    ckReCaptcha.setChecked(true);
+                                    reCaptchaState = true;
+                                }
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        ckReCaptcha.setChecked(false);
+                        reCaptchaState = false;
+                        DialogOops dialogOops = new DialogOops(e.getMessage());
+                        dialogOops.show(getFragmentManager(), "example");
+                    }
+                });
+                break;
+            }
+            case R.id.ck_terminos: {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.terminos_y_condiciones)
+                        .setMessage(R.string.terminos)
+                        .setPositiveButton(R.string.aceptar,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        ckTerminos.setChecked(true);
+                                        terminosState = true;
+                                    }
+                                })
+                        .setNegativeButton(R.string.no_acepto,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        AlertDialog.Builder builder1= new AlertDialog.Builder(getContext());
+                                        builder1.setTitle("¿Esta seguro?").setMessage(R.string.condicion_terminos)
+                                                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        ckTerminos.setChecked(false);
+                                                        terminosState = false;
+                                                    }
+                                                }).show();
+                                    }
+                                }).show();
+                break;
+            }
+        }
+    }
 }

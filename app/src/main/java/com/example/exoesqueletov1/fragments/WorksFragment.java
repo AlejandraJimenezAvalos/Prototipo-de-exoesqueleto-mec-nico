@@ -14,18 +14,16 @@ import androidx.fragment.app.Fragment;
 
 import com.example.exoesqueletov1.R;
 
-public class UpAndDownFragment extends Fragment {
+public class WorksFragment extends Fragment {
 
     private View view;
 
-    public UpAndDownFragment(String address) { }
+    public WorksFragment() { }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_up_and_down, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_works, container, false);
         return view;
     }
-
 }
