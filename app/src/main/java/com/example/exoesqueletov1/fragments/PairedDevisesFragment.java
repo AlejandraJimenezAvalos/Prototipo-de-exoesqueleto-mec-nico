@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -57,12 +58,7 @@ public class PairedDevisesFragment extends Fragment {
 
         pairedDevicesList();
 
-        buttonPaired.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pairedDevicesList();
-            }
-        });
+        buttonPaired.setOnClickListener(v -> pairedDevicesList());
 
         return view;
     }
@@ -86,19 +82,15 @@ public class PairedDevisesFragment extends Fragment {
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(myListClickListener);
         //Method called when the device from the list is clicked
-
     }
 
-    private AdapterView.OnItemClickListener myListClickListener =
-            new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> av, View view, int arg2, long arg3) {
-                    TextView textView = view.findViewById(R.id.list_content);
-                    String info = textView.getText().toString();
-                    String address = info.substring(info.length() - 17);
-                    Intent i = new Intent(getContext(), ControlActivity.class);
+    private AdapterView.OnItemClickListener myListClickListener = (av, view, arg2, arg3) -> {
+        TextView textView = view.findViewById(R.id.list_content);
+        String info = textView.getText().toString();
+        String address = info.substring(info.length() - 17);
+        Intent i = new Intent(getContext(), ControlActivity.class);
 
-                    i.putExtra(DEVICE_ADDRESS, address);
-                    startActivity(i);
-                }
-            };
+        i.putExtra(DEVICE_ADDRESS, address);
+        startActivity(i);
+    };
 }

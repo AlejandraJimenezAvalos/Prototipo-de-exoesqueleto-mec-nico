@@ -16,7 +16,8 @@ import com.example.exoesqueletov1.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.NewsViewHolder> implements Filterable {
+public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.NewsViewHolder>
+        implements Filterable {
 
     private Context mContext;
     private List<MenuItem> itemList;
@@ -34,7 +35,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.NewsViewHolder
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View layout;
-        layout = LayoutInflater.from(mContext).inflate(R.layout.item_menu,viewGroup,false);
+        layout = LayoutInflater.from(mContext)
+                .inflate(R.layout.item_menu,viewGroup,false);
         return new NewsViewHolder(layout, onMenuListener);
     }
 
@@ -79,7 +81,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.NewsViewHolder
         };
     }
 
-    public static class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class NewsViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         private ImageView img_user;
         private OnMenuListener onMenuListener;

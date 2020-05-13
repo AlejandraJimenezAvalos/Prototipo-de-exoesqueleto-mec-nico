@@ -40,12 +40,7 @@ public class DialogAllDone extends AppCompatDialogFragment {
         textProcess.setText(message);
 
         buttonAllDone = view.findViewById(R.id.button_all_done);
-        buttonAllDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        buttonAllDone.setOnClickListener(v -> dismiss());
 
         return builder.create();
     }

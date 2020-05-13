@@ -1,7 +1,6 @@
 package com.example.exoesqueletov1.fragments;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,9 +20,6 @@ import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.dialogs.DialogOops;
 import com.google.android.gms.safetynet.SafetyNet;
-import com.google.android.gms.safetynet.SafetyNetApi;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
@@ -44,13 +40,15 @@ public class LogUpFragment extends Fragment implements View.OnClickListener {
     private boolean reCaptchaState = false;
     private View view;
     private static final String KEY = "6LcJnrsUAAAAAKavHRkqVEkRLm8KJo5_pjYuX-uE";
-    private final static String REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@._$!%*?&])([A-Za-z\\d$@._$!%*?&]|[^ ]){8,15}$";
+    private final static String REGEX =
+            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@._$!%*?&])([A-Za-z\\d$@._$!%*?&]|[^ ]){8,15}$";
 
     public LogUpFragment() { }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_log_up, container, false);
         this.init();
         btRegistrar.setOnClickListener(this);
@@ -88,13 +86,15 @@ public class LogUpFragment extends Fragment implements View.OnClickListener {
                                 if (reCaptchaState && terminosState) {
                                     state = true;
                                 } else {
-                                    DialogOops dialogOops = new DialogOops(getString(R.string.condicion_casillas));
+                                    DialogOops dialogOops = new
+                                            DialogOops(getString(R.string.condicion_casillas));
                                     dialogOops.show(getFragmentManager(), "example");
                                 }
                             } else { setError(getString(R.string.error_pass_no_coincide), password2Layout); }
                         } else { setError(getString(R.string.error_introducir_pass), password2Layout); }
                     } else {
-                        DialogOops dialogOops = new DialogOops(getString(R.string.condición_contraseña));
+                        DialogOops dialogOops = new
+                                DialogOops(getString(R.string.condición_contraseña));
                         dialogOops.show(getFragmentManager(), "example");
                     }
                 } else { setError(getString(R.string.error_introducir_pass), password1Layout); }
@@ -132,25 +132,19 @@ public class LogUpFragment extends Fragment implements View.OnClickListener {
             }
             case R.id.layaout_reCaptcha: {
                 SafetyNet.getClient(Objects.requireNonNull(getContext())).verifyWithRecaptcha(KEY)
-                        .addOnSuccessListener(new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
-                            @Override
-                            public void onSuccess(SafetyNetApi.RecaptchaTokenResponse response) {
-                                String userResponseToken = response.getTokenResult();
-                                if (!userResponseToken.isEmpty()) {
-                                    ckReCaptcha.setChecked(true);
-                                    reCaptchaState = true;
-                                }
-
+                        .addOnSuccessListener(response -> {
+                            String userResponseToken = response.getTokenResult();
+                            if (!userResponseToken.isEmpty()) {
+                                ckReCaptcha.setChecked(true);
+                                reCaptchaState = true;
                             }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        ckReCaptcha.setChecked(false);
-                        reCaptchaState = false;
-                        DialogOops dialogOops = new DialogOops(e.getMessage());
-                        dialogOops.show(getFragmentManager(), "example");
-                    }
-                });
+
+                        }).addOnFailureListener(e -> {
+                            ckReCaptcha.setChecked(false);
+                            reCaptchaState = false;
+                            DialogOops dialogOops = new DialogOops(e.getMessage());
+                            dialogOops.show(getFragmentManager(), "example");
+                        });
                 break;
             }
             case R.id.ck_terminos: {
@@ -158,27 +152,20 @@ public class LogUpFragment extends Fragment implements View.OnClickListener {
                 builder.setTitle(R.string.terminos_y_condiciones)
                         .setMessage(R.string.terminos)
                         .setPositiveButton(R.string.aceptar,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        ckTerminos.setChecked(true);
-                                        terminosState = true;
-                                    }
+                                (dialog, which) -> {
+                                    ckTerminos.setChecked(true);
+                                    terminosState = true;
                                 })
                         .setNegativeButton(R.string.no_acepto,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        AlertDialog.Builder builder1= new AlertDialog.Builder(getContext());
-                                        builder1.setTitle("¿Esta seguro?").setMessage(R.string.condicion_terminos)
-                                                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        ckTerminos.setChecked(false);
-                                                        terminosState = false;
-                                                    }
-                                                }).show();
-                                    }
+                                (dialog, which) -> {
+                                    AlertDialog.Builder builder1= new AlertDialog
+                                            .Builder(getContext());
+                                    builder1.setTitle("¿Esta seguro?")
+                                            .setMessage(R.string.condicion_terminos)
+                                            .setPositiveButton("Aceptar", (dialog1, which1) -> {
+                                                ckTerminos.setChecked(false);
+                                                terminosState = false;
+                                            }).show();
                                 }).show();
                 break;
             }

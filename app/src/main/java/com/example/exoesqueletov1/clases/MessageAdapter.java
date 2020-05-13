@@ -17,7 +17,8 @@ import com.example.exoesqueletov1.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.NewsViewHolder> implements Filterable {
+public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.NewsViewHolder>
+        implements Filterable {
 
     private Context mContext;
     private List<MessageItem> itemList;
@@ -35,12 +36,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.NewsView
 
     @NonNull
     @Override
-    public MessageAdapter.NewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public MessageAdapter.NewsViewHolder
+    onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View layout;
         if (viewType == CODE_MY_MESSAGE) {
-            layout = LayoutInflater.from(mContext).inflate(R.layout.item_my_message, viewGroup, false);
+            layout = LayoutInflater.from(mContext)
+                    .inflate(R.layout.item_my_message, viewGroup, false);
         } else {
-            layout = LayoutInflater.from(mContext).inflate(R.layout.item_your_message, viewGroup, false);
+            layout = LayoutInflater.from(mContext)
+                    .inflate(R.layout.item_your_message, viewGroup, false);
         }
         return new NewsViewHolder(layout);
     }
@@ -53,7 +57,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.NewsView
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull final MessageAdapter.NewsViewHolder holder, final int position) {
+    public void
+    onBindViewHolder(@NonNull final MessageAdapter.NewsViewHolder holder, final int position) {
         holder.textViewMessage.setText(mDataFiltered.get(position).getMessage());
         holder.textViewDate.setText(mDataFiltered.get(position).getHour());
     }

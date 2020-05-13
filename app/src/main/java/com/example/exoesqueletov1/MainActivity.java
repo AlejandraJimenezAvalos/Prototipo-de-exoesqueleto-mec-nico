@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
     }
 
     private void newUser() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new ProfileLogUpFragment()).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container_main, new ProfileLogUpFragment()).commit();
     }
 
     private void userA() {
@@ -80,9 +81,11 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         mData.add(new MenuItem(getString(R.string.messages), R.drawable.ic_message));
         menuAdapter = new MenuAdapter(this, mData, this);
         recyclerMenu.setAdapter(menuAdapter);
-        recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerMenu.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false));
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotificationFragment(typeUser)).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container_main, new NotificationFragment(typeUser)).commit();
     }
 
     private void userB() {
@@ -94,9 +97,11 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         mData.add(new MenuItem(getString(R.string.messages), R.drawable.ic_message));
         menuAdapter = new MenuAdapter(this, mData, this);
         recyclerMenu.setAdapter(menuAdapter);
-        recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerMenu.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false));
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotificationFragment(typeUser)).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container_main, new NotificationFragment(typeUser)).commit();
     }
 
     private void userC() {
@@ -109,9 +114,11 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         mData.add(new MenuItem(getString(R.string.messages), R.drawable.ic_message));
         menuAdapter = new MenuAdapter(this, mData, this);
         recyclerMenu.setAdapter(menuAdapter);
-        recyclerMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerMenu.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false));
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new NotificationFragment(typeUser)).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container_main, new NotificationFragment(typeUser)).commit();
     }
 
     @Override
@@ -128,13 +135,14 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
                 fragment = new ProfileFragment();
             }
             if (mData.get(position).getTitle().equals(getString(R.string.messages))) {
-                fragment = new MessageFragment(typeUser, Database.CODE_REGULAR);
+                fragment = new MessageFragment(typeUser, Constants.CODE_REGULAR);
             }
             if (mData.get(position).getTitle().equals(getString(R.string.bluetooth))) {
                 fragment = new PairedDevisesFragment();
             }
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, fragment).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container_main, fragment).commit();
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -172,7 +180,8 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            for (int i = 1; i <= 2; i++) { try { Thread.sleep(1000); } catch (InterruptedException ignored) { } }
+            for (int i = 1; i <= 2; i++) { try { Thread.sleep(1000); }
+            catch (InterruptedException ignored) { } }
             return null;
         }
     }

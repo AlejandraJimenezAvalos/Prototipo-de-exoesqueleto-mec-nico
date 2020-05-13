@@ -2,7 +2,6 @@ package com.example.exoesqueletov1.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -20,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.exoesqueletov1.Constants;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.Database;
@@ -52,6 +52,7 @@ public class ProfileFragment extends Fragment {
     private static final int ASPECT_RATIO_X = 1;
     private static final int ASPECT_RATIO_Y = 1;
 
+    private String id;
     private Database database;
 
     public ProfileFragment() {
@@ -59,7 +60,8 @@ public class ProfileFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         textViewName = view.findViewById(R.id.text_profile_view_name);
@@ -75,85 +77,56 @@ public class ProfileFragment extends Fragment {
         Button buttonOk = view.findViewById(R.id.button_profile_view_save);
         ImageView buttonChangeImage = view.findViewById(R.id.button_profile_view_image);
 
-        final String id = new Authentication().getCurrentUser().getEmail();
+        id = new Authentication().getCurrentUser().getEmail();
 
         database = new Database(getFragmentManager(), getContext());
-        database.getProfile(id, textViewName, textViewUser, textViewDes, textViewMail, textViewAddress, textViewCell,
-                textViewPhone, textViewSchool, circleImageViewProfile, linearLayoutSchool);
+        database.getProfile(id, textViewName, textViewUser, textViewDes, textViewMail,
+                textViewAddress, textViewCell, textViewPhone, textViewSchool,
+                circleImageViewProfile, linearLayoutSchool);
 
-        textViewDes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog (textViewDes, getString(R.string.description), 0);
-            }
-        });
+        textViewDes.setOnClickListener(v -> dialog (textViewDes,
+                getString(R.string.description), 0));
 
-        textViewMail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog (textViewMail, getString(R.string.correo), R.drawable.ic_mail);
-            }
-        });
+        textViewMail.setOnClickListener(v -> dialog (textViewMail,
+                getString(R.string.correo), R.drawable.ic_mail));
 
-        textViewAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog (textViewAddress, getString(R.string.direcci_n), R.drawable.ic_place);
-            }
-        });
+        textViewAddress.setOnClickListener(v -> dialog (textViewAddress,
+                getString(R.string.direcci_n), R.drawable.ic_place));
 
-        textViewCell.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog (textViewCell, getString(R.string.celular), R.drawable.ic_phone_android);
-            }
-        });
+        textViewCell.setOnClickListener(v -> dialog (textViewCell,
+                getString(R.string.celular), R.drawable.ic_phone_android));
 
-        textViewPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog (textViewPhone, getString(R.string.telefono), R.drawable.ic_phone);
-            }
-        });
+        textViewPhone.setOnClickListener(v -> dialog (textViewPhone,
+                getString(R.string.telefono), R.drawable.ic_phone));
 
-        textViewSchool.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog (textViewSchool, getString(R.string.estudio), R.drawable.ic_school);
-            }
-        });
+        textViewSchool.setOnClickListener(v -> dialog (textViewSchool,
+                getString(R.string.estudio), R.drawable.ic_school));
 
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String user = "a";
-                Map<String, Object> data = new HashMap<>();
+        buttonOk.setOnClickListener(v -> okOnClick());
 
-                if (textViewUser.getText().equals("Administrador")) { user = "a"; }
-                if (textViewUser.getText().equals("Fisioterapeuta")) { user = "b"; }
-                if (textViewUser.getText().equals("Paciente")) { user = "c"; }
-
-                data.put(Database.NAME, textViewName.getText().toString().trim());
-                data.put(Database.USER, user);
-                data.put(Database.DESCRIPTION, textViewDes.getText().toString().trim());
-                data.put(Database.EMAIL, textViewMail.getText().toString().trim());
-                data.put(Database.ADDRESS, textViewAddress.getText().toString().trim());
-                data.put(Database.CELL, textViewCell.getText().toString().trim());
-                data.put(Database.PHONE, textViewPhone.getText().toString().trim());
-                data.put(Database.SCHOOL, textViewSchool.getText().toString().trim());
-
-                database.updateData(id, Database.DOCUMENT_PROFILE, data);
-            }
-        });
-
-        buttonChangeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImage(getContext());
-            }
-        });
+        buttonChangeImage.setOnClickListener(v -> selectImage(getContext()));
 
         return view;
+    }
+
+    private void okOnClick() {
+        String user = "a";
+        Map<String, Object> data = new HashMap<>();
+
+        if (textViewUser.getText().equals("Administrador")) { user = "a"; }
+        if (textViewUser.getText().equals("Fisioterapeuta")) { user = "b"; }
+        if (textViewUser.getText().equals("Paciente")) { user = "c"; }
+
+        data.put(Constants.NAME, textViewName.getText().toString().trim());
+        data.put(Constants.USER, user);
+        data.put(Constants.DESCRIPTION, textViewDes.getText().toString().trim());
+        data.put(Constants.EMAIL, textViewMail.getText().toString().trim());
+        data.put(Constants.ADDRESS, textViewAddress.getText().toString().trim());
+        data.put(Constants.CELL, textViewCell.getText().toString().trim());
+        data.put(Constants.PHONE, textViewPhone.getText().toString().trim());
+        data.put(Constants.SCHOOL, textViewSchool.getText().toString().trim());
+
+        database.updateData(id, Constants.DOCUMENT_PROFILE, data);
     }
 
     private void selectImage(Context context) {
@@ -162,18 +135,14 @@ public class ProfileFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(getString(R.string.fto_de_perf_l));
 
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-
-                if (options[item].equals(getString(R.string.chose_from_gallery))) {
-                    Intent gallery = new Intent();
-                    gallery.setType("image/*");
-                    gallery.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(gallery, getString(R.string.fto_de_perf_l)),  PICK_IMAGE);
-                } if (options[item].equals("Cancel")) {
-                    dialog.dismiss();
-                }
+        builder.setItems(options, (dialog, item) -> {
+            if (options[item].equals(getString(R.string.chose_from_gallery))) {
+                Intent gallery = new Intent();
+                gallery.setType("image/*");
+                gallery.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(gallery, getString(R.string.fto_de_perf_l)),  PICK_IMAGE);
+            } if (options[item].equals("Cancel")) {
+                dialog.dismiss();
             }
         });
         builder.show();
@@ -203,9 +172,11 @@ public class ProfileFragment extends Fragment {
                     if (resultCode == RESULT_OK && data != null) {
                         Uri resultUri = data.getData();
                         try {
-                            Bitmap picturePath = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
+                            Bitmap picturePath = MediaStore.Images.Media.
+                                    getBitmap(getActivity().getContentResolver(), resultUri);
                             circleImageViewProfile.setImageBitmap(picturePath);
-                            new Storge(getFragmentManager(), "pictureProfile", new Authentication().getCurrentUser().getEmail(),
+                            new Storge(getFragmentManager(), "pictureProfile",
+                                    new Authentication().getCurrentUser().getEmail(),
                                     getContext())
                                     .setProfile(resultUri);
                         } catch (IOException ignored) { }

@@ -1,7 +1,5 @@
 package com.example.exoesqueletov1.dialogs;
 
-
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -44,16 +42,13 @@ public class DialogLostYourPass extends AppCompatDialogFragment {
         layoutEmail = view.findViewById(R.id.correo_dialog_lost);
 
         try {
-            btOk.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String email = layoutEmail.getEditText().getText().toString().trim();
-                    layoutEmail.setError(null);
-                    layoutEmail.getEditText().setTextColor(Color.BLACK);
-                    if(validateFields(layoutEmail, email)) {
-                        new Authentication(getFragmentManager()).sendPasswordReset(email);
-                        dismiss();
-                    }
+            btOk.setOnClickListener(v -> {
+                String email = layoutEmail.getEditText().getText().toString().trim();
+                layoutEmail.setError(null);
+                layoutEmail.getEditText().setTextColor(Color.BLACK);
+                if(validateFields(layoutEmail, email)) {
+                    new Authentication(getFragmentManager()).sendPasswordReset(email);
+                    dismiss();
                 }
             });
         } catch (Exception e) {

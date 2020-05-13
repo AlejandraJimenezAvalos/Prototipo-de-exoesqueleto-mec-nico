@@ -15,9 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.exoesqueletov1.Constants;
 import com.example.exoesqueletov1.MainActivity;
 import com.example.exoesqueletov1.R;
-import com.example.exoesqueletov1.clases.Database;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -91,46 +91,38 @@ public class DialogUpdateData extends AppCompatDialogFragment {
             }
         }
 
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (i == 1 ) {
-                    textView.setText(textInputLayoutData.getEditText().getText().
-                            toString().trim());
-                }
-                else {
-                    Map<String, Object> data = new HashMap<>();
-
-                    data.put(Database.TITLE, getString(R.string.report_message));
-                    data.put(Database.DATE, DateFormat.format("MMMM d, yyyy ",
-                            new Date().getTime()));
-                    data.put(Database.DESCRIPTION, getString(R.string.click_more_info));
-                    data.put(Database.STATE_NOTIFY, false);
-
-                    data.put(Database.REASON, textInputLayoutData.getEditText().getText().
-                            toString().trim());
-                    data.put(Database.CODE,
-                            Database.CODE_NOTIFICATIONS_DELET_REQUEST_FOR_INFRACTION);
-
-                    data.put(Database.FROM, id);
-                    data.put(Database.ID_USER_INFRACTION, idUserTo);
-                    data.put(Database.TO, "a");
-
-                    FirebaseFirestore.getInstance().
-                            collection(Database.COLLECTION_NOTIFICATIONS).add(data);
-                    getActivity().finish();
-                    startActivity(new Intent(getContext(), MainActivity.class));
-                }
-                dismiss();
+        buttonOk.setOnClickListener(v -> {
+            if (i == 1 ) {
+                textView.setText(textInputLayoutData.getEditText().getText().
+                        toString().trim());
             }
+            else {
+                Map<String, Object> data = new HashMap<>();
+
+                data.put(Constants.TITLE, getString(R.string.report_message));
+                data.put(Constants.DATE, DateFormat.format("MMMM d, yyyy ",
+                        new Date().getTime()));
+                data.put(Constants.DESCRIPTION, getString(R.string.click_more_info));
+                data.put(Constants.STATE_NOTIFY, false);
+
+                data.put(Constants.REASON, textInputLayoutData.getEditText().getText().
+                        toString().trim());
+                data.put(Constants.CODE,
+                        Constants.CODE_NOTIFICATIONS_DELET_REQUEST_FOR_INFRACTION);
+
+                data.put(Constants.FROM, id);
+                data.put(Constants.ID_USER_INFRACTION, idUserTo);
+                data.put(Constants.TO, "a");
+
+                FirebaseFirestore.getInstance().
+                        collection(Constants.COLLECTION_NOTIFICATIONS).add(data);
+                getActivity().finish();
+                startActivity(new Intent(getContext(), MainActivity.class));
+            }
+            dismiss();
         });
 
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        buttonCancel.setOnClickListener(v -> dismiss());
 
         return builder.create();
     }

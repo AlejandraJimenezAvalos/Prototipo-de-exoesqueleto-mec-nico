@@ -49,6 +49,9 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
     public static final String CODE_PAUSE = "0";
     public static final String CODE_STOP = "1";
     public static final String CODE_PLAY = "2";
+    public static final String CODE_WALK_MINUTES = "3";
+    public static final String CODE_WALK_STEPS = "4";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +90,9 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
 
     private void initViewPager() {
         adapter.addFragment(new WorksFragment());
-        adapter.addFragment(new WalkFragment(0, bluetoothSocket));
+        adapter.addFragment(new WalkFragment(WalkFragment.CODE_MINUTES));
         adapter.addFragment(new UpAndDownFragment(address));
-        adapter.addFragment(new WalkFragment(1, bluetoothSocket));
+        adapter.addFragment(new WalkFragment(WalkFragment.CODE_WALK));
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -206,16 +209,18 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             }
-            case R.id.menu_item_pause:
+            case R.id.menu_item_pause: {
                 if (stateButtonPause) {
                     send(CODE_PAUSE);
-                } else {
+                }
+                else {
                     changeButton(buttonPause, getDrawable(R.drawable.ic_pause),
                             getString(R.string.pausar));
                     stateButtonPause = true;
                     send(CODE_PLAY);
                 }
                 break;
+            }
             case R.id.menu_item_stop:
                 send(CODE_STOP);
                 break;

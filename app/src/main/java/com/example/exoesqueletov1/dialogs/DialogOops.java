@@ -40,20 +40,10 @@ public class DialogOops extends AppCompatDialogFragment {
         builder.setView(view);
 
         okButton = view.findViewById(R.id.button_oops);
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        okButton.setOnClickListener(v -> dismiss());
 
         out = view.findViewById(R.id.button_oops_out);
-        out.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
+        out.setOnClickListener(v -> getActivity().finish());
 
         texOutputError = view.findViewById(R.id.tex_output_error);
         texOutputError.setText(message);

@@ -2,7 +2,6 @@ package com.example.exoesqueletov1.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -19,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.exoesqueletov1.Constants;
 import com.example.exoesqueletov1.MainActivity;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
@@ -29,7 +29,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -55,10 +54,12 @@ public class ProfileLogUpFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         Button save;
+        View view;
 
-        View view = inflater.inflate(R.layout.fragment_log_up_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_log_up_profile, container, false);
 
         textInputLayoutName = view.findViewById(R.id.edit_text_nombre);
         textInputLayoutLastName = view.findViewById(R.id.edit_text_apellidos);
@@ -69,21 +70,13 @@ public class ProfileLogUpFragment extends Fragment {
         imageViewProfile = view.findViewById(R.id.image_perfil_profile);
         save = view.findViewById(R.id.button_save_profile);
 
-        imageViewProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImage(getContext());
-            }
-        });
+        imageViewProfile.setOnClickListener(v -> selectImage(getContext()));
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textInputLayoutName.setError(null);
-                textInputLayoutLastName.setError(null);
-                textInputLayoutDate.setError(null);
-                if (verify()) { saveProfile(); }
-            }
+        save.setOnClickListener(v -> {
+            textInputLayoutName.setError(null);
+            textInputLayoutLastName.setError(null);
+            textInputLayoutDate.setError(null);
+            if (verify()) { saveProfile(); }
         });
 
         return view;
@@ -95,37 +88,29 @@ public class ProfileLogUpFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(getString(R.string.fto_de_perf_l));
 
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-
-                if (options[item].equals(getString(R.string.chose_from_gallery))) {
-                    Intent gallery = new Intent();
-                    gallery.setType("image/*");
-                    gallery.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(gallery, getString(R.string.fto_de_perf_l)),  PICK_IMAGE);
-                } if (options[item].equals("Cancel")) {
-                    dialog.dismiss();
-                }
+        builder.setItems(options, (dialog, item) -> {
+            if (options[item].equals(getString(R.string.chose_from_gallery))) {
+                Intent gallery = new Intent();
+                gallery.setType("image/*");
+                gallery.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent
+                        .createChooser(gallery, getString(R.string.fto_de_perf_l)),  PICK_IMAGE);
+            } if (options[item].equals("Cancel")) {
+                dialog.dismiss();
             }
         });
         builder.show();
     }
 
     private void cropCapturedImage(Uri urlImagen){
-        //inicializamos nuestro intent
         Intent cropIntent = new Intent("com.android.camera.action.CROP");
         cropIntent.setDataAndType(urlImagen, "image/*");
-        //Habilitamos el crop en este intent
         cropIntent.putExtra("crop", "true");
         cropIntent.putExtra("aspectX", ASPECT_RATIO_X);
         cropIntent.putExtra("aspectY", ASPECT_RATIO_Y);
-        //indicamos los limites de nuestra imagen a cortar
         cropIntent.putExtra("outputX", 400);
         cropIntent.putExtra("outputY", 250);
-        //True: retornara la imagen como un bitmap, False: retornara la url de la imagen la guardada.
         cropIntent.putExtra("return-data", true);
-        //iniciamos nuestra activity y pasamos un codigo de respuesta.
         startActivityForResult(cropIntent, CUT_PICTURE);
     }
 
@@ -141,9 +126,11 @@ public class ProfileLogUpFragment extends Fragment {
                     if (resultCode == RESULT_OK && data != null) {
                         Uri resultUri = data.getData();
                         try {
-                            Bitmap picturePath = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
+                            Bitmap picturePath = MediaStore.Images.Media
+                                    .getBitmap(getActivity().getContentResolver(), resultUri);
                             imageViewProfile.setImageBitmap(picturePath);
-                            new Storge(getFragmentManager(), "pictureProfile", new Authentication().getCurrentUser().getEmail(),
+                            new Storge(getFragmentManager(), "pictureProfile",
+                                    new Authentication().getCurrentUser().getEmail(),
                                     getContext())
                                     .setProfile(resultUri);
                         } catch (IOException ignored) { }
@@ -162,15 +149,17 @@ public class ProfileLogUpFragment extends Fragment {
         else { user = "b"; }
 
         data.put(id, true);
-        data.put(Database.ID, id);
-        data.put(Database.USER, user);
-        data.put(Database.NAME, textInputLayoutName.getEditText().getText().toString().trim());
-        data.put(Database.LAST_NAME, textInputLayoutLastName.getEditText().getText().toString().trim());
-        data.put(Database.DATE, textInputLayoutDate.getEditText().getText().toString().trim());
-        data.put(Database.COUNTRY, spinnerCountry.getSelectedItem().toString().trim());
-        data.put(Database.GENDER, radioButtonWomen.isChecked());
+        data.put(Constants.ID, id);
+        data.put(Constants.USER, user);
+        data.put(Constants.NAME, textInputLayoutName.getEditText().getText().toString().trim());
+        data.put(Constants.LAST_NAME, textInputLayoutLastName.getEditText()
+                .getText().toString().trim());
+        data.put(Constants.DATE, textInputLayoutDate.getEditText().getText().toString().trim());
+        data.put(Constants.COUNTRY, spinnerCountry.getSelectedItem().toString().trim());
+        data.put(Constants.GENDER, radioButtonWomen.isChecked());
 
-        new Database(getFragmentManager(), getContext()).setDataUser(id, Database.DOCUMENT_USER, data, user);
+        new Database(getFragmentManager(), getContext())
+                .setDataUser(id, Constants.DOCUMENT_USER, data, user);
         getActivity().finish();
         startActivity(new Intent(getContext(), MainActivity.class));
     }

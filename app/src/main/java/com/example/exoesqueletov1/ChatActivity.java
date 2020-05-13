@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exoesqueletov1.clases.Authentication;
-import com.example.exoesqueletov1.clases.Database;
 import com.example.exoesqueletov1.clases.MessageAdapter;
 import com.example.exoesqueletov1.clases.MessageItem;
 import com.example.exoesqueletov1.clases.Storge;
@@ -65,29 +64,14 @@ public class ChatActivity extends AppCompatActivity {
 
         initComponents();
 
-        getNameAndPhoto((CircleImageView) findViewById(R.id.circle_image_view_profile));
+        getNameAndPhoto(findViewById(R.id.circle_image_view_profile));
 
-        imageViewBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backToMain();
-            }
-        });
+        imageViewBack.setOnClickListener(v -> backToMain());
 
-        imageViewSend.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SimpleDateFormat")
-            @Override
-            public void onClick(View v) {
-                sendMessage();
-            }
-        });
+        imageViewSend.setOnClickListener(v -> sendMessage());
 
-        imageViewMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showMore();
-            }
-        });
+        imageViewMore.setOnClickListener(v -> showMore());
+
         updateMessages();
     }
 
@@ -96,10 +80,10 @@ public class ChatActivity extends AppCompatActivity {
         Bundle data = this.getIntent().getExtras();
 
         timer.execute();
-        idChat = data.getString(Database.ID_CHAT);
-        idUserTo = data.getString(Database.ID_SPECIALIST);
+        idChat = data.getString(Constants.ID_CHAT);
+        idUserTo = data.getString(Constants.ID_SPECIALIST);
         id = new Authentication().getCurrentUser().getEmail();
-        typeUser = data.getString(Database.USER);
+        typeUser = data.getString(Constants.USER);
 
         db = FirebaseFirestore.getInstance();
 
@@ -111,13 +95,9 @@ public class ChatActivity extends AppCompatActivity {
     private void getNameAndPhoto(CircleImageView circleImageViewProfile) {
         new Storge().getProfileImage(circleImageViewProfile, idUserTo);
 
-        db.collection(idUserTo).document(Database.DOCUMENT_PROFILE).get().
-                addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        textViewName.setText(documentSnapshot.getData().get(Database.NAME).
-                                toString());
-                    }
+        db.collection(idUserTo).document(Constants.DOCUMENT_PROFILE).get().
+                addOnSuccessListener(documentSnapshot -> {
+                    textViewName.setText(documentSnapshot.getData().get(Constants.NAME).toString());
                 });
     }
 
@@ -132,27 +112,21 @@ public class ChatActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
         builder.setTitle(R.string.opciones);
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals(getString(R.string.vaciar_el_chat))) {
-                    db.collection(idChat).get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                                        db.collection(idChat).document(documentSnapshot.getId()).delete();
-                                    }
-                                }
-                            });
-                }
-                if (options[item].equals(getString(R.string.ver_contacto))) {
-                    DialogContact dialogContact = new DialogContact(id, idUserTo, idChat, typeUser);
-                    dialogContact.show(getSupportFragmentManager(), "");
-                }
-                if (options[item].equals("Cancel")) {
-                    dialog.dismiss();
-                }
+        builder.setItems(options, (dialog, item) -> {
+            if (options[item].equals(getString(R.string.vaciar_el_chat))) {
+                db.collection(idChat).get()
+                        .addOnCompleteListener(task -> {
+                            for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                db.collection(idChat).document(documentSnapshot.getId()).delete();
+                            }
+                        });
+            }
+            if (options[item].equals(getString(R.string.ver_contacto))) {
+                DialogContact dialogContact = new DialogContact(id, idUserTo, idChat, typeUser);
+                dialogContact.show(getSupportFragmentManager(), "");
+            }
+            if (options[item].equals("Cancel")) {
+                dialog.dismiss();
             }
         });
         builder.show();
@@ -160,26 +134,30 @@ public class ChatActivity extends AppCompatActivity {
 
     private void updateMessages() {
         mData = new ArrayList<>();
-            db.collection(idChat).orderBy(Database.NO, Query.Direction.ASCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    for (QueryDocumentSnapshot document : task.getResult()){
-                        try {
-                            String message = document.getData().get(Database.MESSAGE).toString();
-                            String hour = document.getData().get(Database.HOUR).toString();
-                            boolean isMyMessage = document.getData().get(Database.FROM).toString().equals(id);
-                            mData.add(new MessageItem(message, hour, isMyMessage));
-                        } catch (NullPointerException ignored) { }
-                    }
+            db.collection(idChat).orderBy(Constants.NO, Query.Direction.ASCENDING).get()
+                    .addOnCompleteListener(task -> {
+                        MessageAdapter notificationsAdapter;
+                        LinearLayoutManager linearLayoutManager;
+                        for (QueryDocumentSnapshot document : task.getResult()){
+                            try {
+                                String message = document.getData()
+                                        .get(Constants.MESSAGE).toString();
+                                String hour = document.getData(
 
-                    MessageAdapter notificationsAdapter;
-                    notificationsAdapter = new MessageAdapter(ChatActivity.this, mData, mData);
-                    recyclerView.setAdapter(notificationsAdapter);
-                    recyclerView.setHasFixedSize(true);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-                    linearLayoutManager.setStackFromEnd(true);
-                    recyclerView.setLayoutManager(linearLayoutManager);
-                }
+                                ).get(Constants.HOUR).toString();
+                                boolean isMyMessage;
+                                isMyMessage = document.getData()
+                                        .get(Constants.FROM).toString().equals(id);
+                                mData.add(new MessageItem(message, hour, isMyMessage));
+                            } catch (NullPointerException ignored) { }
+                        }
+                        notificationsAdapter =
+                                new MessageAdapter(ChatActivity.this, mData, mData);
+                        recyclerView.setAdapter(notificationsAdapter);
+                        recyclerView.setHasFixedSize(true);
+                        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+                        linearLayoutManager.setStackFromEnd(true);
+                        recyclerView.setLayoutManager(linearLayoutManager);
             });
     }
 
@@ -188,10 +166,10 @@ public class ChatActivity extends AppCompatActivity {
         if (!editTextMessage.getText().toString().trim().isEmpty()){
             String message = editTextMessage.getText().toString().trim();
             Map<String, Object> data = new HashMap<>();
-            data.put(Database.MESSAGE, message);
-            data.put(Database.HOUR, new SimpleDateFormat("HH:mm").format(new Date()));
-            data.put(Database.FROM, id);
-            data.put(Database.NO, mData.size() + 1);
+            data.put(Constants.MESSAGE, message);
+            data.put(Constants.HOUR, new SimpleDateFormat("HH:mm").format(new Date()));
+            data.put(Constants.FROM, id);
+            data.put(Constants.NO, mData.size() + 1);
             db.collection(idChat).add(data);
             editTextMessage.setText("");
         }
@@ -205,12 +183,9 @@ public class ChatActivity extends AppCompatActivity {
             Timer timer = new Timer();
             timer.execute();
             if (stateTimer) {
-                db.collection(idChat).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        List<DocumentSnapshot> document = queryDocumentSnapshots.getDocuments();
-                        if (document.size() != mData.size()) { updateMessages(); }
-                    }
+                db.collection(idChat).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<DocumentSnapshot> document = queryDocumentSnapshots.getDocuments();
+                    if (document.size() != mData.size()) { updateMessages(); }
                 });
             }
         }

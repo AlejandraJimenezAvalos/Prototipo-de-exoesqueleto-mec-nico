@@ -12,9 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.exoesqueletov1.Constants;
 import com.example.exoesqueletov1.R;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -22,7 +21,8 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder> implements Filterable  {
+public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder>
+        implements Filterable  {
 
     private Context mContext;
     private List<ChatItem> itemList;
@@ -40,34 +40,44 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View layout;
-        layout = LayoutInflater.from(mContext).inflate(R.layout.item_chat,viewGroup,false);
+        layout = LayoutInflater.from(mContext)
+                .inflate(R.layout.item_chat,viewGroup,false);
         return new NewsViewHolder(layout, onMenuListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ChatAdapter.NewsViewHolder holder, final int position) {
+    public void
+    onBindViewHolder(@NonNull final ChatAdapter.NewsViewHolder holder, final int position) {
         if (!mDataFiltered.get(position).getName().equals("")) {
             holder.textViewName.setText(mDataFiltered.get(position).getName());
             holder.textViewMessage.setText(mDataFiltered.get(position).getMessage());
             holder.textViewDate.setText(mDataFiltered.get(position).getDate());
         } else {
             FirebaseFirestore.getInstance().collection(mDataFiltered.get(position).getId()).
-                    document(Database.DOCUMENT_PROFILE).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    holder.textViewName.setText(documentSnapshot.getData().get(Database.NAME).toString());
-                    holder.textViewMessage.setText(mDataFiltered.get(position).getMessage());
-                    mDataFiltered.get(position).setName(documentSnapshot.getData().get(Database.NAME).toString());
-                    String typeUser = "";
-                    if (documentSnapshot.getData().get(Database.USER).toString().equals("a")) { typeUser = "Administrador"; }
-                    if (documentSnapshot.getData().get(Database.USER).toString().equals("b")) { typeUser = "Fisioterapeuta"; }
-                    if (documentSnapshot.getData().get(Database.USER).toString().equals("c")) { typeUser = "Pasiente"; }
+                    document(Constants.DOCUMENT_PROFILE).get().addOnSuccessListener(documentSnapshot -> {
+                        holder.textViewName.setText(documentSnapshot.getData()
+                                .get(Constants.NAME).toString());
+                        holder.textViewMessage.setText(mDataFiltered
+                                .get(position).getMessage());
+                        mDataFiltered.get(position).setName(documentSnapshot
+                                .getData().get(Constants.NAME).toString());
 
-                    mDataFiltered.get(position).setMessage(typeUser);
-                }
-            });
+                        String typeUser = "";
+                        if (documentSnapshot.getData().get(Constants.USER).toString().equals("a")) {
+                            typeUser = "Administrador";
+                        }
+                        if (documentSnapshot.getData().get(Constants.USER).toString().equals("b")) {
+                            typeUser = "Fisioterapeuta";
+                        }
+                        if (documentSnapshot.getData().get(Constants.USER).toString().equals("c")) {
+                            typeUser = "Pasiente";
+                        }
+
+                        mDataFiltered.get(position).setMessage(typeUser);
+                    });
         }
-        new Storge().getProfileImage(holder.circleImageViewProfilePhoto, mDataFiltered.get(position).getId());
+        new Storge().getProfileImage(holder.circleImageViewProfilePhoto,
+                mDataFiltered.get(position).getId());
     }
 
     @Override
@@ -106,7 +116,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
         };
     }
 
-    public static class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class NewsViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         private ChatAdapter.OnMenuListener onMenuListener;
 

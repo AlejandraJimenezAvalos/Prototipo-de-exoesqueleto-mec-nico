@@ -86,6 +86,8 @@
     <string name="advertencia_bluetooth">Debes establecer una conexión via bluetooth con el exoesqueleto.</string>
     <string name="play">Play</string>
     <string name="pausar">Pausar</string>
+    <string name="walk_title2">Caminar determinados pasos</string>
+    <string name="walk_indication2">Desplaza el piker para seleccionar la cantidad de pasos a dar y pulse el boton Caminar</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>

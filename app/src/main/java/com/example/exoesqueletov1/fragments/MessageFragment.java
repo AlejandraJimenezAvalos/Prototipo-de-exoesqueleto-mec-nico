@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.exoesqueletov1.Constants;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.Database;
@@ -36,9 +37,12 @@ public class MessageFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_messages, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        final View view;
         final String id = new Authentication().getCurrentUser().getEmail();
+
+        view = inflater.inflate(R.layout.fragment_messages, container, false);
 
         TextView textViewAdd = view.findViewById(R.id.text_add);
         TextView textViewChats = view.findViewById(R.id.text_chats);
@@ -48,16 +52,17 @@ public class MessageFragment extends Fragment {
         editTextSearch = view.findViewById(R.id.search_edit_text);
         recyclerView = view.findViewById(R.id.recycler_chats);
 
-        final Database database = new Database(getFragmentManager(), getContext(), typeUser, getActivity());
+        final Database database;
+        database = new Database(getFragmentManager(), getContext(), typeUser, getActivity());
 
         switch (code) {
-            case Database.CODE_NOTIFICATIONS_FRIEND_REQUEST:
+            case Constants.CODE_NOTIFICATIONS_FRIEND_REQUEST:
                 database.getUsers(recyclerView);
                 viewAdd.setBackgroundResource(R.color.pinkDark);
                 viewChats.setBackgroundResource(R.color.blueDark);
                 break;
-            case Database.CODE_NOTIFICATIONS_ADMIN_REQUEST:
-            case Database.CODE_REGULAR:
+            case Constants.CODE_NOTIFICATIONS_ADMIN_REQUEST:
+            case Constants.CODE_REGULAR:
                 database.getChats(id, recyclerView);
                 break;
         }
@@ -77,30 +82,19 @@ public class MessageFragment extends Fragment {
             }
         });
 
-        textViewChats.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewChats.setBackgroundResource(R.color.pinkDark);
-                viewAdd.setBackgroundResource(R.color.blueDark);
-                database.getChats(id, recyclerView);
-            }
+        textViewChats.setOnClickListener(v -> {
+            viewChats.setBackgroundResource(R.color.pinkDark);
+            viewAdd.setBackgroundResource(R.color.blueDark);
+            database.getChats(id, recyclerView);
         });
 
-        textViewAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewAdd.setBackgroundResource(R.color.pinkDark);
-                viewChats.setBackgroundResource(R.color.blueDark);
-                database.getUsers(recyclerView);
-            }
+        textViewAdd.setOnClickListener(v -> {
+            viewAdd.setBackgroundResource(R.color.pinkDark);
+            viewChats.setBackgroundResource(R.color.blueDark);
+            database.getUsers(recyclerView);
         });
 
-        textViewCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editTextSearch.setText("");
-            }
-        });
+        textViewCancel.setOnClickListener(v -> editTextSearch.setText(""));
 
         return view;
     }
