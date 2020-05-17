@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.clases;
+package com.example.exoesqueletov1.clases.items;
 
 public class NotificationsItem {
 
@@ -19,15 +19,15 @@ public class NotificationsItem {
         this.state = state;
     }
 
-    String getTitle() {
+    public String getTitle() {
         return title;
     }
 
-    String getDate() {
+    public String getDate() {
         return date;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 

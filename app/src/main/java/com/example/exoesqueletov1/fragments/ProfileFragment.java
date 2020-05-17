@@ -19,7 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.exoesqueletov1.Constants;
+import com.example.exoesqueletov1.ConstantsDatabase;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.Database;
@@ -117,16 +117,16 @@ public class ProfileFragment extends Fragment {
         if (textViewUser.getText().equals("Fisioterapeuta")) { user = "b"; }
         if (textViewUser.getText().equals("Paciente")) { user = "c"; }
 
-        data.put(Constants.NAME, textViewName.getText().toString().trim());
-        data.put(Constants.USER, user);
-        data.put(Constants.DESCRIPTION, textViewDes.getText().toString().trim());
-        data.put(Constants.EMAIL, textViewMail.getText().toString().trim());
-        data.put(Constants.ADDRESS, textViewAddress.getText().toString().trim());
-        data.put(Constants.CELL, textViewCell.getText().toString().trim());
-        data.put(Constants.PHONE, textViewPhone.getText().toString().trim());
-        data.put(Constants.SCHOOL, textViewSchool.getText().toString().trim());
+        data.put(ConstantsDatabase.NAME, textViewName.getText().toString().trim());
+        data.put(ConstantsDatabase.USER, user);
+        data.put(ConstantsDatabase.DESCRIPTION, textViewDes.getText().toString().trim());
+        data.put(ConstantsDatabase.EMAIL, textViewMail.getText().toString().trim());
+        data.put(ConstantsDatabase.ADDRESS, textViewAddress.getText().toString().trim());
+        data.put(ConstantsDatabase.CELL, textViewCell.getText().toString().trim());
+        data.put(ConstantsDatabase.PHONE, textViewPhone.getText().toString().trim());
+        data.put(ConstantsDatabase.SCHOOL, textViewSchool.getText().toString().trim());
 
-        database.updateData(id, Constants.DOCUMENT_PROFILE, data);
+        database.updateData(id, ConstantsDatabase.DOCUMENT_PROFILE, data);
     }
 
     private void selectImage(Context context) {

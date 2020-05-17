@@ -9,10 +9,12 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,57 +23,79 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.exoesqueletov1.ControlActivity;
 import com.example.exoesqueletov1.R;
-import com.example.exoesqueletov1.bleutooth.SerialListener;
-import com.example.exoesqueletov1.bleutooth.SerialService;
-import com.example.exoesqueletov1.bleutooth.SerialSocket;
+import com.example.exoesqueletov1.clases.bleutooth.Constants;
+import com.example.exoesqueletov1.clases.bleutooth.SerialListener;
+import com.example.exoesqueletov1.clases.bleutooth.SerialService;
+import com.example.exoesqueletov1.clases.bleutooth.SerialSocket;
 import com.example.exoesqueletov1.dialogs.DialogOops;
 
-public class WalkFragment extends Fragment implements ServiceConnection, SerialListener {
-
-    public static final int CODE_MINUTES = 0;
-    public static final int CODE_WALK = 1;
-
-    private TextView indicationWalk;
-    private TextView titleWalk;
-    private int code;
+public class WalkFragment extends Fragment implements ServiceConnection, SerialListener, View.OnClickListener {
 
     private enum Connected { False, Pending, True } // type of variable
 
-    private String deviceAddress;
-    private String newline = "\r\n";
+    private TextView indicationWalk;
+    private TextView titleWalk;
+    private NumberPicker numberPicker;
+    private Button buttonWalkfragment;
+    private TextView terminal;
 
     private SerialSocket serialSocket;
     private SerialService serialService;
+
+    private int code;
+    private String address;
     private boolean initialStart = true;
+    private boolean pause = false;
     private Connected connected = Connected.False;
 
-    public WalkFragment(int code) {
+    static final int CODE_WALK_MINUTES = 0;
+    static final int CODE_WALK_STEPS = 1;
+
+    WalkFragment(int code, String address) {
         this.code = code;
+        this.address = address;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_walk, container, false);
+        View view;
+        view = inflater.inflate(R.layout.fragment_walk, container, false);
 
-        Button buttonWalkfragment = view.findViewById(R.id.button_walk_fragment);
-        NumberPicker numberPicker = view.findViewById(R.id.number_picker);
+        ImageView imageViewBack = view.findViewById(R.id.image_back_walk);
+        buttonWalkfragment = view.findViewById(R.id.button_walk_fragment);
+        numberPicker = view.findViewById(R.id.number_picker);
         indicationWalk = view.findViewById(R.id.indication_walk);
         titleWalk = view.findViewById(R.id.title_walk);
+        terminal = view.findViewById(R.id.terminal);
+        terminal.setMovementMethod(ScrollingMovementMethod.getInstance());
 
-        numberPicker.setMaxValue(30);
+        numberPicker.setMaxValue(9);
         numberPicker.setMinValue(1);
 
-        if (code == CODE_WALK) { initWalk(); }
+        if (code == CODE_WALK_STEPS) { initWalk(); }
 
-        // TODO
+        ControlActivity.setActionButtonReport(getActivity()
+                .findViewById(R.id.flotating_button_report_problem));
+        ControlActivity.setActionButtonStop(getActivity()
+                .findViewById(R.id.flotating_button_stop));
+        ControlActivity.setActionButtonPause(getActivity()
+                .findViewById(R.id.flotating_button_pause));
+        ControlActivity.setActionButtonHelp(getActivity()
+                .findViewById(R.id.flotating_button_help));
 
-        buttonWalkfragment.setOnClickListener(v -> {
-            if(code == CODE_MINUTES) { send("a"); }
-            else { send("b"); }
-        });
+        ControlActivity.getActionButtonReport().setOnClickListener(this);
+        ControlActivity.getActionButtonStop().setOnClickListener(this);
+        ControlActivity.getActionButtonPause().setOnClickListener(this);
+        ControlActivity.getActionButtonHelp().setOnClickListener(this);
+        ControlActivity.getActionButtonStop().setEnabled(false);
+        ControlActivity.getActionButtonPause().setEnabled(false);
+
+        imageViewBack.setOnClickListener(this);
+        buttonWalkfragment.setOnClickListener(this);
 
         return view;
     }
@@ -148,23 +172,84 @@ public class WalkFragment extends Fragment implements ServiceConnection, SerialL
 
     @Override
     public void onSerialConnectError(Exception e) {
-        DialogOops dialogOops = new DialogOops(e.getMessage());
-        dialogOops.show(getFragmentManager(), "WalkFragment");
-        disconnect();
+        setError(e);
     }
 
     @Override
     public void onSerialRead(byte[] data) {
-        Toast.makeText(getContext(), "Recivido: " + new String(data), Toast.LENGTH_SHORT).show();
-        switch (new String(data)) {
+        terminal.append(new String(data));
+        try {
+            switch (new String(data)) {
+                case Constants.LISTEN: {
+                    terminal.append("LISTEN");
+                    send(String.valueOf(numberPicker.getValue()));
+                    break;
+                }
+                case Constants.FINALISE: {
+                    terminal.append("FINALISE");
+                    buttonWalkfragment.setEnabled(true);
+                    ControlActivity.getActionButtonPause().setEnabled(false);
+                    ControlActivity.getActionButtonStop().setEnabled(false);
+                }
+                case Constants.RECEIVED:
+                    terminal.append("RECEIVED");
+                    break;
+            }
+        } catch (Exception e) {
+            DialogOops oops = new DialogOops(e.getMessage());
+            oops.show(getFragmentManager(), "hi");
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.flotating_button_report_problem:
+            case R.id.flotating_button_help:
+                Toast.makeText(getContext(), "Estamos trabajando en ello", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.flotating_button_stop:
+                ControlActivity.getActionButtonStop().setEnabled(false);
+                ControlActivity.getActionButtonPause().setEnabled(false);
+                buttonWalkfragment.setEnabled(true);
+                send(Constants.STOP);
+                break;
+            case R.id.flotating_button_pause:
+                if (pause) {
+                    send(Constants.PLAY);
+                    ControlActivity.getActionButtonPause().setLabelText(getString(R.string.pausar));
+                    ControlActivity.getActionButtonPause()
+                            .setImageDrawable(getActivity().getDrawable(R.drawable.ic_pause));
+                    pause = false;
+                }
+                else {
+                    ControlActivity.getActionButtonPause().setLabelText(getString(R.string.play));
+                    ControlActivity.getActionButtonPause()
+                            .setImageDrawable(getActivity().getDrawable(R.drawable.ic_play));
+                    send(Constants.PAUSE);
+                    pause = true;
+                }
+                break;
+            case R.id.image_back_walk:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.content, new MenuFragment(address))
+                        .commit();
+                break;
+            case R.id.button_walk_fragment:
+                ControlActivity.getActionButtonStop().setEnabled(true);
+                ControlActivity.getActionButtonPause().setEnabled(true);
+                buttonWalkfragment.setEnabled(false);
+                if(code == CODE_WALK_MINUTES) {
+                    send(Constants.WALK_MINUTES);
+                }
+                else { send(Constants.WALK_STEPS); }
+                break;
         }
     }
 
     @Override
     public void onSerialIoError(Exception e) {
-        DialogOops dialogOops = new DialogOops(e.getMessage());
-        dialogOops.show(getFragmentManager(), "WalkFragment");
-        disconnect();
+        setError(e);
     }
 
     private void initWalk() {
@@ -175,7 +260,7 @@ public class WalkFragment extends Fragment implements ServiceConnection, SerialL
     private void connect() {
         try {
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
+            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
             String deviceName = device.getName() != null ? device.getName() : device.getAddress();
             status("connecting...");
             connected = Connected.Pending;
@@ -200,7 +285,7 @@ public class WalkFragment extends Fragment implements ServiceConnection, SerialL
             return;
         }
         try {
-            Toast.makeText(getContext(), "mensaje: " + str, Toast.LENGTH_SHORT).show();
+            String newline = "\r\n";
             byte[] data = (str + newline).getBytes();
             serialSocket.write(data);
         } catch (Exception e) {
@@ -211,6 +296,14 @@ public class WalkFragment extends Fragment implements ServiceConnection, SerialL
     private void status(String str) {
         Toast.makeText(getContext(), "estatus: " + str, Toast.LENGTH_SHORT).show();
     }
+
+    private void setError(Exception e) {
+        DialogOops dialogOops = new DialogOops(e.getMessage());
+        dialogOops.show(getFragmentManager(), "WalkFragment");
+        disconnect();
+        getFragmentManager().beginTransaction().replace(R.id.content, new MenuFragment(address));
+    }
+
 }
 
 

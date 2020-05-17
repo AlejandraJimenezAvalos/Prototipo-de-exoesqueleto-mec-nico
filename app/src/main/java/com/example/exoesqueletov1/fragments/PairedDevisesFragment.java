@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -89,7 +88,6 @@ public class PairedDevisesFragment extends Fragment {
         String info = textView.getText().toString();
         String address = info.substring(info.length() - 17);
         Intent i = new Intent(getContext(), ControlActivity.class);
-
         i.putExtra(DEVICE_ADDRESS, address);
         startActivity(i);
     };

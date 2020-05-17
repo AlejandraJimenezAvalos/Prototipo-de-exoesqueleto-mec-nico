@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.exoesqueletov1.Constants;
+import com.example.exoesqueletov1.ConstantsDatabase;
 import com.example.exoesqueletov1.MainActivity;
 import com.example.exoesqueletov1.R;
 import com.google.android.material.textfield.TextInputLayout;
@@ -57,12 +57,11 @@ public class DialogUpdateData extends AppCompatDialogFragment {
 
         AlertDialog.Builder builder;
         LayoutInflater inflater;
-        View view;
 
         builder = new AlertDialog.Builder(getActivity());
         inflater = getActivity().getLayoutInflater();
 
-        view = inflater.inflate(R.layout.dialog_update_data, null);
+        View view = inflater.inflate(R.layout.dialog_update_data, null);
         builder.setView(view);
 
 
@@ -99,23 +98,23 @@ public class DialogUpdateData extends AppCompatDialogFragment {
             else {
                 Map<String, Object> data = new HashMap<>();
 
-                data.put(Constants.TITLE, getString(R.string.report_message));
-                data.put(Constants.DATE, DateFormat.format("MMMM d, yyyy ",
+                data.put(ConstantsDatabase.TITLE, getString(R.string.report_message));
+                data.put(ConstantsDatabase.DATE, DateFormat.format("MMMM d, yyyy ",
                         new Date().getTime()));
-                data.put(Constants.DESCRIPTION, getString(R.string.click_more_info));
-                data.put(Constants.STATE_NOTIFY, false);
+                data.put(ConstantsDatabase.DESCRIPTION, getString(R.string.click_more_info));
+                data.put(ConstantsDatabase.STATE_NOTIFY, false);
 
-                data.put(Constants.REASON, textInputLayoutData.getEditText().getText().
+                data.put(ConstantsDatabase.REASON, textInputLayoutData.getEditText().getText().
                         toString().trim());
-                data.put(Constants.CODE,
-                        Constants.CODE_NOTIFICATIONS_DELET_REQUEST_FOR_INFRACTION);
+                data.put(ConstantsDatabase.CODE,
+                        ConstantsDatabase.CODE_NOTIFICATIONS_DELETE_REQUEST_FOR_INFRACTION);
 
-                data.put(Constants.FROM, id);
-                data.put(Constants.ID_USER_INFRACTION, idUserTo);
-                data.put(Constants.TO, "a");
+                data.put(ConstantsDatabase.FROM, id);
+                data.put(ConstantsDatabase.ID_USER_INFRACTION, idUserTo);
+                data.put(ConstantsDatabase.TO, "a");
 
                 FirebaseFirestore.getInstance().
-                        collection(Constants.COLLECTION_NOTIFICATIONS).add(data);
+                        collection(ConstantsDatabase.COLLECTION_NOTIFICATIONS).add(data);
                 getActivity().finish();
                 startActivity(new Intent(getContext(), MainActivity.class));
             }

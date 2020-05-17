@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.clases;
+package com.example.exoesqueletov1.clases.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,27 +6,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exoesqueletov1.R;
+import com.example.exoesqueletov1.clases.items.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.NewsViewHolder>
-        implements Filterable  {
+public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.NewsViewHolder>
+        implements Filterable {
 
     private Context mContext;
-    private List<NotificationsItem> itemList;
-    private List<NotificationsItem> mDataFiltered;
-    private NotificationsAdapter.OnMenuListener onMenuListener;
+    private List<MenuItem> itemList;
+    private List<MenuItem> mDataFiltered;
+    private OnMenuListener onMenuListener;
 
-    public NotificationsAdapter(Context mContext, List<NotificationsItem> itemList,
-                                NotificationsAdapter.OnMenuListener onMenuListener) {
+    public MenuAdapter(Context mContext, List<MenuItem> itemList, OnMenuListener onMenuListener) {
         this.mContext = mContext;
         this.itemList = itemList;
         this.mDataFiltered = itemList;
@@ -35,23 +34,16 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
 
     @NonNull
     @Override
-    public NotificationsAdapter.NewsViewHolder
-    onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View layout;
         layout = LayoutInflater.from(mContext)
-                .inflate(R.layout.item_notification,viewGroup,false);
+                .inflate(R.layout.item_menu,viewGroup,false);
         return new NewsViewHolder(layout, onMenuListener);
     }
 
     @Override
-    public void
-    onBindViewHolder(@NonNull NotificationsAdapter.NewsViewHolder holder, int position) {
-        holder.title.setText(mDataFiltered.get(position).getTitle());
-        holder.date.setText(mDataFiltered.get(position).getDate());
-        holder.description.setText(mDataFiltered.get(position).getDescription());
-        if (mDataFiltered.get(position).isState()) {
-            holder.viewItemPending.setBackgroundResource(R.color.blue);
-        }
+    public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
+        holder.img_user.setImageResource(mDataFiltered.get(position).getUserPhoto());
     }
 
     @Override
@@ -69,8 +61,8 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
                     mDataFiltered = itemList;
                 }
                 else {
-                    List<NotificationsItem> lstFiltered = new ArrayList<>();
-                    for (NotificationsItem row : itemList) {
+                    List<MenuItem> lstFiltered = new ArrayList<>();
+                    for (MenuItem row : itemList) {
                         if (row.getTitle().toLowerCase().contains(Key.toLowerCase())){
                             lstFiltered.add(row);
                         }
@@ -84,7 +76,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mDataFiltered = (List<NotificationsItem>) results.values;
+                mDataFiltered = (List<MenuItem>) results.values;
                 notifyDataSetChanged();
             }
         };
@@ -93,21 +85,14 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     public static class NewsViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        private TextView title, date, description;
-        private View viewItemPending;
-        private NotificationsAdapter.OnMenuListener onMenuListener;
+        private ImageView img_user;
+        private OnMenuListener onMenuListener;
 
-        NewsViewHolder(@NonNull View itemView, NotificationsAdapter.OnMenuListener onMenuListener) {
+        NewsViewHolder(@NonNull View itemView, OnMenuListener onMenuListener) {
             super(itemView);
-
-            LinearLayout itemPending = itemView.findViewById(R.id.item_pending);
-            title = itemView.findViewById(R.id.text_title_item_pending);
-            date = itemView.findViewById(R.id.text_date_item_pending);
-            description = itemView.findViewById(R.id.text_description_item_pending);
-            viewItemPending = itemPending.findViewById(R.id.view_item_pending);
-
+            img_user = itemView.findViewById(R.id.img_user);
             this.onMenuListener = onMenuListener;
-            itemPending.setOnClickListener(this);
+            img_user.setOnClickListener(this);
         }
 
         @Override
@@ -119,3 +104,4 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         void onMenuClick (int position);
     }
 }
+

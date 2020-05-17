@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.clases;
+package com.example.exoesqueletov1.clases.items;
 
 public class MessageItem {
 
@@ -16,11 +16,11 @@ public class MessageItem {
         return message;
     }
 
-    String getHour() {
+    public String getHour() {
         return hour;
     }
 
-    Boolean getMyMessage() {
+    public Boolean getMyMessage() {
         return myMessage;
     }
 

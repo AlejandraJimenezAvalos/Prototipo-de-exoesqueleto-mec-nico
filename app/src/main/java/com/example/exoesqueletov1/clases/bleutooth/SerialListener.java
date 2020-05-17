@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.bleutooth;
+package com.example.exoesqueletov1.clases.bleutooth;
 
 public interface SerialListener {
     void onSerialConnect();

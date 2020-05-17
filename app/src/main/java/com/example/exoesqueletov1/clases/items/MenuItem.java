@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.clases;
+package com.example.exoesqueletov1.clases.items;
 
 public class MenuItem {
 
@@ -15,7 +15,7 @@ public class MenuItem {
         return Title;
     }
 
-    int getUserPhoto() {
+    public int getUserPhoto() {
         return userPhoto;
     }
 }

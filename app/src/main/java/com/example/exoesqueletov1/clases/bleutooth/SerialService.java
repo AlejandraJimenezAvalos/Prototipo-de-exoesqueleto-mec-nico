@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.bleutooth;
+package com.example.exoesqueletov1.clases.bleutooth;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -27,11 +27,11 @@ public class SerialService extends Service implements SerialListener {
         public SerialService getService() { return SerialService.this; }
     }
 
-    private final Handler mainLooper;
+    private final Handler HandlerMainLooper;
     private final IBinder binder;
     private final Queue<QueueItem> queue1, queue2;
 
-    private SerialListener listener;
+    private SerialListener serialListener;
     private boolean connected;
     private String notificationMsg;
 
@@ -52,7 +52,7 @@ public class SerialService extends Service implements SerialListener {
      * Lifecylce
      */
     public SerialService() {
-        mainLooper = new Handler(Looper.getMainLooper());
+        HandlerMainLooper = new Handler(Looper.getMainLooper());
         binder = new SerialBinder();
         queue1 = new LinkedList<>();
         queue2 = new LinkedList<>();
@@ -75,13 +75,13 @@ public class SerialService extends Service implements SerialListener {
      * Api
      */
     public void connect(SerialListener listener, String notificationMsg) {
-        this.listener = listener;
+        this.serialListener = listener;
         connected = true;
         this.notificationMsg = notificationMsg;
     }
 
     public void disconnect() {
-        listener = null;
+        serialListener = null;
         connected = false;
         notificationMsg = null;
     }
@@ -96,7 +96,7 @@ public class SerialService extends Service implements SerialListener {
          */
         if(connected) {
             synchronized (this) {
-                this.listener = listener;
+                this.serialListener = listener;
             }
         }
         for(QueueItem item : queue1) {
@@ -125,7 +125,7 @@ public class SerialService extends Service implements SerialListener {
         // items already in event queue (posted before detach() to mainLooper) will end up in queue1
         // items occurring later, will be moved directly to queue2
         // detach() and mainLooper.post run in the main thread, so all items are caught
-        listener = null;
+        serialListener = null;
     }
 
     private void createNotification() {
@@ -179,10 +179,10 @@ public class SerialService extends Service implements SerialListener {
     public void onSerialConnect() {
         if(connected) {
             synchronized (this) {
-                if (listener != null) {
-                    mainLooper.post(() -> {
-                        if (listener != null) {
-                            listener.onSerialConnect();
+                if (serialListener != null) {
+                    HandlerMainLooper.post(() -> {
+                        if (serialListener != null) {
+                            serialListener.onSerialConnect();
                         } else {
                             queue1.add(new QueueItem(QueueType.Connect, null, null));
                         }
@@ -197,10 +197,10 @@ public class SerialService extends Service implements SerialListener {
     public void onSerialConnectError(final Exception e) {
         if(connected) {
             synchronized (this) {
-                if (listener != null) {
-                    mainLooper.post(() -> {
-                        if (listener != null) {
-                            listener.onSerialConnectError(e);
+                if (serialListener != null) {
+                    HandlerMainLooper.post(() -> {
+                        if (serialListener != null) {
+                            serialListener.onSerialConnectError(e);
                         } else {
                             queue1.add(new QueueItem(QueueType.ConnectError, null, e));
                             SerialService.this.cancelNotification();
@@ -219,10 +219,10 @@ public class SerialService extends Service implements SerialListener {
     public void onSerialRead(final byte[] data) {
         if(connected) {
             synchronized (this) {
-                if (listener != null) {
-                    mainLooper.post(() -> {
-                        if (listener != null) {
-                            listener.onSerialRead(data);
+                if (serialListener != null) {
+                    HandlerMainLooper.post(() -> {
+                        if (serialListener != null) {
+                            serialListener.onSerialRead(data);
                         } else {
                             queue1.add(new QueueItem(QueueType.Read, data, null));
                         }
@@ -237,10 +237,10 @@ public class SerialService extends Service implements SerialListener {
     public void onSerialIoError(final Exception e) {
         if(connected) {
             synchronized (this) {
-                if (listener != null) {
-                    mainLooper.post(() -> {
-                        if (listener != null) {
-                            listener.onSerialIoError(e);
+                if (serialListener != null) {
+                    HandlerMainLooper.post(() -> {
+                        if (serialListener != null) {
+                            serialListener.onSerialIoError(e);
                         } else {
                             queue1.add(new QueueItem(QueueType.IoError, null, e));
                             SerialService.this.cancelNotification();

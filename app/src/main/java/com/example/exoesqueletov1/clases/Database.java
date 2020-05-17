@@ -6,21 +6,22 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exoesqueletov1.ChatActivity;
-import com.example.exoesqueletov1.Constants;
 import com.example.exoesqueletov1.R;
+import com.example.exoesqueletov1.clases.adapters.ChatAdapter;
+import com.example.exoesqueletov1.clases.items.ChatItem;
 import com.example.exoesqueletov1.dialogs.DialogAllDone;
 import com.example.exoesqueletov1.dialogs.DialogFriendRequest;
 import com.example.exoesqueletov1.dialogs.DialogLoading;
 import com.example.exoesqueletov1.dialogs.DialogOops;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -31,6 +32,38 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.exoesqueletov1.ConstantsDatabase.ADDRESS;
+import static com.example.exoesqueletov1.ConstantsDatabase.ADMIN;
+import static com.example.exoesqueletov1.ConstantsDatabase.CELL;
+import static com.example.exoesqueletov1.ConstantsDatabase.CODE;
+import static com.example.exoesqueletov1.ConstantsDatabase.CODE_NOTIFICATIONS_NEW_USER;
+import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_CHATS;
+import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
+import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_USERS;
+import static com.example.exoesqueletov1.ConstantsDatabase.DATE;
+import static com.example.exoesqueletov1.ConstantsDatabase.DESCRIPTION;
+import static com.example.exoesqueletov1.ConstantsDatabase.DOCUMENT_PROFILE;
+import static com.example.exoesqueletov1.ConstantsDatabase.DOCUMENT_TYPE;
+import static com.example.exoesqueletov1.ConstantsDatabase.EMAIL;
+import static com.example.exoesqueletov1.ConstantsDatabase.ID;
+import static com.example.exoesqueletov1.ConstantsDatabase.ID_CHAT;
+import static com.example.exoesqueletov1.ConstantsDatabase.ID_NEW_USER;
+import static com.example.exoesqueletov1.ConstantsDatabase.ID_PATIENT;
+import static com.example.exoesqueletov1.ConstantsDatabase.ID_SPECIALIST;
+import static com.example.exoesqueletov1.ConstantsDatabase.NAME;
+import static com.example.exoesqueletov1.ConstantsDatabase.PATIENT;
+import static com.example.exoesqueletov1.ConstantsDatabase.PHONE;
+import static com.example.exoesqueletov1.ConstantsDatabase.SCHOOL;
+import static com.example.exoesqueletov1.ConstantsDatabase.SPECIALIST;
+import static com.example.exoesqueletov1.ConstantsDatabase.SPECIALIST1;
+import static com.example.exoesqueletov1.ConstantsDatabase.STATE;
+import static com.example.exoesqueletov1.ConstantsDatabase.STATE_NOTIFY;
+import static com.example.exoesqueletov1.ConstantsDatabase.TITLE;
+import static com.example.exoesqueletov1.ConstantsDatabase.TO;
+import static com.example.exoesqueletov1.ConstantsDatabase.USER;
+import static com.example.exoesqueletov1.ConstantsDatabase.VERIFY;
+import static com.example.exoesqueletov1.ConstantsDatabase.VERIFY_EMAIL;
+
 public class Database implements ChatAdapter.OnMenuListener {
 
     private FirebaseFirestore db;
@@ -38,7 +71,6 @@ public class Database implements ChatAdapter.OnMenuListener {
     private Context context;
     private List<ChatItem> mData;
     private ChatAdapter chatAdapter;
-    private FragmentActivity fragmentActivity;
 
     private String typeUser;
 
@@ -51,146 +83,107 @@ public class Database implements ChatAdapter.OnMenuListener {
         this.fragmentManager = fragmentManager;
     }
 
-    public Database(FragmentManager fragmentManager, Context context, String typeUser,
-                    FragmentActivity fragmentActivity) {
+    public Database(FragmentManager fragmentManager, Context context, String typeUser) {
         this.context = context;
         db = FirebaseFirestore.getInstance();
         this.fragmentManager = fragmentManager;
         this.typeUser = typeUser;
-        this.fragmentActivity = fragmentActivity;
     }
 
     public void getUsers(final RecyclerView recyclerView) {
+        CollectionReference referenceUsers = db.collection(COLLECTION_USERS);
         stateOnClick = true;
-        if (typeUser.equals("a")) {
-            db.collection("users").whereEqualTo("user", "c").get().
-                    addOnCompleteListener(taskC -> db.collection("users")
-                            .whereEqualTo("user", "b")
-                            .get().addOnCompleteListener(taskB -> {
-                                mData = new ArrayList<>();
-
-                                for (QueryDocumentSnapshot documentC : taskC.getResult()) {
-                                    String id = documentC.getData().get(Constants.ID).toString();
-                                    String name = documentC.getData().get(Constants.NAME).toString();
-                                    mData.add(new ChatItem(id, name, "",
-                                            "Pasiente", ""));
-                                }
-
-                                for (QueryDocumentSnapshot documentB : taskB.getResult()) {
-                                    String id = documentB.getData().get("id").toString();
-                                    String name = documentB.getData().get("name").toString();
-                                    mData.add(new ChatItem(id, name, "",
-                                            "Fisioterapeuta", ""));
-                                }
-
-                                chatAdapter = new ChatAdapter(context, mData,
-                                        Database.this);
-                                recyclerView.setAdapter(chatAdapter);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(context,
-                                        LinearLayoutManager.VERTICAL, false));
-
-                            }));
+        mData = new ArrayList<>();
+        if (typeUser.equals(ADMIN)) {
+            referenceUsers.get().addOnCompleteListener(task -> {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Map<String, Object> data = document.getData();
+                    if (!data.get(USER).toString().equals(ADMIN)) {
+                        String id = data.get("id").toString();
+                        String name = data.get("name").toString();
+                        String message;
+                        if (data.get(USER).toString().equals(PATIENT)) { message = "Pasiente"; }
+                        else { message = "Especialista"; }
+                        mData.add(new ChatItem(id, name, "", message, ""));
+                    }
+                }
+                chatAdapter = new ChatAdapter(context, mData, Database.this);
+                recyclerView.setAdapter(chatAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context,
+                        LinearLayoutManager.VERTICAL, false));
+            });
         }
-        if (typeUser.equals("b")) {
-            FirebaseFirestore.getInstance().
-                    collection("users")
-                    .whereEqualTo(Constants.SPECIALIST, false).get()
-                    .addOnCompleteListener(task -> {
-
-                        mData = new ArrayList<>();
-
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String id = document.getData().get("id").toString();
-                            String name = document.getData().get("name").toString();
-                            mData.add(new ChatItem(id, name, "",
-                                    "Pasiente", ""));
-                        }
-
-                        chatAdapter = new ChatAdapter(context, mData, Database.this);
-                        recyclerView.setAdapter(chatAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(context,
-                                LinearLayoutManager.VERTICAL, false));
-                    });
+        if (typeUser.equals(SPECIALIST1)) {
+            Query query = referenceUsers.whereEqualTo(SPECIALIST, false);
+            query.get().addOnCompleteListener(task -> {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Map<String, Object> data = document.getData();
+                    String id = data.get("id").toString();
+                    String name = data.get("name").toString();
+                    String message = "Pasiente";
+                    mData.add(new ChatItem(id, name, "", message, ""));
+                }
+                chatAdapter = new ChatAdapter(context, mData, Database.this);
+                recyclerView.setAdapter(chatAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context,
+                        LinearLayoutManager.VERTICAL, false));
+            });
         }
-        if (typeUser.equals("c")) {
+        if (typeUser.equals(PATIENT)) {
             String id = new Authentication().getCurrentUser().getEmail();
-            db.collection(Constants.COLLECTION_CHATS).whereEqualTo(Constants.ID_PATIENT, id).get().
-                    addOnCompleteListener(task -> {
-                        mData = new ArrayList<>();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            if (!Boolean.parseBoolean(document.getData()
-                                    .get(Constants.STATE).toString())) {
-                                mData.add(new ChatItem(document.getData()
-                                        .get(Constants.ID_SPECIALIST).toString(),
-                                        "", "", context
-                                        .getString(R.string.do_you_know_this_person), ""));
-                            }
-                        }
-                        chatAdapter = new ChatAdapter(context, mData, Database.this);
-                        recyclerView.setAdapter(chatAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(context,
-                                LinearLayoutManager.VERTICAL, false));
-                    });
+            Query query = db.collection(COLLECTION_CHATS).whereEqualTo(ID_PATIENT, id);
+            query.get().addOnCompleteListener(task -> {
+                mData = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    if (!Boolean.parseBoolean(document.getData()
+                            .get(STATE).toString())) {
+                        mData.add(new ChatItem(document.getData()
+                                .get(ID_SPECIALIST).toString(),
+                                "", "", context
+                                .getString(R.string.do_you_know_this_person), ""));
+                    }
+                }
+                chatAdapter = new ChatAdapter(context, mData, Database.this);
+                recyclerView.setAdapter(chatAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context,
+                        LinearLayoutManager.VERTICAL, false));
+            });
+
         }
     }
 
     public void getChats(final String id, final RecyclerView recyclerView) {
+        CollectionReference chats = db.collection(COLLECTION_CHATS);
+        Query toSpecialist = chats.whereEqualTo(ID_SPECIALIST, id);
+        Query toPatient = chats.whereEqualTo(ID_PATIENT, id);
         stateOnClick = false;
-
-        String field = "";
-        String otherField = "";
         mData = new ArrayList<>();
-
-        if (typeUser.equals("a") || typeUser.equals("b")) {
-            field = Constants.ID_SPECIALIST;
-            otherField = Constants.ID_PATIENT;
+        if (typeUser.equals(ADMIN) || typeUser.equals(SPECIALIST1)) {
+            toSpecialist.get().addOnCompleteListener(task -> {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Map<String, Object> data = document.getData();
+                    mData.add(new ChatItem(data.get(ID_PATIENT).toString(),
+                            "", "", "", data.get(ID_CHAT).toString()));
+                }
+                chatAdapter = new ChatAdapter(context, mData, Database.this);
+                recyclerView.setAdapter(chatAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context,
+                        LinearLayoutManager.VERTICAL, false));
+            });
         }
-        if (typeUser.equals("c")) {
-            field = Constants.ID_PATIENT;
-            otherField = Constants.ID_SPECIALIST;
+        if (typeUser.equals(PATIENT) || typeUser.equals(SPECIALIST1)) {
+            toPatient.get().addOnCompleteListener(task -> {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Map<String, Object> data = document.getData();
+                    mData.add(new ChatItem(data.get(ID_SPECIALIST).toString(),
+                            "", "", "", data.get(ID_CHAT).toString()));
+                }
+                chatAdapter = new ChatAdapter(context, mData, Database.this);
+                recyclerView.setAdapter(chatAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context,
+                        LinearLayoutManager.VERTICAL, false));
+            });
         }
-        final String finalOtherField = otherField;
-        db.collection(Constants.COLLECTION_CHATS).whereEqualTo(field, id).get()
-                .addOnCompleteListener(task -> {
-                    mData = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        if (Boolean.parseBoolean(document.getData().get(Constants.STATE).toString())) {
-                            Toast.makeText(context, document.getData()
-                                    .get(finalOtherField).toString(), Toast.LENGTH_SHORT).show();
-                            mData.add(new ChatItem(document.getData()
-                                    .get(finalOtherField).toString(),
-                                    "", "", "",
-                                    document.getData().get(Constants.ID_CHAT).toString()));
-                        }
-                    }
-                    if (typeUser.equals("b")) {
-                        db.collection(Constants.COLLECTION_CHATS)
-                                .whereEqualTo(Constants.ID_PATIENT, id).get()
-                                .addOnCompleteListener(task1 -> {
-                                    for (QueryDocumentSnapshot document : task1.getResult()) {
-                                        if (Boolean.parseBoolean(document.getData()
-                                                .get(Constants.STATE).toString())) {
-                                            mData.add(new ChatItem(document.getData()
-                                                    .get(Constants.ID_SPECIALIST).toString(),
-                                                    "", "", "", document.
-                                                    getData().get(Constants.ID_CHAT).toString()));
-                                        }
-                                    }
-                                    chatAdapter = new ChatAdapter(context, mData,
-                                            Database.this);
-                                    recyclerView.setAdapter(chatAdapter);
-                                    recyclerView.setLayoutManager(new LinearLayoutManager(context,
-                                            LinearLayoutManager.VERTICAL, false));
-                                });
-                    }
-                    if (typeUser.equals("a")) {
-                        chatAdapter = new ChatAdapter(context, mData,
-                                Database.this);
-                        recyclerView.setAdapter(chatAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(context,
-                                LinearLayoutManager.VERTICAL, false));
-                    }
-                });
     }
 
     public void getProfile(final String id, final TextView textViewName, final TextView textViewUser,
@@ -199,12 +192,12 @@ public class Database implements ChatAdapter.OnMenuListener {
                            final TextView textViewPhone, final TextView textViewSchool,
                            final CircleImageView circleImageViewProfile,
                            final LinearLayout linearLayoutSchool) {
-        db.collection(id).document(Constants.DOCUMENT_PROFILE)
+        db.collection(id).document(DOCUMENT_PROFILE)
                 .get().addOnSuccessListener(documentSnapshot -> {
 
                     String typeUser = "";
 
-                    String user = documentSnapshot.getData().get(Constants.USER).toString();
+                    String user = documentSnapshot.getData().get(USER).toString();
                     if (user.equals("a")) { typeUser = "Administrador"; }
                     if (user.equals("b")) { typeUser = "Fisioterapeuta"; }
                     if (user.equals("c")) {
@@ -212,36 +205,37 @@ public class Database implements ChatAdapter.OnMenuListener {
                         linearLayoutSchool.setVisibility(View.INVISIBLE);
                     }
                     textViewName.setText(documentSnapshot.getData()
-                            .get(Constants.NAME).toString());
+                            .get(NAME).toString());
                     textViewUser.setText(typeUser);
                     textViewDes.setText(documentSnapshot.getData()
-                            .get(Constants.DESCRIPTION).toString());
+                            .get(DESCRIPTION).toString());
                     textViewMail.setText(documentSnapshot.getData()
-                            .get(Constants.EMAIL).toString());
+                            .get(EMAIL).toString());
                     textViewAddress.setText(documentSnapshot.getData()
-                            .get(Constants.ADDRESS).toString());
+                            .get(ADDRESS).toString());
                     textViewCell.setText(documentSnapshot.getData()
-                            .get(Constants.CELL).toString());
+                            .get(CELL).toString());
                     textViewPhone.setText(documentSnapshot.getData()
-                            .get(Constants.PHONE).toString());
+                            .get(PHONE).toString());
                     textViewSchool.setText(documentSnapshot.getData()
-                            .get(Constants.SCHOOL).toString());
+                            .get(SCHOOL).toString());
 
                     new Storge().getProfileImage(circleImageViewProfile, id);
                 });
     }
 
-    public void getAndShowProfile(final String id, final TextView textViewName, final TextView textViewUser,
-                                  final TextView textViewCheck, final TextView textViewMail,
-                                  final TextView textViewAddress, final TextView textViewCell,
-                                  final TextView textViewPhone, final TextView textViewSchool,
+    public void getAndShowProfile(final String id, final TextView textViewName,
+                                  final TextView textViewUser, final TextView textViewCheck,
+                                  final TextView textViewMail, final TextView textViewAddress,
+                                  final TextView textViewCell, final TextView textViewPhone,
+                                  final TextView textViewSchool,
                                   final CircleImageView circleImageViewProfile) {
-        db.collection(id).document(Constants.DOCUMENT_PROFILE)
+        db.collection(id).document(DOCUMENT_PROFILE)
                 .get().addOnSuccessListener(documentSnapshot -> {
 
                     String typeUser = "";
 
-                    String user = documentSnapshot.getData().get(Constants.USER).toString();
+                    String user = documentSnapshot.getData().get(USER).toString();
                     if (user.equals("a")) { typeUser = "Administrador"; }
                     if (user.equals("b")) { typeUser = "Fisioterapeuta"; }
                     if (user.equals("c")) {
@@ -249,26 +243,26 @@ public class Database implements ChatAdapter.OnMenuListener {
                         textViewSchool.setVisibility(View.INVISIBLE);
                     }
                     textViewName.setText(documentSnapshot.getData()
-                            .get(Constants.NAME).toString());
+                            .get(NAME).toString());
                     textViewUser.setText(typeUser);
                     textViewMail.setText(documentSnapshot.getData()
-                            .get(Constants.EMAIL).toString());
+                            .get(EMAIL).toString());
                     textViewAddress.setText(documentSnapshot.getData()
-                            .get(Constants.ADDRESS).toString());
+                            .get(ADDRESS).toString());
                     textViewCell.setText(documentSnapshot.getData()
-                            .get(Constants.CELL).toString());
+                            .get(CELL).toString());
                     textViewPhone.setText(documentSnapshot.getData()
-                            .get(Constants.PHONE).toString());
+                            .get(PHONE).toString());
                     textViewSchool.setText(documentSnapshot.getData()
-                            .get(Constants.SCHOOL).toString());
+                            .get(SCHOOL).toString());
 
                     new Storge().getProfileImage(circleImageViewProfile, id);
                 });
 
-        db.collection(Constants.COLLECTION_USERS).document(id).get()
+        db.collection(COLLECTION_USERS).document(id).get()
                 .addOnCompleteListener(task -> {
                     Map<String, Object> data = task.getResult().getData();
-                    if (Boolean.parseBoolean(data.get(Constants.VERIFY).toString())) {
+                    if (Boolean.parseBoolean(data.get(VERIFY).toString())) {
                         textViewCheck.setText(R.string.cuenta_verificada);
                     } else {
                         textViewCheck.setText(R.string.cuenta_sin_verificar);
@@ -278,7 +272,7 @@ public class Database implements ChatAdapter.OnMenuListener {
 
     public void initMain(final TextView name, final TextView typeUser, final TextView state,
                          final String id, final CircleImageView circleImageView) {
-        db.collection(id).document(Constants.USER).get()
+        db.collection(id).document(USER).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     Map<String, Object> data = documentSnapshot.getData();
                     try {
@@ -312,47 +306,47 @@ public class Database implements ChatAdapter.OnMenuListener {
         loading.show(fragmentManager, "exmaple");
 
         dataTypeUser = new HashMap<>();
-        dataTypeUser.put(Constants.ID, collectionPath);
-        dataTypeUser.put(Constants.USER, userType);
+        dataTypeUser.put(ID, collectionPath);
+        dataTypeUser.put(USER, userType);
 
         dataCollectionUsers = new HashMap<>();
-        dataCollectionUsers.put(Constants.ID, collectionPath);
-        dataCollectionUsers.put(Constants.USER, userType);
-        dataCollectionUsers.put(Constants.NAME, dataUser.get("name")
+        dataCollectionUsers.put(ID, collectionPath);
+        dataCollectionUsers.put(USER, userType);
+        dataCollectionUsers.put(NAME, dataUser.get("name")
                 + " " + dataUser.get("lastName"));
-        dataCollectionUsers.put(Constants.VERIFY, false);
-        dataCollectionUsers.put(Constants.VERIFY_EMAIL, false);
-        if (userType.equals("c")) { dataCollectionUsers.put(Constants.SPECIALIST, false); }
+        dataCollectionUsers.put(VERIFY, false);
+        dataCollectionUsers.put(VERIFY_EMAIL, false);
+        if (userType.equals("c")) { dataCollectionUsers.put(SPECIALIST, false); }
 
         dataCollectionProfile = new HashMap<>();
-        dataCollectionProfile.put(Constants.NAME, dataUser.get("name")
+        dataCollectionProfile.put(NAME, dataUser.get("name")
                 + " " + dataUser.get("lastName"));
-        dataCollectionProfile.put(Constants.USER, userType);
-        dataCollectionProfile.put(Constants.DESCRIPTION, "");
-        dataCollectionProfile.put(Constants.EMAIL, "");
-        dataCollectionProfile.put(Constants.ADDRESS, "");
-        dataCollectionProfile.put(Constants.CELL, "");
-        dataCollectionProfile.put(Constants.PHONE, "");
-        dataCollectionProfile.put(Constants.SCHOOL, "");
+        dataCollectionProfile.put(USER, userType);
+        dataCollectionProfile.put(DESCRIPTION, "");
+        dataCollectionProfile.put(EMAIL, "");
+        dataCollectionProfile.put(ADDRESS, "");
+        dataCollectionProfile.put(CELL, "");
+        dataCollectionProfile.put(PHONE, "");
+        dataCollectionProfile.put(SCHOOL, "");
 
         dataNotification = new HashMap<>();
 
-        dataNotification.put(Constants.TITLE, "Un nuevo usuario se ha registrado");
-        dataNotification.put(Constants.DESCRIPTION, context.getString(R.string.click_more_info));
-        dataNotification.put(Constants.DATE,
+        dataNotification.put(TITLE, "Un nuevo usuario se ha registrado");
+        dataNotification.put(DESCRIPTION, context.getString(R.string.click_more_info));
+        dataNotification.put(DATE,
                 DateFormat.format("MMMM d, yyyy ", new Date().getTime()));
-        dataNotification.put(Constants.CODE, Constants.CODE_NOTIFICATIONS_NEW_USER);
-        dataNotification.put(Constants.TO, Constants.ADMIN);
-        dataNotification.put(Constants.ID_NEW_USER, collectionPath);
-        dataNotification.put(Constants.STATE_NOTIFY, false);
+        dataNotification.put(CODE, CODE_NOTIFICATIONS_NEW_USER);
+        dataNotification.put(TO, ADMIN);
+        dataNotification.put(ID_NEW_USER, collectionPath);
+        dataNotification.put(STATE_NOTIFY, false);
 
         db.collection(collectionPath).document(document).set(dataUser);
-        db.collection(collectionPath).document(Constants.DOCUMENT_TYPE).set(dataTypeUser);
+        db.collection(collectionPath).document(DOCUMENT_TYPE).set(dataTypeUser);
         db.collection(collectionPath)
-                .document(Constants.DOCUMENT_PROFILE).set(dataCollectionProfile);
-        db.collection(Constants.COLLECTION_USERS)
+                .document(DOCUMENT_PROFILE).set(dataCollectionProfile);
+        db.collection(COLLECTION_USERS)
                 .document(collectionPath).set(dataCollectionUsers);
-        db.collection(Constants.COLLECTION_NOTIFICATIONS).add(dataNotification);
+        db.collection(COLLECTION_NOTIFICATIONS).add(dataNotification);
 
         db.collection(collectionPath).document(document).get().
                 addOnSuccessListener(documentSnapshot -> {
@@ -364,8 +358,8 @@ public class Database implements ChatAdapter.OnMenuListener {
                         dialogAllDone.show(fragmentManager, context.getString(R.string.example));
                     } else {
                         db.collection(collectionPath).document(document).delete();
-                        db.collection(collectionPath).document(Constants.DOCUMENT_TYPE).delete();
-                        db.collection(Constants.COLLECTION_USERS).document(collectionPath).delete();
+                        db.collection(collectionPath).document(DOCUMENT_TYPE).delete();
+                        db.collection(COLLECTION_USERS).document(collectionPath).delete();
                         DialogOops dialogOops = new DialogOops(context.getString(R.string.try_again));
                         dialogOops.show(fragmentManager, context.getString(R.string.example));
                     }
@@ -377,11 +371,10 @@ public class Database implements ChatAdapter.OnMenuListener {
     public void onMenuClick(int position) {
         if (!stateOnClick) {
             Intent intent = new Intent(context, ChatActivity.class);
-            intent.putExtra(Constants.ID_CHAT, mData.get(position).getIdChat());
-            intent.putExtra(Constants.ID_SPECIALIST, mData.get(position).getId());
-            intent.putExtra(Constants.USER, typeUser);
+            intent.putExtra(ID_CHAT, mData.get(position).getIdChat());
+            intent.putExtra(ID_SPECIALIST, mData.get(position).getId());
+            intent.putExtra(USER, typeUser);
             context.startActivity(intent);
-            fragmentActivity.finish();
         } else {
             DialogFriendRequest request;
             request = new DialogFriendRequest(typeUser, mData.get(position).getName(),

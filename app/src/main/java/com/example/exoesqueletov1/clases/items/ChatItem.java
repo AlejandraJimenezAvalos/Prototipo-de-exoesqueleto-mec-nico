@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.clases;
+package com.example.exoesqueletov1.clases.items;
 
 public class ChatItem {
 
@@ -8,7 +8,7 @@ public class ChatItem {
     private String message;
     private String idChat;
 
-    ChatItem(String id, String name, String date, String message, String idChat) {
+    public ChatItem(String id, String name, String date, String message, String idChat) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -24,15 +24,15 @@ public class ChatItem {
         return id;
     }
 
-    String getDate() {
+    public String getDate() {
         return date;
     }
 
-    String getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    String getIdChat() {
+    public String getIdChat() {
         return idChat;
     }
 
@@ -40,7 +40,7 @@ public class ChatItem {
         this.name = name;
     }
 
-    void setMessage(String message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 }

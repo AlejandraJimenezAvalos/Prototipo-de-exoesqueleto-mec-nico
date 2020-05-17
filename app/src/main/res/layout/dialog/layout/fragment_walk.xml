@@ -8,9 +8,18 @@
     style="@style/AppTheme.blue"
     android:gravity="fill">
 
+    <ImageView
+        android:id="@+id/image_back_walk"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="16sp"
+        android:src="@drawable/ic_arrow_left"
+        tools:ignore="ContentDescription" />
+
    <ScrollView
        android:layout_width="match_parent"
-       android:layout_height="match_parent">
+       android:layout_height="wrap_content">
 
        <LinearLayout
            android:layout_width="match_parent"
@@ -22,7 +31,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                style="@style/TextView.rosa.title"
-               android:text="Caminar por tiempo"
+               android:text="@string/walk_title"
                android:layout_margin="16sp"
                android:textAlignment="center"/>
 
@@ -39,7 +48,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                style="@style/TextView"
-               android:text="Desplaza el picker para seleccionar el tiempo que pasara caminando y pulse el boton Caminar."
+               android:text="@string/desplaza_el_picker"
                android:layout_margin="16sp"/>
 
            <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,15 +80,17 @@
 
            </androidx.constraintlayout.widget.ConstraintLayout>
 
-           <TextView
-               android:id="@+id/textView10"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:text="TextView"
-               style="@style/TextView"/>
-
        </LinearLayout>
 
    </ScrollView>
+
+    <TextView
+        android:id="@+id/terminal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16sp"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        tools:ignore="SmallSp" />
 
 </LinearLayout>

@@ -2,33 +2,25 @@ package com.example.exoesqueletov1;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exoesqueletov1.clases.Authentication;
-import com.example.exoesqueletov1.clases.MessageAdapter;
-import com.example.exoesqueletov1.clases.MessageItem;
+import com.example.exoesqueletov1.clases.adapters.MessageAdapter;
+import com.example.exoesqueletov1.clases.items.MessageItem;
 import com.example.exoesqueletov1.clases.Storge;
 import com.example.exoesqueletov1.dialogs.DialogContact;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -80,10 +72,10 @@ public class ChatActivity extends AppCompatActivity {
         Bundle data = this.getIntent().getExtras();
 
         timer.execute();
-        idChat = data.getString(Constants.ID_CHAT);
-        idUserTo = data.getString(Constants.ID_SPECIALIST);
+        idChat = data.getString(ConstantsDatabase.ID_CHAT);
+        idUserTo = data.getString(ConstantsDatabase.ID_SPECIALIST);
         id = new Authentication().getCurrentUser().getEmail();
-        typeUser = data.getString(Constants.USER);
+        typeUser = data.getString(ConstantsDatabase.USER);
 
         db = FirebaseFirestore.getInstance();
 
@@ -95,14 +87,13 @@ public class ChatActivity extends AppCompatActivity {
     private void getNameAndPhoto(CircleImageView circleImageViewProfile) {
         new Storge().getProfileImage(circleImageViewProfile, idUserTo);
 
-        db.collection(idUserTo).document(Constants.DOCUMENT_PROFILE).get().
-                addOnSuccessListener(documentSnapshot -> {
-                    textViewName.setText(documentSnapshot.getData().get(Constants.NAME).toString());
-                });
+        db.collection(idUserTo).document(ConstantsDatabase.DOCUMENT_PROFILE).get().
+                addOnSuccessListener(documentSnapshot ->
+                        textViewName.setText(documentSnapshot.getData()
+                                .get(ConstantsDatabase.NAME).toString()));
     }
 
     private void backToMain() {
-        startActivity(new Intent(ChatActivity.this, MainActivity.class));
         finish();
     }
 
@@ -134,30 +125,26 @@ public class ChatActivity extends AppCompatActivity {
 
     private void updateMessages() {
         mData = new ArrayList<>();
-            db.collection(idChat).orderBy(Constants.NO, Query.Direction.ASCENDING).get()
-                    .addOnCompleteListener(task -> {
-                        MessageAdapter notificationsAdapter;
-                        LinearLayoutManager linearLayoutManager;
-                        for (QueryDocumentSnapshot document : task.getResult()){
-                            try {
-                                String message = document.getData()
-                                        .get(Constants.MESSAGE).toString();
-                                String hour = document.getData(
-
-                                ).get(Constants.HOUR).toString();
-                                boolean isMyMessage;
-                                isMyMessage = document.getData()
-                                        .get(Constants.FROM).toString().equals(id);
-                                mData.add(new MessageItem(message, hour, isMyMessage));
-                            } catch (NullPointerException ignored) { }
-                        }
-                        notificationsAdapter =
-                                new MessageAdapter(ChatActivity.this, mData, mData);
-                        recyclerView.setAdapter(notificationsAdapter);
-                        recyclerView.setHasFixedSize(true);
-                        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-                        linearLayoutManager.setStackFromEnd(true);
-                        recyclerView.setLayoutManager(linearLayoutManager);
+        Query query;
+        query = db.collection(idChat).orderBy(ConstantsDatabase.NO, Query.Direction.ASCENDING);
+        query.get().addOnCompleteListener(task -> {
+            MessageAdapter notificationsAdapter;
+            LinearLayoutManager linearLayoutManager;
+            for (QueryDocumentSnapshot document : task.getResult()){
+                Map<String, Object> data = document.getData();
+                try {
+                    String message = data.get(ConstantsDatabase.MESSAGE).toString();
+                    String hour = data.get(ConstantsDatabase.HOUR).toString();
+                    boolean isMyMessage = data.get(ConstantsDatabase.FROM).toString().equals(id);
+                    mData.add(new MessageItem(message, hour, isMyMessage));
+                } catch (NullPointerException ignored) { }
+            }
+            notificationsAdapter = new MessageAdapter(ChatActivity.this, mData, mData);
+            recyclerView.setAdapter(notificationsAdapter);
+            recyclerView.setHasFixedSize(true);
+            linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+            linearLayoutManager.setStackFromEnd(true);
+            recyclerView.setLayoutManager(linearLayoutManager);
             });
     }
 
@@ -166,10 +153,10 @@ public class ChatActivity extends AppCompatActivity {
         if (!editTextMessage.getText().toString().trim().isEmpty()){
             String message = editTextMessage.getText().toString().trim();
             Map<String, Object> data = new HashMap<>();
-            data.put(Constants.MESSAGE, message);
-            data.put(Constants.HOUR, new SimpleDateFormat("HH:mm").format(new Date()));
-            data.put(Constants.FROM, id);
-            data.put(Constants.NO, mData.size() + 1);
+            data.put(ConstantsDatabase.MESSAGE, message);
+            data.put(ConstantsDatabase.HOUR, new SimpleDateFormat("HH:mm").format(new Date()));
+            data.put(ConstantsDatabase.FROM, id);
+            data.put(ConstantsDatabase.NO, mData.size() + 1);
             db.collection(idChat).add(data);
             editTextMessage.setText("");
         }

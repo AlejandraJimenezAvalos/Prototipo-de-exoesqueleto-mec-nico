@@ -3,7 +3,6 @@ package com.example.exoesqueletov1.dialogs;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,16 +18,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.exoesqueletov1.Constants;
+import com.example.exoesqueletov1.ConstantsDatabase;
 import com.example.exoesqueletov1.MainActivity;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Database;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -156,10 +151,10 @@ public class DialogContact extends AppCompatDialogFragment {
 
     private void delete(final int code) {
         try {
-            db.collection(Constants.COLLECTION_CHATS).whereEqualTo(Constants.ID_CHAT, idChat).get().
+            db.collection(ConstantsDatabase.COLLECTION_CHATS).whereEqualTo(ConstantsDatabase.ID_CHAT, idChat).get().
                     addOnCompleteListener(task -> {
                         for (DocumentSnapshot document : task.getResult()) {
-                            db.collection(Constants.COLLECTION_CHATS).document(document.getId())
+                            db.collection(ConstantsDatabase.COLLECTION_CHATS).document(document.getId())
                                     .delete();
                         }
                     });
@@ -172,37 +167,37 @@ public class DialogContact extends AppCompatDialogFragment {
                         }
                     });
             if (textViewUser.getText().toString().equals("Paciente")) {
-                db.collection(Constants.COLLECTION_USERS).document(idUserTo).get().
+                db.collection(ConstantsDatabase.COLLECTION_USERS).document(idUserTo).get().
                         addOnCompleteListener(task -> {
                             final Map<String, Object> data = task.getResult().getData();
-                            data.remove(Constants.SPECIALIST);
-                            data.put(Constants.SPECIALIST, false);
-                            db.collection(Constants.COLLECTION_USERS).document(idUserTo).update(data);
+                            data.remove(ConstantsDatabase.SPECIALIST);
+                            data.put(ConstantsDatabase.SPECIALIST, false);
+                            db.collection(ConstantsDatabase.COLLECTION_USERS).document(idUserTo).update(data);
                         });
             }
             if (typeUser.equals("c")) {
-                db.collection(Constants.COLLECTION_USERS).document(id).get().
+                db.collection(ConstantsDatabase.COLLECTION_USERS).document(id).get().
                         addOnCompleteListener(task -> {
                             final Map<String, Object> data = task.getResult().getData();
-                            data.remove(Constants.SPECIALIST);
-                            data.put(Constants.SPECIALIST, false);
-                            db.collection(Constants.COLLECTION_USERS).document(id).update(data);
+                            data.remove(ConstantsDatabase.SPECIALIST);
+                            data.put(ConstantsDatabase.SPECIALIST, false);
+                            db.collection(ConstantsDatabase.COLLECTION_USERS).document(id).update(data);
                         });
             }
 
-            db.collection(Constants.COLLECTION_USERS).document(id).get().
+            db.collection(ConstantsDatabase.COLLECTION_USERS).document(id).get().
                     addOnSuccessListener(documentSnapshot -> {
                         String name;
-                        name = documentSnapshot.getData().get(Constants.NAME).toString();
+                        name = documentSnapshot.getData().get(ConstantsDatabase.NAME).toString();
                         final Map<String, Object> data = new HashMap<>();
-                        data.put(Constants.CODE, Constants.CODE_NOTIFICATIONS_DELET_REQUEST);
-                        data.put(Constants.DATE, DateFormat.format("MMMM d, yyyy ",
+                        data.put(ConstantsDatabase.CODE, ConstantsDatabase.CODE_NOTIFICATIONS_DELETE_REQUEST);
+                        data.put(ConstantsDatabase.DATE, DateFormat.format("MMMM d, yyyy ",
                                 new Date().getTime()));
-                        data.put(Constants.DESCRIPTION, "");
-                        data.put(Constants.STATE_NOTIFY, false);
-                        data.put(Constants.TITLE, name + getString(R.string.de_su_lista_de_contactos));
-                        data.put(Constants.TO, idUserTo);
-                        db.collection(Constants.COLLECTION_NOTIFICATIONS).add(data);
+                        data.put(ConstantsDatabase.DESCRIPTION, "");
+                        data.put(ConstantsDatabase.STATE_NOTIFY, false);
+                        data.put(ConstantsDatabase.TITLE, name + getString(R.string.de_su_lista_de_contactos));
+                        data.put(ConstantsDatabase.TO, idUserTo);
+                        db.collection(ConstantsDatabase.COLLECTION_NOTIFICATIONS).add(data);
                         if (code == CODE_DELATE) {
                             dismiss();
                             getActivity().finish();

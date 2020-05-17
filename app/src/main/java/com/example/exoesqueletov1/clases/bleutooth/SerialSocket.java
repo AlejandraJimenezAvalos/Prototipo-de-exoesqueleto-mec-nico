@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.bleutooth;
+package com.example.exoesqueletov1.clases.bleutooth;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;

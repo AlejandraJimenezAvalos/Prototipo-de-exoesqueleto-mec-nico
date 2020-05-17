@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.exoesqueletov1.Constants;
+import com.example.exoesqueletov1.ConstantsDatabase;
 import com.example.exoesqueletov1.MainActivity;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
@@ -149,17 +149,17 @@ public class ProfileLogUpFragment extends Fragment {
         else { user = "b"; }
 
         data.put(id, true);
-        data.put(Constants.ID, id);
-        data.put(Constants.USER, user);
-        data.put(Constants.NAME, textInputLayoutName.getEditText().getText().toString().trim());
-        data.put(Constants.LAST_NAME, textInputLayoutLastName.getEditText()
+        data.put(ConstantsDatabase.ID, id);
+        data.put(ConstantsDatabase.USER, user);
+        data.put(ConstantsDatabase.NAME, textInputLayoutName.getEditText().getText().toString().trim());
+        data.put(ConstantsDatabase.LAST_NAME, textInputLayoutLastName.getEditText()
                 .getText().toString().trim());
-        data.put(Constants.DATE, textInputLayoutDate.getEditText().getText().toString().trim());
-        data.put(Constants.COUNTRY, spinnerCountry.getSelectedItem().toString().trim());
-        data.put(Constants.GENDER, radioButtonWomen.isChecked());
+        data.put(ConstantsDatabase.DATE, textInputLayoutDate.getEditText().getText().toString().trim());
+        data.put(ConstantsDatabase.COUNTRY, spinnerCountry.getSelectedItem().toString().trim());
+        data.put(ConstantsDatabase.GENDER, radioButtonWomen.isChecked());
 
         new Database(getFragmentManager(), getContext())
-                .setDataUser(id, Constants.DOCUMENT_USER, data, user);
+                .setDataUser(id, ConstantsDatabase.DOCUMENT_USER, data, user);
         getActivity().finish();
         startActivity(new Intent(getContext(), MainActivity.class));
     }

@@ -78,7 +78,7 @@
     <string name="detener">Detener exoesqueleto</string>
     <string name="desconectar">Desconectar del dispositivo</string>
     <string name="caminar">Caminar</string>
-    <string name="ejercitar_piernas">Ejercitar piernas</string>
+    <string name="ejercitar_piernas">Ejercitar\npiernas</string>
     <string name="levantar_y_bajar_la_pierna_izquierda">Levantar y bajar la pierna izquierda</string>
     <string name="levantar_y_bajar_la_pierna_derecha">Levantar y bajar la pierna derecha</string>
     <string name="connection_failed">La conexión falló. Verifique que el exoesqueleto esté encendido.</string>
@@ -88,6 +88,12 @@
     <string name="pausar">Pausar</string>
     <string name="walk_title2">Caminar determinados pasos</string>
     <string name="walk_indication2">Desplaza el piker para seleccionar la cantidad de pasos a dar y pulse el boton Caminar</string>
+    <string name="comenzar">Comenzar</string>
+    <string name="walk_title">Caminar por tiempo</string>
+    <string name="ver_tareas">Ver tareas</string>
+    <string name="help">Ayuda</string>
+    <string name="advertencia_click_flotating_buttons">Solo puedes usar estos botones cuando estás usando el exoesqueleto</string>
+    <string name="desplaza_el_picker">Desplaza el picker para seleccionar el tiempo que pasara caminando y pulse el boton Caminar.</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>

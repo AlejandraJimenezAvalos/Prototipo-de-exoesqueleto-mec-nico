@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.clases;
+package com.example.exoesqueletov1.clases.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.exoesqueletov1.Constants;
+import com.example.exoesqueletov1.ConstantsDatabase;
 import com.example.exoesqueletov1.R;
+import com.example.exoesqueletov1.clases.items.ChatItem;
+import com.example.exoesqueletov1.clases.Storge;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
     private List<ChatItem> mDataFiltered;
     private ChatAdapter.OnMenuListener onMenuListener;
 
-    ChatAdapter(Context mContext, List<ChatItem> itemList, OnMenuListener onMenuListener) {
+    public ChatAdapter(Context mContext, List<ChatItem> itemList, OnMenuListener onMenuListener) {
         this.mContext = mContext;
         this.itemList = itemList;
         this.mDataFiltered = itemList;
@@ -54,22 +56,22 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
             holder.textViewDate.setText(mDataFiltered.get(position).getDate());
         } else {
             FirebaseFirestore.getInstance().collection(mDataFiltered.get(position).getId()).
-                    document(Constants.DOCUMENT_PROFILE).get().addOnSuccessListener(documentSnapshot -> {
+                    document(ConstantsDatabase.DOCUMENT_PROFILE).get().addOnSuccessListener(documentSnapshot -> {
                         holder.textViewName.setText(documentSnapshot.getData()
-                                .get(Constants.NAME).toString());
+                                .get(ConstantsDatabase.NAME).toString());
                         holder.textViewMessage.setText(mDataFiltered
                                 .get(position).getMessage());
                         mDataFiltered.get(position).setName(documentSnapshot
-                                .getData().get(Constants.NAME).toString());
+                                .getData().get(ConstantsDatabase.NAME).toString());
 
                         String typeUser = "";
-                        if (documentSnapshot.getData().get(Constants.USER).toString().equals("a")) {
+                        if (documentSnapshot.getData().get(ConstantsDatabase.USER).toString().equals("a")) {
                             typeUser = "Administrador";
                         }
-                        if (documentSnapshot.getData().get(Constants.USER).toString().equals("b")) {
+                        if (documentSnapshot.getData().get(ConstantsDatabase.USER).toString().equals("b")) {
                             typeUser = "Fisioterapeuta";
                         }
-                        if (documentSnapshot.getData().get(Constants.USER).toString().equals("c")) {
+                        if (documentSnapshot.getData().get(ConstantsDatabase.USER).toString().equals("c")) {
                             typeUser = "Pasiente";
                         }
 

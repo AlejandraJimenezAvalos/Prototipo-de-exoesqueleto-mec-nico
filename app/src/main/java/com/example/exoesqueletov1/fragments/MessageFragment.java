@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.exoesqueletov1.Constants;
+import com.example.exoesqueletov1.ConstantsDatabase;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.Database;
@@ -53,16 +53,16 @@ public class MessageFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_chats);
 
         final Database database;
-        database = new Database(getFragmentManager(), getContext(), typeUser, getActivity());
+        database = new Database(getFragmentManager(), getContext(), typeUser);
 
         switch (code) {
-            case Constants.CODE_NOTIFICATIONS_FRIEND_REQUEST:
+            case ConstantsDatabase.CODE_NOTIFICATIONS_FRIEND_REQUEST:
                 database.getUsers(recyclerView);
                 viewAdd.setBackgroundResource(R.color.pinkDark);
                 viewChats.setBackgroundResource(R.color.blueDark);
                 break;
-            case Constants.CODE_NOTIFICATIONS_ADMIN_REQUEST:
-            case Constants.CODE_REGULAR:
+            case ConstantsDatabase.CODE_NOTIFICATIONS_ADMIN_REQUEST:
+            case ConstantsDatabase.CODE_REGULAR:
                 database.getChats(id, recyclerView);
                 break;
         }

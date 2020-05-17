@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.Database;
-import com.example.exoesqueletov1.clases.MenuAdapter;
-import com.example.exoesqueletov1.clases.MenuItem;
+import com.example.exoesqueletov1.clases.adapters.MenuAdapter;
+import com.example.exoesqueletov1.clases.items.MenuItem;
 import com.example.exoesqueletov1.clases.Storge;
 import com.example.exoesqueletov1.dialogs.DialogLoading;
 import com.example.exoesqueletov1.fragments.MessageFragment;
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
                 fragment = new ProfileFragment();
             }
             if (mData.get(position).getTitle().equals(getString(R.string.messages))) {
-                fragment = new MessageFragment(typeUser, Constants.CODE_REGULAR);
+                fragment = new MessageFragment(typeUser, ConstantsDatabase.CODE_REGULAR);
             }
             if (mData.get(position).getTitle().equals(getString(R.string.bluetooth))) {
                 fragment = new PairedDevisesFragment();

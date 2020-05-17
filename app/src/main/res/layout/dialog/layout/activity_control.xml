@@ -10,163 +10,66 @@
     style="@style/AppTheme.blue"
     android:gravity="fill">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/contrain_main"
+    <FrameLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/layout_border_right"
-        android:gravity=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/button_finish_control"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
-            android:layout_margin="16sp"
-            android:layout_marginStart="16sp"
-            android:layout_marginTop="16sp"
-            android:layout_marginBottom="16sp"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_arrow_left"
-            android:tint="@color/pink"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription,UnusedAttribute"
-            tools:targetApi="m" />
-
-        <TextView
-            android:id="@+id/textView11"
-            style="@style/TextView.titulo"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/controles_del_exoesqueleto"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button_finish_control"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="81dp"
-        android:layout_marginBottom="42dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contrain_main"
-        tools:layout_editor_absoluteX="-16dp">
-
-    </androidx.viewpager.widget.ViewPager>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager2">
-
-        <ImageView
-            android:id="@+id/radio_1"
-            android:layout_width="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8sp"
-            android:src="@drawable/ic_radio_button_checked"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/radio_2"
-            android:layout_width="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8sp"
-            android:src="@drawable/ic_radio_button_unchecked"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/radio_3"
-            android:layout_width="16sp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8sp"
-            android:src="@drawable/ic_radio_button_unchecked"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/radio_4"
-            android:layout_width="16sp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_radio_button_unchecked"
-            tools:ignore="ContentDescription" />
-
-    </LinearLayout>
+        android:layout_height="match_parent"/>
 
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16sp"
         fab:menu_colorNormal="@color/pinkDark"
         fab:menu_colorPressed="@color/pink"
-        fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
-        fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right">
+        fab:menu_colorRipple="#FFF">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_item_report"
+            android:id="@+id/flotating_button_report_problem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/pinkDark"
-            app:fab_colorPressed="@color/pink"
-            android:src="@drawable/ic_report_problem"
-            fab:fab_label="Reportar un problema"
-            fab:fab_size="mini" />
+            app:fab_label="Reportar un problema"
+            fab:fab_size="mini"
+            fab:menu_colorNormal="@color/pinkDark"
+            fab:menu_colorPressed="@color/pink"
+            fab:menu_colorRipple="#FFF"
+            android:src="@drawable/ic_report_problem"/>
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_item_connection"
+            android:id="@+id/flotating_button_stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/pinkDark"
-            app:fab_colorPressed="@color/pink"
-            android:src="@drawable/ic_bluetooth_connected"
-            fab:fab_label="@string/conectar"
-            fab:fab_size="mini" />
+            app:fab_label="@string/detener"
+            fab:fab_size="mini"
+            fab:menu_colorNormal="@color/pinkDark"
+            fab:menu_colorPressed="@color/pink"
+            fab:menu_colorRipple="#FFF"
+            android:src="@drawable/ic_stop"/>
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_item_stop"
+            android:id="@+id/flotating_button_pause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/pinkDark"
-            app:fab_colorPressed="@color/pink"
-            android:src="@drawable/ic_stop"
-            fab:fab_label="Detener"
-            fab:fab_size="mini" />
+            app:fab_label="@string/pausar"
+            fab:fab_size="mini"
+            fab:menu_colorNormal="@color/pinkDark"
+            fab:menu_colorPressed="@color/pink"
+            fab:menu_colorRipple="#FFF"
+            android:src="@drawable/ic_pause"/>
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_item_pause"
+            android:id="@+id/flotating_button_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/pinkDark"
-            app:fab_colorPressed="@color/pink"
-            android:src="@drawable/ic_pause"
-            fab:fab_label="@string/pausar"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_item_help"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_colorNormal="@color/pinkDark"
-            app:fab_colorPressed="@color/pink"
-            android:src="@drawable/ic_help"
-            fab:fab_label="Ayuda"
-            fab:fab_size="mini" />
+            app:fab_label="@string/help"
+            fab:fab_size="mini"
+            fab:menu_colorNormal="@color/pinkDark"
+            fab:menu_colorPressed="@color/pink"
+            fab:menu_colorRipple="#FFF"
+            android:src="@drawable/ic_help"/>
 
     </com.github.clans.fab.FloatingActionMenu>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
