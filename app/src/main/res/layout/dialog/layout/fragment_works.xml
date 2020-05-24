@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/AppTheme.blue"
     android:gravity="fill">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pendientes"
-        android:textAlignment="center"
-        style="@style/TextView.rosa.title"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Estamos trabajando en ello"
-        style="@style/TextView"/>
+        <ImageView
+            android:id="@+id/button_back"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:src="@drawable/ic_arrow_left"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pendientes2"
+            android:textAlignment="center"
+            style="@style/TextView.pink.title"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_pending"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="16sp"/>
 
 
 </LinearLayout>

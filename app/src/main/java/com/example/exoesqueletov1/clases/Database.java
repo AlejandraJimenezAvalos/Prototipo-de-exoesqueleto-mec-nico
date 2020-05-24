@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exoesqueletov1.ChatActivity;
+import com.example.exoesqueletov1.ConstantsDatabase;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.adapters.ChatAdapter;
 import com.example.exoesqueletov1.clases.items.ChatItem;
@@ -29,6 +30,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -47,6 +49,7 @@ import static com.example.exoesqueletov1.ConstantsDatabase.DOCUMENT_TYPE;
 import static com.example.exoesqueletov1.ConstantsDatabase.EMAIL;
 import static com.example.exoesqueletov1.ConstantsDatabase.ID;
 import static com.example.exoesqueletov1.ConstantsDatabase.ID_CHAT;
+import static com.example.exoesqueletov1.ConstantsDatabase.ID_EXOESQUELETO;
 import static com.example.exoesqueletov1.ConstantsDatabase.ID_NEW_USER;
 import static com.example.exoesqueletov1.ConstantsDatabase.ID_PATIENT;
 import static com.example.exoesqueletov1.ConstantsDatabase.ID_SPECIALIST;
@@ -148,7 +151,6 @@ public class Database implements ChatAdapter.OnMenuListener {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context,
                         LinearLayoutManager.VERTICAL, false));
             });
-
         }
     }
 
@@ -186,10 +188,11 @@ public class Database implements ChatAdapter.OnMenuListener {
         }
     }
 
-    public void getProfile(final String id, final TextView textViewName, final TextView textViewUser,
-                           final TextView textViewDes, final TextView textViewMail,
-                           final TextView textViewAddress, final TextView textViewCell,
-                           final TextView textViewPhone, final TextView textViewSchool,
+    public void getProfile(final String id, final TextView textViewName,
+                           final TextView textViewUser, final TextView textViewDes,
+                           final TextView textViewMail, final TextView textViewAddress,
+                           final TextView textViewCell, final TextView textViewPhone,
+                           final TextView textViewSchool,
                            final CircleImageView circleImageViewProfile,
                            final LinearLayout linearLayoutSchool) {
         db.collection(id).document(DOCUMENT_PROFILE)
@@ -300,7 +303,6 @@ public class Database implements ChatAdapter.OnMenuListener {
         Map<String, Object> dataTypeUser;
         Map<String, Object> dataCollectionUsers;
         Map<String, Object> dataCollectionProfile;
-        Map<String, Object> dataNotification;
 
         loading = new DialogLoading();
         loading.show(fragmentManager, "exmaple");
@@ -316,7 +318,11 @@ public class Database implements ChatAdapter.OnMenuListener {
                 + " " + dataUser.get("lastName"));
         dataCollectionUsers.put(VERIFY, false);
         dataCollectionUsers.put(VERIFY_EMAIL, false);
-        if (userType.equals("c")) { dataCollectionUsers.put(SPECIALIST, false); }
+        if (userType.equals("c")) {
+            String idExoesqueleto = UUID.randomUUID().toString();
+            dataCollectionUsers.put(SPECIALIST, false);
+            dataCollectionUsers.put(ID_EXOESQUELETO, idExoesqueleto);
+        }
 
         dataCollectionProfile = new HashMap<>();
         dataCollectionProfile.put(NAME, dataUser.get("name")
@@ -329,16 +335,22 @@ public class Database implements ChatAdapter.OnMenuListener {
         dataCollectionProfile.put(PHONE, "");
         dataCollectionProfile.put(SCHOOL, "");
 
-        dataNotification = new HashMap<>();
+        db.collection(COLLECTION_NOTIFICATIONS).get().addOnCompleteListener(task -> {
+            Map<String, Object> dataNotification;
+            dataNotification = new HashMap<>();
 
-        dataNotification.put(TITLE, "Un nuevo usuario se ha registrado");
-        dataNotification.put(DESCRIPTION, context.getString(R.string.click_more_info));
-        dataNotification.put(DATE,
-                DateFormat.format("MMMM d, yyyy ", new Date().getTime()));
-        dataNotification.put(CODE, CODE_NOTIFICATIONS_NEW_USER);
-        dataNotification.put(TO, ADMIN);
-        dataNotification.put(ID_NEW_USER, collectionPath);
-        dataNotification.put(STATE_NOTIFY, false);
+            dataNotification.put(TITLE, "Un nuevo usuario se ha registrado");
+            dataNotification.put(DESCRIPTION, context.getString(R.string.click_more_info));
+            dataNotification.put(DATE,
+                    DateFormat.format("MMMM d, yyyy ", new Date().getTime()));
+            dataNotification.put(CODE, CODE_NOTIFICATIONS_NEW_USER);
+            dataNotification.put(ConstantsDatabase.NO, task.getResult().size() + 1);
+            dataNotification.put(TO, ADMIN);
+            dataNotification.put(ID_NEW_USER, collectionPath);
+            dataNotification.put(STATE_NOTIFY, false);
+
+            db.collection(COLLECTION_NOTIFICATIONS).add(dataNotification);
+        });
 
         db.collection(collectionPath).document(document).set(dataUser);
         db.collection(collectionPath).document(DOCUMENT_TYPE).set(dataTypeUser);
@@ -346,41 +358,12 @@ public class Database implements ChatAdapter.OnMenuListener {
                 .document(DOCUMENT_PROFILE).set(dataCollectionProfile);
         db.collection(COLLECTION_USERS)
                 .document(collectionPath).set(dataCollectionUsers);
-        db.collection(COLLECTION_NOTIFICATIONS).add(dataNotification);
 
-        db.collection(collectionPath).document(document).get().
-                addOnSuccessListener(documentSnapshot -> {
-                    loading.dismiss();
-                    if (collectionPath.equals(documentSnapshot.getData().get("id").toString())) {
-                        DialogAllDone dialogAllDone;
-                        dialogAllDone = new DialogAllDone(context.
-                                getString(R.string.registro_exitoso));
-                        dialogAllDone.show(fragmentManager, context.getString(R.string.example));
-                    } else {
-                        db.collection(collectionPath).document(document).delete();
-                        db.collection(collectionPath).document(DOCUMENT_TYPE).delete();
-                        db.collection(COLLECTION_USERS).document(collectionPath).delete();
-                        DialogOops dialogOops = new DialogOops(context.getString(R.string.try_again));
-                        dialogOops.show(fragmentManager, context.getString(R.string.example));
-                    }
-                });
-
-    }
-
-    @Override
-    public void onMenuClick(int position) {
-        if (!stateOnClick) {
-            Intent intent = new Intent(context, ChatActivity.class);
-            intent.putExtra(ID_CHAT, mData.get(position).getIdChat());
-            intent.putExtra(ID_SPECIALIST, mData.get(position).getId());
-            intent.putExtra(USER, typeUser);
-            context.startActivity(intent);
-        } else {
-            DialogFriendRequest request;
-            request = new DialogFriendRequest(typeUser, mData.get(position).getName(),
-                    mData.get(position).getMessage(), mData.get(position).getId());
-            request.show(fragmentManager, "");
-        }
+        loading.dismiss();
+        DialogAllDone dialogAllDone;
+        dialogAllDone = new DialogAllDone(context.
+                getString(R.string.registro_exitoso));
+        dialogAllDone.show(fragmentManager, context.getString(R.string.example));
     }
 
     public void search(CharSequence s) {
@@ -406,4 +389,21 @@ public class Database implements ChatAdapter.OnMenuListener {
         DialogOops dialogOops = new DialogOops(e.getMessage());
         dialogOops.show(fragmentManager, "example");
     }
+
+    @Override
+    public void onMenuClick(int position) {
+        if (!stateOnClick) {
+            Intent intent = new Intent(context, ChatActivity.class);
+            intent.putExtra(ID_CHAT, mData.get(position).getIdChat());
+            intent.putExtra(ID_SPECIALIST, mData.get(position).getId());
+            intent.putExtra(USER, typeUser);
+            context.startActivity(intent);
+        } else {
+            DialogFriendRequest request;
+            request = new DialogFriendRequest(typeUser, mData.get(position).getName(),
+                    mData.get(position).getMessage(), mData.get(position).getId());
+            request.show(fragmentManager, "");
+        }
+    }
+
 }

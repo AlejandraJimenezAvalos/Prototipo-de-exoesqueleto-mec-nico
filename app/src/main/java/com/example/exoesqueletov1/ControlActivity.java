@@ -9,6 +9,8 @@ import com.example.exoesqueletov1.fragments.MenuFragment;
 import com.example.exoesqueletov1.fragments.PairedDevisesFragment;
 import com.github.clans.fab.FloatingActionButton;
 
+import static com.example.exoesqueletov1.fragments.PairedDevisesFragment.*;
+
 public class ControlActivity extends AppCompatActivity {
 
     private enum FragmentUse { UpAndDown, WalkSteps, WalkMinutes, Work, Menu } // type of variable
@@ -24,12 +26,11 @@ public class ControlActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
-        String address = getIntent().getExtras()
-                .getString(PairedDevisesFragment.DEVICE_ADDRESS);
-        Fragment fragment = new MenuFragment(address);
+        String address = getIntent().getExtras().getString(DEVICE_ADDRESS);
+        String typeUser = getIntent().getExtras().getString(TYPE_USER);
+        Fragment fragment = new MenuFragment(address, typeUser);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content, fragment).commit();
-
     }
 
     public static void setActionButtonReport(FloatingActionButton actionButtonReport) {

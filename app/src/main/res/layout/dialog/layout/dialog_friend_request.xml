@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/text_dialog_request_name"
-        style="@style/TextView.titulo"
+        style="@style/TextView.title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nombre"

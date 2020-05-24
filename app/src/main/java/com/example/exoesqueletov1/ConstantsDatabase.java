@@ -35,17 +35,22 @@ public class ConstantsDatabase {
     public static final String STATE = "state";
     public static final String TITLE = "title";
     public static final String DATE = "date";
+    public static final String ACTION = "action";
+    public static final String NUMBER = "number";
     public static final String CODE = "code";
     public static final String STATE_NOTIFY = "stateNotify";
     public static final String TO = "to";
     public static final String VERIFY_EMAIL = "verifyEmail";
+    public static final String ID_EXOESQUELETO = "idExoesqueleto";
+    public static final String NO = "no";
+
+    static final String HOUR = "hour";
+    static final String MESSAGE = "message";
+
     public static final String ADMIN = "a";
     public static final String SPECIALIST1 = "b";
     public static final String PATIENT = "c";
 
-    static final String NO = "no";
-    static final String HOUR = "hour";
-    static final String MESSAGE = "message";
 
     public static final String REASON_CODE = "reasonCode";
 

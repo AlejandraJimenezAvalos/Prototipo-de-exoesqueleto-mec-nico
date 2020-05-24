@@ -12,15 +12,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.exoesqueletov1.ControlActivity;
+import com.example.exoesqueletov1.ConstantsDatabase;
 import com.example.exoesqueletov1.R;
+
+import static com.example.exoesqueletov1.ControlActivity.getActionButtonHelp;
+import static com.example.exoesqueletov1.ControlActivity.getActionButtonPause;
+import static com.example.exoesqueletov1.ControlActivity.getActionButtonReport;
+import static com.example.exoesqueletov1.ControlActivity.getActionButtonStop;
+import static com.example.exoesqueletov1.ControlActivity.setActionButtonHelp;
+import static com.example.exoesqueletov1.ControlActivity.setActionButtonPause;
+import static com.example.exoesqueletov1.ControlActivity.setActionButtonReport;
+import static com.example.exoesqueletov1.ControlActivity.setActionButtonStop;
+import static com.example.exoesqueletov1.fragments.UpAndDownFragment.CODE_REGULAR;
 
 public class MenuFragment extends Fragment implements View.OnClickListener {
 
     private String address;
+    private String typeUser;
 
-    public MenuFragment(String address) {
+    public MenuFragment(String address, String typeUser) {
         this.address = address;
+        this.typeUser = typeUser;
     }
 
     @Nullable
@@ -35,19 +47,15 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         Button buttonExercise = view.findViewById(R.id.button_exercise_legs);
         ImageView imageBack = view.findViewById(R.id.image_back);
 
-        ControlActivity.setActionButtonReport(getActivity()
-                .findViewById(R.id.flotating_button_report_problem));
-        ControlActivity.setActionButtonStop(getActivity()
-                .findViewById(R.id.flotating_button_stop));
-        ControlActivity.setActionButtonPause(getActivity()
-                .findViewById(R.id.flotating_button_pause));
-        ControlActivity.setActionButtonHelp(getActivity()
-                .findViewById(R.id.flotating_button_help));
+        setActionButtonReport(getActivity().findViewById(R.id.flotating_button_report_problem));
+        setActionButtonStop(getActivity().findViewById(R.id.flotating_button_stop));
+        setActionButtonPause(getActivity().findViewById(R.id.flotating_button_pause));
+        setActionButtonHelp(getActivity().findViewById(R.id.flotating_button_help));
 
-        ControlActivity.getActionButtonReport().setOnClickListener(this);
-        ControlActivity.getActionButtonStop().setOnClickListener(this);
-        ControlActivity.getActionButtonPause().setOnClickListener(this);
-        ControlActivity.getActionButtonHelp().setOnClickListener(this);
+        getActionButtonReport().setEnabled(false);
+        getActionButtonStop().setEnabled(false);
+        getActionButtonPause().setEnabled(false);
+        getActionButtonHelp().setEnabled(false);
 
         buttonWorks.setOnClickListener(this);
         buttonWalktime.setOnClickListener(this);
@@ -64,22 +72,21 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             case R.id.image_back:
                 getActivity().finish();
             case R.id.button_walk_steps:
-                replaceFragment(new WalkFragment(WalkFragment.CODE_WALK_STEPS, address));
+                replaceFragment(new WalkFragment(WalkFragment.CODE_WALK_STEPS, address, typeUser));
                 break;
             case R.id.button_walk_time:
-                replaceFragment(new WalkFragment(WalkFragment.CODE_WALK_MINUTES, address));
+                replaceFragment(new WalkFragment(WalkFragment.CODE_WALK_MINUTES, address, typeUser));
                 break;
             case R.id.button_exercise_legs:
-                replaceFragment(new UpAndDownFragment(address));
+                replaceFragment(new UpAndDownFragment(address, CODE_REGULAR, typeUser));
                 break;
             case R.id.button_works:
-                replaceFragment(new WorksFragment(address));
-                break;
-            case R.id.flotating_button_report_problem:
-            case R.id.flotating_button_help:
-            case R.id.flotating_button_stop:
-            case R.id.flotating_button_pause:
-                Toast.makeText(getContext(), R.string.advertencia_click_flotating_buttons, Toast.LENGTH_SHORT).show();
+                if (!typeUser.equals(ConstantsDatabase.ADMIN)) {
+                    replaceFragment(new WorksFragment(address, typeUser));
+                } else {
+                    Toast.makeText(getContext(), R.string.no_tiene_acceso, Toast.LENGTH_SHORT)
+                            .show();
+                }
                 break;
         }
     }

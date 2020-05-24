@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextView.titulo"
+                style="@style/TextView.title"
                 android:text="@string/a_n_no_tienes_una_cuenta"/>
 
             <com.google.android.material.textfield.TextInputLayout

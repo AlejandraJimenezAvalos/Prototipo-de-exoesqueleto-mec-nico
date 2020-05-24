@@ -43,7 +43,7 @@
 
         <TextView
             android:id="@+id/text_activity_chat_name"
-            style="@style/TextView.titulo"
+            style="@style/TextView.title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="120sp"
@@ -111,13 +111,13 @@
             android:layout_width="40sp"
             android:layout_height="40sp"
             android:layout_marginStart="10sp"
-            android:src="@drawable/ic_send_black"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/button_pink"
+            android:contentDescription="@string/todo"
             android:padding="10sp"
+            android:src="@drawable/ic_send_black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/edit_text_message"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/todo" />
+            app:layout_constraintStart_toEndOf="@+id/edit_text_message" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

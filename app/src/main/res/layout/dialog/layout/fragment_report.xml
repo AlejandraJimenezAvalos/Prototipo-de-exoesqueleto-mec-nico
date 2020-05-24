@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/textView5"
-        style="@style/TextView.rosa.title"
+        style="@style/TextView.pink.title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

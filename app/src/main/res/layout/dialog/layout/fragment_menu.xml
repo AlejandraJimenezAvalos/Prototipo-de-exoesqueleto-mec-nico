@@ -41,7 +41,7 @@
             <ImageView
                 android:layout_width="150sp"
                 android:layout_height="150sp"
-                android:src="@mipmap/exercise_legs"
+                android:src="@mipmap/ic_up_and_down_foreground"
                 tools:ignore="ContentDescription" />
 
             <Button
@@ -50,6 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="16sp"
+                android:paddingStart="3sp"
+                android:paddingEnd="3sp"
                 android:text="@string/ejercitar_piernas" />
 
         </LinearLayout>
@@ -78,7 +80,7 @@
             <ImageView
                 android:layout_width="150sp"
                 android:layout_height="150sp"
-                android:src="@mipmap/image_man_walking"
+                android:src="@mipmap/ic_walk_foreground"
                 tools:ignore="ContentDescription" />
 
             <Button

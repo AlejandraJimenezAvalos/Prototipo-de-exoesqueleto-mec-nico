@@ -30,7 +30,7 @@
                android:id="@+id/title_walk"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               style="@style/TextView.rosa.title"
+               style="@style/TextView.pink.title"
                android:text="@string/walk_title"
                android:layout_margin="16sp"
                android:textAlignment="center"/>
@@ -39,7 +39,7 @@
                android:layout_width="250sp"
                android:layout_height="250sp"
                android:layout_gravity="center"
-               android:src="@mipmap/image_man_walking"
+               android:src="@mipmap/ic_walk_foreground"
                android:layout_margin="16sp"
                tools:ignore="ContentDescription" />
 

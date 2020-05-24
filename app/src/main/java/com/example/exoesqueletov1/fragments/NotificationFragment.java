@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.exoesqueletov1.ConstantsDatabase;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.adapters.NotificationsAdapter;
@@ -24,6 +23,22 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.exoesqueletov1.ConstantsDatabase.ADMIN;
+import static com.example.exoesqueletov1.ConstantsDatabase.CODE;
+import static com.example.exoesqueletov1.ConstantsDatabase.CODE_NOTIFICATIONS_ADMIN_REQUEST;
+import static com.example.exoesqueletov1.ConstantsDatabase.CODE_NOTIFICATIONS_DELETE_REQUEST;
+import static com.example.exoesqueletov1.ConstantsDatabase.CODE_NOTIFICATIONS_DELETE_REQUEST_FOR_INFRACTION;
+import static com.example.exoesqueletov1.ConstantsDatabase.CODE_NOTIFICATIONS_FRIEND_REQUEST;
+import static com.example.exoesqueletov1.ConstantsDatabase.CODE_NOTIFICATIONS_NEW_USER;
+import static com.example.exoesqueletov1.ConstantsDatabase.CODE_NOTIFICATIONS_TO_ACCEPT;
+import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
+import static com.example.exoesqueletov1.ConstantsDatabase.DATE;
+import static com.example.exoesqueletov1.ConstantsDatabase.DESCRIPTION;
+import static com.example.exoesqueletov1.ConstantsDatabase.NO;
+import static com.example.exoesqueletov1.ConstantsDatabase.STATE_NOTIFY;
+import static com.example.exoesqueletov1.ConstantsDatabase.TITLE;
+import static com.example.exoesqueletov1.ConstantsDatabase.TO;
 
 public class NotificationFragment extends Fragment implements NotificationsAdapter.OnMenuListener {
 
@@ -49,20 +64,20 @@ public class NotificationFragment extends Fragment implements NotificationsAdapt
         mData = new ArrayList<>();
 
 
-        if (typeUser.equals("a")) {
-            db.collection(ConstantsDatabase.COLLECTION_NOTIFICATIONS).
-                    orderBy(ConstantsDatabase.DATE, Query.Direction.DESCENDING).get().
+        if (typeUser.equals(ADMIN)) {
+            db.collection(COLLECTION_NOTIFICATIONS).
+                    orderBy(NO, Query.Direction.DESCENDING).get().
                     addOnCompleteListener(task -> {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             boolean state;
-                            String title = document.get(ConstantsDatabase.TITLE).toString();
-                            String date = document.get(ConstantsDatabase.DATE).toString();
-                            String description = document.get(ConstantsDatabase.DESCRIPTION).toString();
-                            int code = Integer.parseInt(document.get(ConstantsDatabase.CODE).toString());
-                            state = Boolean.parseBoolean(document.get(ConstantsDatabase.STATE_NOTIFY)
+                            String title = document.get(TITLE).toString();
+                            String date = document.get(DATE).toString();
+                            String description = document.get(DESCRIPTION).toString();
+                            int code = Integer.parseInt(document.get(CODE).toString());
+                            state = Boolean.parseBoolean(document.get(STATE_NOTIFY)
                                     .toString());
 
-                            if (document.get(ConstantsDatabase.TO).toString().equals("a")){
+                            if (document.get(TO).toString().equals("a")){
                                 mData.add(new NotificationsItem(title, date, description,
                                         document.getId(), code, state));
                             }
@@ -76,19 +91,19 @@ public class NotificationFragment extends Fragment implements NotificationsAdapt
                     });
         }
         else {
-            db.collection(ConstantsDatabase.COLLECTION_NOTIFICATIONS).
-                    orderBy(ConstantsDatabase.DATE, Query.Direction.DESCENDING).get().
+            db.collection(COLLECTION_NOTIFICATIONS).
+                    orderBy(NO, Query.Direction.DESCENDING).get().
                     addOnCompleteListener(task -> {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             boolean state;
-                            String title = document.get(ConstantsDatabase.TITLE).toString();
-                            String date = document.get(ConstantsDatabase.DATE).toString();
-                            String description = document.get(ConstantsDatabase.DESCRIPTION).toString();
-                            int code = Integer.parseInt(document.get(ConstantsDatabase.CODE).toString());
-                            state = Boolean.parseBoolean(document.get(ConstantsDatabase.STATE_NOTIFY)
+                            String title = document.get(TITLE).toString();
+                            String date = document.get(DATE).toString();
+                            String description = document.get(DESCRIPTION).toString();
+                            int code = Integer.parseInt(document.get(CODE).toString());
+                            state = Boolean.parseBoolean(document.get(STATE_NOTIFY)
                                     .toString());
 
-                            if (document.get(ConstantsDatabase.TO).toString().equals(idUser)){
+                            if (document.get(TO).toString().equals(idUser)){
                                 mData.add(new NotificationsItem(title, date, description,
                                         document.getId(), code, state));
                             }
@@ -110,31 +125,31 @@ public class NotificationFragment extends Fragment implements NotificationsAdapt
         final String idNotification = mData.get(position).getId();
         int codeNotification = mData.get(position).getCode();
         Fragment fragment;
-        db.collection(ConstantsDatabase.COLLECTION_NOTIFICATIONS).
+        db.collection(COLLECTION_NOTIFICATIONS).
                 document(idNotification).get().
                 addOnSuccessListener(documentSnapshot -> {
                     Map<String, Object> data = documentSnapshot.getData();
-                    data.remove(ConstantsDatabase.STATE_NOTIFY);
-                    data.put(ConstantsDatabase.STATE_NOTIFY, true);
-                    FirebaseFirestore.getInstance().collection(ConstantsDatabase.COLLECTION_NOTIFICATIONS).
+                    data.remove(STATE_NOTIFY);
+                    data.put(STATE_NOTIFY, true);
+                    FirebaseFirestore.getInstance().collection(COLLECTION_NOTIFICATIONS).
                             document(idNotification).update(data);
                 });
 
         switch (codeNotification) {
-            case ConstantsDatabase.CODE_NOTIFICATIONS_FRIEND_REQUEST:
-                fragment = new MessageFragment(typeUser, ConstantsDatabase.CODE_NOTIFICATIONS_FRIEND_REQUEST);
+            case CODE_NOTIFICATIONS_FRIEND_REQUEST:
+                fragment = new MessageFragment(typeUser, CODE_NOTIFICATIONS_FRIEND_REQUEST);
                 getActivity().getSupportFragmentManager().beginTransaction().
                         replace(R.id.container_main, fragment).commit();
                 break;
-            case ConstantsDatabase.CODE_NOTIFICATIONS_ADMIN_REQUEST:
-            case ConstantsDatabase.CODE_NOTIFICATIONS_TO_ACCEPT:
-                fragment = new MessageFragment(typeUser, ConstantsDatabase.CODE_NOTIFICATIONS_ADMIN_REQUEST);
+            case CODE_NOTIFICATIONS_ADMIN_REQUEST:
+            case CODE_NOTIFICATIONS_TO_ACCEPT:
+                fragment = new MessageFragment(typeUser, CODE_NOTIFICATIONS_ADMIN_REQUEST);
                 getActivity().getSupportFragmentManager().beginTransaction().
                         replace(R.id.container_main, fragment).commit();
                 break;
-            case ConstantsDatabase.CODE_NOTIFICATIONS_NEW_USER:
-            case ConstantsDatabase.CODE_NOTIFICATIONS_DELETE_REQUEST_FOR_INFRACTION:
-            case ConstantsDatabase.CODE_NOTIFICATIONS_DELETE_REQUEST:
+            case CODE_NOTIFICATIONS_NEW_USER:
+            case CODE_NOTIFICATIONS_DELETE_REQUEST_FOR_INFRACTION:
+            case CODE_NOTIFICATIONS_DELETE_REQUEST:
                 Toast.makeText(getContext(), "Estamos trabajando en ello", Toast.LENGTH_SHORT).show();
                 break;
             default:

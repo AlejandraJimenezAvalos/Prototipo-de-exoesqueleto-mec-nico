@@ -25,6 +25,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
+
 public class DialogUpdateData extends AppCompatDialogFragment {
 
     private String data;
@@ -96,25 +98,29 @@ public class DialogUpdateData extends AppCompatDialogFragment {
                         toString().trim());
             }
             else {
-                Map<String, Object> data = new HashMap<>();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection(COLLECTION_NOTIFICATIONS).get().addOnCompleteListener(task -> {
+                    Map<String, Object> data = new HashMap<>();
 
-                data.put(ConstantsDatabase.TITLE, getString(R.string.report_message));
-                data.put(ConstantsDatabase.DATE, DateFormat.format("MMMM d, yyyy ",
-                        new Date().getTime()));
-                data.put(ConstantsDatabase.DESCRIPTION, getString(R.string.click_more_info));
-                data.put(ConstantsDatabase.STATE_NOTIFY, false);
+                    data.put(ConstantsDatabase.TITLE, getString(R.string.report_message));
+                    data.put(ConstantsDatabase.DATE, DateFormat.format("MMMM d, yyyy ",
+                            new Date().getTime()));
+                    data.put(ConstantsDatabase.DESCRIPTION, getString(R.string.click_more_info));
+                    data.put(ConstantsDatabase.STATE_NOTIFY, false);
+                    data.put(ConstantsDatabase.NO, task.getResult().size() + 1);
 
-                data.put(ConstantsDatabase.REASON, textInputLayoutData.getEditText().getText().
-                        toString().trim());
-                data.put(ConstantsDatabase.CODE,
-                        ConstantsDatabase.CODE_NOTIFICATIONS_DELETE_REQUEST_FOR_INFRACTION);
+                    data.put(ConstantsDatabase.REASON, textInputLayoutData.getEditText().getText().
+                            toString().trim());
+                    data.put(ConstantsDatabase.CODE,
+                            ConstantsDatabase.CODE_NOTIFICATIONS_DELETE_REQUEST_FOR_INFRACTION);
 
-                data.put(ConstantsDatabase.FROM, id);
-                data.put(ConstantsDatabase.ID_USER_INFRACTION, idUserTo);
-                data.put(ConstantsDatabase.TO, "a");
+                    data.put(ConstantsDatabase.FROM, id);
+                    data.put(ConstantsDatabase.ID_USER_INFRACTION, idUserTo);
+                    data.put(ConstantsDatabase.TO, "a");
 
-                FirebaseFirestore.getInstance().
-                        collection(ConstantsDatabase.COLLECTION_NOTIFICATIONS).add(data);
+                    FirebaseFirestore.getInstance()
+                            .collection(ConstantsDatabase.COLLECTION_NOTIFICATIONS).add(data);
+                });
                 getActivity().finish();
                 startActivity(new Intent(getContext(), MainActivity.class));
             }

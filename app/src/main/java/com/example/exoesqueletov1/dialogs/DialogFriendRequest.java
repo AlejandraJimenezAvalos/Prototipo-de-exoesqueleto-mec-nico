@@ -29,6 +29,24 @@ import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.exoesqueletov1.ConstantsDatabase.CODE;
+import static com.example.exoesqueletov1.ConstantsDatabase.CODE_NOTIFICATIONS_ADMIN_REQUEST;
+import static com.example.exoesqueletov1.ConstantsDatabase.CODE_NOTIFICATIONS_FRIEND_REQUEST;
+import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_CHATS;
+import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
+import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_USERS;
+import static com.example.exoesqueletov1.ConstantsDatabase.DATE;
+import static com.example.exoesqueletov1.ConstantsDatabase.DESCRIPTION;
+import static com.example.exoesqueletov1.ConstantsDatabase.DOCUMENT_PROFILE;
+import static com.example.exoesqueletov1.ConstantsDatabase.ID_CHAT;
+import static com.example.exoesqueletov1.ConstantsDatabase.ID_PATIENT;
+import static com.example.exoesqueletov1.ConstantsDatabase.ID_SPECIALIST;
+import static com.example.exoesqueletov1.ConstantsDatabase.SPECIALIST;
+import static com.example.exoesqueletov1.ConstantsDatabase.STATE;
+import static com.example.exoesqueletov1.ConstantsDatabase.STATE_NOTIFY;
+import static com.example.exoesqueletov1.ConstantsDatabase.TITLE;
+import static com.example.exoesqueletov1.ConstantsDatabase.TO;
+
 public class DialogFriendRequest extends AppCompatDialogFragment {
 
     private String name;
@@ -66,10 +84,10 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
 
         textViewName.setText(name);
         textViewType.setText(type);
-        db.collection(id).document(ConstantsDatabase.DOCUMENT_PROFILE).get()
+        db.collection(id).document(DOCUMENT_PROFILE).get()
                 .addOnSuccessListener(documentSnapshot ->
                         textViewDescription.setText(documentSnapshot.getData()
-                        .get(ConstantsDatabase.DESCRIPTION).toString()));
+                        .get(DESCRIPTION).toString()));
 
         new Storge().getProfileImage(circleImageView, id);
 
@@ -90,36 +108,44 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
         final Database database = new Database(getFragmentManager(), getContext());
         final Map<String, Object> dataNotification = new HashMap<>();
 
-        dataNotification.put(ConstantsDatabase.TITLE, getString(R.string.request_accept));
-        dataNotification.put(ConstantsDatabase.DESCRIPTION, getString(R.string.more_info));
-        dataNotification.put(ConstantsDatabase.CODE, ConstantsDatabase.CODE_NOTIFICATIONS_TO_ACCEPT);
-        dataNotification.put(ConstantsDatabase.DATE, DateFormat.format("MMMM d, yyyy ", new Date().getTime()));
-        dataNotification.put(ConstantsDatabase.TO, id);
-        dataNotification.put(ConstantsDatabase.STATE_NOTIFY, false);
-
-        db.collection(ConstantsDatabase.COLLECTION_CHATS).whereEqualTo(ConstantsDatabase.ID_PATIENT, idUser).
+        db.collection(COLLECTION_CHATS).whereEqualTo(ID_PATIENT, idUser).
                 get().addOnCompleteListener(task -> {
                     for (final QueryDocumentSnapshot document : task.getResult()) {
-                        if (document.getData().get(ConstantsDatabase.ID_SPECIALIST).toString().equals(id)) {
+                        if (document.getData().get(ID_SPECIALIST).toString().equals(id)) {
                             final Map<String, Object> data = document.getData();
-                            data.remove(ConstantsDatabase.STATE);
-                            data.put(ConstantsDatabase.STATE, true);
-                            db.collection(ConstantsDatabase.COLLECTION_CHATS).document(document.getId())
+                            data.remove(STATE);
+                            data.put(STATE, true);
+                            db.collection(COLLECTION_CHATS).document(document.getId())
                                     .update(data);
 
-                            db.collection(ConstantsDatabase.COLLECTION_USERS).document(new Authentication().
+                            db.collection(COLLECTION_USERS).document(new Authentication().
                                     getCurrentUser().getEmail()).get().
                                     addOnSuccessListener(documentSnapshot -> {
                                         Map<String, Object> dataUsers = documentSnapshot.getData();
-                                        dataUsers.remove(ConstantsDatabase.SPECIALIST);
-                                        dataUsers.put(ConstantsDatabase.SPECIALIST, true);
-                                        db.collection(ConstantsDatabase.COLLECTION_USERS)
+                                        dataUsers.remove(SPECIALIST);
+                                        dataUsers.put(SPECIALIST, true);
+                                        db.collection(COLLECTION_USERS)
                                                 .document(new Authentication().
                                                 getCurrentUser().getEmail()).update(dataUsers);
                                     });
-
-                                database.setData(ConstantsDatabase.COLLECTION_NOTIFICATIONS,
-                                        "", dataNotification);
+                            db.collection(COLLECTION_NOTIFICATIONS).get()
+                                    .addOnCompleteListener(task1 -> {
+                                dataNotification.put(ConstantsDatabase.TITLE,
+                                        getString(R.string.request_accept));
+                                dataNotification.put(ConstantsDatabase.DESCRIPTION,
+                                        getString(R.string.more_info));
+                                dataNotification.put(ConstantsDatabase.CODE,
+                                        ConstantsDatabase.CODE_NOTIFICATIONS_TO_ACCEPT);
+                                dataNotification.put(ConstantsDatabase.DATE,
+                                        DateFormat.format("MMMM d, yyyy ",
+                                                new Date().getTime()));
+                                dataNotification.put(ConstantsDatabase.TO, id);
+                                dataNotification.put(ConstantsDatabase.STATE_NOTIFY, false);
+                                dataNotification.put(ConstantsDatabase.NO,
+                                        task1.getResult().size() + 1);
+                                database.setData(COLLECTION_NOTIFICATIONS,
+                                            "", dataNotification);
+                            });
                         }
                     }
                 });
@@ -132,30 +158,33 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
         String idChat = UUID.randomUUID().toString();
 
         if (typeUser.equals("a") || typeUser.equals("b")) {
-            if (typeUser.equals("b")) {
-                dataNotification.put(ConstantsDatabase.TITLE, getString(R.string.un_fisioterapeuta));
-                dataNotification.put(ConstantsDatabase.CODE, ConstantsDatabase.CODE_NOTIFICATIONS_FRIEND_REQUEST);
-            }
-            if (typeUser.equals("a")) {
-                dataNotification.put(ConstantsDatabase.TITLE, getString(R.string.un_admin));
-                dataNotification.put(ConstantsDatabase.CODE, ConstantsDatabase.CODE_NOTIFICATIONS_ADMIN_REQUEST);
-            }
+            db.collection(COLLECTION_NOTIFICATIONS).get().addOnCompleteListener(task -> {
+                if (typeUser.equals("b")) {
+                    dataNotification.put(TITLE, getString(R.string.un_fisioterapeuta));
+                    dataNotification.put(CODE, CODE_NOTIFICATIONS_FRIEND_REQUEST);
+                }
+                if (typeUser.equals("a")) {
+                    dataNotification.put(TITLE, getString(R.string.un_admin));
+                    dataNotification.put(CODE, CODE_NOTIFICATIONS_ADMIN_REQUEST);
+                }
 
-            dataNotification.put(ConstantsDatabase.DESCRIPTION, getString(R.string.more_info));
-            dataNotification.put(ConstantsDatabase.DATE, DateFormat
-                    .format("MMMM d, yyyy ", new Date().getTime()));
-            dataNotification.put(ConstantsDatabase.TO, id);
-            dataNotification.put(ConstantsDatabase.STATE_NOTIFY, false);
+                dataNotification.put(DESCRIPTION, getString(R.string.more_info));
+                dataNotification.put(DATE,
+                        DateFormat.format("MMMM d, yyyy ", new Date().getTime()));
+                dataNotification.put(TO, id);
+                dataNotification.put(STATE_NOTIFY, false);
+                dataNotification.put(ConstantsDatabase.NO, task.getResult().size() + 1);
 
-            database.setData(ConstantsDatabase.COLLECTION_NOTIFICATIONS , "", dataNotification);
+                database.setData(COLLECTION_NOTIFICATIONS , "", dataNotification);
+            });
 
-            dataChats.put(ConstantsDatabase.ID_SPECIALIST, idUser);
-            dataChats.put(ConstantsDatabase.ID_PATIENT, id);
-            dataChats.put(ConstantsDatabase.ID_CHAT, idChat);
-            if (typeUser.equals("b")) { dataChats.put(ConstantsDatabase.STATE, false); }
-            if (typeUser.equals("a")) { dataChats.put(ConstantsDatabase.STATE, true); }
+            dataChats.put(ID_SPECIALIST, idUser);
+            dataChats.put(ID_PATIENT, id);
+            dataChats.put(ID_CHAT, idChat);
+            if (typeUser.equals("b")) { dataChats.put(STATE, false); }
+            if (typeUser.equals("a")) { dataChats.put(STATE, true); }
 
-            database.setData(ConstantsDatabase.COLLECTION_CHATS, "", dataChats);
+            database.setData(COLLECTION_CHATS, "", dataChats);
 
             DialogAllDone dialogAllDone = new DialogAllDone("Solicitud enviada");
             dialogAllDone.show(getFragmentManager(), "");

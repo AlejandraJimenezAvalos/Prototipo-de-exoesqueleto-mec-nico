@@ -35,7 +35,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private TextView textViewName;
     private TextView textViewUser;
@@ -62,7 +62,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view;
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         textViewName = view.findViewById(R.id.text_profile_view_name);
         textViewUser = view.findViewById(R.id.text_profile_view_user);
@@ -84,27 +85,14 @@ public class ProfileFragment extends Fragment {
                 textViewAddress, textViewCell, textViewPhone, textViewSchool,
                 circleImageViewProfile, linearLayoutSchool);
 
-        textViewDes.setOnClickListener(v -> dialog (textViewDes,
-                getString(R.string.description), 0));
-
-        textViewMail.setOnClickListener(v -> dialog (textViewMail,
-                getString(R.string.correo), R.drawable.ic_mail));
-
-        textViewAddress.setOnClickListener(v -> dialog (textViewAddress,
-                getString(R.string.direcci_n), R.drawable.ic_place));
-
-        textViewCell.setOnClickListener(v -> dialog (textViewCell,
-                getString(R.string.celular), R.drawable.ic_phone_android));
-
-        textViewPhone.setOnClickListener(v -> dialog (textViewPhone,
-                getString(R.string.telefono), R.drawable.ic_phone));
-
-        textViewSchool.setOnClickListener(v -> dialog (textViewSchool,
-                getString(R.string.estudio), R.drawable.ic_school));
-
-        buttonOk.setOnClickListener(v -> okOnClick());
-
-        buttonChangeImage.setOnClickListener(v -> selectImage(getContext()));
+        textViewDes.setOnClickListener(this);
+        textViewMail.setOnClickListener(this);
+        textViewAddress.setOnClickListener(this);
+        textViewCell.setOnClickListener(this);
+        textViewPhone.setOnClickListener(this);
+        textViewSchool.setOnClickListener(this);
+        buttonOk.setOnClickListener(this);
+        buttonChangeImage.setOnClickListener(this);
 
         return view;
     }
@@ -189,5 +177,35 @@ public class ProfileFragment extends Fragment {
     private void dialog(TextView textView, String string, int i) {
         DialogUpdateData updateData = new DialogUpdateData(string, i, textView);
         updateData.show(getFragmentManager(), "algo");
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.text_profile_view_description:
+                dialog (textViewDes, getString(R.string.description), 0);
+                break;
+            case R.id.text_profile_view_email:
+                dialog (textViewMail, getString(R.string.correo), R.drawable.ic_mail);
+                break;
+            case R.id.text_profile_view_address:
+                dialog (textViewAddress, getString(R.string.direcci_n), R.drawable.ic_place);
+                break;
+            case R.id.text_profile_view_cell:
+                dialog (textViewCell, getString(R.string.celular), R.drawable.ic_phone_android);
+                break;
+            case R.id.text_profile_view_phone:
+                dialog (textViewPhone, getString(R.string.telefono), R.drawable.ic_phone);
+                break;
+            case R.id.text_profile_view_school:
+                dialog (textViewSchool, getString(R.string.estudio), R.drawable.ic_school);
+                break;
+            case R.id.button_profile_view_save:
+                okOnClick();
+                break;
+            case R.id.button_profile_view_image:
+                selectImage(getContext());
+                break;
+        }
     }
 }

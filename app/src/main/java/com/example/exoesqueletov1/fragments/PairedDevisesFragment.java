@@ -26,14 +26,18 @@ import java.util.Set;
 
 public class PairedDevisesFragment extends Fragment {
 
-    public PairedDevisesFragment() {
-    }
-
+    private String typeUser;
     private BluetoothAdapter bluetoothAdapter = null;
     public static final String DEVICE_ADDRESS = "deviceAddress";
+    public static final String TYPE_USER = "typeUser";
     private static final int REQUEST_CODE = 1;
 
     private ListView listView;
+
+
+    public PairedDevisesFragment(String typeUser) {
+        this.typeUser = typeUser;
+    }
 
     @Nullable
     @Override
@@ -72,7 +76,7 @@ public class PairedDevisesFragment extends Fragment {
                 //Get the device's name and the address
             }
         } else {
-            Toast.makeText(getContext(), "No Paired Bluetooth Devices Found.",
+            Toast.makeText(getContext(), "No hay dispositivos",
                     Toast.LENGTH_LONG).show();
         }
 
@@ -80,15 +84,15 @@ public class PairedDevisesFragment extends Fragment {
         adapter = new ArrayAdapter(getContext(), R.layout.list_item_withe, R.id.list_content, list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(myListClickListener);
-        //Method called when the device from the list is clicked
     }
 
     private AdapterView.OnItemClickListener myListClickListener = (av, view, arg2, arg3) -> {
         TextView textView = view.findViewById(R.id.list_content);
         String info = textView.getText().toString();
         String address = info.substring(info.length() - 17);
-        Intent i = new Intent(getContext(), ControlActivity.class);
-        i.putExtra(DEVICE_ADDRESS, address);
-        startActivity(i);
+        Intent intent = new Intent(getContext(), ControlActivity.class);
+        intent.putExtra(DEVICE_ADDRESS, address);
+        intent.putExtra(TYPE_USER, typeUser);
+        startActivity(intent);
     };
 }

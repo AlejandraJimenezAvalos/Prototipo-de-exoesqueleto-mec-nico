@@ -6,12 +6,12 @@
 
     <TextView
         android:id="@+id/list_content"
+        style="@style/TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8sp"
         android:gravity="center"
         android:textAlignment="textStart"
-        android:layout_margin="8sp"
-        style="@style/TextView"
         tools:ignore="RtlCompat" />
 
 </LinearLayout>

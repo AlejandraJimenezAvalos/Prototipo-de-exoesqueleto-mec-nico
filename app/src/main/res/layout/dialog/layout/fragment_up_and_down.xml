@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextView.rosa.title"
+                style="@style/TextView.pink.title"
                 android:textAlignment="center"
                 android:text="@string/ejercitar_piernas"
                 android:layout_margin="16sp"/>
@@ -37,7 +37,7 @@
             <ImageView
                 android:layout_width="250sp"
                 android:layout_height="250sp"
-                android:src="@mipmap/exercise_legs"
+                android:src="@mipmap/ic_up_and_down_foreground"
                 android:layout_gravity="center"
                 tools:ignore="ContentDescription" />
 

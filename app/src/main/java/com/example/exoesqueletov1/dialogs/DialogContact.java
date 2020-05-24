@@ -31,6 +31,13 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_CHATS;
+import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
+import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_USERS;
+import static com.example.exoesqueletov1.ConstantsDatabase.ID_CHAT;
+import static com.example.exoesqueletov1.ConstantsDatabase.NAME;
+import static com.example.exoesqueletov1.ConstantsDatabase.SPECIALIST;
+
 public class DialogContact extends AppCompatDialogFragment {
 
     private TextView textViewMail;
@@ -45,7 +52,7 @@ public class DialogContact extends AppCompatDialogFragment {
     private String typeUser;
 
     private static final int CODE_REPORT = 0;
-    private static final int CODE_DELATE = 1;
+    private static final int CODE_DELETE = 1;
 
     public DialogContact(String id, String idUserTo, String idChat, String typeUser) {
         this.id = id;
@@ -64,8 +71,6 @@ public class DialogContact extends AppCompatDialogFragment {
         view = inflater.inflate(R.layout.dialog_contact, null);
 
         CircleImageView circleImageView = view.findViewById(R.id.image_view_profile_view);
-        textViewName = view.findViewById(R.id.text_profile_view_name);
-        textViewUser = view.findViewById(R.id.text_profile_view_user);
         TextView textViewCheck = view.findViewById(R.id.text_profile_view_check);
         TextView textViewAddress = view.findViewById(R.id.text_profile_view_address);
         TextView textViewSchool = view.findViewById(R.id.text_profile_view_school);
@@ -81,6 +86,8 @@ public class DialogContact extends AppCompatDialogFragment {
         final Database database = new Database(getFragmentManager(), getContext());
 
         textViewMail = view.findViewById(R.id.text_profile_view_email);
+        textViewName = view.findViewById(R.id.text_profile_view_name);
+        textViewUser = view.findViewById(R.id.text_profile_view_user);
 
         database.getAndShowProfile(idUserTo, textViewName, textViewUser, textViewCheck, textViewMail,
                 textViewAddress, textViewCell, textViewPhone, textViewSchool, circleImageView);
@@ -129,12 +136,12 @@ public class DialogContact extends AppCompatDialogFragment {
         builder.setTitle("¿Cuál es la razón para eliminar este contacto?");
         builder.setItems(options, (dialog, item) -> {
             if (options[item].equals(getString(R.string.se_acabo_el_tratamiento))) {
-                delete(CODE_DELATE);
+                delete();
             }
             if (options[item].equals(getString(R.string.poca_profecionalidad))) {
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
                 builder1.setTitle(R.string.reportar_user);
-                builder1.setNegativeButton(R.string.no, (dialog1, which) -> delete(CODE_DELATE));
+                builder1.setNegativeButton(R.string.no, (dialog1, which) -> delete());
                 builder1.setPositiveButton(R.string.si, (dialog12, which) -> report());
                 builder1.show();
             }
@@ -143,18 +150,17 @@ public class DialogContact extends AppCompatDialogFragment {
     }
 
     private void report() {
-        delete(CODE_REPORT);
         DialogUpdateData updateData = new DialogUpdateData(getString(R.string.please_write),
                 0, 0, id, idUserTo);
         updateData.show(getFragmentManager(), "");
     }
 
-    private void delete(final int code) {
+    private void delete() {
         try {
-            db.collection(ConstantsDatabase.COLLECTION_CHATS).whereEqualTo(ConstantsDatabase.ID_CHAT, idChat).get().
+            db.collection(COLLECTION_CHATS).whereEqualTo(ID_CHAT, idChat).get().
                     addOnCompleteListener(task -> {
                         for (DocumentSnapshot document : task.getResult()) {
-                            db.collection(ConstantsDatabase.COLLECTION_CHATS).document(document.getId())
+                            db.collection(COLLECTION_CHATS).document(document.getId())
                                     .delete();
                         }
                     });
@@ -167,44 +173,49 @@ public class DialogContact extends AppCompatDialogFragment {
                         }
                     });
             if (textViewUser.getText().toString().equals("Paciente")) {
-                db.collection(ConstantsDatabase.COLLECTION_USERS).document(idUserTo).get().
+                db.collection(COLLECTION_USERS).document(idUserTo).get().
                         addOnCompleteListener(task -> {
                             final Map<String, Object> data = task.getResult().getData();
-                            data.remove(ConstantsDatabase.SPECIALIST);
-                            data.put(ConstantsDatabase.SPECIALIST, false);
-                            db.collection(ConstantsDatabase.COLLECTION_USERS).document(idUserTo).update(data);
+                            data.remove(SPECIALIST);
+                            data.put(SPECIALIST, false);
+                            db.collection(COLLECTION_USERS).document(idUserTo).update(data);
                         });
             }
             if (typeUser.equals("c")) {
-                db.collection(ConstantsDatabase.COLLECTION_USERS).document(id).get().
+                db.collection(COLLECTION_USERS).document(id).get().
                         addOnCompleteListener(task -> {
                             final Map<String, Object> data = task.getResult().getData();
-                            data.remove(ConstantsDatabase.SPECIALIST);
-                            data.put(ConstantsDatabase.SPECIALIST, false);
-                            db.collection(ConstantsDatabase.COLLECTION_USERS).document(id).update(data);
+                            data.remove(SPECIALIST);
+                            data.put(SPECIALIST, false);
+                            db.collection(COLLECTION_USERS).document(id).update(data);
                         });
             }
 
-            db.collection(ConstantsDatabase.COLLECTION_USERS).document(id).get().
+            db.collection(COLLECTION_USERS).document(id).get().
                     addOnSuccessListener(documentSnapshot -> {
                         String name;
-                        name = documentSnapshot.getData().get(ConstantsDatabase.NAME).toString();
-                        final Map<String, Object> data = new HashMap<>();
-                        data.put(ConstantsDatabase.CODE, ConstantsDatabase.CODE_NOTIFICATIONS_DELETE_REQUEST);
-                        data.put(ConstantsDatabase.DATE, DateFormat.format("MMMM d, yyyy ",
-                                new Date().getTime()));
-                        data.put(ConstantsDatabase.DESCRIPTION, "");
-                        data.put(ConstantsDatabase.STATE_NOTIFY, false);
-                        data.put(ConstantsDatabase.TITLE, name + getString(R.string.de_su_lista_de_contactos));
-                        data.put(ConstantsDatabase.TO, idUserTo);
-                        db.collection(ConstantsDatabase.COLLECTION_NOTIFICATIONS).add(data);
-                        if (code == CODE_DELATE) {
+                        name = documentSnapshot.getData().get(NAME).toString();
+                        db.collection(COLLECTION_NOTIFICATIONS).get().addOnCompleteListener(task ->{
+                            final Map<String, Object> data = new HashMap<>();
+                            data.put(ConstantsDatabase.CODE,
+                                    ConstantsDatabase.CODE_NOTIFICATIONS_DELETE_REQUEST);
+                            data.put(ConstantsDatabase.DATE,
+                                    DateFormat.format("MMMM d, yyyy ",
+                                            new Date().getTime()));
+                            data.put(ConstantsDatabase.DESCRIPTION, "");
+                            data.put(ConstantsDatabase.STATE_NOTIFY, false);
+                            data.put(ConstantsDatabase.TITLE, name +
+                                    getString(R.string.de_su_lista_de_contactos));
+                            data.put(ConstantsDatabase.TO, idUserTo);
+                            data.put(ConstantsDatabase.NO, task.getResult().size() + 1);
+                            db.collection(ConstantsDatabase.COLLECTION_NOTIFICATIONS).add(data);
+                        });
+                        if (DialogContact.CODE_DELETE == CODE_DELETE) {
                             dismiss();
                             getActivity().finish();
                             startActivity(new Intent(getContext(), MainActivity.class));
                         }
                     });
-            Toast.makeText(getContext(), "e: " + code, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(getContext(), "e: " + e, Toast.LENGTH_LONG).show();
         }

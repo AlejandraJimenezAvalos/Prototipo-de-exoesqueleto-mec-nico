@@ -45,7 +45,7 @@
 
         <TextView
             android:id="@+id/text_chats"
-            style="@style/TextView.titulo"
+            style="@style/TextView.title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/chats"
@@ -65,7 +65,7 @@
 
         <TextView
             android:id="@+id/text_add"
-            style="@style/TextView.titulo"
+            style="@style/TextView.title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/agregar"

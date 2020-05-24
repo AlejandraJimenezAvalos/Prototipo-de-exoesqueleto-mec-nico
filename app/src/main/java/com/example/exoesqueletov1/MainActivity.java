@@ -18,6 +18,7 @@ import com.example.exoesqueletov1.clases.adapters.MenuAdapter;
 import com.example.exoesqueletov1.clases.items.MenuItem;
 import com.example.exoesqueletov1.clases.Storge;
 import com.example.exoesqueletov1.dialogs.DialogLoading;
+import com.example.exoesqueletov1.fragments.AssignWorkFragment;
 import com.example.exoesqueletov1.fragments.MessageFragment;
 import com.example.exoesqueletov1.fragments.NotificationFragment;
 import com.example.exoesqueletov1.fragments.PairedDevisesFragment;
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         mData.add(new MenuItem(getString(R.string.inicio), R.drawable.ic_notifications));
         mData.add(new MenuItem(getString(R.string.profile), R.drawable.ic_profile));
         mData.add(new MenuItem(getString(R.string.messages), R.drawable.ic_message));
+        mData.add(new MenuItem(getString(R.string.bluetooth), R.drawable.ic_bluetooth));
         menuAdapter = new MenuAdapter(this, mData, this);
         recyclerMenu.setAdapter(menuAdapter);
         recyclerMenu.setLayoutManager(new LinearLayoutManager(this,
@@ -95,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         mData.add(new MenuItem(getString(R.string.inicio), R.drawable.ic_notifications));
         mData.add(new MenuItem(getString(R.string.profile), R.drawable.ic_profile));
         mData.add(new MenuItem(getString(R.string.messages), R.drawable.ic_message));
+        mData.add(new MenuItem(getString(R.string.assing), R.drawable.ic_add));
         menuAdapter = new MenuAdapter(this, mData, this);
         recyclerMenu.setAdapter(menuAdapter);
         recyclerMenu.setLayoutManager(new LinearLayoutManager(this,
@@ -138,7 +141,10 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
                 fragment = new MessageFragment(typeUser, ConstantsDatabase.CODE_REGULAR);
             }
             if (mData.get(position).getTitle().equals(getString(R.string.bluetooth))) {
-                fragment = new PairedDevisesFragment();
+                fragment = new PairedDevisesFragment(typeUser);
+            }
+            if (mData.get(position).getTitle().equals(getString(R.string.assing))) {
+                fragment = new AssignWorkFragment();
             }
         }
         getSupportFragmentManager().beginTransaction()
@@ -205,11 +211,19 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
     protected void onResume() {
         super.onResume();
         isState = true;
+        Timer timer = new Timer();
+        timer.execute();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        isState = false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         isState = false;
     }
 }

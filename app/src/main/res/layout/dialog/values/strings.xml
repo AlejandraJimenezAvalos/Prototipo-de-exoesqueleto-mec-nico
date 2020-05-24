@@ -78,7 +78,7 @@
     <string name="detener">Detener exoesqueleto</string>
     <string name="desconectar">Desconectar del dispositivo</string>
     <string name="caminar">Caminar</string>
-    <string name="ejercitar_piernas">Ejercitar\npiernas</string>
+    <string name="ejercitar_piernas">Ejercitar piernas</string>
     <string name="levantar_y_bajar_la_pierna_izquierda">Levantar y bajar la pierna izquierda</string>
     <string name="levantar_y_bajar_la_pierna_derecha">Levantar y bajar la pierna derecha</string>
     <string name="connection_failed">La conexión falló. Verifique que el exoesqueleto esté encendido.</string>
@@ -94,6 +94,22 @@
     <string name="help">Ayuda</string>
     <string name="advertencia_click_flotating_buttons">Solo puedes usar estos botones cuando estás usando el exoesqueleto</string>
     <string name="desplaza_el_picker">Desplaza el picker para seleccionar el tiempo que pasara caminando y pulse el boton Caminar.</string>
+    <string name="pasientes">Pacientes</string>
+    <string name="selecciona_un_paciente_primero">Selecciona un paciente</string>
+    <string name="tareas_realizadas">Tareas realizadas</string>
+    <string name="asignar_tareas">Asignar tareas</string>
+    <string name="assing">Assign</string>
+    <string name="tareas_pendientes">Tareas pendientes</string>
+    <string name="walk">Caminar</string>
+    <string name="exercise_your_legs">Ejercitar las piernas</string>
+    <string name="a_session">Se programo una sesión para </string>
+    <string name="walk_less">caminar </string>
+    <string name="minutes"> minutos.</string>
+    <string name="steps"> pasos.</string>
+    <string name="buscar_en_tareas_realizadas_por_fecha">buscar en tareas realizadas por fecha</string>
+    <string name="buscar_en_tareas_pendientes_por_fecha">buscar en tareas pendientes por fecha</string>
+    <string name="pendientes2">Pendientes</string>
+    <string name="no_tiene_acceso">No tiene acceso a esta función</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>
