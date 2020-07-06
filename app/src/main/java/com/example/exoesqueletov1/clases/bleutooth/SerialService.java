@@ -48,9 +48,7 @@ public class SerialService extends Service implements SerialListener {
             this.data=data;
             this.e=e; }
     }
-    /**
-     * Lifecylce
-     */
+
     public SerialService() {
         HandlerMainLooper = new Handler(Looper.getMainLooper());
         binder = new SerialBinder();
@@ -71,9 +69,6 @@ public class SerialService extends Service implements SerialListener {
         return binder;
     }
 
-    /**
-     * Api
-     */
     public void connect(SerialListener listener, String notificationMsg) {
         this.serialListener = listener;
         connected = true;
@@ -101,18 +96,18 @@ public class SerialService extends Service implements SerialListener {
         }
         for(QueueItem item : queue1) {
             switch(item.type) {
-                case Connect:       listener.onSerialConnect      (); break;
-                case ConnectError:  listener.onSerialConnectError (item.e); break;
-                case Read:          listener.onSerialRead         (item.data); break;
-                case IoError:       listener.onSerialIoError      (item.e); break;
+                case Connect:       listener.onSerialConnect();             break;
+                case ConnectError:  listener.onSerialConnectError(item.e);  break;
+                case Read:          listener.onSerialRead(item.data);       break;
+                case IoError:       listener.onSerialIoError(item.e);       break;
             }
         }
         for(QueueItem item : queue2) {
             switch(item.type) {
-                case Connect:       listener.onSerialConnect      (); break;
-                case ConnectError:  listener.onSerialConnectError (item.e); break;
-                case Read:          listener.onSerialRead         (item.data); break;
-                case IoError:       listener.onSerialIoError      (item.e); break;
+                case Connect:       listener.onSerialConnect();             break;
+                case ConnectError:  listener.onSerialConnectError(item.e);  break;
+                case Read:          listener.onSerialRead(item.data);       break;
+                case IoError:       listener.onSerialIoError(item.e);       break;
             }
         }
         queue1.clear();

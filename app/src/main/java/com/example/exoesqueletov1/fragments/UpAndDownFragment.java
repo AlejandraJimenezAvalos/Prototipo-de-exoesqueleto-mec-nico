@@ -33,6 +33,7 @@ import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.bleutooth.SerialListener;
 import com.example.exoesqueletov1.clases.bleutooth.SerialService;
 import com.example.exoesqueletov1.clases.bleutooth.SerialSocket;
+import com.example.exoesqueletov1.dialogs.DialogInfo;
 import com.example.exoesqueletov1.dialogs.DialogOops;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -298,8 +299,11 @@ public class UpAndDownFragment extends Fragment implements ServiceConnection, Se
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.flotating_button_report_problem:
             case R.id.flotating_button_help:
+                DialogInfo dialogInfo = new DialogInfo(R.mipmap.ss_exercise);
+                dialogInfo.show(getFragmentManager(), "");
+                break;
+            case R.id.flotating_button_report_problem:
                 Toast.makeText(getContext(), "Estamos trabajando en ello", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.flotating_button_stop:

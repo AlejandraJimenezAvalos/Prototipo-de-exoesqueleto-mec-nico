@@ -17,6 +17,7 @@ import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.adapters.WorkAdapter;
 import com.example.exoesqueletov1.clases.bleutooth.Constants;
 import com.example.exoesqueletov1.clases.items.WorkItem;
+import com.example.exoesqueletov1.dialogs.DialogInfo;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -85,7 +86,11 @@ public class WorksFragment extends Fragment implements WorkAdapter.OnWorkListene
         getActionButtonReport().setEnabled(false);
         getActionButtonStop().setEnabled(false);
         getActionButtonPause().setEnabled(false);
-        getActionButtonHelp().setEnabled(false);
+        getActionButtonHelp().setEnabled(true);
+        getActionButtonHelp().setOnClickListener(v -> {
+            DialogInfo dialogInfo = new DialogInfo(R.mipmap.ss_pendings);
+            dialogInfo.show(getFragmentManager(), "");
+        });
         return view;
     }
 

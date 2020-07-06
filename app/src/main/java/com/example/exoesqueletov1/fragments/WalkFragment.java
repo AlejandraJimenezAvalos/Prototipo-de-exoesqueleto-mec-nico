@@ -33,6 +33,7 @@ import com.example.exoesqueletov1.clases.Authentication;
 import com.example.exoesqueletov1.clases.bleutooth.SerialListener;
 import com.example.exoesqueletov1.clases.bleutooth.SerialService;
 import com.example.exoesqueletov1.clases.bleutooth.SerialSocket;
+import com.example.exoesqueletov1.dialogs.DialogInfo;
 import com.example.exoesqueletov1.dialogs.DialogOops;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -263,8 +264,14 @@ public class WalkFragment extends Fragment implements ServiceConnection, SerialL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.flotating_button_report_problem:
             case R.id.flotating_button_help:
+                int resourse;
+                if (code == CODE_WALK_STEPS) { resourse = R.mipmap.ss_walk_steps; }
+                else { resourse = R.mipmap.ss_walk_time; }
+                DialogInfo dialogInfo = new DialogInfo(resourse);
+                dialogInfo.show(getFragmentManager(), "");
+                break;
+            case R.id.flotating_button_report_problem:
                 Toast.makeText(getContext(), "Estamos trabajando en ello", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.flotating_button_stop:
