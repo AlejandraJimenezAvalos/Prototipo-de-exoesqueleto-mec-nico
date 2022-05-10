@@ -68,7 +68,7 @@ import static com.example.exoesqueletov1.clases.bleutooth.Constants.WALK_STEPS;
 
 public class WalkFragment extends Fragment implements ServiceConnection, SerialListener, View.OnClickListener {
 
-    private enum Connected { False, Pending, True; }
+    private enum Connected { False, Pending, True }
     private TextView indicationWalk;
 
     private ImageView imageViewBack;

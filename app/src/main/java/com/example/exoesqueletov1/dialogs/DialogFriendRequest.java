@@ -49,10 +49,10 @@ import static com.example.exoesqueletov1.ConstantsDatabase.TO;
 
 public class DialogFriendRequest extends AppCompatDialogFragment {
 
-    private String name;
-    private String type;
-    private String id;
-    private String typeUser;
+    private final String name;
+    private final String type;
+    private final String id;
+    private final String typeUser;
 
     private FirebaseFirestore db;
 
@@ -160,15 +160,15 @@ public class DialogFriendRequest extends AppCompatDialogFragment {
         if (typeUser.equals("a") || typeUser.equals("b")) {
             db.collection(COLLECTION_NOTIFICATIONS).get().addOnCompleteListener(task -> {
                 if (typeUser.equals("b")) {
-                    dataNotification.put(TITLE, getString(R.string.un_fisioterapeuta));
+                    dataNotification.put(TITLE, "Un fisioterapeuta quiere ponerse en contacto contigo.");
                     dataNotification.put(CODE, CODE_NOTIFICATIONS_FRIEND_REQUEST);
                 }
                 if (typeUser.equals("a")) {
-                    dataNotification.put(TITLE, getString(R.string.un_admin));
+                    dataNotification.put(TITLE, "Un administrador ponerse en contacto contigo.");
                     dataNotification.put(CODE, CODE_NOTIFICATIONS_ADMIN_REQUEST);
                 }
 
-                dataNotification.put(DESCRIPTION, getString(R.string.more_info));
+                dataNotification.put(DESCRIPTION, "Da click para ver mas informacion");
                 dataNotification.put(DATE,
                         DateFormat.format("MMMM d, yyyy ", new Date().getTime()));
                 dataNotification.put(TO, id);
