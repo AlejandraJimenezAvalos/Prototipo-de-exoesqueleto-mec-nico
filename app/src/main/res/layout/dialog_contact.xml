@@ -1,232 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_margin="30sp">
+    android:orientation="vertical">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="UselessParent">
+        android:layout_height="wrap_content"
+        android:padding="16sp">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_image_profile_dialog_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_profile_view_check"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_profile_view_name">
+
+            <ImageView
+                android:id="@+id/image_view_profile_view"
+                android:layout_width="48sp"
+                android:layout_height="48sp"
+                android:background="@drawable/button_border_pink"
+                android:contentDescription="@string/image_profile"
+                android:src="@drawable/ic_profile" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/text_profile_view_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8sp"
+            app:layout_constraintStart_toEndOf="@+id/card_image_profile_dialog_contact"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/full_names" />
+
+        <TextView
+            android:id="@+id/text_profile_view_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user"
+            app:layout_constraintStart_toStartOf="@+id/text_profile_view_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_profile_view_name" />
+
+        <TextView
+            android:id="@+id/text_profile_view_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cuenta_verificada"
+            app:layout_constraintStart_toStartOf="@+id/text_profile_view_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_profile_view_user" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="2sp"
+            android:layout_marginTop="16sp"
+            android:background="?attr/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/text_profile_view_check"
+            tools:ignore="SmallSp"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:contentDescription="@string/todo"
+            android:padding="8sp"
+            android:src="@drawable/ic_phone_android"
+            app:layout_constraintBottom_toBottomOf="@+id/text_profile_view_check"
+            app:layout_constraintEnd_toStartOf="@+id/imageView5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text_profile_view_name"
+            app:layout_constraintTop_toTopOf="@+id/text_profile_view_name" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:contentDescription="@string/todo"
+            android:padding="8sp"
+            android:src="@drawable/ic_mail"
+            app:layout_constraintBottom_toBottomOf="@+id/text_profile_view_check"
+            app:layout_constraintEnd_toStartOf="@+id/imageView4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/text_profile_view_name" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="40sp"
+            android:layout_height="40sp"
+            android:contentDescription="@string/todo"
+            android:padding="8sp"
+            android:src="@drawable/ic_phone"
+            app:layout_constraintBottom_toBottomOf="@+id/text_profile_view_check"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="@+id/text_profile_view_name" />
+
+        <TextView
+            android:id="@+id/text_profile_view_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="16sp">
+            android:layout_marginTop="16sp"
+            android:drawablePadding="20sp"
+            android:text="@string/correo"
+            app:drawableStartCompat="@drawable/ic_mail"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_view_profile_view"
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:padding="10sp"
-                android:background="@drawable/button_border_pink" />
+        <TextView
+            android:id="@+id/text_profile_view_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:drawablePadding="20sp"
+            android:text="@string/direcci_n"
+            app:drawableStartCompat="@drawable/ic_place"
+            app:layout_constraintTop_toBottomOf="@+id/text_profile_view_email" />
 
-            <TextView
-                android:id="@+id/text_profile_view_name"
-                style="@style/TextView.pink.title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name"
-                android:layout_marginTop="10dp" />
+        <TextView
+            android:id="@+id/text_profile_view_cell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:drawablePadding="20sp"
+            android:text="@string/celular"
+            app:drawableStartCompat="@drawable/ic_phone_android"
+            app:layout_constraintTop_toBottomOf="@+id/text_profile_view_address" />
 
-            <TextView
-                android:id="@+id/text_profile_view_user"
-                style="@style/TextView.ocuro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="User" />
+        <TextView
+            android:id="@+id/text_profile_view_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:drawablePadding="20sp"
+            android:text="@string/telefono"
+            app:drawableStartCompat="@drawable/ic_phone"
+            app:layout_constraintTop_toBottomOf="@+id/text_profile_view_cell" />
 
-            <TextView
-                android:id="@+id/text_profile_view_check"
-                style="@style/TextView.ocuro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20sp"
-                android:text="Cuenta verificada" />
+        <TextView
+            android:id="@+id/text_profile_view_school"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:drawablePadding="20sp"
+            android:text="@string/estudio"
+            app:drawableStartCompat="@drawable/ic_school"
+            app:layout_constraintTop_toBottomOf="@+id/text_profile_view_phone" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2sp"
-                android:background="@color/pinkDark"
-                tools:ignore="SmallSp" />
+        <Button
+            android:id="@+id/button_delete"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:text="@string/eliminar_de_mi_lista_de_contactos"
+            app:layout_constraintTop_toBottomOf="@+id/text_profile_view_school" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
+        <Button
+            android:id="@+id/button_report"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            android:text="@string/reportar"
+            app:layout_constraintTop_toBottomOf="@+id/button_delete" />
 
-                <LinearLayout
-                    android:id="@+id/linear_to_call_cell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables,UselessParent"
-                    android:gravity="center"
-                    android:layout_margin="8sp">
+        <Button
+            android:id="@+id/button_dimiss"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            android:text="@string/cerrar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_report" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <ImageView
-                        android:layout_width="30sp"
-                        android:layout_height="30sp"
-                        android:src="@drawable/ic_phone_android"
-                        android:tint="@color/pinkDark"
-                        android:contentDescription="@string/todo" />
-
-                    <TextView
-                        style="@style/TextView.ocuro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/llamar" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linear_send_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables,UselessParent"
-                    android:gravity="center"
-                    android:layout_margin="8sp">
-
-                    <ImageView
-                        android:layout_width="30sp"
-                        android:layout_height="30sp"
-                        android:src="@drawable/ic_mail"
-                        android:tint="@color/pinkDark"
-                        android:contentDescription="@string/todo" />
-
-                    <TextView
-                        style="@style/TextView.ocuro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/escribir_un_mail" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linear_to_call_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    tools:ignore="UseCompoundDrawables,UselessParent"
-                    android:gravity="center"
-                    android:layout_margin="8sp">
-
-                    <ImageView
-                        android:layout_width="30sp"
-                        android:layout_height="30sp"
-                        android:src="@drawable/ic_phone"
-                        android:tint="@color/pinkDark"
-                        android:contentDescription="@string/todo" />
-
-                    <TextView
-                        style="@style/TextView.ocuro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/llamar" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2sp"
-                android:background="@color/pinkDark"
-                android:layout_marginBottom="20sp"
-                tools:ignore="SmallSp" />
-
-            <TextView
-                android:id="@+id/text_profile_view_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextView.ocuro"
-                android:drawableStart="@drawable/ic_mail"
-                android:drawableTint="@color/pinkDark"
-                android:drawablePadding="20sp"
-                android:text="@string/correo"
-                tools:targetApi="m"
-                android:layout_margin="8sp"/>
-
-            <TextView
-                android:id="@+id/text_profile_view_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextView.ocuro"
-                android:drawableStart="@drawable/ic_place"
-                android:drawableTint="@color/pinkDark"
-                android:drawablePadding="20sp"
-                android:text="@string/direcci_n"
-                tools:targetApi="m"
-                android:layout_margin="8sp"/>
-
-            <TextView
-                android:id="@+id/text_profile_view_cell"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextView.ocuro"
-                android:drawableStart="@drawable/ic_phone_android"
-                android:drawableTint="@color/pinkDark"
-                android:drawablePadding="20sp"
-                android:text="@string/celular"
-                tools:targetApi="m"
-                android:layout_margin="8sp"/>
-
-            <TextView
-                android:id="@+id/text_profile_view_phone"
-                style="@style/TextView.ocuro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_phone"
-                android:drawableTint="@color/pinkDark"
-                android:drawablePadding="20sp"
-                android:text="@string/telefono"
-                tools:targetApi="m"
-                android:layout_margin="8sp"/>
-
-            <TextView
-                android:id="@+id/text_profile_view_school"
-                style="@style/TextView.ocuro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_school"
-                android:drawableTint="@color/pinkDark"
-                android:drawablePadding="20sp"
-                android:text="@string/estudio"
-                tools:targetApi="m"
-                android:layout_margin="8sp"/>
-
-            <Button
-                android:id="@+id/button_delete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                style="@style/Button"
-                android:text="@string/eliminar_de_mi_lista_de_contactos"
-                android:layout_marginBottom="10sp"/>
-
-            <Button
-                android:id="@+id/button_report"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Button"
-                android:text="@string/reportar"
-                android:layout_marginBottom="10sp"/>
-
-            <Button
-                android:id="@+id/button_dimiss"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Button.borde"
-                android:textColor="@color/pinkDark"
-                android:text="@string/cerrar"/>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

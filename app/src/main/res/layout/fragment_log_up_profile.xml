@@ -1,221 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_profile"
-    style="@style/AppTheme.blue"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="fill_vertical">
+    android:padding="16sp">
 
-
-    <TextView
-        style="@style/TextView.title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20sp"
-        android:text="@string/datos_personales"/>
-
-    <TextView
-        style="@style/TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nombre" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_text_nombre"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10sp"
-        app:errorEnabled="true">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:background="@drawable/button_blue"
-            style="@style/EditText"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        style="@style/TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/apellidos" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_text_apellidos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10sp"
-        app:errorEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:background="@drawable/button_blue"
-            style="@style/EditText"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="30sp"
-            android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
+            android:padding="16sp">
 
             <TextView
-                style="@style/TextView"
+                android:id="@+id/textView22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fto_de_perf_l" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_perfil_profile"
-                android:layout_width="135sp"
-                android:layout_height="135sp"
-                android:layout_margin="10sp"
-                android:background="@drawable/button_border_pink"
-                android:contentDescription="@string/example"
-                android:src="@drawable/ic_profile"
-                android:padding="10sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fecha_de_nacimiento" />
+                android:text="@string/datos_personales"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edit_text_date"
+                android:id="@+id/edit_text_nombre"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/blue"
-                android:layout_marginBottom="10sp"
-                app:errorEnabled="true">
+                android:layout_marginTop="16sp"
+                app:errorEnabled="true"
+                app:layout_constraintTop_toBottomOf="@+id/textView22">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:hint="@string/dd_mm_aaaa"
-                    android:background="@drawable/button_blue"
-                    style="@style/EditText"/>
+                    android:hint="@string/nombre"
+                    android:inputType="textPersonName"
+                    tools:text="@tools:sample/first_names" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/text_country_profile"
-                style="@style/TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pa_s_de_origen" />
-
-            <Spinner
-                android:id="@+id/spinner_contry"
-                style="@style/EditText"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_text_apellidos"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="45sp"
-                android:background="@drawable/button_blue"
-                android:entries="@array/country_arrays"
-                android:prompt="@string/pa_s_de_origen" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                app:errorEnabled="true"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_nombre">
 
-        </LinearLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/apellidos"
+                    android:inputType="textPersonName"
+                    tools:text="@tools:sample/last_names" />
 
-    </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/material_card_profile"
         android:layout_width="wrap_content"
+        android:layout_height="0sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginTop="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/materialCardView2"
+        app:layout_constraintEnd_toStartOf="@+id/materialCardView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16sp">
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:text="@string/fto_de_perf_l"
+                app:layout_constraintEnd_toEndOf="@+id/image_perfil_profile"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_perfil_profile"
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:background="@drawable/button_border_pink"
+                android:contentDescription="@string/example"
+                android:padding="10sp"
+                android:src="@drawable/ic_profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView2"
+        android:layout_width="0sp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32sp">
+        android:layout_marginStart="8sp"
+        android:layout_marginTop="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/material_card_profile"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
 
-        <RadioGroup
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:padding="16sp">
 
             <TextView
-                style="@style/TextView"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView24"
+                android:layout_width="0sp"
                 android:layout_height="wrap_content"
-                android:text="@string/sexo" />
+                android:layout_marginStart="8sp"
+                android:text="@string/fecha_de_nacimiento"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <RadioButton
-                android:id="@+id/radio_women"
-                style="@style/TextView"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_text_date"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12sp"
-                android:checked="true"
-                android:text="@string/femenino" />
+                android:layout_marginTop="8sp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView24"
+                app:layout_constraintTop_toBottomOf="@+id/textView24">
 
-            <RadioButton
-                android:id="@+id/radio_men"
-                style="@style/TextView"
-                android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/dd_mm_aaaa"
+                    android:inputType="date"
+                    tools:text="@tools:sample/date/ddmmyy" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/spinner_contry"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12sp"
-                android:text="@string/masculino" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView24"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_date">
 
-        </RadioGroup>
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/pa_s_de_origen"
+                    tools:text="México" />
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="72sp"
-            android:orientation="vertical">
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/text_type_user_profile"
-                style="@style/TextView"
-                android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:padding="16sp"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/radioGroup2"
+                android:layout_width="0sp"
                 android:layout_height="wrap_content"
-                android:text="@string/usted_es_un" />
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/radioGroup"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <RadioButton
-                android:id="@+id/radio_doctor"
-                style="@style/TextView"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sexo" />
+
+                <RadioButton
+                    android:id="@+id/radio_women"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12sp"
+                    android:checked="true"
+                    android:text="@string/femenino" />
+
+                <RadioButton
+                    android:id="@+id/radio_men"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12sp"
+                    android:text="@string/masculino" />
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="0sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12sp"
-                android:checked="true"
-                android:text="@string/paciente" />
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/radioGroup2"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <RadioButton
-                android:id="@+id/radio_pasiente"
-                style="@style/TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12sp"
-                android:text="@string/doctor" />
+                <TextView
+                    android:id="@+id/text_type_user_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/usted_es_un" />
 
-        </RadioGroup>
+                <RadioButton
+                    android:id="@+id/radio_doctor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12sp"
+                    android:checked="true"
+                    android:text="@string/paciente" />
 
-    </LinearLayout>
+                <RadioButton
+                    android:id="@+id/radio_pasiente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12sp"
+                    android:text="@string/doctor" />
+
+            </RadioGroup>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <Button
         android:id="@+id/button_save_profile"
-        style="@style/Button"
-        android:layout_width="200sp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_margin="10sp"
-        android:text="@string/guardar" />
+        android:text="@string/guardar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

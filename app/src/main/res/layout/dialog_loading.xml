@@ -1,39 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="40sp"
-    android:background="@color/pinkDark"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:background="@color/pink"
+    style="@style/Theme"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:background="@color/pink"
+        android:backgroundTint="@color/pink"
+        android:padding="48sp">
 
         <TextView
+            android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="cargand"
             android:textColor="@color/white"
             android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_indication"
+            app:layout_constraintEnd_toStartOf="@+id/progress_bar_loading"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="HardcodedText" />
 
         <ProgressBar
-            android:layout_width="20sp"
-            android:layout_height="20sp"
-            android:layout_marginTop="3sp" />
+            android:id="@+id/progress_bar_loading"
+            android:layout_width="24sp"
+            android:layout_height="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView10"
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            app:layout_constraintVertical_bias="0.73" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/text_view_indication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/espere_un_momento"
+            android:textColor="@color/whiteDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/espere_un_momento"
-        android:textColor="@color/whiteDark" />
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

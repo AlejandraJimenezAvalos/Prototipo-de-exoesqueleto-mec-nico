@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_pending"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10sp"
-    android:id="@+id/item_pending">
+    android:padding="10sp">
 
     <View
         android:id="@+id/view_item_pending"
         android:layout_width="5sp"
         android:layout_height="match_parent"
-        android:background="@color/pinkDark"/>
+        android:background="@color/pinkDark" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/button_blue_radius_right">
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_blue_radius_right"
+        android:backgroundTint="?attr/colorOnPrimaryContainer">
 
         <TextView
             android:id="@+id/text_title_item_pending"
+            tools:text="@tools:sample/lorem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            style="@style/TextView.pink.title"
             android:layout_marginEnd="105sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,13 +36,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:textColor="@color/blue"
+            tools:text="@tools:sample/date/ddmmyy"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_description_item_pending"
-            style="@style/TextView"
+            tools:text="@tools:sample/lorem/random"
+            tools:maxLines="4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

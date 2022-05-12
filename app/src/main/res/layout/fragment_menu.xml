@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/AppTheme.blue">
+    android:padding="16sp"
+    android:theme="@style/ThemeSpecial">
 
     <ImageView
         android:id="@+id/image_back"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:layout_marginStart="16sp"
-        android:layout_marginTop="16sp"
+        android:layout_width="48sp"
+        android:layout_height="48sp"
+        android:padding="8sp"
         android:src="@drawable/ic_arrow_left"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/colorPrimary"
         tools:ignore="ContentDescription" />
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
-        android:layout_width="match_parent"
+        android:layout_width="0sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16sp"
-        android:layout_marginEnd="230dp"
-        android:backgroundTint="@color/blueAccent"
-        app:cardCornerRadius="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8sp"
+        app:layout_constraintEnd_toStartOf="@+id/cardView1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_back">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16sp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16sp">
 
             <ImageView
                 android:layout_width="150sp"
@@ -46,7 +43,7 @@
 
             <Button
                 android:id="@+id/button_exercise_legs"
-                style="@style/Button.borde"
+                style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="16sp"
@@ -56,16 +53,13 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16sp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/blueAccent"
-        app:cardCornerRadius="10sp"
+        android:layout_marginTop="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView">
@@ -85,7 +79,7 @@
 
             <Button
                 android:id="@+id/button_walk_steps"
-                style="@style/Button.borde"
+                style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="16sp"
@@ -93,7 +87,7 @@
 
             <Button
                 android:id="@+id/button_walk_time"
-                style="@style/Button.borde"
+                style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16sp"
@@ -103,38 +97,35 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="214dp"
-        android:layout_marginTop="16sp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/blueAccent"
-        app:cardCornerRadius="10sp"
+        android:layout_width="0sp"
+        android:layout_height="0sp"
+        android:layout_marginStart="8sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/image_back">
+        app:layout_constraintTop_toTopOf="@+id/cardView">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16sp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16sp">
 
             <ImageView
                 android:layout_width="150sp"
                 android:layout_height="150sp"
                 android:src="@drawable/ic_work"
-                android:tint="@color/pinkDark"
+                app:tint="?attr/colorPrimary"
                 tools:ignore="ContentDescription" />
 
             <Button
                 android:id="@+id/button_works"
-                style="@style/Button.borde"
+                style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="16sp"
@@ -142,6 +133,6 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

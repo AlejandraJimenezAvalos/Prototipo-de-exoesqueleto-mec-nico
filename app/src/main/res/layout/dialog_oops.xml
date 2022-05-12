@@ -1,63 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="323sp"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_height="423sp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/whiteDark">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16sp">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="80sp"
+            android:layout_height="80sp"
+            android:src="@drawable/ic_clear"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/error" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/algo_sali_mal"
+            android:textSize="25sp"
+            android:layout_marginTop="8sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+        <TextView
+            android:id="@+id/tex_output_error"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11"
+            tools:maxLines="3"
+            tools:text="@tools:sample/lorem/random" />
 
-            <ImageView
-                android:layout_marginTop="50sp"
-                android:layout_width="80sp"
-                android:layout_height="80sp"
-                android:src="@drawable/ic_clear"
-                tools:ignore="ContentDescription,PrivateResource" />
+        <Button
+            android:id="@+id/button_oops"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:text="@string/intentar_de_nuevo"
+            android:layout_marginTop="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:layout_marginStart="8sp"
+            app:layout_constraintStart_toEndOf="@+id/button_oops_out"
+            app:layout_constraintTop_toBottomOf="@+id/tex_output_error" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#353535"
-                android:textSize="25sp"
+        <Button
+            android:id="@+id/button_oops_out"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:text="@string/salir"
+            android:layout_marginTop="16sp"
+            android:layout_marginEnd="8sp"
+            app:layout_constraintEnd_toStartOf="@+id/button_oops"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tex_output_error" />
 
-                android:layout_marginTop="30sp"
-                android:text="@string/algo_sali_mal" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tex_output_error"
-                android:layout_width="match_parent"
-                android:layout_margin="20sp"
-                android:layout_height="wrap_content"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/button_oops"
-                android:layout_width="200sp"
-                android:layout_height="wrap_content"
-                android:text="@string/intentar_de_nuevo"
-                style="@style/Button.gris"
-                android:layout_marginBottom="10sp"/>
-
-            <Button
-                android:layout_width="200sp"
-                android:layout_height="wrap_content"
-                android:id="@+id/button_oops_out"
-                android:text="@string/salir"
-                android:layout_marginBottom="50sp"
-                style="@style/Button.borde.gris"/>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

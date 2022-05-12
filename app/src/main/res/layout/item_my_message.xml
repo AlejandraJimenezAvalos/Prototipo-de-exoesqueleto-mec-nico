@@ -1,31 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="end">
+    android:layout_marginBottom="8sp">
 
-    <TextView
-        android:id="@+id/textView_message"
-        style="@style/TextView"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16sp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/button_pink"
-        android:padding="15sp" />
+        android:backgroundTint="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16sp">
+
+            <TextView
+                android:id="@+id/textView_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:maxLines="1"
+                tools:text="@tools:sample/lorem" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/textView_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40sp"
-        android:textColor="@color/whiteDark"
+        android:layout_marginEnd="16sp"
         android:textSize="10sp"
-        tools:ignore="SmallSp" />
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView5"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView5"
+        tools:ignore="SmallSp"
+        tools:text="@tools:sample/date/hhmmss" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

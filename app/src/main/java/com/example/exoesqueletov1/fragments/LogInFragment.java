@@ -121,7 +121,7 @@ public class LogInFragment extends Fragment {
         loginButton = view.findViewById(R.id.login_button);
         loginButton.setPermissions(Arrays.asList(EMAIL, USER_POSTS));
         loginButton.setFragment(this);
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        /*loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 new Authentication(getActivity().getSupportFragmentManager())
@@ -137,7 +137,7 @@ public class LogInFragment extends Fragment {
                 DialogOops dialogOops = new DialogOops(error.getMessage());
                 dialogOops.show(getActivity().getSupportFragmentManager(), "example");
             }
-        });
+        });*/
     }
 
     private void initGoogle() {

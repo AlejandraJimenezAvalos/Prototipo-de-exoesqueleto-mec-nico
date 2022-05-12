@@ -4,121 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatActivity"
-    android:gravity="fill"
-    style="@style/AppTheme.blue"
-    android:orientation="vertical">
+    android:padding="16sp"
+    tools:context=".ChatActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/image_activity_chat_back"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_arrow_left"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@+id/card_image_profile"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_image_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:cardCornerRadius="24sp"
+        app:layout_constraintStart_toEndOf="@+id/image_activity_chat_back"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/image_activity_chat_back"
-            android:layout_width="40sp"
-            android:layout_height="40sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/ic_arrow_left"
-            android:tint="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circle_image_view_profile"
-            android:layout_width="50sp"
-            android:layout_height="50sp"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_profile"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image_activity_chat_back"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_activity_chat_name"
-            style="@style/TextView.title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="120sp"
-            android:layout_marginEnd="56dp"
-            android:text="@string/nombre"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/circle_image_view_profile"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/image_activity_chat_more"
             android:layout_width="40sp"
             android:layout_height="40sp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/ic_more_vert"
-            android:tint="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:contentDescription="@string/image_profile"
+            android:src="@drawable/ic_profile" />
+    </androidx.cardview.widget.CardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/text_activity_chat_name"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8sp"
+        android:layout_marginEnd="8sp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/card_image_profile"
+        app:layout_constraintEnd_toStartOf="@+id/image_activity_chat_more"
+        app:layout_constraintStart_toEndOf="@+id/card_image_profile"
+        app:layout_constraintTop_toTopOf="@+id/card_image_profile"
+        tools:text="@tools:sample/full_names" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/image_activity_chat_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_more_vert"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@+id/card_image_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/card_image_profile"
+        app:tint="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_chats_activity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="72dp"
-        android:layout_marginBottom="78dp"
-        app:layout_constraintBottom_toTopOf="@+id/linear"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+        android:layout_height="0sp"
+        android:layout_marginTop="8sp"
+        android:layout_marginBottom="8sp"
+        android:orientation="vertical"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/layout_message"
+        app:layout_constraintTop_toBottomOf="@+id/card_image_profile"
+        tools:itemCount="3"
+        tools:layout_editor_absoluteX="16dp"
+        tools:listitem="@layout/item_my_message" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linear"
-        android:layout_width="match_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_message"
+        android:layout_width="0sp"
         android:layout_height="wrap_content"
-        android:layout_margin="15sp"
+        android:layout_marginEnd="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintEnd_toStartOf="@+id/image_view_send"
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_message"
+        android:id="@+id/edit_text_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="55sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:hint="@string/aa"
-            android:padding="15sp"
             android:maxEms="10"
-            android:background="@drawable/button_blue2"
-            android:textColorHint="#81515C78"
-            android:textColor="@color/whiteDark"/>
+            android:maxLines="3"
+            tools:text="@tools:sample/lorem/random" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageView
-            android:id="@+id/image_view_send"
-            android:layout_width="40sp"
-            android:layout_height="40sp"
-            android:layout_marginStart="10sp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/button_pink"
-            android:contentDescription="@string/todo"
-            android:padding="10sp"
-            android:src="@drawable/ic_send_black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/edit_text_message" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/image_view_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/send_message"
+        android:src="@drawable/ic_send_black"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/layout_message"
+        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

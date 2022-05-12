@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.exoesqueletov1.R;
@@ -32,7 +33,7 @@ public class LogUpFragment extends Fragment implements View.OnClickListener {
     private TextInputLayout emailLayout;
     private TextInputLayout password1Layout;
     private TextInputLayout password2Layout;
-    private LinearLayout linearReCaptcha;
+    private ConstraintLayout linearReCaptcha;
     private CheckBox ckReCaptcha;
     private CheckBox ckTerminos;
 

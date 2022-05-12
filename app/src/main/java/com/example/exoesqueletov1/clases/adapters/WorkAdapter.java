@@ -154,7 +154,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.NewsViewHolder
 
         NewsViewHolder(@NonNull View itemView, OnWorkListener onWorkListener) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.drawable_image);
+            imageView = itemView.findViewById(R.id.image_task);
             imageViewDelete = itemView.findViewById(R.id.image_delete);
             textViewTitle = itemView.findViewById(R.id.title);
             textViewDate = itemView.findViewById(R.id.date);

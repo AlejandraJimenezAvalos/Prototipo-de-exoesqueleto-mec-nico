@@ -1,50 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="80sp"
-    android:background="@color/blueDark"
-    android:id="@+id/item_chat">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image_item_chat"
-        android:layout_width="60sp"
-        android:layout_height="60sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/ic_profile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/text_item_chat_name"
-        style="@style/TextView.pink.title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/text_item_chat_message"
-        app:layout_constraintStart_toEndOf="@+id/image_item_chat"
-        app:layout_constraintTop_toTopOf="parent" />
+    </data>
 
-    <TextView
-        android:id="@+id/text_item_chat_message"
-        style="@style/TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image_item_chat"
-        app:layout_constraintTop_toBottomOf="@+id/text_item_chat_name" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/item_chat"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="8sp"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/text_item_chat_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16sp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_image_profile_item_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_item_chat"
+                    android:layout_width="45sp"
+                    android:layout_height="45sp"
+                    android:contentDescription="@string/image_profile"
+                    android:src="@drawable/ic_profile" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/text_item_chat_name"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/card_image_profile_item_chat"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/full_names" />
+
+            <TextView
+                android:id="@+id/text_item_chat_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintStart_toStartOf="@+id/text_item_chat_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_item_chat_name"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/text_item_chat_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/text_item_chat_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_item_chat_message"
+                tools:text="@tools:sample/lorem" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

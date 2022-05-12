@@ -3,8 +3,51 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/button_blue.xml" value="0.2035" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/button_border_pink.xml" value="0.2145" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/custom_text_field.xml" value="0.1" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/ic_check.xml" value="0.2035" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/font/font.xml" value="0.14166666666666666" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout-v23/dialog_lost_your_pass.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout-v23/fragment_log_in.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/activity_chat.xml" value="0.33" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/activity_control.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/activity_log.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/activity_splash.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/content_main.xml" value="0.20729166666666668" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/dialog/layout/dialog_contact.xml" value="0.1984375" />
-        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/dialog_loading.xml" value="0.1984375" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/dialog_all_done.xml" value="0.25" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/dialog_contact.xml" value="0.33" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/dialog_friend_request.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/dialog_info.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/dialog_loading.xml" value="0.33" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/dialog_lost_your_pass.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/dialog_oops.xml" value="0.25" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/dialog_update_data.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_assign_work.xml" value="0.18" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_log_in.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_log_up.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_log_up_profile.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_menu.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_messages.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_notification.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_paired_devises.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_report.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_reports.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_up_and_down.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_walk.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_welcome.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_works.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_chat.xml" value="0.33" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_menu.xml" value="0.5" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_my_message.xml" value="0.33" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_notification.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_report.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_work.xml" value="0.33" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_your_message.xml" value="0.33" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/list_item_withe.xml" value="0.20729166666666668" />
       </map>
     </option>
   </component>

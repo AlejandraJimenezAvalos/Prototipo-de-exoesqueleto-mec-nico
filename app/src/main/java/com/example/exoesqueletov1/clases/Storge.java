@@ -3,6 +3,7 @@ package com.example.exoesqueletov1.clases;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.widget.ImageView;
 
 import androidx.fragment.app.FragmentManager;
 
@@ -32,7 +33,7 @@ public class Storge {
     public Storge () {
     }
 
-    public void getProfileImage (final CircleImageView circleImageView, String name) {
+    public void getProfileImage (final ImageView circleImageView, String name) {
         FirebaseStorage.getInstance().getReference().child(LOCATION).child(name)
                 .getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
                     circleImageView.setImageBitmap(BitmapFactory.

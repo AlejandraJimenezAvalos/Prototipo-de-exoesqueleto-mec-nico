@@ -10,6 +10,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,13 +71,13 @@ public class DialogContact extends AppCompatDialogFragment {
         @SuppressLint("InflateParams") View view;
         view = inflater.inflate(R.layout.dialog_contact, null);
 
-        CircleImageView circleImageView = view.findViewById(R.id.image_view_profile_view);
+        ImageView circleImageView = view.findViewById(R.id.image_view_profile_view);
         TextView textViewCheck = view.findViewById(R.id.text_profile_view_check);
         TextView textViewAddress = view.findViewById(R.id.text_profile_view_address);
         TextView textViewSchool = view.findViewById(R.id.text_profile_view_school);
-        LinearLayout linearLayoutCell = view.findViewById(R.id.linear_to_call_cell);
-        LinearLayout linearLayoutPhone = view.findViewById(R.id.linear_to_call_phone);
-        LinearLayout linearLayoutMail = view.findViewById(R.id.linear_send_email);
+        ImageView linearLayoutCell = view.findViewById(R.id.imageView3);
+        ImageView linearLayoutPhone = view.findViewById(R.id.imageView4);
+        ImageView linearLayoutMail = view.findViewById(R.id.imageView5);
         Button buttonReport = view.findViewById(R.id.button_report);
         Button buttonDimiss = view.findViewById(R.id.button_dimiss);
 

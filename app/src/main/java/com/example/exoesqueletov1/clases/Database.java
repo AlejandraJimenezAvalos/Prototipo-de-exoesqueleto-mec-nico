@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.example.exoesqueletov1.dialogs.DialogAllDone;
 import com.example.exoesqueletov1.dialogs.DialogFriendRequest;
 import com.example.exoesqueletov1.dialogs.DialogLoading;
 import com.example.exoesqueletov1.dialogs.DialogOops;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -194,7 +196,7 @@ public class Database implements ChatAdapter.OnMenuListener {
                            final TextView textViewCell, final TextView textViewPhone,
                            final TextView textViewSchool,
                            final CircleImageView circleImageViewProfile,
-                           final LinearLayout linearLayoutSchool) {
+                           final MaterialCardView linearLayoutSchool) {
         db.collection(id).document(DOCUMENT_PROFILE)
                 .get().addOnSuccessListener(documentSnapshot -> {
 
@@ -205,7 +207,7 @@ public class Database implements ChatAdapter.OnMenuListener {
                     if (user.equals("b")) { typeUser = "Fisioterapeuta"; }
                     if (user.equals("c")) {
                         typeUser = "Paciente";
-                        linearLayoutSchool.setVisibility(View.INVISIBLE);
+                        linearLayoutSchool.setVisibility(View.GONE);
                     }
                     textViewName.setText(documentSnapshot.getData()
                             .get(NAME).toString());
@@ -232,7 +234,7 @@ public class Database implements ChatAdapter.OnMenuListener {
                                   final TextView textViewMail, final TextView textViewAddress,
                                   final TextView textViewCell, final TextView textViewPhone,
                                   final TextView textViewSchool,
-                                  final CircleImageView circleImageViewProfile) {
+                                  final ImageView circleImageViewProfile) {
         db.collection(id).document(DOCUMENT_PROFILE)
                 .get().addOnSuccessListener(documentSnapshot -> {
 
@@ -274,7 +276,7 @@ public class Database implements ChatAdapter.OnMenuListener {
     }
 
     public void initMain(final TextView name, final TextView typeUser, final TextView state,
-                         final String id, final CircleImageView circleImageView) {
+                         final String id, final ImageView circleImageView) {
         db.collection(id).document(USER).get()
                 .addOnSuccessListener(documentSnapshot -> {
                     Map<String, Object> data = documentSnapshot.getData();

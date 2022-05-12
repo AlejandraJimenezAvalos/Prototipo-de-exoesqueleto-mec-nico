@@ -1,62 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="350sp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="30sp"
-    android:paddingBottom="30sp"
-    style="@style/AppTheme.withe">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/TextView.ocuro"
-        android:text="@string/introduzca_lo_que_se_le_pide"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_update"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20sp"
-        android:textColorHint="#818181"
-        app:errorEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/TextField.rosa"
-            android:drawableTint="@color/pinkDark"
-            tools:targetApi="m" />
-    </com.google.android.material.textfield.TextInputLayout>
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16sp"
-        android:layout_marginStart="16sp">
+        android:padding="16sp">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/introduzca_lo_que_se_le_pide"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20sp"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:hint="@tools:sample/lorem/random" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/button_input_update_cancel"
-            style="@style/Button"
-            android:layout_width="wrap_content"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0sp"
             android:layout_height="wrap_content"
-            android:paddingStart="20sp"
-            android:paddingEnd="20sp"
             android:text="@string/cancelar"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginEnd="8sp"
+            app:layout_constraintEnd_toStartOf="@+id/button_input_update_ok"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_update" />
 
         <Button
             android:id="@+id/button_input_update_ok"
-            style="@style/Button"
-            android:layout_width="wrap_content"
+            android:layout_width="0sp"
             android:layout_height="wrap_content"
-            android:paddingStart="20sp"
-            android:paddingEnd="20sp"
+            android:layout_marginStart="8sp"
             android:text="@string/aceptar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_input_update_cancel"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_update" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

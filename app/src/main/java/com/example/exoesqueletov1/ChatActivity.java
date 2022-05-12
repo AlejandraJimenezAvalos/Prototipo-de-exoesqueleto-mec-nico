@@ -84,7 +84,7 @@ public class ChatActivity extends AppCompatActivity {
         editTextMessage = findViewById(R.id.edit_text_message);
     }
 
-    private void getNameAndPhoto(CircleImageView circleImageViewProfile) {
+    private void getNameAndPhoto(ImageView circleImageViewProfile) {
         new Storge().getProfileImage(circleImageViewProfile, idUserTo);
 
         db.collection(idUserTo).document(ConstantsDatabase.DOCUMENT_PROFILE).get().

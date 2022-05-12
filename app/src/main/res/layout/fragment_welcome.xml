@@ -5,8 +5,9 @@
     android:id="@+id/fragment_welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.WelcomeFragment"
-    android:background="@mipmap/fondo_oscuro">
+    android:theme="@style/ThemePink"
+    android:background="@mipmap/fondo_oscuro"
+    tools:context=".fragments.WelcomeFragment">
 
     <View
         android:id="@+id/imageView"
@@ -23,26 +24,25 @@
         android:background="@drawable/layout_border_right_top_bottom"
         android:src="@drawable/ic_arrow_left"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/go_to_next" />
 
     <TextView
         android:id="@+id/textHola"
-        style="@style/TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginStart="16sp"
         android:text="Hola"
         android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textVamos"
-        style="@style/TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16sp"
         android:text="vamos a comenzar"
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"

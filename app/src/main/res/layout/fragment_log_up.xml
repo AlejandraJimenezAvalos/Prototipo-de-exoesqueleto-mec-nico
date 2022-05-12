@@ -1,131 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ThemePink"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.LogUpFragment"
-    style="@style/AppTheme.rosa">
+    android:gravity="center"
+    tools:context=".fragments.LogUpFragment">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25sp"
-        android:layout_marginEnd="25sp">
+        android:padding="16sp">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:src="@mipmap/logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/textView21"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:text="@string/a_n_no_tienes_una_cuenta"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_fragment_logup"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_marginTop="8sp"
+            app:errorEnabled="true"
+            app:layout_constraintTop_toBottomOf="@+id/textView21"
+            tools:layout_editor_absoluteX="16dp">
 
-            <ImageView
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:src="@mipmap/logo"
-                android:layout_margin="20sp"
-                tools:ignore="ContentDescription" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_mail"
+                android:drawablePadding="16sp"
+                android:hint="@string/correo"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password1_fragment_logup"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            app:counterEnabled="true"
+            app:counterMaxLength="15"
+            app:errorEnabled="true"
+            app:layout_constraintTop_toBottomOf="@+id/email_fragment_logup"
+            app:passwordToggleEnabled="true"
+            tools:layout_editor_absoluteX="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_lock"
+                android:drawablePadding="16sp"
+                android:hint="@string/contrase_a"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password2_fragment_logup"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            app:counterEnabled="true"
+            app:counterMaxLength="15"
+            app:errorEnabled="true"
+            app:layout_constraintTop_toBottomOf="@+id/password1_fragment_logup"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_lock"
+                android:drawablePadding="16sp"
+                android:hint="@string/repite_la_contrase_a"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layaout_reCaptcha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:background="@drawable/button_recaptcha"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="8sp"
+            app:layout_constraintTop_toBottomOf="@+id/password2_fragment_logup"
+            tools:layout_editor_absoluteX="16dp">
+
+            <CheckBox
+                android:id="@+id/ck_reCaptcha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextView.title"
-                android:text="@string/a_n_no_tienes_una_cuenta"/>
+                android:text="@string/no_soy_un_robot"
+                android:textColor="@color/blueDark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ck_reCaptcha"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/email_fragment_logup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/pink"
-                app:errorEnabled="true">
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="45sp"
+                android:layout_height="45sp"
+                android:contentDescription="@string/todo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/re_captcha_logo" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    style="@style/TextField"
-                    android:drawableStart="@drawable/ic_mail"
-                    android:hint="@string/correo"
-                    android:inputType="textEmailAddress"/>
+        <CheckBox
+            android:id="@+id/ck_terminos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            android:text="@string/terminos_y_condiciones"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layaout_reCaptcha" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/bt_registrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            android:text="@string/registrar"
+            app:layout_constraintTop_toBottomOf="@+id/ck_terminos" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/password1_fragment_logup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:errorEnabled="true"
-                app:counterMaxLength="15"
-                app:counterEnabled="true"
-                android:textColorHint="@color/pink"
-                app:passwordToggleEnabled="true">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:drawableStart="@drawable/ic_lock"
-                    style="@style/TextField"
-                    android:hint="@string/contrase_a"
-                    android:inputType="textPassword"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/password2_fragment_logup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:errorEnabled="true"
-                app:counterMaxLength="15"
-                app:counterEnabled="true"
-                android:textColorHint="@color/pink"
-                app:passwordToggleEnabled="true">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:drawableStart="@drawable/ic_lock"
-                    style="@style/TextField"
-                    android:hint="@string/repite_la_contrase_a"
-                    android:inputType="textPassword"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                android:id="@+id/layaout_reCaptcha"
-                android:layout_width="match_parent"
-                android:layout_height="70sp"
-                android:layout_margin="16sp"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:background="@drawable/button_recaptcha">
-                <CheckBox
-                    android:id="@+id/ck_reCaptcha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="false" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_marginStart="10sp"
-                    android:layout_marginEnd="50sp"
-                    android:text="@string/no_soy_un_robot"/>
-                <ImageView
-                    android:layout_width="45sp"
-                    android:layout_height="45sp"
-                    app:srcCompat="@mipmap/re_captcha_logo"
-                    android:contentDescription="@string/todo" />
-            </LinearLayout>
-
-            <CheckBox
-                android:id="@+id/ck_terminos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/terminos_y_condiciones"
-                style="@style/TextView" />
-
-            <Button
-                android:id="@+id/bt_registrar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20sp"
-                android:paddingRight="20sp"
-                android:layout_margin="16sp"
-                style="@style/Button.blanco"
-                android:text="@string/registrar" />
-
-        </LinearLayout>
-
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

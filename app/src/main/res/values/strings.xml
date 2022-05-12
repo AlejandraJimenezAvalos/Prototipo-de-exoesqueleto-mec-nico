@@ -99,7 +99,6 @@ Si no lo encuentra, busque en el apartado del correo no deseado.</string>
     <string name="complete">Completado</string>
     <string name="advertencia">Advertencia</string>
     <string name="confirmacion_contacto">¿Estás seguro de borrar de tu lista de contactos?</string>
-    <string name="cuenta_verificada">Cuenta verificada</string>
     <string name="cuenta_sin_verificar">Cuenta sin verificar</string>
     <string name="se_acabo_el_tratamiento">Ya no podemos darle seguimiento</string>
     <string name="poca_profecionalidad">Poca profesionalidad y mal uso de mi información</string>
@@ -154,6 +153,14 @@ Si no lo encuentra, busque en el apartado del correo no deseado.</string>
     <string name="buscar_en_tareas_pendientes_por_fecha">buscar en tareas pendientes por fecha</string>
     <string name="pendientes2">Pendientes</string>
     <string name="no_tiene_acceso">No tiene acceso a esta función</string>
+    <string name="image_task">image task</string>
+    <string name="send_message">send_message</string>
+    <string name="image_profile">image profile</string>
+    <string name="button_back">button_back</string>
+    <string name="user">User</string>
+    <string name="cuenta_verificada">Cuenta verificada</string>
+    <string name="error">error</string>
+    <string name="go_to_next">go to next</string>
     <string-array name="country_arrays">
         <item>México</item>
         <item>United States</item>

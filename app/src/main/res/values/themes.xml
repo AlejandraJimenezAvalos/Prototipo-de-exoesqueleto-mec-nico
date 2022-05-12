@@ -1,0 +1,44 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="Theme.Exoesqueleto" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/pinkDark</item>
+        <item name="colorPrimaryVariant">@color/pinkDark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/pinkDark</item>
+        <item name="colorOnPrimaryContainer">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/pink</item>
+        <item name="colorSecondaryVariant">@color/pinkDark</item>
+        <item name="colorOnSecondary">@color/blueDark</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/pinkDark</item>
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/whiteDark</item>
+        <item name="tint">@color/pinkDark</item>
+
+        <item name="fontFamily">@font/font</item>
+        <item name="android:fontFamily">@font/font</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyApp.SmallComponent
+        </item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyApp.MediumComponent
+        </item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyApp.LargeComponent
+        </item>
+    </style>
+    <style name="ShapeAppearance.MyApp.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24sp</item>
+    </style>
+
+    <style name="ShapeAppearance.MyApp.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24sp</item>
+    </style>
+
+    <style name="ShapeAppearance.MyApp.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24sp</item>
+    </style>
+</resources>

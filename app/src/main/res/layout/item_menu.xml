@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="60sp"
-    android:layout_height="60sp"
-    android:gravity="center"
+    android:id="@+id/img_user"
+    android:layout_width="40sp"
+    android:layout_height="40sp"
+    android:layout_margin="8sp"
+    android:background="@drawable/button_border_withe"
     android:clickable="true"
-    android:foreground="?attr/selectableItemBackgroundBorderless"
     android:focusable="true"
-    tools:targetApi="m">
-
-    <ImageView
-        android:id="@+id/img_user"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:background="@drawable/button_border_withe"
-        android:padding="10sp"
-        app:srcCompat="@drawable/ic_home" />
-</LinearLayout>
+    android:gravity="center"
+    android:padding="8sp"
+    app:srcCompat="@drawable/ic_home"
+    app:tint="@color/white" />

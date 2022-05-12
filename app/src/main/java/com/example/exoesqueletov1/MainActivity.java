@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +21,9 @@ import com.example.exoesqueletov1.clases.Storge;
 import com.example.exoesqueletov1.dialogs.DialogLoading;
 import com.example.exoesqueletov1.fragments.AssignWorkFragment;
 import com.example.exoesqueletov1.fragments.MessageFragment;
+import com.example.exoesqueletov1.fragments.NewProfileFragment;
 import com.example.exoesqueletov1.fragments.NotificationFragment;
 import com.example.exoesqueletov1.fragments.PairedDevisesFragment;
-import com.example.exoesqueletov1.fragments.ProfileFragment;
 import com.example.exoesqueletov1.fragments.ProfileLogUpFragment;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,11 +31,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMenuListener {
 
-    private CircleImageView circleImageView;
+    private ImageView circleImageView;
     private TextView textViewState;
     private TextView textViewTypeUser;
 
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
     private boolean isState = true;
 
     private String typeUser;
-    private String id = new Authentication().getCurrentUser().getEmail();
+    private final String id = new Authentication().getCurrentUser().getEmail();
 
     private DialogLoading loading;
 
@@ -135,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
                 fragment = new NotificationFragment(typeUser);
             }
             if (mData.get(position).getTitle().equals(getString(R.string.profile))) {
-                fragment = new ProfileFragment();
+                fragment = new NewProfileFragment();
             }
             if (mData.get(position).getTitle().equals(getString(R.string.messages))) {
                 fragment = new MessageFragment(typeUser, ConstantsDatabase.CODE_REGULAR);
@@ -192,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void handleMain (View view) {
         isState = false;
         switch (view.getId()) {
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.OnMen
                 finish();
                 break;
             case R.id.button_singout_main:
-                LoginManager.getInstance().logOut();
+                //LoginManager.getInstance().logOut();
                 FirebaseAuth.getInstance().signOut();
                 finish();
                 startActivity(new Intent(this, SplashActivity.class));

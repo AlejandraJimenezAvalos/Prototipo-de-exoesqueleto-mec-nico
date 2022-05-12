@@ -6,22 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exoesqueletov1.ConstantsDatabase;
 import com.example.exoesqueletov1.R;
-import com.example.exoesqueletov1.clases.items.ChatItem;
 import com.example.exoesqueletov1.clases.Storge;
+import com.example.exoesqueletov1.clases.items.ChatItem;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder>
         implements Filterable  {
@@ -126,7 +125,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
         private TextView textViewName;
         private TextView textViewMessage;
         private TextView textViewDate;
-        private CircleImageView circleImageViewProfilePhoto;
+        private ImageView circleImageViewProfilePhoto;
 
         NewsViewHolder(@NonNull View itemView, ChatAdapter.OnMenuListener onMenuListener) {
             super(itemView);
@@ -136,7 +135,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
             textViewMessage = itemView.findViewById(R.id.text_item_chat_message);
             textViewDate = itemView.findViewById(R.id.text_item_chat_date);
             circleImageViewProfilePhoto = itemView.findViewById(R.id.image_item_chat);
-            ConstraintLayout constraintLayout = itemView.findViewById(R.id.item_chat);
+            MaterialCardView constraintLayout = itemView.findViewById(R.id.item_chat);
             constraintLayout.setOnClickListener(this);
         }
 

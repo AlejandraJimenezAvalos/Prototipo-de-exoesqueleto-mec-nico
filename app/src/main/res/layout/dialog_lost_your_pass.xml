@@ -1,49 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingTop="50sp"
-    android:paddingBottom="50sp"
-    android:paddingLeft="20sp"
-    android:paddingRight="20sp"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/whiteDark"
     android:gravity="center"
-    android:background="@color/whiteDark">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="350sp"
-        android:layout_height="wrap_content"
-        android:text="@string/restablece_contraseña"
-        android:textAlignment="center"
-        style="@style/TextView.ocuro"
-        android:textSize="20sp"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/correo_dialog_lost"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="20sp"
-        android:textColorHint="#818181"
-        app:errorEnabled="true">
+        android:orientation="vertical"
+        android:padding="16sp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/TextField.rosa"
-            android:drawableStart="@drawable/ic_mail"
-            android:drawableTint="@color/pinkDark"
-            android:hint="@string/correo"
-            android:inputType="textEmailAddress"
-            tools:targetApi="m" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/restablece_contraseña"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/button_ok_dialog_lost"
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
-        android:text="@string/aceptar"
-        android:layout_gravity="end"
-        style="@style/Button"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/correo_dialog_lost"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            app:errorEnabled="true">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableStart="@drawable/ic_mail"
+                android:hint="@string/correo"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/button_ok_dialog_lost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="16sp"
+            android:text="@string/aceptar" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.exoesqueletov1">
 
+    <uses-permission-sdk-23 android:name="android.permission.BLUETOOTH_CONNECT" />
+
     <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission-sdk-23 android:name="android.permission.BLUETOOTH" />
     <uses-permission-sdk-23 android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -18,7 +20,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.Exoesqueleto"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <meta-data
@@ -41,17 +43,16 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".ControlActivity"
-            android:theme="@style/AppTheme."/>
+        <activity android:name=".ControlActivity"/>
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".ChatActivity"
-            android:theme="@style/AppTheme." />
-        <activity android:name=".LogActivity" />
+        <activity android:name=".ChatActivity"/>
+        <activity android:name=".LogActivity"
+            android:theme="@style/ThemePink"/>
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/AppTheme.blue"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:theme="@style/Theme"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,54 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:background="#00FFFFFF"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/whiteDark">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16sp">
 
-        <LinearLayout
+        <ImageView
+            android:layout_width="80sp"
+            android:layout_height="80sp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_check"
+            app:tint="@color/green" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            android:text="@string/todo_listo"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/text_process"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:textAlignment="center"
+            tools:maxLines="4"
+            tools:text="@tools:sample/lorem/random" />
 
-            <ImageView
-                android:layout_marginTop="50sp"
-                android:layout_width="80sp"
-                android:layout_height="80sp"
-                android:src="@drawable/ic_check"
-                android:contentDescription="@string/todo" />
+        <Button
+            android:id="@+id/button_all_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:text="@string/aceptar" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#353535"
-                android:textSize="25sp"
-                android:layout_marginTop="30sp"
-                android:text="@string/todo_listo" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/text_process"
-                android:layout_width="match_parent"
-                android:layout_margin="20sp"
-                android:layout_height="wrap_content"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/button_all_done"
-                android:layout_width="200sp"
-                android:layout_height="wrap_content"
-                android:text="@string/aceptar"
-                style="@style/Button.verde"
-                android:layout_marginBottom="50sp"/>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>
