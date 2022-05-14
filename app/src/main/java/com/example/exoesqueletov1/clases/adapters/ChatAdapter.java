@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.exoesqueletov1.ConstantsDatabase;
+import com.example.exoesqueletov1.ui.ConstantsDatabase;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.Storge;
 import com.example.exoesqueletov1.clases.items.ChatItem;

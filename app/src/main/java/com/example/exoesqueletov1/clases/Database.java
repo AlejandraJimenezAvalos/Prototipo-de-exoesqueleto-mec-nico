@@ -5,22 +5,21 @@ import android.content.Intent;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.exoesqueletov1.ChatActivity;
-import com.example.exoesqueletov1.ConstantsDatabase;
+import com.example.exoesqueletov1.ui.ChatActivity;
+import com.example.exoesqueletov1.ui.ConstantsDatabase;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.clases.adapters.ChatAdapter;
 import com.example.exoesqueletov1.clases.items.ChatItem;
-import com.example.exoesqueletov1.dialogs.DialogAllDone;
-import com.example.exoesqueletov1.dialogs.DialogFriendRequest;
-import com.example.exoesqueletov1.dialogs.DialogLoading;
-import com.example.exoesqueletov1.dialogs.DialogOops;
+import com.example.exoesqueletov1.ui.dialogs.DialogAllDone;
+import com.example.exoesqueletov1.ui.dialogs.DialogFriendRequest;
+import com.example.exoesqueletov1.ui.dialogs.DialogLoading;
+import com.example.exoesqueletov1.ui.dialogs.DialogOops;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,38 +35,38 @@ import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.exoesqueletov1.ConstantsDatabase.ADDRESS;
-import static com.example.exoesqueletov1.ConstantsDatabase.ADMIN;
-import static com.example.exoesqueletov1.ConstantsDatabase.CELL;
-import static com.example.exoesqueletov1.ConstantsDatabase.CODE;
-import static com.example.exoesqueletov1.ConstantsDatabase.CODE_NOTIFICATIONS_NEW_USER;
-import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_CHATS;
-import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
-import static com.example.exoesqueletov1.ConstantsDatabase.COLLECTION_USERS;
-import static com.example.exoesqueletov1.ConstantsDatabase.DATE;
-import static com.example.exoesqueletov1.ConstantsDatabase.DESCRIPTION;
-import static com.example.exoesqueletov1.ConstantsDatabase.DOCUMENT_PROFILE;
-import static com.example.exoesqueletov1.ConstantsDatabase.DOCUMENT_TYPE;
-import static com.example.exoesqueletov1.ConstantsDatabase.EMAIL;
-import static com.example.exoesqueletov1.ConstantsDatabase.ID;
-import static com.example.exoesqueletov1.ConstantsDatabase.ID_CHAT;
-import static com.example.exoesqueletov1.ConstantsDatabase.ID_EXOESQUELETO;
-import static com.example.exoesqueletov1.ConstantsDatabase.ID_NEW_USER;
-import static com.example.exoesqueletov1.ConstantsDatabase.ID_PATIENT;
-import static com.example.exoesqueletov1.ConstantsDatabase.ID_SPECIALIST;
-import static com.example.exoesqueletov1.ConstantsDatabase.NAME;
-import static com.example.exoesqueletov1.ConstantsDatabase.PATIENT;
-import static com.example.exoesqueletov1.ConstantsDatabase.PHONE;
-import static com.example.exoesqueletov1.ConstantsDatabase.SCHOOL;
-import static com.example.exoesqueletov1.ConstantsDatabase.SPECIALIST;
-import static com.example.exoesqueletov1.ConstantsDatabase.SPECIALIST1;
-import static com.example.exoesqueletov1.ConstantsDatabase.STATE;
-import static com.example.exoesqueletov1.ConstantsDatabase.STATE_NOTIFY;
-import static com.example.exoesqueletov1.ConstantsDatabase.TITLE;
-import static com.example.exoesqueletov1.ConstantsDatabase.TO;
-import static com.example.exoesqueletov1.ConstantsDatabase.USER;
-import static com.example.exoesqueletov1.ConstantsDatabase.VERIFY;
-import static com.example.exoesqueletov1.ConstantsDatabase.VERIFY_EMAIL;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.ADDRESS;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.ADMIN;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.CELL;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.CODE;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.CODE_NOTIFICATIONS_NEW_USER;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.COLLECTION_CHATS;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.COLLECTION_USERS;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.DATE;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.DESCRIPTION;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.DOCUMENT_PROFILE;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.DOCUMENT_TYPE;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.EMAIL;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.ID;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.ID_CHAT;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.ID_EXOESQUELETO;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.ID_NEW_USER;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.ID_PATIENT;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.ID_SPECIALIST;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.NAME;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.PATIENT;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.PHONE;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.SCHOOL;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.SPECIALIST;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.SPECIALIST1;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.STATE;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.STATE_NOTIFY;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.TITLE;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.TO;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.USER;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.VERIFY;
+import static com.example.exoesqueletov1.ui.ConstantsDatabase.VERIFY_EMAIL;
 
 public class Database implements ChatAdapter.OnMenuListener {
 
@@ -80,7 +79,6 @@ public class Database implements ChatAdapter.OnMenuListener {
     private String typeUser;
 
     private boolean stateOnClick = false;
-
 
     public Database(FragmentManager fragmentManager, Context context) {
         this.context = context;

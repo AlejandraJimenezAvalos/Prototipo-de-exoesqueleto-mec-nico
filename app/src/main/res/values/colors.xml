@@ -2,7 +2,7 @@
 <resources>
     <color name="colorAccent">#D81B60</color>
     <color name="white">#F2F2F2</color>
-    <color name="whiteDark">#E1E5EA</color>
+    <color name="whiteDark">#EEF0F1</color>
     <color name="pink">#BD435E</color>
     <color name="pinkDark">#B40028</color>
     <color name="blueDark">#000614</color>

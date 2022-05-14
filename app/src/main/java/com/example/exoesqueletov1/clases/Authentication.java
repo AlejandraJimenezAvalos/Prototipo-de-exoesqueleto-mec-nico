@@ -3,9 +3,9 @@ package com.example.exoesqueletov1.clases;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.exoesqueletov1.R;
-import com.example.exoesqueletov1.dialogs.DialogAllDone;
-import com.example.exoesqueletov1.dialogs.DialogLoading;
-import com.example.exoesqueletov1.dialogs.DialogOops;
+import com.example.exoesqueletov1.ui.dialogs.DialogAllDone;
+import com.example.exoesqueletov1.ui.dialogs.DialogLoading;
+import com.example.exoesqueletov1.ui.dialogs.DialogOops;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

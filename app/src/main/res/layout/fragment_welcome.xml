@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:theme="@style/ThemePink"
     android:background="@mipmap/fondo_oscuro"
-    tools:context=".fragments.WelcomeFragment">
+    tools:context=".ui.fragments.WelcomeFragment">
 
     <View
         android:id="@+id/imageView"

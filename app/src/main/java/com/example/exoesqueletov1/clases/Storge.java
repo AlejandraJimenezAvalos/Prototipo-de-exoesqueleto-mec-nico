@@ -8,13 +8,11 @@ import android.widget.ImageView;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.exoesqueletov1.R;
-import com.example.exoesqueletov1.dialogs.DialogAllDone;
-import com.example.exoesqueletov1.dialogs.DialogLoading;
-import com.example.exoesqueletov1.dialogs.DialogOops;
+import com.example.exoesqueletov1.ui.dialogs.DialogAllDone;
+import com.example.exoesqueletov1.ui.dialogs.DialogLoading;
+import com.example.exoesqueletov1.ui.dialogs.DialogOops;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Storge {
 
