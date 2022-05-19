@@ -10,5 +10,5 @@
     <color name="bluePrimary">#0B1220</color>
     <color name="blue">#263555</color>
     <color name="green">#11BB00</color>
-    <color name="error">#353535</color>
+    <color name="error">#DD0000</color>
 </resources>

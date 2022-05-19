@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="fill"
-    tools:context=".ui.ControlActivity">
+    tools:context=".ui.activity.ControlActivity">
 
     <FrameLayout
         android:id="@+id/content"

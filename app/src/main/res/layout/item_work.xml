@@ -17,7 +17,6 @@
             android:id="@+id/image_task"
             android:layout_width="wrap_content"
             android:layout_height="0sp"
-            android:background="@drawable/corners_top_blue"
             android:paddingTop="16sp"
             android:paddingBottom="16sp"
             android:scaleType="centerCrop"

@@ -18,10 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.exoesqueletov1.ui.ConstantsDatabase;
-import com.example.exoesqueletov1.ui.MainActivity;
+import com.example.exoesqueletov1.ui.activity.ConstantsDatabase;
+import com.example.exoesqueletov1.ui.activity.main.MainActivity;
 import com.example.exoesqueletov1.R;
-import com.example.exoesqueletov1.clases.Database;
+import com.example.exoesqueletov1.old.clases.Database;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -29,12 +29,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.COLLECTION_CHATS;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.COLLECTION_USERS;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.ID_CHAT;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.NAME;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.SPECIALIST;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.COLLECTION_CHATS;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.COLLECTION_USERS;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.ID_CHAT;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.NAME;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.SPECIALIST;
 
 public class DialogContact extends AppCompatDialogFragment {
 

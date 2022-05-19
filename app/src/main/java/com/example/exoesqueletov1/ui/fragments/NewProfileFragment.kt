@@ -14,11 +14,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.exoesqueletov1.ui.ConstantsDatabase
+import com.example.exoesqueletov1.ui.activity.ConstantsDatabase
 import com.example.exoesqueletov1.R
-import com.example.exoesqueletov1.clases.Authentication
-import com.example.exoesqueletov1.clases.Database
-import com.example.exoesqueletov1.clases.Storge
+import com.example.exoesqueletov1.old.clases.Authentication
+import com.example.exoesqueletov1.old.clases.Database
+import com.example.exoesqueletov1.old.clases.Storge
 import com.example.exoesqueletov1.databinding.FragmentProfileBinding
 import com.example.exoesqueletov1.ui.dialogs.DialogUpdateData
 import de.hdodenhof.circleimageview.CircleImageView

@@ -6,7 +6,7 @@
     android:layout_width="40sp"
     android:layout_height="40sp"
     android:layout_margin="8sp"
-    android:background="@drawable/button_border_withe"
+    android:background="@drawable/border_withe"
     android:clickable="true"
     android:focusable="true"
     android:gravity="center"

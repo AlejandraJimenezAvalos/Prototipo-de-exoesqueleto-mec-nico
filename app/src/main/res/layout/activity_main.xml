@@ -1,102 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+    <data>
+        <variable
+            name="user"
+            type="com.example.exoesqueletov1.data.models.UserModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="?attr/colorPrimary"
+        android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar">
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/colorPrimary"
+            android:fitsSystemWindows="true">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/contrain_main"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingEnd="16sp"
-                android:paddingStart="16sp"
-                android:paddingTop="16sp">
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:toolbarId="@+id/toolbar">
 
-                <ImageView
-                    android:id="@+id/button_finish_main"
-                    android:layout_width="48sp"
-                    android:layout_height="48sp"
-                    android:padding="8sp"
-                    android:onClick="handleMain"
-                    android:src="@drawable/ic_arrow_left"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white"
-                    android:contentDescription="@string/button_back"/>
-
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/TextAppearance.App.pinkBackground"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/contrain_main"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/bienvenido_otra_vez"
-                    app:layout_constraintEnd_toStartOf="@+id/card_image_profile_main"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/text_view_nombre_main"
-                    style="@style/TextAppearance.App.pinkBackground"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    tools:text="@tools:sample/full_names"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/card_image_profile_main"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-                <Button
-                    android:id="@+id/button_singout_main"
-                    style="@style/Widget.Material3.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="handleMain"
-                    android:text="@string/cerrar_sesi_n"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_view_nombre_main" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card_image_profile_main"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="24sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView">
+                    android:paddingEnd="16sp"
+                    android:paddingStart="16sp"
+                    android:paddingTop="16sp">
 
                     <ImageView
-                        android:id="@+id/image_perfil_main"
+                        android:id="@+id/button_finish_main"
                         android:layout_width="48sp"
                         android:layout_height="48sp"
-                        android:contentDescription="@string/example"
-                        android:src="@drawable/ic_profile"/>
-                </androidx.cardview.widget.CardView>
+                        android:padding="8sp"
+                        android:onClick="handleMain"
+                        android:src="@drawable/ic_arrow_left"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/white"
+                        android:contentDescription="@string/button_back" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/TextAppearance.App.pinkBackground"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/bienvenido_otra_vez"
+                        app:layout_constraintEnd_toStartOf="@+id/card_image_profile_main"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+                    <TextView
+                        android:id="@+id/text_view_nombre_main"
+                        style="@style/TextAppearance.App.pinkBackground"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        tools:text="@tools:sample/full_names"
+                        android:text="@{user.name}"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/card_image_profile_main"
+                        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+                    <Button
+                        android:id="@+id/button_singout_main"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="handleMain"
+                        android:text="@string/cerrar_sesi_n"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/text_view_nombre_main" />
 
-    <include layout="@layout/content_main" />
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_image_profile_main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="24sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+                        <ImageView
+                            android:id="@+id/image_perfil_main"
+                            android:layout_width="48sp"
+                            android:layout_height="48sp"
+                            android:contentDescription="@string/example"
+                            android:src="@drawable/ic_profile" />
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <include
+            android:id="@+id/content_main"
+            layout="@layout/content_main" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -24,7 +24,7 @@
                 android:id="@+id/image_view_profile_view"
                 android:layout_width="48sp"
                 android:layout_height="48sp"
-                android:background="@drawable/button_border_pink"
+                android:background="@drawable/border_pink"
                 android:contentDescription="@string/image_profile"
                 android:src="@drawable/ic_profile" />
 

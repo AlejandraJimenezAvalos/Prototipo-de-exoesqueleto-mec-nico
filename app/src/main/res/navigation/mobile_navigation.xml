@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/notificationFragment">
+    <fragment
+        android:id="@+id/newProfileFragment"
+        android:name="com.example.exoesqueletov1.ui.fragments.NewProfileFragment"
+        android:label="NewProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/worksFragment"
+        android:name="com.example.exoesqueletov1.ui.fragments.WorksFragment"
+        android:label="WorksFragment"
+        tools:layout="@layout/fragment_works"/>
+    <fragment
+        android:id="@+id/assignWorkFragment2"
+        android:name="com.example.exoesqueletov1.ui.fragments.AssignWorkFragment"
+        android:label="AssignWorkFragment"
+        tools:layout="@layout/fragment_assign_work"/>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.exoesqueletov1.ui.fragments.MenuFragment"
+        android:label="MenuFragment"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_upAndDownFragment"
+            app:destination="@id/upAndDownFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_walkFragment"
+            app:destination="@id/walkFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.example.exoesqueletov1.ui.fragments.MessageFragment"
+        android:label="MessageFragment"
+        tools:layout="@layout/fragment_messages" >
+        <action
+            android:id="@+id/action_messageFragment_to_chatActivity"
+            app:destination="@id/chatActivity" />
+        <action
+            android:id="@+id/action_messageFragment_to_dialogContact"
+            app:destination="@id/dialogContact" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_notification"
+        android:id="@+id/notificationFragment"
+        android:name="com.example.exoesqueletov1.ui.fragments.NotificationFragment"
+        android:label="NotificationFragment" />
+    <fragment
+        android:id="@+id/pairedDevisesFragment"
+        tools:layout="@layout/fragment_paired_devises"
+        android:name="com.example.exoesqueletov1.ui.fragments.PairedDevisesFragment"
+        android:label="PairedDevisesFragment" >
+        <action
+            android:id="@+id/action_pairedDevisesFragment_to_menuFragment2"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileLogUpFragment"
+        tools:layout="@layout/fragment_user"
+        android:name="com.example.exoesqueletov1.ui.fragments.user.UserFragment"
+        android:label="ProfileLogUpFragment" />
+    <fragment
+        android:id="@+id/upAndDownFragment"
+        tools:layout="@layout/fragment_up_and_down"
+        android:name="com.example.exoesqueletov1.ui.fragments.UpAndDownFragment"
+        android:label="UpAndDownFragment" />
+    <fragment
+        android:id="@+id/walkFragment"
+        android:name="com.example.exoesqueletov1.ui.fragments.WalkFragment"
+        android:label="WalkFragment"
+        tools:layout="@layout/fragment_walk"/>
+    <activity
+        android:id="@+id/chatActivity"
+        android:name="com.example.exoesqueletov1.ui.activity.ChatActivity"
+        android:label="activity_chat"
+        tools:layout="@layout/activity_chat" />
+    <dialog
+        android:id="@+id/dialogContact"
+        android:name="com.example.exoesqueletov1.ui.dialogs.DialogContact"
+        android:label="DialogContact"
+        tools:layout="@layout/dialog_contact"/>
+
+</navigation>

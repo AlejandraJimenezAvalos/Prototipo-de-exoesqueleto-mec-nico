@@ -15,8 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.exoesqueletov1.ui.ConstantsDatabase;
-import com.example.exoesqueletov1.ui.MainActivity;
+import com.example.exoesqueletov1.ui.activity.ConstantsDatabase;
+import com.example.exoesqueletov1.ui.activity.main.MainActivity;
 import com.example.exoesqueletov1.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
 
 public class DialogUpdateData extends AppCompatDialogFragment {
 

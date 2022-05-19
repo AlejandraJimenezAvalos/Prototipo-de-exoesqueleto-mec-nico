@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.MainActivity"
+    tools:context=".ui.activity.main.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <LinearLayout
@@ -17,7 +17,7 @@
             android:id="@+id/recycler_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/layout_border_right"
+            android:background="@drawable/border_right"
             android:orientation="horizontal"
             android:backgroundTint="?attr/colorPrimary"
             app:layoutManager="LinearLayoutManager"

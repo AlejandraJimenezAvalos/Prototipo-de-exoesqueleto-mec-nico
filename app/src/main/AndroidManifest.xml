@@ -4,11 +4,9 @@
     package="com.example.exoesqueletov1">
 
     <uses-permission-sdk-23 android:name="android.permission.BLUETOOTH_CONNECT" />
-
     <uses-permission-sdk-23 android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission-sdk-23 android:name="android.permission.BLUETOOTH" />
     <uses-permission-sdk-23 android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
     <uses-permission-sdk-23 android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -44,23 +42,25 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ControlActivity"/>
-        <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.ChatActivity"/>
-        <activity android:name=".ui.SingInActivity"
-            android:theme="@style/ThemePink"/>
+        <activity android:name=".ui.activity.ControlActivity" />
+        <activity android:name=".ui.activity.main.MainActivity" />
+        <activity android:name=".ui.activity.ChatActivity" />
         <activity
-            android:name=".ui.SplashActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:name=".ui.activity.sing_in.SingInActivity"
+            android:theme="@style/ThemePink" />
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:exported="true"
             android:theme="@style/Theme"
-            android:exported="true">
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".clases.bleutooth.SerialService" />
+
+        <service android:name=".old.clases.bleutooth.SerialService" />
     </application>
 
 </manifest>

@@ -9,9 +9,9 @@ import com.example.exoesqueletov1.R
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import com.example.exoesqueletov1.clases.Database
-import com.example.exoesqueletov1.ui.ConstantsDatabase
-import com.example.exoesqueletov1.clases.Authentication
+import com.example.exoesqueletov1.old.clases.Database
+import com.example.exoesqueletov1.ui.activity.ConstantsDatabase
+import com.example.exoesqueletov1.old.clases.Authentication
 
 class MessageFragment(private val typeUser: String, private val code: Int) : Fragment() {
     private var editTextSearch: SearchView? = null

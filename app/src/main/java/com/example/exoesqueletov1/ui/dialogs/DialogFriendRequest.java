@@ -14,11 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.exoesqueletov1.ui.ConstantsDatabase;
+import com.example.exoesqueletov1.ui.activity.ConstantsDatabase;
 import com.example.exoesqueletov1.R;
-import com.example.exoesqueletov1.clases.Authentication;
-import com.example.exoesqueletov1.clases.Database;
-import com.example.exoesqueletov1.clases.Storge;
+import com.example.exoesqueletov1.old.clases.Authentication;
+import com.example.exoesqueletov1.old.clases.Database;
+import com.example.exoesqueletov1.old.clases.Storge;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -29,23 +29,23 @@ import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.CODE;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.CODE_NOTIFICATIONS_ADMIN_REQUEST;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.CODE_NOTIFICATIONS_FRIEND_REQUEST;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.COLLECTION_CHATS;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.COLLECTION_USERS;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.DATE;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.DESCRIPTION;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.DOCUMENT_PROFILE;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.ID_CHAT;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.ID_PATIENT;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.ID_SPECIALIST;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.SPECIALIST;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.STATE;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.STATE_NOTIFY;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.TITLE;
-import static com.example.exoesqueletov1.ui.ConstantsDatabase.TO;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.CODE;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.CODE_NOTIFICATIONS_ADMIN_REQUEST;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.CODE_NOTIFICATIONS_FRIEND_REQUEST;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.COLLECTION_CHATS;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.COLLECTION_USERS;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.DATE;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.DESCRIPTION;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.DOCUMENT_PROFILE;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.ID_CHAT;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.ID_PATIENT;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.ID_SPECIALIST;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.SPECIALIST;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.STATE;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.STATE_NOTIFY;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.TITLE;
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.TO;
 
 public class DialogFriendRequest extends AppCompatDialogFragment {
 

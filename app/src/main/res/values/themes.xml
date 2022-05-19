@@ -41,4 +41,13 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">24sp</item>
     </style>
+
+    <style name="Theme.Exoesqueleto.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Exoesqueleto.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Exoesqueleto.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

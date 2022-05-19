@@ -12,17 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.exoesqueletov1.ui.ConstantsDatabase;
+import com.example.exoesqueletov1.ui.activity.ConstantsDatabase;
 import com.example.exoesqueletov1.R;
 
-import static com.example.exoesqueletov1.ui.ControlActivity.getActionButtonHelp;
-import static com.example.exoesqueletov1.ui.ControlActivity.getActionButtonPause;
-import static com.example.exoesqueletov1.ui.ControlActivity.getActionButtonReport;
-import static com.example.exoesqueletov1.ui.ControlActivity.getActionButtonStop;
-import static com.example.exoesqueletov1.ui.ControlActivity.setActionButtonHelp;
-import static com.example.exoesqueletov1.ui.ControlActivity.setActionButtonPause;
-import static com.example.exoesqueletov1.ui.ControlActivity.setActionButtonReport;
-import static com.example.exoesqueletov1.ui.ControlActivity.setActionButtonStop;
+import static com.example.exoesqueletov1.ui.activity.ControlActivity.getActionButtonHelp;
+import static com.example.exoesqueletov1.ui.activity.ControlActivity.getActionButtonPause;
+import static com.example.exoesqueletov1.ui.activity.ControlActivity.getActionButtonReport;
+import static com.example.exoesqueletov1.ui.activity.ControlActivity.getActionButtonStop;
+import static com.example.exoesqueletov1.ui.activity.ControlActivity.setActionButtonHelp;
+import static com.example.exoesqueletov1.ui.activity.ControlActivity.setActionButtonPause;
+import static com.example.exoesqueletov1.ui.activity.ControlActivity.setActionButtonReport;
+import static com.example.exoesqueletov1.ui.activity.ControlActivity.setActionButtonStop;
 import static com.example.exoesqueletov1.ui.fragments.UpAndDownFragment.CODE_REGULAR;
 
 public class MenuFragment extends Fragment implements View.OnClickListener {

@@ -13,7 +13,7 @@
         android:id="@+id/imageView"
         android:layout_width="40sp"
         android:layout_height="match_parent"
-        android:background="@drawable/layout_border_right_top_bottom"
+        android:background="@drawable/border_right_top_bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,7 +21,7 @@
         android:layout_width="50sp"
         android:layout_height="80sp"
         android:layout_marginTop="200dp"
-        android:background="@drawable/layout_border_right_top_bottom"
+        android:background="@drawable/border_right_top_bottom"
         android:src="@drawable/ic_arrow_left"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
