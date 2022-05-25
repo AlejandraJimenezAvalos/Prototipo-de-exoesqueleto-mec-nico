@@ -28,7 +28,7 @@ public class ControlActivity extends AppCompatActivity {
         setContentView(R.layout.activity_control);
         String address = getIntent().getExtras().getString(DEVICE_ADDRESS);
         String typeUser = getIntent().getExtras().getString(TYPE_USER);
-        Fragment fragment = new MenuFragment(address, typeUser);
+        Fragment fragment = new MenuFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content, fragment).commit();
     }

@@ -11,5 +11,5 @@
     android:focusable="true"
     android:gravity="center"
     android:padding="8sp"
-    app:srcCompat="@drawable/ic_home"
+    tools:srcCompat="@drawable/ic_home"
     app:tint="@color/white" />

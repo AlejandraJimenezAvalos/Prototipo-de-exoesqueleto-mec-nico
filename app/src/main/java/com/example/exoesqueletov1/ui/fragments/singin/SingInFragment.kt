@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.ui.fragments.singup
+package com.example.exoesqueletov1.ui.fragments.singin
 
 import android.os.Bundle
 import android.view.LayoutInflater

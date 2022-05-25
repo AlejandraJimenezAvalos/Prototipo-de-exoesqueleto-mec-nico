@@ -26,7 +26,6 @@ import java.util.Set;
 
 public class PairedDevisesFragment extends Fragment {
 
-    private String typeUser;
     private BluetoothAdapter bluetoothAdapter = null;
     public static final String DEVICE_ADDRESS = "deviceAddress";
     public static final String TYPE_USER = "typeUser";
@@ -35,8 +34,7 @@ public class PairedDevisesFragment extends Fragment {
     private ListView listView;
 
 
-    public PairedDevisesFragment(String typeUser) {
-        this.typeUser = typeUser;
+    public PairedDevisesFragment() {
     }
 
     @Nullable
@@ -91,8 +89,8 @@ public class PairedDevisesFragment extends Fragment {
         String info = textView.getText().toString();
         String address = info.substring(info.length() - 17);
         Intent intent = new Intent(getContext(), ControlActivity.class);
-        intent.putExtra(DEVICE_ADDRESS, address);
-        intent.putExtra(TYPE_USER, typeUser);
+        //intent.putExtra(DEVICE_ADDRESS, address);
+        //intent.putExtra(TYPE_USER, typeUser);
         startActivity(intent);
     };
 }

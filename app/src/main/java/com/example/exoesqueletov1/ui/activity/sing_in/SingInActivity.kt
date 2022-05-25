@@ -9,7 +9,7 @@ import com.example.exoesqueletov1.ui.ViewPagerAdapter
 import com.example.exoesqueletov1.ui.activity.main.MainActivity
 import com.example.exoesqueletov1.ui.fragments.WelcomeFragment
 import com.example.exoesqueletov1.ui.fragments.login.LogInFragment
-import com.example.exoesqueletov1.ui.fragments.singup.SingInFragment
+import com.example.exoesqueletov1.ui.fragments.singin.SingInFragment
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,6 +31,7 @@ class SingInActivity : AppCompatActivity() {
             val user = it.currentUser
             if (user != null) {
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
             }
         }
     }

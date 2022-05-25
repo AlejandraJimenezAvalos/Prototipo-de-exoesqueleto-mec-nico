@@ -2,7 +2,6 @@ package com.example.exoesqueletov1.ui.fragments.login
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.exoesqueletov1.data.models.UserModel.Companion.toUser
 import com.example.exoesqueletov1.utils.Resource
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
@@ -17,7 +16,7 @@ class LoginViewModel : ViewModel() {
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
-                if (task.isSuccessful) auth.currentUser!!.toUser()
+                if (task.isSuccessful) auth.currentUser!!
                 if (task.exception != null) result.postValue(Resource.error(task.exception!!))
             }
         return result

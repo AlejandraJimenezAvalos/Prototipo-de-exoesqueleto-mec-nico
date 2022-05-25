@@ -1,215 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="16sp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView4"
+    <data>
+
+        <variable
+            name="profile"
+            type="com.example.exoesqueletov1.data.models.ProfileModel" />
+
+        <variable
+            name="user"
+            type="com.example.exoesqueletov1.data.models.UserModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="16sp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16sp">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_view_profile_view"
-                android:layout_width="48sp"
-                android:layout_height="48sp"
-                android:src="@drawable/ic_profile"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_profile_view_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16sp"
-                app:layout_constraintStart_toEndOf="@+id/image_view_profile_view"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@tools:sample/full_names" />
-
-            <TextView
-                android:id="@+id/text_profile_view_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/image_view_profile_view"
-                app:layout_constraintStart_toStartOf="@+id/text_profile_view_name"
-                tools:text="Type user" />
-
-            <TextView
-                android:id="@+id/text_profile_view_description"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16sp"
-                android:textAlignment="center"
-                app:drawableEndCompat="@drawable/ic_edit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_view_profile_view"
-                tools:maxLines="2"
-                tools:text="@tools:sample/lorem/random" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+                android:padding="16sp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView4">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_view_profile_view"
+                    android:layout_width="48sp"
+                    android:layout_height="48sp"
+                    android:src="@drawable/ic_profile"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:id="@+id/text_profile_view_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:text="@{user.name}"
+                    app:layout_constraintStart_toEndOf="@+id/image_view_profile_view"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/full_names" />
+
+                <TextView
+                    android:id="@+id/text_profile_view_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{user.user}"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_view_profile_view"
+                    app:layout_constraintStart_toStartOf="@+id/text_profile_view_name"
+                    tools:text="Type user" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_description"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image_view_profile_view">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/descripsi_n"
+                        android:text="@{profile.description}"
+                        tools:maxLines="2"
+                        tools:text="@tools:sample/lorem/random" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16sp">
+            android:layout_marginTop="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView4">
 
-            <TextView
-                android:id="@+id/textView27"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/contacto"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="vertical"
+                android:padding="16sp">
 
-            <TextView
-                android:id="@+id/textView26"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8sp"
-                android:drawablePadding="15sp"
-                android:text="@string/correo"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_mail"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView27" />
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contacto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/text_profile_view_email"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8sp"
-                android:drawablePadding="20sp"
-                app:drawableEndCompat="@drawable/ic_edit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView26"
-                app:layout_constraintTop_toTopOf="@+id/textView26"
-                tools:text="email@email.com" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_email_profile"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8sp">
 
-            <TextView
-                android:id="@+id/textView28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8sp"
-                android:drawablePadding="15sp"
-                android:text="@string/direcci_n"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_place"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView26" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_mail"
+                        android:drawablePadding="8sp"
+                        android:hint="@string/correo"
+                        android:text="@{profile.email}"
+                        tools:text="email@email.com" />
 
-            <TextView
-                android:id="@+id/text_profile_view_address"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8sp"
-                android:drawablePadding="20sp"
-                app:drawableEndCompat="@drawable/ic_edit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView28"
-                app:layout_constraintTop_toTopOf="@+id/textView28"
-                tools:maxLines="1"
-                tools:text="@tools:sample/lorem/random" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/textView29"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8sp"
-                android:drawablePadding="15sp"
-                android:text="@string/celular"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_phone_android"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_address"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4sp">
 
-            <TextView
-                android:id="@+id/text_profile_view_cell"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8sp"
-                android:drawablePadding="20sp"
-                app:drawableEndCompat="@drawable/ic_edit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView29"
-                app:layout_constraintTop_toTopOf="@+id/textView29"
-                tools:maxLines="1"
-                tools:text="@tools:sample/us_phones" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_place"
+                        android:drawablePadding="8sp"
+                        android:hint="@string/direcci_n"
+                        android:text="@{profile.address}"
+                        tools:maxLines="2"
+                        tools:text="@tools:sample/lorem/random" />
 
-            <TextView
-                android:id="@+id/textView30"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8sp"
-                android:drawablePadding="15sp"
-                android:text="@string/telefono"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_phone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/text_profile_view_phone"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8sp"
-                android:drawablePadding="20sp"
-                app:drawableEndCompat="@drawable/ic_edit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView30"
-                app:layout_constraintTop_toTopOf="@+id/textView30"
-                tools:text="@tools:sample/us_phones" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_cell_phone"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4sp">
 
-            <TextView
-                android:id="@+id/textView31"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8sp"
-                android:drawablePadding="15sp"
-                android:text="@string/estudio"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_school"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView30" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_phone_android"
+                        android:drawablePadding="8sp"
+                        android:hint="@string/celular"
+                        android:text="@{profile.cell}"
+                        tools:text="@tools:sample/us_phones" />
 
-            <TextView
-                android:id="@+id/text_profile_view_school"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8sp"
-                android:drawablePadding="20sp"
-                app:drawableEndCompat="@drawable/ic_edit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView31"
-                app:layout_constraintTop_toTopOf="@+id/textView31"
-                tools:text="@tools:sample/lorem" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/button_profile_view_save"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/guardar"
-        android:layout_marginTop="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_phone"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4sp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_phone"
+                        android:drawablePadding="8sp"
+                        android:hint="@string/telefono"
+                        android:text="@{profile.phone}"
+                        tools:text="@tools:sample/us_phones" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_school"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4sp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_school"
+                        android:drawablePadding="8sp"
+                        android:hint="@string/estudio"
+                        android:text="@{profile.school}"
+                        tools:text="@tools:sample/lorem" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/button_profile_view_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:text="@string/guardar"
+            app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

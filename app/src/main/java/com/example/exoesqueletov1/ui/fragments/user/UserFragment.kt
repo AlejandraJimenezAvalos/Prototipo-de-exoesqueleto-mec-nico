@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.exoesqueletov1.R
 import com.example.exoesqueletov1.data.firebase.Constants
 import com.example.exoesqueletov1.databinding.FragmentUserBinding
 import com.example.exoesqueletov1.ui.dialogs.DialogLoading
+import com.example.exoesqueletov1.ui.fragments.NotificationFragment
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
 import com.example.exoesqueletov1.utils.Utils.getUser
 import com.example.exoesqueletov1.utils.Utils.isNotEmpty
@@ -40,7 +42,8 @@ class UserFragment : Fragment() {
                 val lastNameState =
                     editTextApellidos.isNotEmpty("No puedes dejar el campo en blanco.")
                 val dateState = editTextDate.isNotEmpty("No puedes dejar el campo en blanco.")
-                val countryState = spinnerContry.isNotEmpty(spinnerCountry,"Debe seleccionar una opción.")
+                val countryState =
+                    spinnerContry.isNotEmpty(spinnerCountry, "Debe seleccionar una opción.")
                 if (nameState && lastNameState && dateState && countryState) {
                     viewModel.saveUser(getUser()).observe(viewLifecycleOwner) {
                         it.status.createLoadingDialog(
@@ -48,6 +51,10 @@ class UserFragment : Fragment() {
                             UserFragment::class.java.name,
                             loading
                         )
+                        if (it.status == Constants.Status.Success)
+                            parentFragmentManager.beginTransaction().replace(
+                                R.id.container_main, NotificationFragment()
+                            ).commit()
                         if (it.status == Constants.Status.Failure)
                             it.exception!!.setError(
                                 parentFragmentManager,

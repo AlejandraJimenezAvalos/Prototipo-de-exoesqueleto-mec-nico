@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.ui.fragments.singup
+package com.example.exoesqueletov1.ui.fragments.singin
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

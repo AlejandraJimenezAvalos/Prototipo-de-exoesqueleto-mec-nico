@@ -6,7 +6,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.exoesqueletov1.data.firebase.Constants
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.parcelize.Parcelize
 
@@ -28,31 +27,19 @@ data class UserModel(
         fun DocumentSnapshot.toUserModel(): UserModel? {
             return try {
                 UserModel(
-                    id,
-                    getString(Constants.EMAIL)!!,
-                    getString(Constants.COUNTRY)!!,
-                    getString(Constants.DATE)!!,
-                    getString(Constants.GENDER)!!,
+                    getString(Constants.ID       )!!,
+                    getString(Constants.EMAIL    )!!,
+                    getString(Constants.COUNTRY  )!!,
+                    getString(Constants.DATE     )!!,
+                    getString(Constants.GENDER   )!!,
                     getString(Constants.LAST_NAME)!!,
-                    getString(Constants.NAME)!!,
-                    getString(Constants.USER)!!,
+                    getString(Constants.NAME     )!!,
+                    getString(Constants.USER     )!!,
                 )
             } catch (e: Exception) {
                 Log.e("Error_to_user", "Error to convert user", e)
                 null
             }
         }
-
-        fun FirebaseUser.toUser(): UserModel = UserModel(
-            uid,
-            email!!,
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-        )
     }
-
 }

@@ -6,7 +6,7 @@
     app:startDestination="@id/notificationFragment">
     <fragment
         android:id="@+id/newProfileFragment"
-        android:name="com.example.exoesqueletov1.ui.fragments.NewProfileFragment"
+        android:name="com.example.exoesqueletov1.ui.fragments.profile.ProfileFragment"
         android:label="NewProfileFragment"
         tools:layout="@layout/fragment_profile"/>
     <fragment
