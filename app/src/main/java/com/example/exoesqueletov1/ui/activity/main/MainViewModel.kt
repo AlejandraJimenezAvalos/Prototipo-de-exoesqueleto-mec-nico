@@ -29,12 +29,21 @@ class MainViewModel @Inject constructor(
 
     init {
         firebaseService.getUser(id) {
-            if (it.status == Constants.Status.Success)
+            if (it.status == Constants.Status.Success) {
                 viewModelScope.launch {
                     withContext(Dispatchers.IO) {
                         dataRepository.insertUser(it.data!!)
                     }
                 }
+                result.addSource(dataRepository.getUsers(id)) { user ->
+                    user.name = "${it.data!!.name} ${it.data.lastName}"
+                    viewModelScope.launch {
+                        withContext(Dispatchers.IO) {
+                            dataRepository.insertNewUser(user)
+                        }
+                    }
+                }
+            }
             result.postValue(it)
         }
         firebaseService.getProfile(id) {

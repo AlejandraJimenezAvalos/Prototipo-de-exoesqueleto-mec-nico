@@ -3,13 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16sp">
+    android:layout_marginTop="8sp">
 
     <TextView
         android:id="@+id/list_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8sp"
+        android:paddingBottom="8sp"
+        android:paddingTop="8sp"
+        android:paddingStart="16sp"
+        android:paddingEnd="16sp"
         tools:maxLines="1"
         android:layout_gravity="center"
         tools:text="@tools:sample/lorem" />

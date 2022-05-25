@@ -15,25 +15,14 @@
         android:orientation="vertical"
         android:padding="16sp">
 
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="100sp"
-            android:layout_height="100sp"
-            android:src="@mipmap/logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
-
         <TextView
             android:id="@+id/textView20"
             style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16sp"
             android:text="@string/bienvenido"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_email_login"
@@ -94,10 +83,9 @@
 
         <Button
             android:id="@+id/button_lost_your_password"
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16sp"
             android:layout_marginEnd="8sp"
             android:text="@string/olvidaste_tu_contrase_a"
             app:layout_constraintEnd_toStartOf="@+id/button_login"
@@ -106,15 +94,27 @@
             app:layout_constraintTop_toBottomOf="@+id/layout_password_login" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/text_users"
             style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16sp"
-            android:text="@string/o_usa_tu_cuenta_de"
+            android:visibility="gone"
+            android:text="@string/usuarios_que_accedieron_recientemente"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_lost_your_password" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_users"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_users"
+            tools:itemCount="1"
+            android:layout_marginTop="8sp"
+            tools:listitem="@layout/item_user" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

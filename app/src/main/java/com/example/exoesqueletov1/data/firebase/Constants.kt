@@ -6,6 +6,8 @@ object Constants {
 
     enum class Gender { Woman, Man }
 
+    enum class ActionUsers { Delete, LogIn }
+
     enum class Exist { UserDocument, ProfileDocument }
 
     enum class TypeUser { Admin, Specialist, Patient }
@@ -24,15 +26,17 @@ object Constants {
     const val ADDRESS          = "address"
     const val CELL             = "cell"
     const val EMAIL            = "email"
-    const val NAME             = "name"
-    const val PHONE            = "phone"
-    const val SCHOOL           = "school"
-    const val USER             = "user"
-    const val DESCRIPTION      = "description"
+    const val NAME = "name"
+    const val PHONE = "phone"
+    const val SCHOOL = "school"
+    const val USER = "user"
+    const val DESCRIPTION = "description"
 
-    const val COUNTRY          = "country"
-    const val DATE             = "date"
-    const val GENDER           = "gender"
-    const val LAST_NAME        = "lastName"
+    const val COUNTRY = "country"
+    const val DATE = "date"
+    const val GENDER = "gender"
+    const val LAST_NAME = "lastName"
+    const val PASSWORD = "password"
+    const val PHOTO_PATH = "photoPath"
 
 }

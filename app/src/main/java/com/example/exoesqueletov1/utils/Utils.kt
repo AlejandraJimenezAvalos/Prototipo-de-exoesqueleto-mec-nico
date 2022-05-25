@@ -15,7 +15,6 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import java.lang.Exception
 import java.util.regex.Pattern
 
 private const val PASSWORD_VALIDATION =
@@ -97,6 +96,10 @@ object Utils {
         }
 
     fun TextInputLayout.getText() = editText!!.text.toString().trim()
+
+    fun TextInputLayout.setText(s: String) {
+        editText!!.setText(s)
+    }
 
     fun AutoCompleteTextView.getTextIn() = text.toString().trim()
 

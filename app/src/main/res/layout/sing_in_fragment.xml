@@ -13,25 +13,14 @@
         android:layout_height="wrap_content"
         android:padding="16sp">
 
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="100sp"
-            android:layout_height="100sp"
-            android:src="@mipmap/logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
-
         <TextView
             android:id="@+id/textView21"
             style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16sp"
             android:text="@string/a_n_no_tienes_una_cuenta"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_email"
