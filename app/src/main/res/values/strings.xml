@@ -177,4 +177,7 @@ Si no lo encuentra, busque en el apartado del correo no deseado.</string>
     <string name="usuarios_que_accedieron_recientemente">usuarios que accedieron recientemente</string>
     <string name="delete">delete</string>
     <string name="userd_profile">userd_profile</string>
+    <string name="ya_cuentas_con_una_cuenta">¿Ya cuentas con una cuenta?</string>
+    <string name="vamos_a_comenzar">vamos a comenzar</string>
+    <string name="hola">Hola</string>
 </resources>

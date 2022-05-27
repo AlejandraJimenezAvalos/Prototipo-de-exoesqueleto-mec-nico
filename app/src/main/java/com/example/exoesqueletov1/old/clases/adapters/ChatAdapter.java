@@ -12,10 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.exoesqueletov1.ui.activity.ConstantsDatabase;
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.old.clases.Storge;
 import com.example.exoesqueletov1.old.clases.items.ChatItem;
+import com.example.exoesqueletov1.ui.activity.ConstantsDatabase;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -52,7 +52,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
         if (!mDataFiltered.get(position).getName().equals("")) {
             holder.textViewName.setText(mDataFiltered.get(position).getName());
             holder.textViewMessage.setText(mDataFiltered.get(position).getMessage());
-            holder.textViewDate.setText(mDataFiltered.get(position).getDate());
+            //holder.textViewDate.setText(mDataFiltered.get(position).getDate());
         } else {
             FirebaseFirestore.getInstance().collection(mDataFiltered.get(position).getId()).
                     document(ConstantsDatabase.DOCUMENT_PROFILE).get().addOnSuccessListener(documentSnapshot -> {
@@ -124,7 +124,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
 
         private TextView textViewName;
         private TextView textViewMessage;
-        private TextView textViewDate;
+        //private TextView textViewDate;
         private ImageView circleImageViewProfilePhoto;
 
         NewsViewHolder(@NonNull View itemView, ChatAdapter.OnMenuListener onMenuListener) {
@@ -133,7 +133,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.NewsViewHolder
 
             textViewName = itemView.findViewById(R.id.text_item_chat_name);
             textViewMessage = itemView.findViewById(R.id.text_item_chat_message);
-            textViewDate = itemView.findViewById(R.id.text_item_chat_date);
+            //textViewDate = itemView.findViewById(R.id.text_item_chat_date);
             circleImageViewProfilePhoto = itemView.findViewById(R.id.image_item_chat);
             MaterialCardView constraintLayout = itemView.findViewById(R.id.item_chat);
             constraintLayout.setOnClickListener(this);

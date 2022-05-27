@@ -33,9 +33,9 @@
     </fragment>
     <fragment
         android:id="@+id/messageFragment"
-        android:name="com.example.exoesqueletov1.ui.fragments.MessageFragment"
+        android:name="com.example.exoesqueletov1.ui.fragments.chats.ChatsFragment"
         android:label="MessageFragment"
-        tools:layout="@layout/fragment_messages" >
+        tools:layout="@layout/fragment_chats">
         <action
             android:id="@+id/action_messageFragment_to_chatActivity"
             app:destination="@id/chatActivity" />

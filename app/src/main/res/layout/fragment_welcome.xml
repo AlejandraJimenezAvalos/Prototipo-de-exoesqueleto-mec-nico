@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16sp"
-        android:text="Hola"
+        android:text="@string/hola"
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,10 +43,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16sp"
-        android:text="vamos a comenzar"
+        android:text="@string/vamos_a_comenzar"
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textHola" />
+
+    <Button
+        android:id="@+id/button_go_to_login"
+        android:layout_width="wrap_content"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_height="wrap_content"
+        android:text="@string/ya_cuentas_con_una_cuenta"
+        app:layout_constraintBottom_toTopOf="@+id/button_do_you_have_account"
+        android:layout_marginBottom="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_do_you_have_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/a_n_no_tienes_una_cuenta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.Material3.Button.TextButton"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="16sp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

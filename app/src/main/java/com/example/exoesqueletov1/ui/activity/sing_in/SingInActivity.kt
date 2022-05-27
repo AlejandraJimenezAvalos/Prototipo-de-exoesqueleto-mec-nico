@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.exoesqueletov1.R
+import com.example.exoesqueletov1.data.firebase.Constants
 import com.example.exoesqueletov1.ui.ViewPagerAdapter
 import com.example.exoesqueletov1.ui.activity.main.MainActivity
 import com.example.exoesqueletov1.ui.fragments.WelcomeFragment
@@ -23,7 +24,11 @@ class SingInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log)
         val viewPager = findViewById<ViewPager2>(R.id.pager)
-        val list = listOf(WelcomeFragment(), LogInFragment(), SingInFragment())
+        val welcome = WelcomeFragment {
+            if (it == Constants.SingInPagerNavigation.Login) viewPager.currentItem = 1
+            else viewPager.currentItem = 2
+        }
+        val list = listOf(welcome, LogInFragment(), SingInFragment())
         val adapter = ViewPagerAdapter(this, list)
         viewPager.adapter = adapter
         firebaseAuth = FirebaseAuth.getInstance()

@@ -15,9 +15,9 @@ class MenuViewHolder(itemView: View, private val listener: (Constants.Menu) -> U
         binding.imgUser.setImageDrawable(itemView.resources.getDrawable(when (menu) {
             Constants.Menu.Notification -> R.drawable.ic_notification
             Constants.Menu.Profile -> R.drawable.ic_profile
-            Constants.Menu.Message -> R.drawable.ic_message
+            Constants.Menu.Chats -> R.drawable.ic_message
             Constants.Menu.Control -> R.drawable.ic_bluetooth
-            Constants.Menu.Work -> R.drawable.ic_work
+            Constants.Menu.WorkSpecialist -> R.drawable.ic_work
         }, null))
         binding.imgUser.setOnClickListener { listener.invoke(menu) }
     }

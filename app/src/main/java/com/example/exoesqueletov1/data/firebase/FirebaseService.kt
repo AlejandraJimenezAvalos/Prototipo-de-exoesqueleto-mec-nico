@@ -27,7 +27,7 @@ class FirebaseService @Inject constructor() {
                 val user = valueUser.toUserModel()!!
                 result.invoke(Resource.success(user))
             } else {
-                result.invoke(Resource.notExist(Constants.Exist.UserDocument))
+                result.invoke(Resource.notExist())
             }
         }
     }
@@ -55,7 +55,7 @@ class FirebaseService @Inject constructor() {
                 val user = value.toProfile()!!
                 result.invoke(Resource.success(user))
             } else {
-                result.invoke(Resource.notExist(Constants.Exist.UserDocument))
+                result.invoke(Resource.notExist())
             }
         }
     }

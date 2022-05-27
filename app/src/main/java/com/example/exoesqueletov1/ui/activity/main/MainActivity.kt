@@ -15,7 +15,10 @@ import com.example.exoesqueletov1.databinding.ContentMainBinding
 import com.example.exoesqueletov1.ui.activity.main.adapter.MenuAdapter
 import com.example.exoesqueletov1.ui.activity.sing_in.SingInActivity
 import com.example.exoesqueletov1.ui.dialogs.DialogLoading
-import com.example.exoesqueletov1.ui.fragments.*
+import com.example.exoesqueletov1.ui.fragments.AssignWorkFragment
+import com.example.exoesqueletov1.ui.fragments.NotificationFragment
+import com.example.exoesqueletov1.ui.fragments.PairedDevisesFragment
+import com.example.exoesqueletov1.ui.fragments.chats.ChatsFragment
 import com.example.exoesqueletov1.ui.fragments.profile.ProfileFragment
 import com.example.exoesqueletov1.ui.fragments.user.UserFragment
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
@@ -76,20 +79,20 @@ class MainActivity : AppCompatActivity() {
             when (it) {
                 Menu.Notification -> setFragment(NotificationFragment())
                 Menu.Profile -> setFragment(ProfileFragment())
-                Menu.Message -> setFragment(MessageFragment())
+                Menu.Chats -> setFragment(ChatsFragment())
                 Menu.Control -> setFragment(PairedDevisesFragment())
-                Menu.Work -> setFragment(WorksFragment())
+                Menu.WorkSpecialist -> setFragment(AssignWorkFragment())
             }
         }
         list.add(Menu.Notification)
         list.add(Menu.Profile)
-        list.add(Menu.Message)
+        list.add(Menu.Chats)
         when (typeUser) {
             Constants.TypeUser.Admin -> {
                 list.add(Menu.Control)
-                list.add(Menu.Work)
+                list.add(Menu.WorkSpecialist)
             }
-            Constants.TypeUser.Specialist -> list.add(Menu.Work)
+            Constants.TypeUser.Specialist -> list.add(Menu.WorkSpecialist)
             Constants.TypeUser.Patient -> list.add(Menu.Control)
         }
         bindingContent.recyclerMenu.adapter = adapter

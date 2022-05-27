@@ -21,7 +21,6 @@ data class UserModel(
     @ColumnInfo(name = Constants.NAME) val name: String,
     @ColumnInfo(name = Constants.USER) val user: String,
 ) : Parcelable {
-    //lateinit var profile: ProfileModel
 
     companion object {
         fun DocumentSnapshot.toUserModel(): UserModel? {

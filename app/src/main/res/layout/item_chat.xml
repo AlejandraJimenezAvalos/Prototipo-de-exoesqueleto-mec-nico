@@ -15,8 +15,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16sp">
+            android:layout_height="wrap_content">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_image_profile_item_chat"
@@ -29,9 +28,11 @@
 
                 <ImageView
                     android:id="@+id/image_item_chat"
-                    android:layout_width="45sp"
-                    android:layout_height="45sp"
+                    android:layout_width="48sp"
+                    android:layout_height="48sp"
+                    android:scaleType="centerCrop"
                     android:contentDescription="@string/image_profile"
+                    tools:src="@tools:sample/avatars"
                     android:src="@drawable/ic_profile" />
             </androidx.cardview.widget.CardView>
 
@@ -40,27 +41,24 @@
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/text_item_chat_message"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16sp"
                 app:layout_constraintStart_toEndOf="@+id/card_image_profile_item_chat"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/full_names" />
 
             <TextView
                 android:id="@+id/text_item_chat_message"
-                android:layout_width="wrap_content"
+                android:layout_width="0sp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16sp"
+                android:maxLines="1"
                 app:layout_constraintStart_toStartOf="@+id/text_item_chat_name"
                 app:layout_constraintTop_toBottomOf="@+id/text_item_chat_name"
-                tools:text="@tools:sample/lorem" />
-
-            <TextView
-                android:id="@+id/text_item_chat_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/text_item_chat_name"
-                app:layout_constraintTop_toBottomOf="@+id/text_item_chat_message"
-                tools:text="@tools:sample/lorem" />
+                tools:text="@tools:sample/lorem/random" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
