@@ -3,10 +3,10 @@ package com.example.exoesqueletov1.ui.activity.main
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.exoesqueletov1.data.firebase.Constants
 import com.example.exoesqueletov1.data.firebase.FirebaseService
 import com.example.exoesqueletov1.data.models.UserModel
 import com.example.exoesqueletov1.domain.DataRepository
+import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -28,6 +28,7 @@ class MainViewModel @Inject constructor(
     val userModel: MediatorLiveData<UserModel>
 
     init {
+
         firebaseService.getUser(id) {
             if (it.status == Constants.Status.Success) {
                 viewModelScope.launch {
@@ -56,6 +57,14 @@ class MainViewModel @Inject constructor(
             if (it.status == Constants.Status.Failure)
                 result.postValue(Resource.error(it.exception!!))
         }
+        firebaseService.getMessages(id) {
+            if (it.status == Constants.Status.Failure) result.postValue(Resource.error(it.exception!!))
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    if (it.status == Constants.Status.Success) dataRepository.insertMessage(it.data!!)
+                }
+            }
+        }
         userModel = MediatorLiveData<UserModel>().apply {
             addSource(dataRepository.getUser(id)) {
                 if (it != null) {
@@ -63,7 +72,6 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
-
         userModel.addSource(dataRepository.getProfile(id)) {
             if (it != null) {
                 firebaseService.setProfile(it) { resource ->
@@ -72,6 +80,7 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
+
     }
 
     fun singOut() {

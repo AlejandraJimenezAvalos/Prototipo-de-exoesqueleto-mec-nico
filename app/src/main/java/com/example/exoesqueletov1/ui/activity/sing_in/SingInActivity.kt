@@ -5,12 +5,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.exoesqueletov1.R
-import com.example.exoesqueletov1.data.firebase.Constants
 import com.example.exoesqueletov1.ui.ViewPagerAdapter
 import com.example.exoesqueletov1.ui.activity.main.MainActivity
 import com.example.exoesqueletov1.ui.fragments.WelcomeFragment
 import com.example.exoesqueletov1.ui.fragments.login.LogInFragment
 import com.example.exoesqueletov1.ui.fragments.singin.SingInFragment
+import com.example.exoesqueletov1.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 

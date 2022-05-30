@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exoesqueletov1.R
-import com.example.exoesqueletov1.data.firebase.Constants
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
+import com.example.exoesqueletov1.utils.Constants
 
 class UsersAdapter(
     private val list: List<UsersEntity>,

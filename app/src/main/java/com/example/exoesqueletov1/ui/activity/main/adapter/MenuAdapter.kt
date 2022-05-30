@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exoesqueletov1.R
-import com.example.exoesqueletov1.data.firebase.Constants
+import com.example.exoesqueletov1.utils.Constants
 
 class MenuAdapter(
     private val listItem: List<Constants.Menu>,

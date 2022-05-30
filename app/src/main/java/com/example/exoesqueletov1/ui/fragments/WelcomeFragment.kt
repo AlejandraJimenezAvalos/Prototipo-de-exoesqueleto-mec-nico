@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.example.exoesqueletov1.R
-import com.example.exoesqueletov1.data.firebase.Constants
 import com.example.exoesqueletov1.databinding.FragmentWelcomeBinding
+import com.example.exoesqueletov1.utils.Constants
 
 class WelcomeFragment(private val navigation: (Constants.SingInPagerNavigation) -> Unit) :
     Fragment() {

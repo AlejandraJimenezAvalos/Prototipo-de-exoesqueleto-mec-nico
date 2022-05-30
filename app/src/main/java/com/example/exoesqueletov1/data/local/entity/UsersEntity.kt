@@ -3,7 +3,7 @@ package com.example.exoesqueletov1.data.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.exoesqueletov1.data.firebase.Constants
+import com.example.exoesqueletov1.utils.Constants
 
 @Entity(tableName = "users")
 data class UsersEntity(

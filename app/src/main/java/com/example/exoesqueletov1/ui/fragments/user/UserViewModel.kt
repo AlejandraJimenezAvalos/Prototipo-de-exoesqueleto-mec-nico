@@ -2,9 +2,9 @@ package com.example.exoesqueletov1.ui.fragments.user
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.exoesqueletov1.data.firebase.Constants
 import com.example.exoesqueletov1.data.firebase.FirebaseService
 import com.example.exoesqueletov1.data.models.UserModel
+import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exoesqueletov1.R
-import com.example.exoesqueletov1.data.firebase.Constants
 import com.example.exoesqueletov1.databinding.ItemMenuBinding
+import com.example.exoesqueletov1.utils.Constants
 
 class MenuViewHolder(itemView: View, private val listener: (Constants.Menu) -> Unit) : RecyclerView.ViewHolder(itemView) {
     private val binding: ItemMenuBinding = ItemMenuBinding.bind(itemView)

@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.exoesqueletov1.data.firebase.Constants
+import com.example.exoesqueletov1.databinding.SingInFragmentBinding
+import com.example.exoesqueletov1.ui.dialogs.DialogLoading
+import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Utils.confirmPassword
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
 import com.example.exoesqueletov1.utils.Utils.getText
@@ -14,8 +16,6 @@ import com.example.exoesqueletov1.utils.Utils.isNotEmpty
 import com.example.exoesqueletov1.utils.Utils.isValidEmail
 import com.example.exoesqueletov1.utils.Utils.isValidPassword
 import com.example.exoesqueletov1.utils.Utils.setError
-import com.example.exoesqueletov1.databinding.SingInFragmentBinding
-import com.example.exoesqueletov1.ui.dialogs.DialogLoading
 
 class SingInFragment : Fragment() {
 

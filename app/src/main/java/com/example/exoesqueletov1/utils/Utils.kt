@@ -4,7 +4,6 @@ import android.util.Patterns
 import android.widget.AutoCompleteTextView
 import android.widget.RadioButton
 import androidx.fragment.app.FragmentManager
-import com.example.exoesqueletov1.data.firebase.Constants
 import com.example.exoesqueletov1.data.models.ProfileModel
 import com.example.exoesqueletov1.data.models.UserModel
 import com.example.exoesqueletov1.databinding.FragmentProfileBinding

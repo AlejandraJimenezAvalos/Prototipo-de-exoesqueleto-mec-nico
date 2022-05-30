@@ -1,7 +1,6 @@
 package com.example.exoesqueletov1.utils
 
-import com.example.exoesqueletov1.data.firebase.Constants
-import com.example.exoesqueletov1.data.firebase.Constants.Status.*
+import com.example.exoesqueletov1.utils.Constants.Status.*
 
 data class Resource<out T>(
     val status: Constants.Status,

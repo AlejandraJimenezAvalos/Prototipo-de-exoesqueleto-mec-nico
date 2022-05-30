@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exoesqueletov1.R
-import com.example.exoesqueletov1.data.firebase.Constants
-import com.example.exoesqueletov1.data.firebase.Constants.Menu
 import com.example.exoesqueletov1.databinding.ActivityMainBinding
 import com.example.exoesqueletov1.databinding.ContentMainBinding
 import com.example.exoesqueletov1.ui.activity.main.adapter.MenuAdapter
@@ -21,6 +19,8 @@ import com.example.exoesqueletov1.ui.fragments.PairedDevisesFragment
 import com.example.exoesqueletov1.ui.fragments.chats.ChatsFragment
 import com.example.exoesqueletov1.ui.fragments.profile.ProfileFragment
 import com.example.exoesqueletov1.ui.fragments.user.UserFragment
+import com.example.exoesqueletov1.utils.Constants
+import com.example.exoesqueletov1.utils.Constants.Menu
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
 import com.example.exoesqueletov1.utils.Utils.getTypeUser
 import com.example.exoesqueletov1.utils.Utils.setError

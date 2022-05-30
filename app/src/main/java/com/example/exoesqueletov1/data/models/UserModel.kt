@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.exoesqueletov1.data.firebase.Constants
+import com.example.exoesqueletov1.utils.Constants
 import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.parcelize.Parcelize
 

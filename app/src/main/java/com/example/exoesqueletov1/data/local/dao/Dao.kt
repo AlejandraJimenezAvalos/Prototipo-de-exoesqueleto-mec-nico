@@ -3,7 +3,9 @@ package com.example.exoesqueletov1.data.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Dao
+import com.example.exoesqueletov1.data.local.entity.GroupsQuery
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
+import com.example.exoesqueletov1.data.models.MessageModel
 import com.example.exoesqueletov1.data.models.ProfileModel
 import com.example.exoesqueletov1.data.models.UserModel
 
@@ -50,4 +52,13 @@ interface Dao {
 
     @Query("DELETE FROM users")
     fun deleteEverything()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertMessage(messageModel: MessageModel)
+
+    @Query("SELECT DISTINCT `from`, `to` FROM messages WHERE `from` == :id AND `to` == :id")
+    fun getGroups(id: String): LiveData<List<GroupsQuery>>
+
+    @Query("SELECT * FROM messages WHERE `from` == :id and `to` == :id ORDER BY date ASC")
+    fun getMessages(id: String): LiveData<List<MessageModel>>
 }

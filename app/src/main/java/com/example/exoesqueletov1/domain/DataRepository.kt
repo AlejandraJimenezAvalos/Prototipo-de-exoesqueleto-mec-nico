@@ -2,6 +2,7 @@ package com.example.exoesqueletov1.domain
 
 import com.example.exoesqueletov1.data.local.dao.Dao
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
+import com.example.exoesqueletov1.data.models.MessageModel
 import com.example.exoesqueletov1.data.models.ProfileModel
 import com.example.exoesqueletov1.data.models.UserModel
 import javax.inject.Inject
@@ -27,4 +28,8 @@ class DataRepository @Inject constructor(private val dao: Dao) {
     fun deleteEverything() = dao.deleteEverything()
     fun getUsers(id: String) = dao.getUsers(id)
     fun updateUsers(usersEntity: UsersEntity) = dao.updateUsers(usersEntity)
+
+    fun insertMessage(messageModel: MessageModel) = dao.insertMessage(messageModel)
+    fun getGroups(id: String) = dao.getGroups(id)
+    fun getMessages(id: String) = dao.getMessages(id)
 }

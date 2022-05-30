@@ -2,9 +2,9 @@ package com.example.exoesqueletov1.ui.fragments.login.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.exoesqueletov1.data.firebase.Constants
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
 import com.example.exoesqueletov1.databinding.ItemUserBinding
+import com.example.exoesqueletov1.utils.Constants
 
 class UsersViewHolder(
     itemView: View,

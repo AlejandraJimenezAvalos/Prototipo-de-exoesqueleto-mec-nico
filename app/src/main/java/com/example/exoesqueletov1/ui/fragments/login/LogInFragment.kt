@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.exoesqueletov1.data.firebase.Constants
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
 import com.example.exoesqueletov1.databinding.FragmentLoginBinding
 import com.example.exoesqueletov1.ui.dialogs.DialogLoading
 import com.example.exoesqueletov1.ui.dialogs.DialogOops
 import com.example.exoesqueletov1.ui.fragments.login.adapter.UsersAdapter
+import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
 import com.example.exoesqueletov1.utils.Utils.getText
 import com.example.exoesqueletov1.utils.Utils.isNotEmpty

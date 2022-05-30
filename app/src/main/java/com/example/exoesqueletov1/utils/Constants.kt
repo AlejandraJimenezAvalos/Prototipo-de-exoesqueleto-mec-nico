@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.data.firebase
+package com.example.exoesqueletov1.utils
 
 object Constants {
 
@@ -9,8 +9,9 @@ object Constants {
     enum class SingInPagerNavigation { Login, SingIn }
     enum class Menu { Notification, Profile, Chats, Control, WorkSpecialist, }
 
-    const val DOCUMENT_PROFILE = "profile"
-    const val DOCUMENT_USER = "user"
+    const val COLLECTION_PROFILE = "profile"
+    const val COLLECTION_USER = "user"
+    const val COLLECTION_MESSAGES = "messages"
     const val ID = "id"
     const val ADDRESS = "address"
     const val CELL = "cell"
@@ -28,5 +29,9 @@ object Constants {
     const val PASSWORD = "password"
     const val PHOTO_PATH = "photoPath"
     const val ID_USER = "idUser"
+    const val FROM = "from"
+    const val TO = "to"
+    const val MESSAGE = "message"
+    const val STATUS = "status"
 
 }
