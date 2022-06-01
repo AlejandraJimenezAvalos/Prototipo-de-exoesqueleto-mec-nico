@@ -1,50 +1,131 @@
-package com.example.exoesqueletov1.ui.activity;
+package com.example.exoesqueletov1.ui.activity
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.os.Build
+import android.os.Bundle
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.example.exoesqueletov1.R
+import com.example.exoesqueletov1.databinding.ActivitySplashBinding
+import com.example.exoesqueletov1.ui.activity.sing_in.SingInActivity
+import com.google.android.material.snackbar.Snackbar
 
-import androidx.appcompat.app.AppCompatActivity;
+class SplashActivity : AppCompatActivity() {
 
-import com.example.exoesqueletov1.R;
-import com.example.exoesqueletov1.ui.activity.sing_in.SingInActivity;
+    private lateinit var binding: ActivitySplashBinding
 
-public class SplashActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        arranque();
+    val coarsePermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+        if (it) {
+            startActivity(
+                Intent(
+                    this@SplashActivity,
+                    SingInActivity::class.java
+                )
+            )
+            finish()
+        } else {
+            Snackbar.make(
+                binding.root,
+                "No se puede continuar por no contar con los permisos requeridos.",
+                Snackbar.LENGTH_INDEFINITE
+            ).setAction("Aceptar") {
+                finish()
+            }.show()
+        }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        arranque()
+    }
 
-        Thread timer = new Thread() {
-            public void run() {
+    override fun onResume() {
+        super.onResume()
+        val timer: Thread = object : Thread() {
+            @RequiresApi(Build.VERSION_CODES.S)
+            override fun run() {
                 try {
-                    sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    sleep(1000)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
                 } finally {
-                    startActivity(new Intent(SplashActivity.this,
-                            SingInActivity.class));
-                    finish();
+                    val permissions = arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.BLUETOOTH_SCAN,
+                        Manifest.permission.BLUETOOTH_CONNECT
+                    )
+                    if (checkPermissions(permissions)) {
+                        ActivityCompat.requestPermissions(
+                            this@SplashActivity, permissions,
+                            1
+                        )
+                    }
                 }
             }
-        };
-        timer.start();
+        }
+        timer.start()
     }
 
-    private void arranque() {
-        ImageView titulo = findViewById(R.id.titulo_image);
-        ImageView logo = findViewById(R.id.logo_image);
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.transition);
-        titulo.startAnimation(animation);
-        logo.startAnimation(animation);
+    private fun checkPermissions(permissions: Array<String>): Boolean {
+        var permissionResult = true
+        permissions.forEach {
+            val permissionState = ContextCompat.checkSelfPermission(this, it)
+            permissionResult = permissionResult && (permissionState == PERMISSION_GRANTED)
+        }
+        return !permissionResult
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            1 -> {
+                if (grantResults.isNotEmpty()) {
+                    grantResults.forEach {
+                        if (it == PERMISSION_GRANTED) {
+                            startActivity(
+                                Intent(
+                                    this@SplashActivity,
+                                    SingInActivity::class.java
+                                )
+                            )
+                            finish()
+                        } else {
+                            Snackbar.make(
+                                binding.root,
+                                "No se puede continuar por no contar con los permisos requeridos.",
+                                Snackbar.LENGTH_INDEFINITE
+                            ).setAction("Aceptar") {
+                                finish()
+                            }.show()
+                        }
+                    }
+                }
+            }
+            else -> {}
+        }
+    }
+
+    private fun arranque() {
+        val titulo = findViewById<ImageView>(R.id.titulo_image)
+        val logo = findViewById<ImageView>(R.id.logo_image)
+        val animation = AnimationUtils.loadAnimation(this, R.anim.transition)
+        titulo.startAnimation(animation)
+        logo.startAnimation(animation)
     }
 }

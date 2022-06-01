@@ -18,8 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.exoesqueletov1.ui.activity.ControlActivity;
 import com.example.exoesqueletov1.R;
+import com.example.exoesqueletov1.ui.activity.ControlActivity;
 
 import java.util.ArrayList;
 import java.util.Set;

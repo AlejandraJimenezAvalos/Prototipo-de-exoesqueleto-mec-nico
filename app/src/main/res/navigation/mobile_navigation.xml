@@ -44,9 +44,9 @@
             app:destination="@id/dialogContact" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_notification"
+        tools:layout="@layout/fragment_home"
         android:id="@+id/notificationFragment"
-        android:name="com.example.exoesqueletov1.ui.fragments.NotificationFragment"
+        android:name="com.example.exoesqueletov1.ui.fragments.home.HomeFragment"
         android:label="NotificationFragment" />
     <fragment
         android:id="@+id/pairedDevisesFragment"

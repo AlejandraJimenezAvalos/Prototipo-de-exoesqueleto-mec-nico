@@ -2,6 +2,7 @@ package com.example.exoesqueletov1.data.firebase
 
 import android.util.Log
 import com.example.exoesqueletov1.data.models.MessageModel
+import com.example.exoesqueletov1.data.models.MessageModel.Companion.toMessage
 import com.example.exoesqueletov1.data.models.ProfileModel
 import com.example.exoesqueletov1.data.models.ProfileModel.Companion.toProfile
 import com.example.exoesqueletov1.data.models.UserModel
@@ -73,6 +74,35 @@ class FirebaseService @Inject constructor() {
 
     fun getMessages(id: String, result: (Resource<MessageModel>) -> Unit) {
         result.invoke(Resource.loading())
+        db.collection(Constants.COLLECTION_MESSAGES)
+            .whereEqualTo(Constants.FROM, id)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    result.invoke(Resource.error(error))
+                    Log.e(FirebaseService::class.java.name, "Error Snapshot getProfile()", error)
+                    return@addSnapshotListener
+                }
+                if (value != null && !value.isEmpty) {
+                    for (document in value) {
+                        if (document.exists()) result.invoke(Resource.success(document.toMessage()!!))
+                    }
+                } else result.invoke(Resource.notExist())
+            }
+
+        db.collection(Constants.COLLECTION_MESSAGES)
+            .whereEqualTo(Constants.TO, id)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    result.invoke(Resource.error(error))
+                    Log.e(FirebaseService::class.java.name, "Error Snapshot getProfile()", error)
+                    return@addSnapshotListener
+                }
+                if (value != null && !value.isEmpty) {
+                    for (document in value) {
+                        if (document.exists()) result.invoke(Resource.success(document.toMessage()!!))
+                    }
+                } else result.invoke(Resource.notExist())
+            }
     }
 
     fun setMessage(messageModel: MessageModel, result: (Resource<Void>) -> Unit) {

@@ -3,8 +3,9 @@ package com.example.exoesqueletov1.data.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Dao
-import com.example.exoesqueletov1.data.local.entity.GroupsQuery
+import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
+import com.example.exoesqueletov1.data.local.query.GroupsQuery
 import com.example.exoesqueletov1.data.models.MessageModel
 import com.example.exoesqueletov1.data.models.ProfileModel
 import com.example.exoesqueletov1.data.models.UserModel
@@ -56,9 +57,24 @@ interface Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMessage(messageModel: MessageModel)
 
-    @Query("SELECT DISTINCT `from`, `to` FROM messages WHERE `from` == :id AND `to` == :id")
+    @Query("SELECT DISTINCT `from`, `to` FROM messages WHERE `from` == :id OR `to` == :id")
     fun getGroups(id: String): LiveData<List<GroupsQuery>>
 
-    @Query("SELECT * FROM messages WHERE `from` == :id and `to` == :id ORDER BY date ASC")
+    @Query("SELECT * FROM messages WHERE `from` == :id OR `to` == :id ORDER BY date ASC")
     fun getMessages(id: String): LiveData<List<MessageModel>>
+
+    @Query("SELECT * FROM messages WHERE `from` == :id OR `to` == :id ORDER BY date DESC LIMIT 1")
+    fun getMessage(id: String): LiveData<MessageModel>
+
+    @Query("DELETE FROM messages")
+    fun deleteMessages()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertChat(chatsEntity: ChatsEntity)
+
+    @Query("SELECT * FROM chats")
+    fun getChats(): LiveData<List<ChatsEntity>>
+
+    @Query("DELETE FROM chats")
+    fun deleteChats()
 }

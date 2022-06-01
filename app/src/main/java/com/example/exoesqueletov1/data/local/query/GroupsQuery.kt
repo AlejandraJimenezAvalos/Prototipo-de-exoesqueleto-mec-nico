@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.data.local.entity
+package com.example.exoesqueletov1.data.local.query
 
 import androidx.room.ColumnInfo
 import com.example.exoesqueletov1.utils.Constants

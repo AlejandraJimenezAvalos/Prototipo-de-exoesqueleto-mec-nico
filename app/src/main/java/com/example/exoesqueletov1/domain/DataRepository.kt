@@ -1,6 +1,7 @@
 package com.example.exoesqueletov1.domain
 
 import com.example.exoesqueletov1.data.local.dao.Dao
+import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
 import com.example.exoesqueletov1.data.models.MessageModel
 import com.example.exoesqueletov1.data.models.ProfileModel
@@ -20,6 +21,8 @@ class DataRepository @Inject constructor(private val dao: Dao) {
     fun singOut() {
         dao.deleteProfile()
         dao.deleteUser()
+        dao.deleteChats()
+        dao.deleteMessages()
     }
 
     fun insertNewUser(usersEntity: UsersEntity) = dao.insertNewUser(usersEntity)
@@ -32,4 +35,8 @@ class DataRepository @Inject constructor(private val dao: Dao) {
     fun insertMessage(messageModel: MessageModel) = dao.insertMessage(messageModel)
     fun getGroups(id: String) = dao.getGroups(id)
     fun getMessages(id: String) = dao.getMessages(id)
+    fun getMessage(id: String) = dao.getMessage(id)
+
+    fun insertChat(chatsEntity: ChatsEntity) = dao.insertChat(chatsEntity)
+    fun getChats() = dao.getChats()
 }

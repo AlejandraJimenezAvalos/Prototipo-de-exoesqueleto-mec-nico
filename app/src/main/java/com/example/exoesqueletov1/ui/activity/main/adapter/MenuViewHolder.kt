@@ -18,6 +18,7 @@ class MenuViewHolder(itemView: View, private val listener: (Constants.Menu) -> U
             Constants.Menu.Chats -> R.drawable.ic_message
             Constants.Menu.Control -> R.drawable.ic_bluetooth
             Constants.Menu.WorkSpecialist -> R.drawable.ic_work
+            Constants.Menu.LogOut -> R.drawable.ic_round_logout_24
         }, null))
         binding.imgUser.setOnClickListener { listener.invoke(menu) }
     }

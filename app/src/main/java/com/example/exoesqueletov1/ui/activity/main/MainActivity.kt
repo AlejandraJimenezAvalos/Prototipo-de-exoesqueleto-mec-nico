@@ -14,9 +14,9 @@ import com.example.exoesqueletov1.ui.activity.main.adapter.MenuAdapter
 import com.example.exoesqueletov1.ui.activity.sing_in.SingInActivity
 import com.example.exoesqueletov1.ui.dialogs.DialogLoading
 import com.example.exoesqueletov1.ui.fragments.AssignWorkFragment
-import com.example.exoesqueletov1.ui.fragments.NotificationFragment
 import com.example.exoesqueletov1.ui.fragments.PairedDevisesFragment
 import com.example.exoesqueletov1.ui.fragments.chats.ChatsFragment
+import com.example.exoesqueletov1.ui.fragments.home.HomeFragment
 import com.example.exoesqueletov1.ui.fragments.profile.ProfileFragment
 import com.example.exoesqueletov1.ui.fragments.user.UserFragment
 import com.example.exoesqueletov1.utils.Constants
@@ -61,15 +61,7 @@ class MainActivity : AppCompatActivity() {
             binding.user = it!!
             setMenu(it.user.getTypeUser())
         }
-        setFragment(NotificationFragment())
-        binding.buttonFinishMain.setOnClickListener {
-            finish()
-        }
-        binding.buttonSingoutMain.setOnClickListener {
-            viewModel.singOut()
-            startActivity(Intent(this, SingInActivity::class.java))
-            finish()
-        }
+        setFragment(HomeFragment())
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -77,11 +69,16 @@ class MainActivity : AppCompatActivity() {
         val list = mutableListOf<Menu>()
         val adapter = MenuAdapter(list) {
             when (it) {
-                Menu.Notification -> setFragment(NotificationFragment())
+                Menu.Notification -> setFragment(HomeFragment())
                 Menu.Profile -> setFragment(ProfileFragment())
                 Menu.Chats -> setFragment(ChatsFragment())
                 Menu.Control -> setFragment(PairedDevisesFragment())
                 Menu.WorkSpecialist -> setFragment(AssignWorkFragment())
+                Menu.LogOut -> {
+                    viewModel.singOut()
+                    startActivity(Intent(this, SingInActivity::class.java))
+                    finish()
+                }
             }
         }
         list.add(Menu.Notification)
@@ -95,6 +92,7 @@ class MainActivity : AppCompatActivity() {
             Constants.TypeUser.Specialist -> list.add(Menu.WorkSpecialist)
             Constants.TypeUser.Patient -> list.add(Menu.Control)
         }
+        list.add(Menu.LogOut)
         bindingContent.recyclerMenu.adapter = adapter
         bindingContent.recyclerMenu.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)

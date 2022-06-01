@@ -4,6 +4,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.exoesqueletov1.data.firebase.FirebaseService
+import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.models.UserModel
 import com.example.exoesqueletov1.domain.DataRepository
 import com.example.exoesqueletov1.utils.Constants
@@ -37,10 +38,12 @@ class MainViewModel @Inject constructor(
                     }
                 }
                 result.addSource(dataRepository.getUsers(id)) { user ->
-                    user.name = "${it.data!!.name} ${it.data.lastName}"
-                    viewModelScope.launch {
-                        withContext(Dispatchers.IO) {
-                            dataRepository.insertNewUser(user)
+                    if (user != null) {
+                        user.name = "${it.data!!.name} ${it.data.lastName}"
+                        viewModelScope.launch {
+                            withContext(Dispatchers.IO) {
+                                dataRepository.insertNewUser(user)
+                            }
                         }
                     }
                 }
@@ -81,6 +84,28 @@ class MainViewModel @Inject constructor(
             }
         }
 
+        userModel.addSource(dataRepository.getGroups(id)) {
+            if (it.isNotEmpty()) {
+                it.forEach { groupsQuery ->
+                    val idUser = if (groupsQuery.to != id) groupsQuery.to else groupsQuery.from
+                    var name: String
+                    var message: String
+                    firebaseService.getUser(idUser) { resource ->
+                        if (resource.status == Constants.Status.Success) {
+                            val userData = resource.data!!
+                            name = userData.name
+                            userModel.addSource(dataRepository.getMessage(idUser)) { messageModel ->
+                                if (messageModel != null) {
+                                    message = messageModel.message
+                                    addChat(idUser, name, message)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     fun singOut() {
@@ -90,5 +115,13 @@ class MainViewModel @Inject constructor(
             }
         }
         Firebase.auth.signOut()
+    }
+
+    private fun addChat(idUser: String, name: String, message: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                if (idUser != id) dataRepository.insertChat(ChatsEntity(idUser, name, message))
+            }
+        }
     }
 }

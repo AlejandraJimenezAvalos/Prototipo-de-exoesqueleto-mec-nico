@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.exoesqueletov1.R
 import com.example.exoesqueletov1.databinding.FragmentUserBinding
 import com.example.exoesqueletov1.ui.dialogs.DialogLoading
-import com.example.exoesqueletov1.ui.fragments.NotificationFragment
+import com.example.exoesqueletov1.ui.fragments.home.HomeFragment
 import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
 import com.example.exoesqueletov1.utils.Utils.getUser
@@ -53,7 +53,7 @@ class UserFragment : Fragment() {
                         )
                         if (it.status == Constants.Status.Success)
                             parentFragmentManager.beginTransaction().replace(
-                                R.id.container_main, NotificationFragment()
+                                R.id.container_main, HomeFragment()
                             ).commit()
                         if (it.status == Constants.Status.Failure)
                             it.exception!!.setError(

@@ -1,60 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_pending"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10sp">
-
-    <View
-        android:id="@+id/view_item_pending"
-        android:layout_width="5sp"
-        android:layout_height="match_parent"
-        android:background="@color/pinkDark" />
+    android:layout_marginBottom="8sp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/notification_backround"
-        android:backgroundTint="?attr/colorOnPrimaryContainer">
+        android:padding="16sp">
 
         <TextView
             android:id="@+id/text_title_item_pending"
-            tools:text="@tools:sample/lorem"
-            android:layout_width="match_parent"
+            android:layout_width="0sp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="105sp"
+            android:layout_marginEnd="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/text_date_item_pending"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/lorem" />
 
         <TextView
             android:id="@+id/text_date_item_pending"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            tools:text="@tools:sample/date/ddmmyy"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/date/ddmmyy" />
 
         <TextView
             android:id="@+id/text_description_item_pending"
-            tools:text="@tools:sample/lorem/random"
-            tools:maxLines="4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_title_item_pending" />
+            app:layout_constraintTop_toBottomOf="@+id/text_title_item_pending"
+            tools:maxLines="4"
+            tools:text="@tools:sample/lorem/random" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>
