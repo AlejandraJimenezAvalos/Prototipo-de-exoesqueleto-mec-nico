@@ -1,8 +1,8 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="Theme.Exoesqueleto" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="colorPrimary">@color/pink</item>
+        <item name="colorPrimary">@color/pinkDark</item>
         <item name="colorPrimaryVariant">@color/pinkDark</item>
         <item name="colorOnPrimary">@color/blueDark</item>
         <item name="colorPrimaryContainer">@color/pinkDark</item>
@@ -12,7 +12,7 @@
         <item name="colorSecondaryVariant">@color/pinkDark</item>
         <item name="colorOnSecondary">@color/blueDark</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/pink</item>
+        <item name="android:statusBarColor">@color/pinkDark</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/blueDark</item>
 

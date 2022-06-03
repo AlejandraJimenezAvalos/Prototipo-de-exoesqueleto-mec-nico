@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16sp">
+    android:layout_height="match_parent">
 
     <ImageView
+        android:layout_marginTop="16sp"
+        android:layout_marginStart="16sp"
         android:id="@+id/button_back"
         android:layout_width="48sp"
         android:layout_height="48sp"
@@ -17,20 +18,22 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="0sp"
         android:layout_height="wrap_content"
         android:text="@string/pendientes2"
         android:textAlignment="center"
+        android:layout_marginEnd="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/button_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_back"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/button_back" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_pending"
         android:layout_width="match_parent"
         android:layout_height="0sp"
+        android:layout_marginTop="8sp"
         tools:listitem="@layout/item_work"
         android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"

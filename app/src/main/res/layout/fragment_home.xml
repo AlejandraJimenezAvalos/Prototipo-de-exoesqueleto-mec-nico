@@ -15,8 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="fill"
-        android:orientation="vertical"
-        android:padding="16sp">
+        android:paddingStart="16sp"
+        android:paddingEnd="16sp"
+        android:paddingTop="16sp"
+        android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView6"
@@ -40,10 +42,10 @@
 
                     <ImageView
                         android:id="@+id/image_profile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:contentDescription="@string/profile"
+                        android:src="@drawable/ic_profile"
                         tools:src="@tools:sample/avatars" />
                 </androidx.cardview.widget.CardView>
 
@@ -70,6 +72,7 @@
 
         <TextView
             android:id="@+id/textView3"
+            style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16sp"
@@ -81,6 +84,7 @@
             android:id="@+id/recycler_pending"
             android:layout_width="match_parent"
             android:layout_height="0sp"
+            android:layout_marginTop="4sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

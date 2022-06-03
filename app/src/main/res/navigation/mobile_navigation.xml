@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/notificationFragment">
+    app:startDestination="@id/navigation_home">
     <fragment
-        android:id="@+id/newProfileFragment"
+        android:id="@+id/navigation_profile"
         android:name="com.example.exoesqueletov1.ui.fragments.profile.ProfileFragment"
         android:label="NewProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/worksFragment"
         android:name="com.example.exoesqueletov1.ui.fragments.WorksFragment"
         android:label="WorksFragment"
-        tools:layout="@layout/fragment_works"/>
+        tools:layout="@layout/fragment_works" />
     <fragment
-        android:id="@+id/assignWorkFragment2"
+        android:id="@+id/navigation_work"
         android:name="com.example.exoesqueletov1.ui.fragments.AssignWorkFragment"
         android:label="AssignWorkFragment"
         tools:layout="@layout/fragment_assign_work"/>
@@ -32,7 +32,7 @@
             app:destination="@id/walkFragment" />
     </fragment>
     <fragment
-        android:id="@+id/messageFragment"
+        android:id="@+id/navigation_message"
         android:name="com.example.exoesqueletov1.ui.fragments.chats.ChatsFragment"
         android:label="MessageFragment"
         tools:layout="@layout/fragment_chats">
@@ -45,11 +45,11 @@
     </fragment>
     <fragment
         tools:layout="@layout/fragment_home"
-        android:id="@+id/notificationFragment"
+        android:id="@+id/navigation_home"
         android:name="com.example.exoesqueletov1.ui.fragments.home.HomeFragment"
         android:label="NotificationFragment" />
     <fragment
-        android:id="@+id/pairedDevisesFragment"
+        android:id="@+id/navigation_paired_device"
         tools:layout="@layout/fragment_paired_devises"
         android:name="com.example.exoesqueletov1.ui.fragments.PairedDevisesFragment"
         android:label="PairedDevisesFragment" >
@@ -58,7 +58,7 @@
             app:destination="@id/menuFragment" />
     </fragment>
     <fragment
-        android:id="@+id/profileLogUpFragment"
+        android:id="@+id/nav_user"
         tools:layout="@layout/fragment_user"
         android:name="com.example.exoesqueletov1.ui.fragments.user.UserFragment"
         android:label="ProfileLogUpFragment" />

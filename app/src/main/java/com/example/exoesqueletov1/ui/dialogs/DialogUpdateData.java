@@ -1,5 +1,7 @@
 package com.example.exoesqueletov1.ui.dialogs;
 
+import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -15,17 +17,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.exoesqueletov1.ui.activity.ConstantsDatabase;
-import com.example.exoesqueletov1.ui.activity.main.MainActivity;
 import com.example.exoesqueletov1.R;
+import com.example.exoesqueletov1.ui.activity.ConstantsDatabase;
+import com.example.exoesqueletov1.ui.activity.main_bottom.MainActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.example.exoesqueletov1.ui.activity.ConstantsDatabase.COLLECTION_NOTIFICATIONS;
 
 public class DialogUpdateData extends AppCompatDialogFragment {
 

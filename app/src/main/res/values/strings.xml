@@ -79,7 +79,7 @@ Si no lo encuentra, busque en el apartado del correo no deseado.</string>
     <string name="operacion_exitosa">Operación exitosa</string>
     <string name="messages">Messages</string>
     <string name="chats">Chats</string>
-    <string name="buscar">buscar</string>
+    <string name="buscar">Buscar</string>
     <string name="agregar">Agregar</string>
     <string name="more_info">Da click para ver mas informacion</string>
     <string name="un_admin">Un administrador ponerse en contacto contigo.</string>
@@ -180,4 +180,8 @@ Si no lo encuentra, busque en el apartado del correo no deseado.</string>
     <string name="ya_cuentas_con_una_cuenta">¿Ya cuentas con una cuenta?</string>
     <string name="vamos_a_comenzar">vamos a comenzar</string>
     <string name="hola">Hola</string>
+    <string name="title_activity_main_bottom">MainBottomActivity</string>
+    <string name="gestion">Gestion</string>
+    <string name="emparejar">Conectar</string>
+    <string name="pacientes">Pacientes</string>
 </resources>

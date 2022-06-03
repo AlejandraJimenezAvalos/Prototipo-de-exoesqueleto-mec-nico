@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.ui.activity.main
+package com.example.exoesqueletov1.ui.activity.main_bottom
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
@@ -23,7 +23,6 @@ class MainViewModel @Inject constructor(
     private val firebaseService: FirebaseService,
     private val dataRepository: DataRepository
 ) : ViewModel() {
-
     private val id = FirebaseAuth.getInstance().currentUser!!.uid
     val result = MediatorLiveData<Resource<UserModel>>()
     val userModel: MediatorLiveData<UserModel>

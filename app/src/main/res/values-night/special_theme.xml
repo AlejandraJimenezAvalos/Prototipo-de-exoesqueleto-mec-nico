@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="ThemeSpecial" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="colorPrimary">@color/pink</item>
+        <item name="colorPrimary">@color/pinkDark</item>
         <item name="colorPrimaryVariant">@color/pinkDark</item>
         <item name="colorOnPrimary">@color/blueDark</item>
         <item name="colorPrimaryContainer">@color/pinkDark</item>

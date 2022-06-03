@@ -7,7 +7,7 @@ object Constants {
     enum class ActionUsers { Delete, LogIn }
     enum class TypeUser { Admin, Specialist, Patient }
     enum class SingInPagerNavigation { Login, SingIn }
-    enum class Menu { Notification, Profile, Chats, Control, WorkSpecialist, LogOut }
+    enum class Menu { Home, Profile, Chats, Control, WorkSpecialist, LogOut }
 
     const val COLLECTION_PROFILE = "profile"
     const val COLLECTION_USER = "user"

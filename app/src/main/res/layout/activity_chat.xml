@@ -70,7 +70,7 @@
         android:orientation="vertical"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/layout_message"
-        app:layout_constraintTop_toBottomOf="@+id/card_image_profile"
+        app:layout_constraintTop_toBottomOf="@+id/image_activity_chat_back"
         tools:itemCount="3"
         tools:layout_editor_absoluteX="16dp"
         tools:listitem="@layout/item_my_message" />
@@ -82,13 +82,13 @@
         android:layout_marginEnd="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/image_view_send"
+        android:hint="@string/aa"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/edit_text_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/aa"
             android:maxEms="10"
             android:maxLines="3"
             tools:text="@tools:sample/lorem/random" />
