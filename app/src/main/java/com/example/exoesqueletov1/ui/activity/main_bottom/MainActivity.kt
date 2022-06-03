@@ -13,7 +13,7 @@ import com.example.exoesqueletov1.ui.activity.sing_in.SingInActivity
 import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Utils.getTypeUser
 import dagger.hilt.android.AndroidEntryPoint
-
+|
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
