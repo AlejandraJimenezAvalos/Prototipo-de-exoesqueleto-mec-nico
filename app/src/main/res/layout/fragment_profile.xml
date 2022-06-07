@@ -95,7 +95,7 @@
                 android:padding="16sp">
 
                 <TextView
-                    android:id="@+id/textView27"
+                    android:id="@+id/text_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/contacto"

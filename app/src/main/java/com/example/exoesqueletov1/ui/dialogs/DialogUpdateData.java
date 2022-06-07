@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.ui.activity.ConstantsDatabase;
-import com.example.exoesqueletov1.ui.activity.main_bottom.MainActivity;
+import com.example.exoesqueletov1.ui.activity.main.MainActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
 

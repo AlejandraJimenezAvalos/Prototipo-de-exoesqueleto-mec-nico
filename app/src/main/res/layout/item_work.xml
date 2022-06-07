@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8sp"
     android:layout_marginStart="16sp"
+    android:layout_marginTop="8sp"
     android:layout_marginEnd="16sp"
-    android:orientation="horizontal"
+    android:layout_marginBottom="8sp"
     android:elevation="8sp"
+    android:orientation="horizontal"
     app:cardCornerRadius="30sp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,21 +20,21 @@
             android:id="@+id/image_task"
             android:layout_width="wrap_content"
             android:layout_height="0sp"
+            android:contentDescription="@string/image_task"
             android:paddingTop="16sp"
             android:paddingBottom="16sp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars"
-            android:contentDescription="@string/image_task" />
+            tools:src="@tools:sample/avatars" />
 
         <ImageView
             android:id="@+id/image_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_delete"
             android:layout_margin="16sp"
+            android:src="@drawable/ic_delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
@@ -45,8 +46,8 @@
             android:layout_marginStart="16sp"
             android:layout_marginTop="16sp"
             android:layout_marginEnd="8dp"
-            android:textAllCaps="true"
             android:maxLines="1"
+            android:textAllCaps="true"
             app:layout_constraintEnd_toStartOf="@+id/image_delete"
             app:layout_constraintStart_toEndOf="@+id/image_task"
             app:layout_constraintTop_toTopOf="parent"

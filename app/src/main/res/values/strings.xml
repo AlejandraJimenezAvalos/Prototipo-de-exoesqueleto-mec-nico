@@ -69,7 +69,7 @@ Si no lo encuentra, busque en el apartado del correo no deseado.</string>
     <string name="cancelar">Cancelar</string>
     <string name="registro_exitoso">Registro exitoso</string>
     <string name="try_again">Intente más tarde.</string>
-    <string name="pendientes">Notificaciones</string>
+    <string name="notificaciones">Notificaciones</string>
     <string name="estudio">Estudio en</string>
     <string name="telefono">Telefono</string>
     <string name="celular">Celular</string>
@@ -184,4 +184,24 @@ Si no lo encuentra, busque en el apartado del correo no deseado.</string>
     <string name="gestion">Gestion</string>
     <string name="emparejar">Conectar</string>
     <string name="pacientes">Pacientes</string>
+    <string name="stop">stop</string>
+    <string name="connection">connection</string>
+    <string name="controles">Controles</string>
+    <string name="caminata_repeticiones">Caminata / Repeticiones</string>
+    <string name="pasos_tiempo">Pasos / Tiempo</string>
+    <string name="pasos">Pasos</string>
+    <string name="tiempo">Tiempo</string>
+    <string name="repeticiones">Repeticiones</string>
+    <string name="alternaciones">Alternaciones</string>
+    <string name="derecha">Derecha</string>
+    <string name="izquierda">Izquierda</string>
+    <string name="ambas">Ambas</string>
+    <string name="pendientes">Pendientes</string>
+    <string name="pulso_cardiaco">Pulso cardiaco</string>
+    <string name="temperatura">Temperatura</string>
+    <string name="bpm">bpm</string>
+    <string name="heart">heart</string>
+    <string name="temperature">temperature</string>
+    <string name="datos">Datos</string>
+    <string name="dot">.</string>
 </resources>

@@ -100,7 +100,7 @@ object Utils {
         editText!!.setText(s)
     }
 
-    fun AutoCompleteTextView.getTextIn() = text.toString().trim()
+    private fun AutoCompleteTextView.getTextIn() = text.toString().trim()
 
     fun Exception.setError(fragmentManager: FragmentManager, tag: String): DialogOops {
         val dialogOops = DialogOops(message)
@@ -124,7 +124,7 @@ object Utils {
         if (!this.isChecked) Constants.TypeUser.Specialist.toString()
         else Constants.TypeUser.Patient.toString()
 
-    fun RadioButton.getGender() =
+    private fun RadioButton.getGender() =
         if (this.isChecked) Constants.Gender.Woman.toString()
         else Constants.Gender.Man.toString()
 

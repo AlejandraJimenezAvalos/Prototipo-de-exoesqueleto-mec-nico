@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.exoesqueletov1.R
 import com.example.exoesqueletov1.ui.ViewPagerAdapter
-import com.example.exoesqueletov1.ui.activity.main_bottom.MainActivity
+import com.example.exoesqueletov1.ui.activity.main.MainActivity
 import com.example.exoesqueletov1.ui.fragments.WelcomeFragment
 import com.example.exoesqueletov1.ui.fragments.login.LogInFragment
 import com.example.exoesqueletov1.ui.fragments.singin.SingInFragment

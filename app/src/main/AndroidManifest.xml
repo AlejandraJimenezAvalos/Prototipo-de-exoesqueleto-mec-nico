@@ -53,7 +53,7 @@
         </activity>
         <activity android:name=".ui.activity.ControlActivity" />
         <activity android:name=".ui.activity.main.MainActivity" />
-        <activity android:name=".ui.activity.main_bottom.MainActivity" />
+        <activity android:name=".ui.activity.main.MainActivity" />
         <activity android:name=".ui.activity.ChatActivity" />
         <activity
             android:name=".ui.activity.sing_in.SingInActivity"

@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.ui.activity.main_bottom
+package com.example.exoesqueletov1.ui.activity.main
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
