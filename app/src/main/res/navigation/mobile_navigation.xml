@@ -74,7 +74,7 @@
         tools:layout="@layout/fragment_walk"/>
     <activity
         android:id="@+id/chatActivity"
-        android:name="com.example.exoesqueletov1.ui.activity.ChatActivity"
+        android:name="com.example.exoesqueletov1.ui.activity.chat.ChatActivity"
         android:label="activity_chat"
         tools:layout="@layout/activity_chat" />
     <dialog

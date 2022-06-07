@@ -54,7 +54,7 @@
         <activity android:name=".ui.activity.ControlActivity" />
         <activity android:name=".ui.activity.main.MainActivity" />
         <activity android:name=".ui.activity.main.MainActivity" />
-        <activity android:name=".ui.activity.ChatActivity" />
+        <activity android:name=".ui.activity.chat.ChatActivity" />
         <activity
             android:name=".ui.activity.sing_in.SingInActivity"
             android:theme="@style/ThemePink" />

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16sp"
-    tools:context=".ui.activity.ChatActivity">
+    tools:context=".ui.activity.chat.ChatActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/image_activity_chat_back"
