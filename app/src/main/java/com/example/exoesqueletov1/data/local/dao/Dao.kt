@@ -60,8 +60,11 @@ interface Dao {
     @Query("SELECT DISTINCT `from`, `to` FROM messages WHERE `from` == :id OR `to` == :id")
     fun getGroups(id: String): LiveData<List<GroupsQuery>>
 
-    @Query("SELECT * FROM messages WHERE `from` == :id OR `to` == :id ORDER BY date ASC")
+    @Query("SELECT DISTINCT * FROM messages WHERE `from` == :id OR `to` == :id ORDER BY date ASC")
     fun getMessages(id: String): LiveData<List<MessageModel>>
+
+    @Query("SELECT id, date, `from`, `to`, message, 1 AS status FROM MESSAGES WHERE `from` == :idUser and status = 0")
+    fun readMessages(idUser: String): LiveData<List<MessageModel>>
 
     @Query("SELECT * FROM messages WHERE `from` == :id OR `to` == :id ORDER BY date DESC LIMIT 1")
     fun getMessage(id: String): LiveData<MessageModel>
@@ -74,6 +77,9 @@ interface Dao {
 
     @Query("SELECT * FROM chats")
     fun getChats(): LiveData<List<ChatsEntity>>
+
+    @Query("SELECT * FROM chats WHERE userId == :idUser LIMIT 1")
+    fun getChat(idUser: String): LiveData<ChatsEntity>
 
     @Query("DELETE FROM chats")
     fun deleteChats()

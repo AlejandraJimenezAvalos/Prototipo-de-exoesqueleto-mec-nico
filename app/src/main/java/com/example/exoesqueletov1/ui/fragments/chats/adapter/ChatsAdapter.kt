@@ -5,9 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exoesqueletov1.R
 import com.example.exoesqueletov1.data.local.entity.ChatsEntity
+import com.example.exoesqueletov1.data.models.MessageModel
 
 class ChatsAdapter(
-    private val list: List<ChatsEntity>,
+    private val list: MutableList<ChatsEntity>,
     private val onClick: (ChatsEntity) -> Unit
 ) :
     RecyclerView.Adapter<ChatsViewHolder>() {

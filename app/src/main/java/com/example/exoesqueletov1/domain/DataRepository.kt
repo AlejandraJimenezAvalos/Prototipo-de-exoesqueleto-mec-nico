@@ -36,7 +36,9 @@ class DataRepository @Inject constructor(private val dao: Dao) {
     fun getGroups(id: String) = dao.getGroups(id)
     fun getMessages(id: String) = dao.getMessages(id)
     fun getMessage(id: String) = dao.getMessage(id)
+    fun readMessage(idUser: String) = dao.readMessages(idUser)
 
     fun insertChat(chatsEntity: ChatsEntity) = dao.insertChat(chatsEntity)
     fun getChats() = dao.getChats()
+    fun getChat(idUser: String) = dao.getChat(idUser)
 }

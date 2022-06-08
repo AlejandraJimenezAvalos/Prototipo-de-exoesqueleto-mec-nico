@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8sp">
+    android:paddingStart="16sp"
+    android:paddingEnd="16sp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView5"
@@ -32,11 +33,10 @@
 
     <TextView
         android:id="@+id/textView_hour"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="10sp"
         android:layout_marginEnd="16sp"
-
         app:layout_constraintEnd_toEndOf="@+id/materialCardView5"
         app:layout_constraintTop_toBottomOf="@+id/materialCardView5"
         tools:ignore="SmallSp"

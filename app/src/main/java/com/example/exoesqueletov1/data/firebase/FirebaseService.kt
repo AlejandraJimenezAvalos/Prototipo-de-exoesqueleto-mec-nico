@@ -108,7 +108,7 @@ class FirebaseService @Inject constructor() {
     fun setMessage(messageModel: MessageModel, result: (Resource<Void>) -> Unit) {
         result.invoke(Resource.loading())
         db.collection(Constants.COLLECTION_MESSAGES)
-            .document()
+            .document(messageModel.id)
             .set(messageModel)
             .addOnSuccessListener {
                 result.invoke(Resource.success(it))

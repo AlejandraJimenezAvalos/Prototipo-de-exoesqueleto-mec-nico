@@ -18,12 +18,12 @@
         android:id="@+id/navigation_work"
         android:name="com.example.exoesqueletov1.ui.fragments.AssignWorkFragment"
         android:label="AssignWorkFragment"
-        tools:layout="@layout/fragment_assign_work"/>
+        tools:layout="@layout/fragment_assign_work" />
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.example.exoesqueletov1.ui.fragments.MenuFragment"
         android:label="MenuFragment"
-        tools:layout="@layout/fragment_menu" >
+        tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_upAndDownFragment"
             app:destination="@id/upAndDownFragment" />
@@ -44,43 +44,43 @@
             app:destination="@id/dialogContact" />
     </fragment>
     <fragment
-        tools:layout="@layout/fragment_home"
         android:id="@+id/navigation_home"
         android:name="com.example.exoesqueletov1.ui.fragments.home.HomeFragment"
-        android:label="NotificationFragment" />
+        android:label="NotificationFragment"
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_paired_device"
-        tools:layout="@layout/fragment_paired_devises"
         android:name="com.example.exoesqueletov1.ui.fragments.PairedDevisesFragment"
-        android:label="PairedDevisesFragment" >
+        android:label="PairedDevisesFragment"
+        tools:layout="@layout/fragment_paired_devises">
         <action
             android:id="@+id/action_pairedDevisesFragment_to_menuFragment2"
             app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/nav_user"
-        tools:layout="@layout/fragment_user"
         android:name="com.example.exoesqueletov1.ui.fragments.user.UserFragment"
-        android:label="ProfileLogUpFragment" />
+        android:label="ProfileLogUpFragment"
+        tools:layout="@layout/fragment_user" />
     <fragment
         android:id="@+id/upAndDownFragment"
-        tools:layout="@layout/fragment_up_and_down"
         android:name="com.example.exoesqueletov1.ui.fragments.UpAndDownFragment"
-        android:label="UpAndDownFragment" />
+        android:label="UpAndDownFragment"
+        tools:layout="@layout/fragment_up_and_down" />
     <fragment
         android:id="@+id/walkFragment"
         android:name="com.example.exoesqueletov1.ui.fragments.WalkFragment"
         android:label="WalkFragment"
-        tools:layout="@layout/fragment_walk"/>
+        tools:layout="@layout/fragment_walk" />
     <activity
         android:id="@+id/chatActivity"
         android:name="com.example.exoesqueletov1.ui.activity.chat.ChatActivity"
         android:label="activity_chat"
-        tools:layout="@layout/activity_chat" />
+        tools:layout="@layout/activity_chat"/>
     <dialog
         android:id="@+id/dialogContact"
         android:name="com.example.exoesqueletov1.ui.dialogs.DialogContact"
         android:label="DialogContact"
-        tools:layout="@layout/dialog_contact"/>
+        tools:layout="@layout/dialog_contact" />
 
 </navigation>

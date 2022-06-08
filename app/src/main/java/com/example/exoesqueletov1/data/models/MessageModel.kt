@@ -24,7 +24,7 @@ data class MessageModel(
             return try {
                 MessageModel(
                     id,
-                    getDate(Constants.DATE)!!.toString(),
+                    getString(Constants.DATE)!!,
                     getString(Constants.FROM)!!,// eEoLKvDFNDYiJbEilP8DZ8hX6b83
                     getString(Constants.TO)!!,
                     getString(Constants.MESSAGE)!!,

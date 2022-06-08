@@ -3,8 +3,11 @@ package com.example.exoesqueletov1.ui.activity.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.exoesqueletov1.R
@@ -12,6 +15,7 @@ import com.example.exoesqueletov1.databinding.ActivityMainBinding
 import com.example.exoesqueletov1.ui.activity.sing_in.SingInActivity
 import com.example.exoesqueletov1.ui.dialogs.DialogLoading
 import com.example.exoesqueletov1.ui.dialogs.DialogOops
+import com.example.exoesqueletov1.ui.fragments.connection.ConnectionFragment
 import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
 import com.example.exoesqueletov1.utils.Utils.getTypeUser
@@ -41,18 +45,22 @@ class MainActivity : AppCompatActivity() {
                 Constants.TypeUser.Specialist -> {
                     binding.navViewPatient.visibility = View.GONE
                     binding.navViewSpecialist.visibility = View.VISIBLE
-                    binding.navView.visibility = View.VISIBLE
+                    binding.navView.visibility = View.GONE
                     binding.navViewSpecialist
                 }
                 Constants.TypeUser.Patient -> {
-                    binding.navViewPatient.visibility = View.GONE
+                    binding.navViewPatient.visibility = View.VISIBLE
                     binding.navViewSpecialist.visibility = View.GONE
-                    binding.navView.visibility = View.VISIBLE
+                    binding.navView.visibility = View.GONE
                     binding.navViewPatient
                 }
             }
             val navController = findNavController(R.id.nav_host_fragment_activity_main_bottom)
             navView.setupWithNavController(navController)
+            navController.addOnDestinationChangedListener { controller, destination, arguments ->
+                if (destination.id == R.id.chatActivity)
+                    Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show()
+            }
         }
 
         /*binding.motion.setTransitionDuration(1000)
@@ -60,8 +68,8 @@ class MainActivity : AppCompatActivity() {
         binding.motion.transitionToEnd()
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.bluetooth_content, LargeConnectionFragment()).commit()*/
-
+            .replace(R.id.bluetooth_content, ConnectionFragment()).commit()
+*/
         viewModel.result.observe(this) {
             it.status.createLoadingDialog(
                 supportFragmentManager,
