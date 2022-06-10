@@ -1,5 +1,9 @@
 package com.example.exoesqueletov1.utils
 
+import android.Manifest
+import android.os.Build
+import androidx.annotation.RequiresApi
+
 object Constants {
 
     enum class Status { Success, Failure, Canceled, Loading, NotExist }
@@ -33,5 +37,15 @@ object Constants {
     const val TO = "to"
     const val MESSAGE = "message"
     const val STATUS = "status"
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    val PERMISSIONS = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.CAMERA,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.BLUETOOTH_SCAN,
+        Manifest.permission.BLUETOOTH_CONNECT
+    )
 
 }

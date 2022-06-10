@@ -195,7 +195,6 @@
                         android:layout_width="0sp"
                         android:layout_height="wrap_content"
                         android:text="@string/tiempo"
-                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/text_steps"
                         app:layout_constraintTop_toTopOf="@+id/text_steps" />
@@ -207,7 +206,6 @@
                         android:stepSize="1.0"
                         android:valueFrom="1.0"
                         android:valueTo="10.0"
-                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/text_time"
                         app:layout_constraintStart_toStartOf="@+id/text_time"
                         app:layout_constraintTop_toBottomOf="@+id/text_time" />
@@ -219,7 +217,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8sp"
                         android:text="@string/repeticiones"
-                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/slider_step" />
 
@@ -230,7 +227,6 @@
                         android:stepSize="1.0"
                         android:valueFrom="1.0"
                         android:valueTo="10.0"
-                        android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@+id/text_repetition"
                         tools:layout_editor_absoluteX="16dp" />
 
@@ -241,55 +237,50 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16sp"
                         android:text="@string/alternaciones"
-                        android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@+id/slider_repetition"
                         tools:layout_editor_absoluteX="16dp" />
 
-                    <RadioGroup
-                        android:id="@+id/radio_aletrnaciones"
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:visibility="gone"
+                        style="@style/Widget.MaterialComponents.ChipGroup"
                         app:layout_constraintTop_toBottomOf="@+id/text_aternaciones"
-                        tools:layout_editor_absoluteX="16dp">
+                        android:layout_marginTop="8sp">
 
-                        <RadioButton
-                            android:id="@+id/radio_right"
+                        <com.google.android.material.chip.Chip
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8sp"
+                            android:checked="true"
                             android:text="@string/derecha" />
 
-                        <RadioButton
-                            android:id="@+id/radio_left"
+                        <com.google.android.material.chip.Chip
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8sp"
                             android:text="@string/izquierda" />
 
-                        <RadioButton
-                            android:id="@+id/radio_ambos"
+                        <com.google.android.material.chip.Chip
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ambas" />
-
-                    </RadioGroup>
+                    </com.google.android.material.chip.ChipGroup>
 
                     <ImageView
                         android:id="@+id/image_play"
                         android:layout_width="42sp"
                         android:layout_height="42sp"
-                        android:layout_marginTop="16sp"
                         android:background="@drawable/border_withe"
                         android:contentDescription="@string/play"
                         android:padding="4sp"
+                        android:layout_marginTop="8sp"
                         android:src="@drawable/ic_play"
                         app:layout_constraintEnd_toStartOf="@+id/image_pause"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/radio_aletrnaciones" />
+                        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
                     <ImageView
                         android:id="@+id/image_pause"
@@ -523,6 +514,7 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
         android:elevation="-1sp"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

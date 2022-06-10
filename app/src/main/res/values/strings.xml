@@ -204,4 +204,8 @@ Si no lo encuentra, busque en el apartado del correo no deseado.</string>
     <string name="temperature">temperature</string>
     <string name="datos">Datos</string>
     <string name="dot">.</string>
+    <string name="paired_devises">paired_devises</string>
+    <string name="buscando_conexion">Buscando conexion...</string>
+    <string name="mantenga_su_celular_a_no_m_s_de_7_metros_de_distancia_del_exoesqueleto">Mantenga su celular a no más de 7 metros de distancia del exoesqueleto.</string>
+    <string name="reintentar">Reintentar</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.exoesqueletov1.ui.activity
 
-import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Build
@@ -15,6 +14,7 @@ import androidx.core.content.ContextCompat
 import com.example.exoesqueletov1.R
 import com.example.exoesqueletov1.databinding.ActivitySplashBinding
 import com.example.exoesqueletov1.ui.activity.sing_in.SingInActivity
+import com.example.exoesqueletov1.utils.Constants.PERMISSIONS
 import com.google.android.material.snackbar.Snackbar
 
 class SplashActivity : AppCompatActivity() {
@@ -58,17 +58,9 @@ class SplashActivity : AppCompatActivity() {
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 } finally {
-                    val permissions = arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.BLUETOOTH_SCAN,
-                        Manifest.permission.BLUETOOTH_CONNECT
-                    )
-                    if (checkPermissions(permissions)) {
+                    if (checkPermissions(PERMISSIONS)) {
                         ActivityCompat.requestPermissions(
-                            this@SplashActivity, permissions,
+                            this@SplashActivity, PERMISSIONS,
                             1
                         )
                     }

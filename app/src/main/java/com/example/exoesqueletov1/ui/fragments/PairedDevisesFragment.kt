@@ -1,96 +1,116 @@
-package com.example.exoesqueletov1.ui.fragments;
+package com.example.exoesqueletov1.ui.fragments
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import com.example.exoesqueletov1.R;
-import com.example.exoesqueletov1.ui.activity.ControlActivity;
-
-import java.util.ArrayList;
-import java.util.Set;
-
-public class PairedDevisesFragment extends Fragment {
-
-    private BluetoothAdapter bluetoothAdapter = null;
-    public static final String DEVICE_ADDRESS = "deviceAddress";
-    public static final String TYPE_USER = "typeUser";
-    private static final int REQUEST_CODE = 1;
-
-    private ListView listView;
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.pm.PackageManager
+import android.os.Build
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import com.example.exoesqueletov1.databinding.FragmentPairedDevisesBinding
+import com.example.exoesqueletov1.utils.Constants
 
 
-    public PairedDevisesFragment() {
+class PairedDevisesFragment : Fragment() {
+
+    private var state = false
+    private lateinit var binding: FragmentPairedDevisesBinding
+    private var bluetoothAdapter: BluetoothAdapter? = null
+    private var bondedDevices: MutableSet<BluetoothDevice>? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentPairedDevisesBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_paired_devises, container, false);
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bluetoothAdapter =
+            (requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
 
-        Button buttonPaired = view.findViewById(R.id.button_paired_devises);
-        listView = view.findViewById(R.id.listView);
-
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        if (bluetoothAdapter == null) {
-            Toast.makeText(getContext(), R.string.no_bluetooth, Toast.LENGTH_LONG).show();
-            getActivity().finish();
-        }
-        if (!bluetoothAdapter.isEnabled()) {
-            Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(turnBTon, REQUEST_CODE);
-        }
-
-        pairedDevicesList();
-
-        buttonPaired.setOnClickListener(v -> pairedDevicesList());
-
-        return view;
-    }
-
-    private void pairedDevicesList() {
-        Set<BluetoothDevice> bluetoothDevices = bluetoothAdapter.getBondedDevices();
-        ArrayList list = new ArrayList();
-
-        if (bluetoothDevices.size() > 0) {
-            for (BluetoothDevice bt : bluetoothDevices) {
-                list.add(bt.getName() + "\n" + bt.getAddress());
-                //Get the device's name and the address
+        if (bluetoothAdapter != null) {
+            if (!bluetoothAdapter!!.isEnabled) {
+                val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                isEnableBluetooth.launch(enableIntent)
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                startProcess()
             }
-        } else {
-            Toast.makeText(getContext(), "No hay dispositivos",
-                    Toast.LENGTH_LONG).show();
-        }
-
-        final ArrayAdapter adapter;
-        adapter = new ArrayAdapter(getContext(), R.layout.list_item_withe, R.id.list_content, list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(myListClickListener);
+        } else binding.textStatus.text =
+            "El dispositivo no cuenta con soporte para conectarse al exoesqueleto."
     }
 
-    private AdapterView.OnItemClickListener myListClickListener = (av, view, arg2, arg3) -> {
-        TextView textView = view.findViewById(R.id.list_content);
-        String info = textView.getText().toString();
-        String address = info.substring(info.length() - 17);
-        Intent intent = new Intent(getContext(), ControlActivity.class);
-        //intent.putExtra(DEVICE_ADDRESS, address);
-        //intent.putExtra(TYPE_USER, typeUser);
-        startActivity(intent);
-    };
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun startProcess() {
+        state = true
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.BLUETOOTH_CONNECT
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(), Constants.PERMISSIONS,
+                1
+            )
+        } else {
+            bondedDevices = bluetoothAdapter!!.bondedDevices
+            val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
+            requireActivity().registerReceiver(broadcastReceiver, filter)
+            bluetoothAdapter!!.startDiscovery()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (state && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)) {
+            startProcess()
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private var isEnableBluetooth =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    startProcess()
+                }
+            }
+        }
+
+    private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        @SuppressLint("MissingPermission")
+        override fun onReceive(context: Context, intent: Intent) {
+            val action = intent.action
+            if (BluetoothDevice.ACTION_FOUND == action) {
+                val device =
+                    intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+                bondedDevices!!.add(device!!)
+                Log.e("Bluetooth device: ", "ADDRESS: ${device.address} \nNAME: ${device.name}")
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun onPause() {
+        super.onPause()
+        bluetoothAdapter!!.cancelDiscovery()
+        requireActivity().unregisterReceiver(broadcastReceiver)
+    }
+
 }
