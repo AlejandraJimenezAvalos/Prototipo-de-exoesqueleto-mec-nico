@@ -1,5 +1,6 @@
 package com.example.exoesqueletov1.utils
 
+import android.annotation.SuppressLint
 import android.util.Patterns
 import android.widget.AutoCompleteTextView
 import android.widget.RadioButton
@@ -14,6 +15,9 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
 import java.util.regex.Pattern
 
 private const val PASSWORD_VALIDATION =
@@ -168,4 +172,11 @@ object Utils {
             state.invoke(idState && addressState && cellState && emailState && nameState && phoneState && schoolState && descriptionState)
         }
     }
+
+    @SuppressLint("SimpleDateFormat")
+    fun Date.toDate(): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        return formatter.format(this)
+    }
+
 }

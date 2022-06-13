@@ -10,6 +10,7 @@ import com.example.exoesqueletov1.databinding.ActivityChatBinding
 import com.example.exoesqueletov1.ui.activity.chat.adapter.ChatAdapter
 import com.example.exoesqueletov1.ui.dialogs.DialogOops
 import com.example.exoesqueletov1.utils.Constants
+import com.example.exoesqueletov1.utils.Utils.toDate
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -68,7 +69,7 @@ private fun TextInputEditText.isValidMessage(idUser: String, message: (MessageMo
         message.invoke(
             MessageModel(
                 UUID.randomUUID().toString(),
-                Date().toString(),
+                Date().toDate(),
                 Firebase.auth.currentUser!!.uid,
                 idUser,
                 text.toString().trim(),
