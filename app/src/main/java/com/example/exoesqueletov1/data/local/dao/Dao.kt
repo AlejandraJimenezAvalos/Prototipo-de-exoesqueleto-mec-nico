@@ -60,7 +60,7 @@ interface Dao {
     @Query("SELECT DISTINCT `from`, `to` FROM messages WHERE `from` == :id OR `to` == :id")
     fun getGroups(id: String): LiveData<List<GroupsQuery>>
 
-    @Query("SELECT DISTINCT * FROM messages WHERE `from` == :id OR `to` == :id ORDER BY DATE(date) DESC")
+    @Query("SELECT DISTINCT * FROM messages WHERE `from` == :id OR `to` == :id ORDER BY DATE(date) ASC")
     fun getMessages(id: String): LiveData<List<MessageModel>>
 
     @Query("SELECT id, date, `from`, `to`, message, 1 AS status FROM MESSAGES WHERE `from` == :idUser and status = 0")
