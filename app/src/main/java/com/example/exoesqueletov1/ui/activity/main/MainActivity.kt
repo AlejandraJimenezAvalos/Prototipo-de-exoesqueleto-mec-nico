@@ -1,10 +1,14 @@
 package com.example.exoesqueletov1.ui.activity.main
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -19,6 +23,7 @@ import com.example.exoesqueletov1.ui.fragments.connection.ConnectionFragment
 import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
 import com.example.exoesqueletov1.utils.Utils.getTypeUser
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -93,5 +98,40 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && checkPermissions(Constants.PERMISSIONS)) {
+            ActivityCompat.requestPermissions(this, Constants.PERMISSIONS, 1)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if ((requestCode == 1) && (grantResults.isNotEmpty())) {
+            grantResults.forEach {
+                if (it != PackageManager.PERMISSION_GRANTED) {
+                    Snackbar.make(
+                        binding.root,
+                        "No se puede continuar por no contar con los permisos requeridos.",
+                        Snackbar.LENGTH_INDEFINITE
+                    ).setAction("Aceptar") {
+                        finish()
+                    }.show()
+                }
+            }
+        }
+    }
+
+    private fun checkPermissions(permissions: Array<String>): Boolean {
+        var permissionResult = true
+        permissions.forEach {
+            val permissionState = ContextCompat.checkSelfPermission(this, it)
+            permissionResult =
+                permissionResult && (permissionState == PackageManager.PERMISSION_GRANTED)
+        }
+        return !permissionResult
     }
 }

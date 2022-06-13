@@ -50,7 +50,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_paired_device"
-        android:name="com.example.exoesqueletov1.ui.fragments.PairedDevisesFragment"
+        android:name="com.example.exoesqueletov1.ui.fragments.pairedDevises.PairedDevisesFragment"
         android:label="PairedDevisesFragment"
         tools:layout="@layout/fragment_paired_devises">
         <action

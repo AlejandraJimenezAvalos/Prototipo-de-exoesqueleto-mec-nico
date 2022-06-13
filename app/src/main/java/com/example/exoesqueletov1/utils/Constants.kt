@@ -1,6 +1,8 @@
 package com.example.exoesqueletov1.utils
 
 import android.Manifest
+import android.Manifest.*
+import android.Manifest.permission.*
 import android.os.Build
 import androidx.annotation.RequiresApi
 
@@ -40,12 +42,19 @@ object Constants {
 
     @RequiresApi(Build.VERSION_CODES.S)
     val PERMISSIONS = arrayOf(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.CAMERA,
-        Manifest.permission.ACCESS_COARSE_LOCATION,
-        Manifest.permission.BLUETOOTH_SCAN,
-        Manifest.permission.BLUETOOTH_CONNECT
+        INTERNET,
+        READ_EXTERNAL_STORAGE,
+        WRITE_EXTERNAL_STORAGE,
+        CALL_PHONE,
+        ACCESS_COARSE_LOCATION,
+        ACCESS_FINE_LOCATION,
+        CAMERA,
+        FOREGROUND_SERVICE,
+        BLUETOOTH,
+        BLUETOOTH_ADMIN,
+        BLUETOOTH_SCAN,
+        BLUETOOTH_ADVERTISE,
+        BLUETOOTH_CONNECT,
     )
 
 }

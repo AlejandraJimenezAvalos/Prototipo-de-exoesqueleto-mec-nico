@@ -44,10 +44,10 @@
 
     <Button
         android:id="@+id/button_scan"
-        style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/reintentar"
+        android:text="Buscar conexión"
         app:icon="@drawable/ic_bluetooth_connected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -21,26 +21,6 @@ class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
 
-    val coarsePermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-        if (it) {
-            startActivity(
-                Intent(
-                    this@SplashActivity,
-                    SingInActivity::class.java
-                )
-            )
-            finish()
-        } else {
-            Snackbar.make(
-                binding.root,
-                "No se puede continuar por no contar con los permisos requeridos.",
-                Snackbar.LENGTH_INDEFINITE
-            ).setAction("Aceptar") {
-                finish()
-            }.show()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
@@ -63,6 +43,14 @@ class SplashActivity : AppCompatActivity() {
                             this@SplashActivity, PERMISSIONS,
                             1
                         )
+                    } else {
+                        startActivity(
+                            Intent(
+                                this@SplashActivity,
+                                SingInActivity::class.java
+                            )
+                        )
+                        finish()
                     }
                 }
             }
@@ -88,24 +76,26 @@ class SplashActivity : AppCompatActivity() {
         when (requestCode) {
             1 -> {
                 if (grantResults.isNotEmpty()) {
+                    var state = true
                     grantResults.forEach {
-                        if (it == PERMISSION_GRANTED) {
-                            startActivity(
-                                Intent(
-                                    this@SplashActivity,
-                                    SingInActivity::class.java
-                                )
+                        state = (it == PERMISSION_GRANTED) && state
+                    }
+                    if (!state) {
+                        startActivity(
+                            Intent(
+                                this@SplashActivity,
+                                SingInActivity::class.java
                             )
+                        )
+                        finish()
+                    } else {
+                        Snackbar.make(
+                            binding.root,
+                            "No se puede continuar por no contar con los permisos requeridos.",
+                            Snackbar.LENGTH_INDEFINITE
+                        ).setAction("Aceptar") {
                             finish()
-                        } else {
-                            Snackbar.make(
-                                binding.root,
-                                "No se puede continuar por no contar con los permisos requeridos.",
-                                Snackbar.LENGTH_INDEFINITE
-                            ).setAction("Aceptar") {
-                                finish()
-                            }.show()
-                        }
+                        }.show()
                     }
                 }
             }
