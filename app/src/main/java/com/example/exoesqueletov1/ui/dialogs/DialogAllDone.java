@@ -1,5 +1,6 @@
 package com.example.exoesqueletov1.ui.dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -16,12 +17,13 @@ import com.example.exoesqueletov1.R;
 
 public class DialogAllDone extends AppCompatDialogFragment {
 
-    private String message;
+    private final String message;
 
     public DialogAllDone(String message) {
         this.message = message;
     }
 
+    @SuppressLint("InflateParams")
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

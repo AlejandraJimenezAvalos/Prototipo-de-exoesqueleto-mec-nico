@@ -5,7 +5,9 @@ import androidx.room.*
 import androidx.room.Dao
 import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
+import com.example.exoesqueletov1.data.local.query.ExoskeletonQuery
 import com.example.exoesqueletov1.data.local.query.GroupsQuery
+import com.example.exoesqueletov1.data.models.ExoskeletonModel
 import com.example.exoesqueletov1.data.models.MessageModel
 import com.example.exoesqueletov1.data.models.ProfileModel
 import com.example.exoesqueletov1.data.models.UserModel
@@ -18,7 +20,7 @@ interface Dao {
     @Update
     fun updateUser(userModel: UserModel)
 
-    @Query("SELECT * FROM user WHERE id == :id")
+    @Query("SELECT * FROM user WHERE id == :id LIMIT 1")
     fun getUser(id: String): LiveData<UserModel>
 
     @Query("DELETE FROM user")
@@ -83,4 +85,14 @@ interface Dao {
 
     @Query("DELETE FROM chats")
     fun deleteChats()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertExoskeleton(exoskeletonModel: ExoskeletonModel)
+
+    @Query("SELECT id AS id, mac AS mac, userId AS userId, (SELECT name FROM user WHERE id == userId) AS name, 'Emparejado' AS status FROM exoskeleton")
+    fun getExoskeleton(): LiveData<List<ExoskeletonQuery>>
+
+    @Query("DELETE FROM exoskeleton")
+    fun deleteExoskeleton()
+
 }

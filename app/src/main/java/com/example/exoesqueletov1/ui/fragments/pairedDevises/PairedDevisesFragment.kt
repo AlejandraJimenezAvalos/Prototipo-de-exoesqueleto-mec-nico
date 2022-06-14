@@ -20,18 +20,31 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.exoesqueletov1.R
+import com.example.exoesqueletov1.data.local.query.ExoskeletonQuery
 import com.example.exoesqueletov1.databinding.FragmentPairedDevisesBinding
+import com.example.exoesqueletov1.ui.fragments.pairedDevises.adapter.PairedDevicesAdapter
+import com.example.exoesqueletov1.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PairedDevisesFragment : Fragment() {
 
     private lateinit var binding: FragmentPairedDevisesBinding
     private var bluetoothAdapter: BluetoothAdapter? = null
     private var bondedDevices: MutableSet<BluetoothDevice>? = null
+    private lateinit var viewModel: PairedDeviceViewModel
+    private val listExoskeletonQuery = mutableListOf<ExoskeletonQuery>()
+    private val listDevices = mutableListOf<ExoskeletonQuery>()
+    private lateinit var adapter: PairedDevicesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel = ViewModelProvider(this)[PairedDeviceViewModel::class.java]
         binding = FragmentPairedDevisesBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -39,8 +52,14 @@ class PairedDevisesFragment : Fragment() {
     @SuppressLint("ServiceCast")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter = PairedDevicesAdapter(listDevices)
         bluetoothAdapter =
             (requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
+
+        viewModel.bluetoothDevice.observe(viewLifecycleOwner) {
+            listExoskeletonQuery.clear()
+            listExoskeletonQuery.addAll(it)
+        }
 
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -49,35 +68,47 @@ class PairedDevisesFragment : Fragment() {
         ) {
             if (bluetoothAdapter != null) {
                 if (!bluetoothAdapter!!.isEnabled) {
-                    binding.textStatus.text =
-                        "El Bluetooth esta deshabilitado."
+                    binding.textStatus.text = getString(R.string.bluetooth_inavil)
                     val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                     isEnableBluetooth.launch(enableIntent)
                 } else setListeners()
-            } else binding.textStatus.text =
-                "El dispositivo no cuenta con soporte para conectarse al exoesqueleto."
-        } else binding.textStatus.text =
-            "La aplicación no cuenta con permisos de Bluetooth."
+            } else binding.textStatus.text = getString(R.string.bluetooth_not_found)
+        } else binding.textStatus.text = getString(R.string.bluetooth_permission)
 
+        binding.apply {
+            recyclerBluetoothDevices.setHasFixedSize(true)
+            recyclerBluetoothDevices.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            recyclerBluetoothDevices.adapter = adapter
+        }
     }
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission", "NotifyDataSetChanged")
     private fun startProcess() {
+        listDevices.clear()
         bondedDevices = bluetoothAdapter!!.bondedDevices
+        bondedDevices!!.forEach { device ->
+            listExoskeletonQuery.forEach { exoskeletonModel ->
+                if (device.address == exoskeletonModel.mac) {
+                    exoskeletonModel.status = Constants.StatusDevice.Emparejado.name
+                    listDevices.add(exoskeletonModel)
+                }
+            }
+        }
         if (!bluetoothAdapter!!.isDiscovering) {
-            val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
+            val filter = IntentFilter()
+            filter.addAction(BluetoothDevice.ACTION_FOUND)
+            filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)
+            filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED)
             requireActivity().registerReceiver(broadcastReceiver, filter)
             bluetoothAdapter!!.startDiscovery()
-            binding.textStatus.text =
-                "Buscando conexion..."
-            binding.buttonScan.setText("Cancelar")
         } else {
-            binding.textStatus.text =
-                "Listo para comenzar."
-            binding.buttonScan.setText("Buscar conexión")
+            binding.textStatus.text = getString(R.string.listo)
+            binding.buttonScan.text = getString(R.string.search_conection)
             bluetoothAdapter!!.cancelDiscovery()
             requireActivity().unregisterReceiver(broadcastReceiver)
         }
+        if (listDevices.isNotEmpty()) adapter.notifyDataSetChanged()
 
     }
 
@@ -91,7 +122,7 @@ class PairedDevisesFragment : Fragment() {
 
     private fun setListeners() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            binding.textStatus.text = "Listo para comenzar."
+            binding.textStatus.text = getString(R.string.listo)
             binding.buttonScan.setOnClickListener {
                 startProcess()
             }
@@ -102,12 +133,32 @@ class PairedDevisesFragment : Fragment() {
     }
 
     private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        @SuppressLint("MissingPermission")
+        @SuppressLint("MissingPermission", "NotifyDataSetChanged")
         override fun onReceive(context: Context, intent: Intent) {
-            val action = intent.action
-            if (BluetoothDevice.ACTION_FOUND == action) {
-                val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-                Log.e("Bluetooth device: ", "ADDRESS: ${device!!.address} \nNAME: ${device.name}")
+            when (intent.action) {
+                BluetoothDevice.ACTION_FOUND -> {
+                    val device =
+                        intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+                    listExoskeletonQuery.forEach { exoskeletonModel ->
+                        if (device!!.address == exoskeletonModel.mac) {
+                            exoskeletonModel.status = Constants.StatusDevice.Cercano.name
+                            listDevices.add(exoskeletonModel)
+                        }
+                    }
+                    if (listDevices.isNotEmpty()) adapter.notifyDataSetChanged()
+                    Log.e(
+                        "Bluetooth device: ",
+                        "ADDRESS: ${device!!.address} \nNAME: ${device.name}"
+                    )
+                }
+                BluetoothAdapter.ACTION_DISCOVERY_STARTED -> {
+                    binding.textStatus.text = getString(R.string.buscando_conexion)
+                    binding.buttonScan.text = getString(R.string.cancelar)
+                }
+                BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
+                    binding.textStatus.text = getString(R.string.proceso_terminado)
+                    binding.buttonScan.text = getString(R.string.reintentar)
+                }
             }
         }
     }

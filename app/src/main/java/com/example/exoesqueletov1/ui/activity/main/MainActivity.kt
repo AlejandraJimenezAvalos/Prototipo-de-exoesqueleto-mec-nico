@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.exoesqueletov1.R
@@ -19,7 +17,6 @@ import com.example.exoesqueletov1.databinding.ActivityMainBinding
 import com.example.exoesqueletov1.ui.activity.sing_in.SingInActivity
 import com.example.exoesqueletov1.ui.dialogs.DialogLoading
 import com.example.exoesqueletov1.ui.dialogs.DialogOops
-import com.example.exoesqueletov1.ui.fragments.connection.ConnectionFragment
 import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
 import com.example.exoesqueletov1.utils.Utils.getTypeUser
@@ -62,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             }
             val navController = findNavController(R.id.nav_host_fragment_activity_main_bottom)
             navView.setupWithNavController(navController)
-            navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            navController.addOnDestinationChangedListener { _, destination, _ ->
                 if (destination.id == R.id.chatActivity)
                     Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show()
             }

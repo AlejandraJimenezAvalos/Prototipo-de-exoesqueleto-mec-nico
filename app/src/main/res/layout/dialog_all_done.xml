@@ -40,6 +40,9 @@
             android:id="@+id/button_all_done"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:backgroundTint="@color/green"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_marginTop="16sp"
             android:text="@string/aceptar" />
 

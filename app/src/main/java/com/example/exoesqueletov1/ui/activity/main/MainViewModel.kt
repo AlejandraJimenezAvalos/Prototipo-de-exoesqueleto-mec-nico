@@ -31,16 +31,17 @@ class MainViewModel @Inject constructor(
 
         firebaseService.getUser(id) {
             if (it.status == Constants.Status.Success) {
+                if (it.data!!.id == id) getExoskeleton(it.data.user)
                 viewModelScope.launch {
                     withContext(Dispatchers.IO) {
-                        dataRepository.insertUser(it.data!!)
+                        dataRepository.insertUser(it.data)
                     }
                 }
-                result.addSource(dataRepository.getUsers(id)) { user ->
-                    if (user != null) {
-                        user.name = "${it.data!!.name} ${it.data.lastName}"
+                if (it.data.id == id) {
+                    result.addSource(dataRepository.getUsers(id)) { user ->
                         viewModelScope.launch {
                             withContext(Dispatchers.IO) {
+                                user.name = "${it.data.name} ${it.data.lastName}"
                                 dataRepository.insertNewUser(user)
                             }
                         }
@@ -82,7 +83,6 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
-
         userModel.addSource(dataRepository.getGroups(id)) {
             if (it.isNotEmpty()) {
                 it.forEach { groupsQuery ->
@@ -105,6 +105,17 @@ class MainViewModel @Inject constructor(
             }
         }
 
+    }
+
+    private fun getExoskeleton(user: String) {
+        firebaseService.getExoskeleton(id, user) {
+            if (it.status == Constants.Status.Failure) result.postValue(Resource.error(it.exception!!))
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    if (it.status == Constants.Status.Success) dataRepository.insertExoskeleton(it.data!!)
+                }
+            }
+        }
     }
 
     fun singOut() {

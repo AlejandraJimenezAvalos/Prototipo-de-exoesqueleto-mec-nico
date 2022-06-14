@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import com.example.exoesqueletov1.data.local.dao.Dao
 import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
+import com.example.exoesqueletov1.data.models.ExoskeletonModel
 import com.example.exoesqueletov1.data.models.MessageModel
 import com.example.exoesqueletov1.data.models.ProfileModel
 import com.example.exoesqueletov1.data.models.UserModel
@@ -15,9 +16,11 @@ import com.example.exoesqueletov1.data.models.UserModel
         ProfileModel::class,
         UsersEntity::class,
         MessageModel::class,
-        ChatsEntity::class
+        ChatsEntity::class,
+        ExoskeletonModel::class,
     ],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class RoomDatabase : RoomDatabase() {
     abstract fun getDataDao(): Dao
