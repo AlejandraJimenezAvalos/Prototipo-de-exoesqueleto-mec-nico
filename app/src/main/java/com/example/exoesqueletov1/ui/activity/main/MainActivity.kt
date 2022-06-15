@@ -12,13 +12,14 @@ import android.os.Bundle
 import android.os.IBinder
 import android.text.Spannable
 import android.text.SpannableStringBuilder
+import android.text.method.ScrollingMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -26,15 +27,18 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.exoesqueletov1.R
 import com.example.exoesqueletov1.data.local.query.ExoskeletonQuery
 import com.example.exoesqueletov1.databinding.ActivityMainBinding
-import com.example.exoesqueletov1.service.SerialListener
+import com.example.exoesqueletov1.interfaces.BluetoothResource
 import com.example.exoesqueletov1.service.SerialService
 import com.example.exoesqueletov1.service.SerialService.SerialBinder
 import com.example.exoesqueletov1.service.SerialSocket
+import com.example.exoesqueletov1.service.interfaces.SerialListener
 import com.example.exoesqueletov1.ui.activity.sing_in.SingInActivity
 import com.example.exoesqueletov1.ui.dialogs.DialogLoading
 import com.example.exoesqueletov1.ui.dialogs.DialogOops
+import com.example.exoesqueletov1.ui.fragments.pairedDevises.adapter.PairedDevicesViewHolder
 import com.example.exoesqueletov1.utils.Constants
-import com.example.exoesqueletov1.utils.Constants.Connected
+import com.example.exoesqueletov1.utils.ConstantsBluetooth
+import com.example.exoesqueletov1.utils.ConstantsBluetooth.Connection
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
 import com.example.exoesqueletov1.utils.Utils.getTypeUser
 import com.google.android.material.snackbar.Snackbar
@@ -46,12 +50,13 @@ import org.greenrobot.eventbus.ThreadMode
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
 
+    private var terminalState = false
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
 
     private var serialSocket: SerialSocket? = null
     private var serialService: SerialService? = null
-    private var connected = Connected.False
+    private var connection = Connection.False
     private var deviceAddress = ""
     private var initialStart = true
 
@@ -68,36 +73,32 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
                     binding.navViewPatient.visibility = View.GONE
                     binding.navViewSpecialist.visibility = View.GONE
                     binding.navView.visibility = View.VISIBLE
+                    terminalState = true
                     binding.navView
                 }
                 Constants.TypeUser.Specialist -> {
                     binding.navViewPatient.visibility = View.GONE
                     binding.navViewSpecialist.visibility = View.VISIBLE
                     binding.navView.visibility = View.GONE
+                    terminalState = false
                     binding.navViewSpecialist
                 }
                 Constants.TypeUser.Patient -> {
                     binding.navViewPatient.visibility = View.VISIBLE
                     binding.navViewSpecialist.visibility = View.GONE
                     binding.navView.visibility = View.GONE
+                    terminalState = false
                     binding.navViewPatient
                 }
             }
             val navController = findNavController(R.id.nav_host_fragment_activity_main_bottom)
             navView.setupWithNavController(navController)
             navController.addOnDestinationChangedListener { _, destination, _ ->
-                if (destination.id == R.id.chatActivity)
-                    Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show()
+                if (destination.id == R.id.navigation_paired_device && connection == Connection.True) {
+                    navController.navigate(R.id.global_action_to_connection_fragment)
+                }
             }
         }
-
-        /*binding.motion.setTransitionDuration(1000)
-        binding.motion.setTransition(R.id.start, R.id.open_terminal)
-        binding.motion.transitionToEnd()
-
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.bluetooth_content, ConnectionFragment()).commit()
-*/
         viewModel.result.observe(this) {
             it.status.createLoadingDialog(
                 supportFragmentManager,
@@ -109,7 +110,6 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
                 errorDialog.show(supportFragmentManager, MainActivity::class.java.name)
             }
         }
-
         binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.sing_out -> {
@@ -118,14 +118,20 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
                     finish()
                     true
                 }
+                R.id.disconect -> {
+                    if (connection == Connection.True) disconnect()
+                    true
+                }
+                R.id.stop -> {
+                    send("stop")
+                    false
+                }
                 else -> false
             }
         }
-
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && checkPermissions(Constants.PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, Constants.PERMISSIONS, 1)
-        }
-        onAttach()
+        } else onAttach()
     }
 
     override fun onRequestPermissionsResult(
@@ -159,9 +165,31 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         return !permissionResult
     }
 
+    /**
+     * Method used by get device on [PairedDevicesViewHolder.bind]
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onPairedDevice(device: ExoskeletonQuery) {
+    fun getDevice(device: ExoskeletonQuery) {
+        if (terminalState) {
+            binding.terminal.visibility = View.VISIBLE
+            binding.buttonCloseTerminal.visibility = View.VISIBLE
+            binding.buttonCloseTerminal.setOnClickListener {
+                binding.terminal.visibility =
+                    if (binding.terminal.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+            }
+        }
+        binding.terminal.movementMethod = ScrollingMovementMethod.getInstance()
         deviceAddress = device.mac
+        val spn = SpannableStringBuilder("Address selected:\n")
+        spn.setSpan(
+            ForegroundColorSpan(getColor(R.color.green)), 0,
+            spn.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.textNameDevice.text = device.name
+        binding.terminal.append(spn)
+        binding.terminal.append("   ID:      ${device.id}\n")
+        binding.terminal.append("   Name:    ${device.name}\n")
+        binding.terminal.append("   Address: ${device.mac}\n")
         if (initialStart && serialService != null && deviceAddress.isNotEmpty()) {
             initialStart = false
             runOnUiThread { connect() }
@@ -169,7 +197,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
     }
 
     override fun onDestroy() {
-        if (connected !== Connected.False) {
+        if (connection !== Connection.False) {
             disconnect()
         }
         stopService(Intent(this, SerialService::class.java))
@@ -193,14 +221,20 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         super.onStop()
     }
 
-    fun onAttach() {
+    /**
+     * This method replace [Fragment.onAttach] of Lifecycle of a Fragment.
+     */
+    private fun onAttach() {
         bindService(
             Intent(this, SerialService::class.java),
             this, BIND_AUTO_CREATE
         )
     }
 
-    fun onDetach() {
+    /**
+     * This method replace [Fragment.onDetach] of Lifecycle of a Fragment.
+     */
+    private fun onDetach() {
         try {
             unbindService(this)
         } catch (ignored: Exception) {
@@ -227,16 +261,24 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         serialService = null
     }
 
+    /**
+     * In this method used [EventBus] for send Bluetooth
+     * Status on: [ConstantsBluetooth.Status.Connected]
+     */
     override fun onSerialConnect() {
         status("connected")
-        connected = Connected.True
-
+        connection = Connection.True
+        EventBus.getDefault().post(BluetoothResource.connect())
         send("WALK_MINUTES")
-
     }
 
+    /**
+     * In this method used [EventBus] for send Bluetooth
+     * Status on: [ConstantsBluetooth.Status.ConnectionFailed]
+     */
     override fun onSerialConnectError(e: Exception?) {
-        setError(e!!)
+        EventBus.getDefault().post(BluetoothResource.connectionFailed(e!!))
+        setError(e)
     }
 
     override fun onSerialRead(data: ByteArray?) {
@@ -259,8 +301,8 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
                 (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
             val device = bluetoothAdapter.getRemoteDevice(deviceAddress)!!
             val deviceName = if (device.name != null) device.name else device.address
-            status("connecting...")
-            connected = Connected.Pending
+            status("Connecting...")
+            connection = Connection.Pending
             serialSocket = SerialSocket()
             serialService!!.connect(this, "Connected to $deviceName")
             serialSocket!!.connect(this, serialService, device)
@@ -270,14 +312,16 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
     }
 
     private fun disconnect() {
-        connected = Connected.False
+        connection = Connection.False
+        initialStart = true
+        status("Disconnected")
         serialService!!.disconnect()
         serialSocket!!.disconnect()
         serialSocket = null
     }
 
     private fun send(str: String) {
-        if (connected !== Connected.True) {
+        if (connection !== Connection.True) {
             status("not connected")
             return
         }
@@ -289,6 +333,8 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
             )
             Log.d("Status: ", spn.toString())
             Log.d("Status: ", str)
+            binding.terminal.append(spn)
+            binding.terminal.append("$str\n")
             val newline = "\r\n"
             val data = (str + newline).toByteArray()
             serialSocket!!.write(data)
@@ -298,10 +344,24 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
     }
 
     private fun status(str: String) {
+        val spn = SpannableStringBuilder("STATUS: ")
+        spn.setSpan(
+            ForegroundColorSpan(getColor(R.color.pink)), 0,
+            spn.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.terminal.append(spn)
+        binding.terminal.append("$str\n")
         Log.d("Status: ", str)
     }
 
     private fun setError(e: Exception) {
+        val spn = SpannableStringBuilder("Error: ")
+        spn.setSpan(
+            ForegroundColorSpan(getColor(R.color.error)), 0,
+            spn.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.terminal.append(spn)
+        binding.terminal.append("${e.message}\n")
         val dialogOops = DialogOops(e.message)
         dialogOops.show(supportFragmentManager, "WalkFragment")
         disconnect()

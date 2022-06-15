@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/motion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".ui.activity.main.MainActivity"
     app:layoutDescription="@xml/activity_main_bottom_scene">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -19,26 +21,84 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemePink"
-            app:menu="@menu/menu" />
+            app:menu="@menu/menu">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_bluetooth_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/bluetooth"
+                    android:src="@drawable/ic_bluetooth"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_name_device"
+                    style="@style/TextAppearance.Material3.LabelLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8sp"
+                    android:text="@string/sin_conexi_n"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_bluetooth_status"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Name of device" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_activity_main_bottom"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0sp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/terminal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:navGraph="@navigation/mobile_navigation" />
 
-    <FrameLayout
-        android:id="@+id/bluetooth_content"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_close_terminal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/gone"
+        android:src="@drawable/ic_clear"
+        app:fabSize="mini"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/nav_host_fragment_activity_main_bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment_activity_main_bottom"
+        app:layout_constraintEnd_toEndOf="@+id/nav_host_fragment_activity_main_bottom" />
+
+    <TextView
+        android:id="@+id/terminal"
+        style="@style/TextAppearance.Material3.BodySmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2" />
+        android:maxLines="8"
+        android:padding="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nav_host_fragment_activity_main_bottom"
+        tools:text="@tools:sample/lorem/random" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8sp"
+        android:contentDescription="@string/stop"
+        android:src="@drawable/ic_stop"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/terminal"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:id="@+id/constraintLayout2"
@@ -79,4 +139,4 @@
             app:menu="@menu/bottom_nav_menu_patient" />
     </LinearLayout>
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

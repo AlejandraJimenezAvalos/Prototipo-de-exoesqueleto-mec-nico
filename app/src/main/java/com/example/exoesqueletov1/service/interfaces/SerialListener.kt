@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.service
+package com.example.exoesqueletov1.service.interfaces
 
 interface SerialListener {
     fun onSerialConnect()

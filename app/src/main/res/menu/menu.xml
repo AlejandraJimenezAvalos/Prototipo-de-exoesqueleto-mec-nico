@@ -7,6 +7,20 @@
         android:title="@string/cerrar_sesi_n"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_round_logout_24"
-        android:iconTint="@color/white"/>
+        android:iconTint="@color/white" />
+
+    <item
+        android:id="@+id/disconect"
+        android:title="@string/desconectar"
+        app:showAsAction="ifRoom"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_round_bluetooth_disabled_24" />
+
+    <item
+        android:id="@+id/stop"
+        android:title="@string/stop"
+        app:showAsAction="ifRoom"
+        android:iconTint="@color/white"
+        android:icon="@drawable/ic_stop" />
 
 </menu>

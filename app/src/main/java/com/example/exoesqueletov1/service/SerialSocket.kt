@@ -7,6 +7,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import com.example.exoesqueletov1.service.interfaces.SerialListener
+import com.example.exoesqueletov1.utils.ConstantsBluetooth
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.Executors

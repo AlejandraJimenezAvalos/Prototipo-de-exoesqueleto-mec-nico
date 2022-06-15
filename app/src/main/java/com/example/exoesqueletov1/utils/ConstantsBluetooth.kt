@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.service
+package com.example.exoesqueletov1.utils
 
 import com.example.exoesqueletov1.BuildConfig
 
@@ -12,5 +12,7 @@ object ConstantsBluetooth {
     // values have to be unique within each app
     const val NOTIFY_MANAGER_START_FOREGROUND_SERVICE = 1001
 
-    enum class QueueType { Connect, ConnectError, Read, IoError }
+    enum class StatusConnection { Connect, ConnectError, Read, IoError }
+    enum class Connection { False, Pending, True }
+    enum class Status { Pending, Connected, Error, Read, Disconnected, ConnectionFailed }
 }

@@ -9,7 +9,6 @@ object Constants {
     enum class Status { Success, Failure, Canceled, Loading, NotExist }
     enum class Gender { Woman, Man }
     enum class ActionUsers { Delete, LogIn }
-    enum class Connected { False, Pending, True }
     enum class TypeUser { Admin, Specialist, Patient }
     enum class SingInPagerNavigation { Login, SingIn }
     enum class Menu { Home, Profile, Chats, Control, WorkSpecialist, LogOut }

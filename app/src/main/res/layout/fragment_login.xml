@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16sp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView20"
@@ -21,6 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bienvenido"
+            android:layout_marginTop="32sp"
+            android:layout_marginStart="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,6 +30,8 @@
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16sp"
+            android:layout_marginEnd="16sp"
             android:layout_marginTop="16sp"
             app:errorEnabled="true"
             app:layout_constraintTop_toBottomOf="@+id/textView20">
@@ -54,6 +57,8 @@
             app:counterEnabled="true"
             app:counterMaxLength="15"
             app:errorEnabled="true"
+            android:layout_marginStart="16sp"
+            android:layout_marginEnd="16sp"
             app:layout_constraintTop_toBottomOf="@+id/layout_email_login"
             app:passwordToggleEnabled="true">
 
@@ -75,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8sp"
             android:text="@string/iniciar"
+            android:layout_marginEnd="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/button_lost_your_password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -87,6 +93,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8sp"
+            android:layout_marginStart="16sp"
             android:text="@string/olvidaste_tu_contrase_a"
             app:layout_constraintEnd_toStartOf="@+id/button_login"
             app:layout_constraintHorizontal_bias="0.5"
@@ -99,22 +106,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16sp"
-            android:visibility="gone"
             android:text="@string/usuarios_que_accedieron_recientemente"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_lost_your_password" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_users"
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16sp"
+            android:layout_marginTop="8sp"
+            android:layout_marginEnd="16sp"
+            android:layout_marginBottom="32sp"
+            android:backgroundTint="#CD0834"
+            app:cardElevation="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_users"
-            tools:itemCount="1"
-            android:layout_marginTop="8sp"
-            tools:listitem="@layout/item_user" />
+            app:layout_constraintTop_toBottomOf="@+id/text_users">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_users"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8sp"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_user" />
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -17,6 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.example.exoesqueletov1.R;
+import com.example.exoesqueletov1.service.interfaces.SerialListener;
+import com.example.exoesqueletov1.utils.ConstantsBluetooth;
+import com.example.exoesqueletov1.utils.ConstantsBluetooth.StatusConnection;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -42,14 +45,13 @@ public class SerialService extends Service implements SerialListener {
     private String notificationMsg;
 
 
-    private enum QueueType {Connect, ConnectError, Read, IoError}
 
     private static class QueueItem {
-        QueueType type;
+        StatusConnection type;
         byte[] data;
         Exception e;
 
-        QueueItem(QueueType type, byte[] data, Exception e) {
+        QueueItem(StatusConnection type, byte[] data, Exception e) {
             this.type = type;
             this.data = data;
             this.e = e;
@@ -200,11 +202,11 @@ public class SerialService extends Service implements SerialListener {
                         if (serialListener != null) {
                             serialListener.onSerialConnect();
                         } else {
-                            queue1.add(new QueueItem(QueueType.Connect, null, null));
+                            queue1.add(new QueueItem(StatusConnection.Connect, null, null));
                         }
                     });
                 } else {
-                    queue2.add(new QueueItem(QueueType.Connect, null, null));
+                    queue2.add(new QueueItem(StatusConnection.Connect, null, null));
                 }
             }
         }
@@ -218,13 +220,13 @@ public class SerialService extends Service implements SerialListener {
                         if (serialListener != null) {
                             serialListener.onSerialConnectError(e);
                         } else {
-                            queue1.add(new QueueItem(QueueType.ConnectError, null, e));
+                            queue1.add(new QueueItem(StatusConnection.ConnectError, null, e));
                             SerialService.this.cancelNotification();
                             SerialService.this.disconnect();
                         }
                     });
                 } else {
-                    queue2.add(new QueueItem(QueueType.ConnectError, null, e));
+                    queue2.add(new QueueItem(StatusConnection.ConnectError, null, e));
                     cancelNotification();
                     disconnect();
                 }
@@ -240,11 +242,11 @@ public class SerialService extends Service implements SerialListener {
                         if (serialListener != null) {
                             serialListener.onSerialRead(data);
                         } else {
-                            queue1.add(new QueueItem(QueueType.Read, data, null));
+                            queue1.add(new QueueItem(StatusConnection.Read, data, null));
                         }
                     });
                 } else {
-                    queue2.add(new QueueItem(QueueType.Read, data, null));
+                    queue2.add(new QueueItem(StatusConnection.Read, data, null));
                 }
             }
         }
@@ -258,13 +260,13 @@ public class SerialService extends Service implements SerialListener {
                         if (serialListener != null) {
                             serialListener.onSerialIoError(e);
                         } else {
-                            queue1.add(new QueueItem(QueueType.IoError, null, e));
+                            queue1.add(new QueueItem(StatusConnection.IoError, null, e));
                             SerialService.this.cancelNotification();
                             SerialService.this.disconnect();
                         }
                     });
                 } else {
-                    queue2.add(new QueueItem(QueueType.IoError, null, e));
+                    queue2.add(new QueueItem(StatusConnection.IoError, null, e));
                     cancelNotification();
                     disconnect();
                 }

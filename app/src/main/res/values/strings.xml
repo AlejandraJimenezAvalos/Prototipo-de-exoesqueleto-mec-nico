@@ -214,4 +214,6 @@ Si no lo encuentra, busque en el apartado del correo no deseado.</string>
     <string name="bluetooth_not_found">El dispositivo no cuenta con soporte para conectarse al exoesqueleto.</string>
     <string name="bluetooth_permission">La aplicación no cuenta con permisos de Bluetooth.</string>
     <string name="proceso_terminado">Proceso terminado</string>
+    <string name="sin_conexi_n">Sin conexión</string>
+    <string name="gone">gone</string>
 </resources>

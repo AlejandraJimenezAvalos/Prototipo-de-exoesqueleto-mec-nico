@@ -20,13 +20,21 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exoesqueletov1.R
 import com.example.exoesqueletov1.data.local.query.ExoskeletonQuery
 import com.example.exoesqueletov1.databinding.FragmentPairedDevisesBinding
+import com.example.exoesqueletov1.interfaces.BluetoothResource
+import com.example.exoesqueletov1.service.model.BluetoothResponse
+import com.example.exoesqueletov1.ui.activity.main.MainActivity
 import com.example.exoesqueletov1.ui.fragments.pairedDevises.adapter.PairedDevicesAdapter
 import com.example.exoesqueletov1.utils.Constants
+import com.example.exoesqueletov1.utils.ConstantsBluetooth
 import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 @AndroidEntryPoint
 class PairedDevisesFragment : Fragment() {
@@ -51,7 +59,11 @@ class PairedDevisesFragment : Fragment() {
     @SuppressLint("ServiceCast")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = PairedDevicesAdapter(listDevices)
+        adapter = PairedDevicesAdapter(listDevices) {
+            binding.textStatus.text = "Conectando..."
+            binding.recyclerBluetoothDevices.visibility = View.GONE
+            binding.buttonScan.visibility = View.GONE
+        }
         bluetoothAdapter =
             (requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
 
@@ -90,6 +102,7 @@ class PairedDevisesFragment : Fragment() {
             listExoskeletonQuery.forEach { exoskeletonModel ->
                 if (device.address == exoskeletonModel.mac) {
                     exoskeletonModel.status = Constants.StatusDevice.Emparejado.name
+                    exoskeletonModel.name = device.name
                     listDevices.add(exoskeletonModel)
                 }
             }
@@ -133,6 +146,7 @@ class PairedDevisesFragment : Fragment() {
                     listExoskeletonQuery.forEach { exoskeletonModel ->
                         if (device!!.address == exoskeletonModel.mac) {
                             exoskeletonModel.status = Constants.StatusDevice.Cercano.name
+                            exoskeletonModel.name = device.name
                             listDevices.add(exoskeletonModel)
                         }
                     }
@@ -157,5 +171,41 @@ class PairedDevisesFragment : Fragment() {
                 setListeners()
             }
         }
+
+    /**
+     * Method used by **get Status** and data of bluetooth connection in
+     * [MainActivity.onSerialConnect], [MainActivity.onSerialConnectError] ...
+     * @param resource Is a object type [BluetoothResource] and contains the status
+     * in a object type [ConstantsBluetooth.Status] and Data in object type [BluetoothResponse].
+     *
+     * **[BluetoothResource.status] only contains:**
+     * - [ConstantsBluetooth.Status.Connected]
+     * - [ConstantsBluetooth.Status.ConnectionFailed]
+     *
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getStatus(resource: BluetoothResource) {
+        when (resource.status) {
+            ConstantsBluetooth.Status.Connected -> {
+                findNavController().navigate(R.id.action_navigation_paired_device_to_connectionFragment)
+            }
+            ConstantsBluetooth.Status.ConnectionFailed -> {
+                binding.textStatus.text =
+                    "No se pudo conectar con el exoeskeleto.\nIntente otra vez."
+                binding.recyclerBluetoothDevices.visibility = View.VISIBLE
+            }
+            else -> {}
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        EventBus.getDefault().unregister(this)
+    }
 
 }

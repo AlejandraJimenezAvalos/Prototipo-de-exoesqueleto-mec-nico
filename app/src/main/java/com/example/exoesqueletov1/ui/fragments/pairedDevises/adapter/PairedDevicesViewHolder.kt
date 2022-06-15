@@ -6,11 +6,13 @@ import com.example.exoesqueletov1.data.local.query.ExoskeletonQuery
 import com.example.exoesqueletov1.databinding.ItemBluetoothDevicesBinding
 import org.greenrobot.eventbus.EventBus
 
-class PairedDevicesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class PairedDevicesViewHolder(view: View, val listener: (ExoskeletonQuery) -> Unit) :
+    RecyclerView.ViewHolder(view) {
     private val binding = ItemBluetoothDevicesBinding.bind(view)
     fun bind(exoskeletonQuery: ExoskeletonQuery) {
         binding.user = exoskeletonQuery
         binding.itemMenu.setOnClickListener {
+            listener.invoke(exoskeletonQuery)
             EventBus.getDefault().post(exoskeletonQuery)
         }
     }
