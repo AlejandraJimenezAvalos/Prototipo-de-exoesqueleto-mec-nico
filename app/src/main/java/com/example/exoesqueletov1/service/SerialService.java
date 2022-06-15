@@ -1,10 +1,6 @@
 package com.example.exoesqueletov1.service;
 
-import static com.example.exoesqueletov1.service.ConstantsBluetooth.INTENT_ACTION_DISCONNECT;
-import static com.example.exoesqueletov1.service.ConstantsBluetooth.INTENT_CLASS_MAIN_ACTIVITY;
-import static com.example.exoesqueletov1.service.ConstantsBluetooth.NOTIFICATION_CHANNEL;
-import static com.example.exoesqueletov1.service.ConstantsBluetooth.NOTIFY_MANAGER_START_FOREGROUND_SERVICE;
-
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,7 +9,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -23,7 +18,6 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.exoesqueletov1.R;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -39,31 +33,31 @@ public class SerialService extends Service implements SerialListener {
         }
     }
 
+    private final Handler HandlerMainLooper;
+    private final IBinder binder;
+    private final Queue<QueueItem> queue1, queue2;
+
+    private SerialListener serialListener;
+    private boolean connected;
+    private String notificationMsg;
+
+
+    private enum QueueType {Connect, ConnectError, Read, IoError}
+
     private static class QueueItem {
-        ConstantsBluetooth.QueueType type;
+        QueueType type;
         byte[] data;
         Exception e;
 
-        QueueItem(ConstantsBluetooth.QueueType type, byte[] data, Exception e) {
+        QueueItem(QueueType type, byte[] data, Exception e) {
             this.type = type;
             this.data = data;
             this.e = e;
         }
     }
 
-    private final Handler mainLooper;
-    private final IBinder binder;
-    private final Queue<QueueItem> queue1, queue2;
-
-    private SerialSocket socket;
-    private SerialListener listener;
-    private boolean connected;
-
-    /**
-     * Lifecylce
-     */
     public SerialService() {
-        mainLooper = new Handler(Looper.getMainLooper());
+        HandlerMainLooper = new Handler(Looper.getMainLooper());
         binder = new SerialBinder();
         queue1 = new LinkedList<>();
         queue2 = new LinkedList<>();
@@ -82,38 +76,30 @@ public class SerialService extends Service implements SerialListener {
         return binder;
     }
 
-    /**
-     * Api
-     */
-    public void connect(SerialSocket socket) throws IOException {
-        socket.connect(this);
-        this.socket = socket;
+    public void connect(SerialListener listener, String notificationMsg) {
+        this.serialListener = listener;
         connected = true;
+        this.notificationMsg = notificationMsg;
     }
 
     public void disconnect() {
-        connected = false; // ignore data,errors while disconnecting
-        cancelNotification();
-        if (socket != null) {
-            socket.disconnect();
-            socket = null;
-        }
-    }
-
-    public void write(byte[] data) throws IOException {
-        if (!connected)
-            throw new IOException("not connected");
-        socket.write(data);
+        serialListener = null;
+        connected = false;
+        notificationMsg = null;
     }
 
     public void attach(SerialListener listener) {
         if (Looper.getMainLooper().getThread() != Thread.currentThread())
             throw new IllegalArgumentException("not in main thread");
         cancelNotification();
-        // use synchronized() to prevent new items in queue2
-        // new items will not be added to queue1 because mainLooper.post and attach() run in main thread
-        synchronized (this) {
-            this.listener = listener;
+        /*
+        use synchronized() to prevent new items in queue2 new items will not be added to queue1
+        because mainLooper.post and attach() run in main thread
+         */
+        if (connected) {
+            synchronized (this) {
+                this.serialListener = listener;
+            }
         }
         for (QueueItem item : queue1) {
             switch (item.type) {
@@ -157,36 +143,46 @@ public class SerialService extends Service implements SerialListener {
         // items already in event queue (posted before detach() to mainLooper) will end up in queue1
         // items occurring later, will be moved directly to queue2
         // detach() and mainLooper.post run in the main thread, so all items are caught
-        listener = null;
+        serialListener = null;
     }
 
     private void createNotification() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel nc = new NotificationChannel(NOTIFICATION_CHANNEL, "Background service", NotificationManager.IMPORTANCE_LOW);
-            nc.setShowBadge(false);
-            NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            nm.createNotificationChannel(nc);
-        }
+        NotificationChannel nc;
+        NotificationManager nm;
+        nc = new NotificationChannel(ConstantsBluetooth.NOTIFICATION_CHANNEL,
+                "Background service", NotificationManager.IMPORTANCE_LOW);
+        nc.setShowBadge(false);
+        nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.createNotificationChannel(nc);
         Intent disconnectIntent = new Intent()
-                .setAction(INTENT_ACTION_DISCONNECT);
+                .setAction(ConstantsBluetooth.INTENT_ACTION_DISCONNECT);
         Intent restartIntent = new Intent()
-                .setClassName(this, INTENT_CLASS_MAIN_ACTIVITY)
+                .setClassName(this, ConstantsBluetooth.INTENT_CLASS_MAIN_ACTIVITY)
                 .setAction(Intent.ACTION_MAIN)
                 .addCategory(Intent.CATEGORY_LAUNCHER);
-        PendingIntent disconnectPendingIntent = PendingIntent.getBroadcast(this, 1, disconnectIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent restartPendingIntent = PendingIntent.getActivity(this, 1, restartIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL)
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent disconnectPendingIntent = PendingIntent.getBroadcast(this,
+                1, disconnectIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent restartPendingIntent = PendingIntent.getActivity(this, 1,
+                restartIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
+                ConstantsBluetooth.NOTIFICATION_CHANNEL)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setColor(getResources().getColor(R.color.pinkDark, null))
                 .setContentTitle(getResources().getString(R.string.app_name))
-                .setContentText(socket != null ? "Connected to " + socket.getName() : "Background Service")
+                .setContentText(notificationMsg)
                 .setContentIntent(restartPendingIntent)
                 .setOngoing(true)
-                .addAction(new NotificationCompat.Action(R.drawable.ic_round_bluetooth_disabled_24, "Disconnect", disconnectPendingIntent));
-        // @drawable/ic_notification created with Android Studio -> New -> Image Asset using @color/colorPrimaryDark as background color
-        // Android < API 21 does not support vectorDrawables in notifications, so both drawables used here, are created as .png instead of .xml
+                .addAction(new NotificationCompat.Action(R.drawable.ic_clear,
+                        getApplication().getApplicationContext().getString(R.string.desconectar),
+                        disconnectPendingIntent));
+        /*
+         @drawable/ic_notification created with Android Studio -> New -> Image Asset using
+         @color/colorPrimaryDark as background color
+         Android < API 21 does not support vectorDrawables in notifications, so both drawables
+         used here, are created as .png instead of .xml
+         */
         Notification notification = builder.build();
-        startForeground(NOTIFY_MANAGER_START_FOREGROUND_SERVICE, notification);
+        startForeground(ConstantsBluetooth.NOTIFY_MANAGER_START_FOREGROUND_SERVICE, notification);
     }
 
     private void cancelNotification() {
@@ -199,36 +195,36 @@ public class SerialService extends Service implements SerialListener {
     public void onSerialConnect() {
         if (connected) {
             synchronized (this) {
-                if (listener != null) {
-                    mainLooper.post(() -> {
-                        if (listener != null) {
-                            listener.onSerialConnect();
+                if (serialListener != null) {
+                    HandlerMainLooper.post(() -> {
+                        if (serialListener != null) {
+                            serialListener.onSerialConnect();
                         } else {
-                            queue1.add(new QueueItem(ConstantsBluetooth.QueueType.Connect, null, null));
+                            queue1.add(new QueueItem(QueueType.Connect, null, null));
                         }
                     });
                 } else {
-                    queue2.add(new QueueItem(ConstantsBluetooth.QueueType.Connect, null, null));
+                    queue2.add(new QueueItem(QueueType.Connect, null, null));
                 }
             }
         }
     }
 
-    public void onSerialConnectError(Exception e) {
+    public void onSerialConnectError(final Exception e) {
         if (connected) {
             synchronized (this) {
-                if (listener != null) {
-                    mainLooper.post(() -> {
-                        if (listener != null) {
-                            listener.onSerialConnectError(e);
+                if (serialListener != null) {
+                    HandlerMainLooper.post(() -> {
+                        if (serialListener != null) {
+                            serialListener.onSerialConnectError(e);
                         } else {
-                            queue1.add(new QueueItem(ConstantsBluetooth.QueueType.ConnectError, null, e));
-                            cancelNotification();
-                            disconnect();
+                            queue1.add(new QueueItem(QueueType.ConnectError, null, e));
+                            SerialService.this.cancelNotification();
+                            SerialService.this.disconnect();
                         }
                     });
                 } else {
-                    queue2.add(new QueueItem(ConstantsBluetooth.QueueType.ConnectError, null, e));
+                    queue2.add(new QueueItem(QueueType.ConnectError, null, e));
                     cancelNotification();
                     disconnect();
                 }
@@ -236,39 +232,39 @@ public class SerialService extends Service implements SerialListener {
         }
     }
 
-    public void onSerialRead(byte[] data) {
+    public void onSerialRead(final byte[] data) {
         if (connected) {
             synchronized (this) {
-                if (listener != null) {
-                    mainLooper.post(() -> {
-                        if (listener != null) {
-                            listener.onSerialRead(data);
+                if (serialListener != null) {
+                    HandlerMainLooper.post(() -> {
+                        if (serialListener != null) {
+                            serialListener.onSerialRead(data);
                         } else {
-                            queue1.add(new QueueItem(ConstantsBluetooth.QueueType.Read, data, null));
+                            queue1.add(new QueueItem(QueueType.Read, data, null));
                         }
                     });
                 } else {
-                    queue2.add(new QueueItem(ConstantsBluetooth.QueueType.Read, data, null));
+                    queue2.add(new QueueItem(QueueType.Read, data, null));
                 }
             }
         }
     }
 
-    public void onSerialIoError(Exception e) {
+    public void onSerialIoError(final Exception e) {
         if (connected) {
             synchronized (this) {
-                if (listener != null) {
-                    mainLooper.post(() -> {
-                        if (listener != null) {
-                            listener.onSerialIoError(e);
+                if (serialListener != null) {
+                    HandlerMainLooper.post(() -> {
+                        if (serialListener != null) {
+                            serialListener.onSerialIoError(e);
                         } else {
-                            queue1.add(new QueueItem(ConstantsBluetooth.QueueType.IoError, null, e));
-                            cancelNotification();
-                            disconnect();
+                            queue1.add(new QueueItem(QueueType.IoError, null, e));
+                            SerialService.this.cancelNotification();
+                            SerialService.this.disconnect();
                         }
                     });
                 } else {
-                    queue2.add(new QueueItem(ConstantsBluetooth.QueueType.IoError, null, e));
+                    queue2.add(new QueueItem(QueueType.IoError, null, e));
                     cancelNotification();
                     disconnect();
                 }

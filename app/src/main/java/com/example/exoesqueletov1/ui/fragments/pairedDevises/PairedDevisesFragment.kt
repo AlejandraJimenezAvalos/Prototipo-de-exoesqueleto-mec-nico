@@ -13,7 +13,6 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -112,14 +111,6 @@ class PairedDevisesFragment : Fragment() {
 
     }
 
-    @SuppressLint("MissingPermission")
-    private var isEnableBluetooth =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                setListeners()
-            }
-        }
-
     private fun setListeners() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             binding.textStatus.text = getString(R.string.listo)
@@ -146,10 +137,6 @@ class PairedDevisesFragment : Fragment() {
                         }
                     }
                     if (listDevices.isNotEmpty()) adapter.notifyDataSetChanged()
-                    Log.e(
-                        "Bluetooth device: ",
-                        "ADDRESS: ${device!!.address} \nNAME: ${device.name}"
-                    )
                 }
                 BluetoothAdapter.ACTION_DISCOVERY_STARTED -> {
                     binding.textStatus.text = getString(R.string.buscando_conexion)
@@ -162,5 +149,13 @@ class PairedDevisesFragment : Fragment() {
             }
         }
     }
+
+    @SuppressLint("MissingPermission")
+    private var isEnableBluetooth =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                setListeners()
+            }
+        }
 
 }
