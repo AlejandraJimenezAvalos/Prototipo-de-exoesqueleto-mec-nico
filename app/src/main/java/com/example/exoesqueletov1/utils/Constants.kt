@@ -3,6 +3,7 @@ package com.example.exoesqueletov1.utils
 import android.Manifest.permission.*
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.exoesqueletov1.BuildConfig
 
 object Constants {
 
@@ -11,7 +12,6 @@ object Constants {
     enum class ActionUsers { Delete, LogIn }
     enum class TypeUser { Admin, Specialist, Patient }
     enum class SingInPagerNavigation { Login, SingIn }
-    enum class Menu { Home, Profile, Chats, Control, WorkSpecialist, LogOut }
     enum class StatusDevice { Emparejado, Cercano }
 
     const val COLLECTION_PROFILE = "profile"
@@ -58,5 +58,17 @@ object Constants {
         BLUETOOTH_ADVERTISE,
         BLUETOOTH_CONNECT,
     )
+
+    // values have to be globally unique
+    const val INTENT_ACTION_DISCONNECT: String = BuildConfig.APPLICATION_ID + ".Disconnect"
+    const val NOTIFICATION_CHANNEL: String = BuildConfig.APPLICATION_ID + ".Channel"
+    const val INTENT_CLASS_MAIN_ACTIVITY: String = BuildConfig.APPLICATION_ID + ".MainActivity"
+
+    // values have to be unique within each app
+    const val NOTIFY_MANAGER_START_FOREGROUND_SERVICE = 1001
+
+    enum class StatusConnection { Connect, ConnectError, Read, IoError }
+    enum class Connection { False, Pending, True }
+    enum class StatusBluetoothDevice { Pending, Connected, Error, Read, Disconnected, ConnectionFailed }
 
 }

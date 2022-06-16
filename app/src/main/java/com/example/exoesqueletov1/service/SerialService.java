@@ -18,8 +18,8 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.exoesqueletov1.R;
 import com.example.exoesqueletov1.service.interfaces.SerialListener;
-import com.example.exoesqueletov1.utils.ConstantsBluetooth;
-import com.example.exoesqueletov1.utils.ConstantsBluetooth.StatusConnection;
+import com.example.exoesqueletov1.utils.Constants;
+import com.example.exoesqueletov1.utils.Constants.StatusConnection;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -151,15 +151,15 @@ public class SerialService extends Service implements SerialListener {
     private void createNotification() {
         NotificationChannel nc;
         NotificationManager nm;
-        nc = new NotificationChannel(ConstantsBluetooth.NOTIFICATION_CHANNEL,
+        nc = new NotificationChannel(Constants.NOTIFICATION_CHANNEL,
                 "Background service", NotificationManager.IMPORTANCE_LOW);
         nc.setShowBadge(false);
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         nm.createNotificationChannel(nc);
         Intent disconnectIntent = new Intent()
-                .setAction(ConstantsBluetooth.INTENT_ACTION_DISCONNECT);
+                .setAction(Constants.INTENT_ACTION_DISCONNECT);
         Intent restartIntent = new Intent()
-                .setClassName(this, ConstantsBluetooth.INTENT_CLASS_MAIN_ACTIVITY)
+                .setClassName(this, Constants.INTENT_CLASS_MAIN_ACTIVITY)
                 .setAction(Intent.ACTION_MAIN)
                 .addCategory(Intent.CATEGORY_LAUNCHER);
         @SuppressLint("UnspecifiedImmutableFlag") PendingIntent disconnectPendingIntent = PendingIntent.getBroadcast(this,
@@ -167,7 +167,7 @@ public class SerialService extends Service implements SerialListener {
         @SuppressLint("UnspecifiedImmutableFlag") PendingIntent restartPendingIntent = PendingIntent.getActivity(this, 1,
                 restartIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
-                ConstantsBluetooth.NOTIFICATION_CHANNEL)
+                Constants.NOTIFICATION_CHANNEL)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setColor(getResources().getColor(R.color.pinkDark, null))
                 .setContentTitle(getResources().getString(R.string.app_name))
@@ -184,7 +184,7 @@ public class SerialService extends Service implements SerialListener {
          used here, are created as .png instead of .xml
          */
         Notification notification = builder.build();
-        startForeground(ConstantsBluetooth.NOTIFY_MANAGER_START_FOREGROUND_SERVICE, notification);
+        startForeground(Constants.NOTIFY_MANAGER_START_FOREGROUND_SERVICE, notification);
     }
 
     private void cancelNotification() {

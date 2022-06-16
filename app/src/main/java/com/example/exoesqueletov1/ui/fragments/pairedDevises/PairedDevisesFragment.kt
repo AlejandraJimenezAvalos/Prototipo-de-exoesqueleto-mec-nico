@@ -30,7 +30,6 @@ import com.example.exoesqueletov1.service.model.BluetoothResponse
 import com.example.exoesqueletov1.ui.activity.main.MainActivity
 import com.example.exoesqueletov1.ui.fragments.pairedDevises.adapter.PairedDevicesAdapter
 import com.example.exoesqueletov1.utils.Constants
-import com.example.exoesqueletov1.utils.ConstantsBluetooth
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -176,20 +175,20 @@ class PairedDevisesFragment : Fragment() {
      * Method used by **get Status** and data of bluetooth connection in
      * [MainActivity.onSerialConnect], [MainActivity.onSerialConnectError] ...
      * @param resource Is a object type [BluetoothResource] and contains the status
-     * in a object type [ConstantsBluetooth.Status] and Data in object type [BluetoothResponse].
+     * in a object type [Constants.StatusBluetoothDevice] and Data in object type [BluetoothResponse].
      *
      * **[BluetoothResource.status] only contains:**
-     * - [ConstantsBluetooth.Status.Connected]
-     * - [ConstantsBluetooth.Status.ConnectionFailed]
+     * - [Constants.StatusBluetoothDevice.Connected]
+     * - [Constants.StatusBluetoothDevice.ConnectionFailed]
      *
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getStatus(resource: BluetoothResource) {
         when (resource.status) {
-            ConstantsBluetooth.Status.Connected -> {
+            Constants.StatusBluetoothDevice.Connected -> {
                 findNavController().navigate(R.id.action_navigation_paired_device_to_connectionFragment)
             }
-            ConstantsBluetooth.Status.ConnectionFailed -> {
+            Constants.StatusBluetoothDevice.ConnectionFailed -> {
                 binding.textStatus.text =
                     "No se pudo conectar con el exoeskeleto.\nIntente otra vez."
                 binding.recyclerBluetoothDevices.visibility = View.VISIBLE

@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.exoesqueletov1.data.firebase.FirebaseService
 import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.models.MessageModel
-import com.example.exoesqueletov1.data.models.UserModel
 import com.example.exoesqueletov1.domain.DataRepository
 import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Resource

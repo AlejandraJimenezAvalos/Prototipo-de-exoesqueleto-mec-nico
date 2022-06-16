@@ -8,7 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import com.example.exoesqueletov1.service.interfaces.SerialListener
-import com.example.exoesqueletov1.utils.ConstantsBluetooth
+import com.example.exoesqueletov1.utils.Constants
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.Executors
@@ -32,7 +32,7 @@ class SerialSocket : Runnable {
         this.device = device
         context.registerReceiver(
             disconnectBroadcastReceiver,
-            IntentFilter(ConstantsBluetooth.INTENT_ACTION_DISCONNECT)
+            IntentFilter(Constants.INTENT_ACTION_DISCONNECT)
         )
         Executors.newSingleThreadExecutor().submit(this)
     }

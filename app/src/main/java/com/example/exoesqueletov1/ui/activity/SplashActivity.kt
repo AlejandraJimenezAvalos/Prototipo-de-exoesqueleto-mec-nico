@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat

@@ -37,8 +37,7 @@ import com.example.exoesqueletov1.ui.dialogs.DialogLoading
 import com.example.exoesqueletov1.ui.dialogs.DialogOops
 import com.example.exoesqueletov1.ui.fragments.pairedDevises.adapter.PairedDevicesViewHolder
 import com.example.exoesqueletov1.utils.Constants
-import com.example.exoesqueletov1.utils.ConstantsBluetooth
-import com.example.exoesqueletov1.utils.ConstantsBluetooth.Connection
+import com.example.exoesqueletov1.utils.Constants.Connection
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
 import com.example.exoesqueletov1.utils.Utils.getTypeUser
 import com.google.android.material.snackbar.Snackbar
@@ -263,7 +262,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
 
     /**
      * In this method used [EventBus] for send Bluetooth
-     * Status on: [ConstantsBluetooth.Status.Connected]
+     * Status on: [Constants.StatusBluetoothDevice.Connected]
      */
     override fun onSerialConnect() {
         status("connected")
@@ -274,7 +273,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
 
     /**
      * In this method used [EventBus] for send Bluetooth
-     * Status on: [ConstantsBluetooth.Status.ConnectionFailed]
+     * Status on: [Constants.StatusBluetoothDevice.ConnectionFailed]
      */
     override fun onSerialConnectError(e: Exception?) {
         EventBus.getDefault().post(BluetoothResource.connectionFailed(e!!))
