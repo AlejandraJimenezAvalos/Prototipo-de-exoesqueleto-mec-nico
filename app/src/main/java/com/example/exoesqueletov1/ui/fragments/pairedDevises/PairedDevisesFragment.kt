@@ -60,8 +60,6 @@ class PairedDevisesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = PairedDevicesAdapter(listDevices) {
             binding.textStatus.text = "Conectando..."
-            binding.recyclerBluetoothDevices.visibility = View.GONE
-            binding.buttonScan.visibility = View.GONE
         }
         bluetoothAdapter =
             (requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
@@ -95,6 +93,14 @@ class PairedDevisesFragment : Fragment() {
 
     @SuppressLint("MissingPermission", "NotifyDataSetChanged")
     private fun startProcess() {
+        if (listDevices.isNotEmpty() && (listDevices.size == 1) && bluetoothAdapter!!.isDiscovering) {
+            EventBus.getDefault().post(listDevices[0])
+            binding.textStatus.text = "Conectando..."
+            binding.materialCardView3.visibility = View.GONE
+            bluetoothAdapter!!.cancelDiscovery()
+            requireActivity().unregisterReceiver(broadcastReceiver)
+            return
+        }
         listDevices.clear()
         bondedDevices = bluetoothAdapter!!.bondedDevices
         bondedDevices!!.forEach { device ->
@@ -115,7 +121,6 @@ class PairedDevisesFragment : Fragment() {
             bluetoothAdapter!!.startDiscovery()
         } else {
             binding.textStatus.text = getString(R.string.listo)
-            binding.buttonScan.text = getString(R.string.search_conection)
             bluetoothAdapter!!.cancelDiscovery()
             requireActivity().unregisterReceiver(broadcastReceiver)
         }
@@ -126,9 +131,6 @@ class PairedDevisesFragment : Fragment() {
     private fun setListeners() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             binding.textStatus.text = getString(R.string.listo)
-            binding.buttonScan.setOnClickListener {
-                startProcess()
-            }
             binding.imageView9.setOnClickListener {
                 startProcess()
             }
@@ -140,6 +142,8 @@ class PairedDevisesFragment : Fragment() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
                 BluetoothDevice.ACTION_FOUND -> {
+                    if (listDevices.size == 1) binding.materialCardView3.visibility = View.GONE
+                    if (listDevices.size > 1) binding.materialCardView3.visibility = View.VISIBLE
                     val device =
                         intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
                     listExoskeletonQuery.forEach { exoskeletonModel ->
@@ -152,12 +156,15 @@ class PairedDevisesFragment : Fragment() {
                     if (listDevices.isNotEmpty()) adapter.notifyDataSetChanged()
                 }
                 BluetoothAdapter.ACTION_DISCOVERY_STARTED -> {
-                    binding.textStatus.text = getString(R.string.buscando_conexion)
-                    binding.buttonScan.text = getString(R.string.cancelar)
+                    binding.textStatus.text = "Da click para cancelar"
                 }
                 BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
-                    binding.textStatus.text = getString(R.string.proceso_terminado)
-                    binding.buttonScan.text = getString(R.string.reintentar)
+                    binding.textStatus.text = getString(R.string.reintentar)
+                    if (listDevices.isNotEmpty() && listDevices.size == 1) {
+                        EventBus.getDefault().post(listDevices[0])
+                        binding.textStatus.text = "Conectando..."
+                        binding.recyclerBluetoothDevices.visibility = View.GONE
+                    }
                 }
             }
         }
@@ -177,7 +184,7 @@ class PairedDevisesFragment : Fragment() {
      * @param resource Is a object type [BluetoothResource] and contains the status
      * in a object type [Constants.StatusBluetoothDevice] and Data in object type [BluetoothResponse].
      *
-     * **[BluetoothResource.status] only contains:**
+     * **[BluetoothResource.status] just receive:**
      * - [Constants.StatusBluetoothDevice.Connected]
      * - [Constants.StatusBluetoothDevice.ConnectionFailed]
      *
@@ -191,7 +198,7 @@ class PairedDevisesFragment : Fragment() {
             Constants.StatusBluetoothDevice.ConnectionFailed -> {
                 binding.textStatus.text =
                     "No se pudo conectar con el exoeskeleto.\nIntente otra vez."
-                binding.recyclerBluetoothDevices.visibility = View.VISIBLE
+                if (listDevices.size > 1) binding.recyclerBluetoothDevices.visibility = View.VISIBLE
             }
             else -> {}
         }

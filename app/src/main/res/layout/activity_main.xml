@@ -73,7 +73,7 @@
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/nav_host_fragment_activity_main_bottom"
         app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment_activity_main_bottom"
-        app:layout_constraintEnd_toEndOf="@+id/nav_host_fragment_activity_main_bottom" />
+        app:layout_constraintStart_toStartOf="@+id/nav_host_fragment_activity_main_bottom" />
 
     <TextView
         android:id="@+id/terminal"

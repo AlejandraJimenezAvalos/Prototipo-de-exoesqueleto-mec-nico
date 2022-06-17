@@ -49,7 +49,6 @@ import org.greenrobot.eventbus.ThreadMode
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
 
-    private var terminalState = false
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
 
@@ -58,6 +57,8 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
     private var connection = Connection.False
     private var deviceAddress = ""
     private var initialStart = true
+    private var terminalState = false
+    private var terminalVisibility = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,13 +113,24 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.sing_out -> {
-                    viewModel.singOut()
-                    startActivity(Intent(this, SingInActivity::class.java))
-                    finish()
+                    if (connection == Connection.False) {
+                        viewModel.singOut()
+                        startActivity(Intent(this, SingInActivity::class.java))
+                        finish()
+                    }
                     true
                 }
                 R.id.disconect -> {
-                    if (connection == Connection.True) disconnect()
+                    if (connection == Connection.True) {
+                        disconnect()
+                        it.icon = getDrawable(R.drawable.ic_round_bluetooth_disabled_24)
+                        it.icon.setTint(R.color.white)
+                    } else if (deviceAddress.isNotEmpty()) {
+                        connect()
+                        it.icon = getDrawable(R.drawable.ic_bluetooth_connected)
+                        it.icon.setTint(R.color.white)
+                    }
+
                     true
                 }
                 R.id.stop -> {
@@ -131,6 +143,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && checkPermissions(Constants.PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, Constants.PERMISSIONS, 1)
         } else onAttach()
+        binding.buttonStop.setOnClickListener { send("stop") }
     }
 
     override fun onRequestPermissionsResult(
@@ -170,11 +183,10 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getDevice(device: ExoskeletonQuery) {
         if (terminalState) {
-            binding.terminal.visibility = View.VISIBLE
-            binding.buttonCloseTerminal.visibility = View.VISIBLE
             binding.buttonCloseTerminal.setOnClickListener {
                 binding.terminal.visibility =
                     if (binding.terminal.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+                terminalVisibility = !terminalVisibility
             }
         }
         binding.terminal.movementMethod = ScrollingMovementMethod.getInstance()
@@ -258,6 +270,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
 
     override fun onServiceDisconnected(name: ComponentName?) {
         serialService = null
+        binding.buttonStop.visibility = View.GONE
     }
 
     /**
@@ -268,7 +281,11 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         status("connected")
         connection = Connection.True
         EventBus.getDefault().post(BluetoothResource.connect())
-        send("WALK_MINUTES")
+        binding.buttonStop.visibility = View.VISIBLE
+        binding.constraintLayout2.visibility = View.GONE
+        binding.terminal.visibility = if (terminalVisibility) View.VISIBLE else View.GONE
+        binding.buttonCloseTerminal.visibility = View.VISIBLE
+        //send("WALK_MINUTES")
     }
 
     /**
@@ -303,7 +320,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
             status("Connecting...")
             connection = Connection.Pending
             serialSocket = SerialSocket()
-            serialService!!.connect(this, "Connected to $deviceName")
+            serialService!!.connect(this, serialSocket)
             serialSocket!!.connect(this, serialService, device)
         } catch (e: Exception) {
             onSerialConnectError(e)
@@ -317,6 +334,11 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         serialService!!.disconnect()
         serialSocket!!.disconnect()
         serialSocket = null
+        EventBus.getDefault().post(BluetoothResource.disconnected())
+        binding.buttonStop.visibility = View.GONE
+        binding.buttonCloseTerminal.visibility = View.GONE
+        binding.terminal.visibility = View.GONE
+        binding.constraintLayout2.visibility = View.VISIBLE
     }
 
     private fun send(str: String) {

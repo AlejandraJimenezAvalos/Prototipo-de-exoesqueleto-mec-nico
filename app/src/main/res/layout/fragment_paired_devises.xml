@@ -44,30 +44,20 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView3"
-        android:layout_width="match_parent"
         style="@style/Widget.Material3.CardView.Elevated"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:backgroundTint="@color/blueAccent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/button_scan"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView9">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_bluetooth_devices"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:itemCount="2"
-            tools:layout_editor_absoluteX="16dp"
+            tools:itemCount="5"
             tools:listitem="@layout/item_bluetooth_devices" />
     </com.google.android.material.card.MaterialCardView>
-
-    <Button
-        android:id="@+id/button_scan"
-        style="@style/Widget.Material3.Button.OutlinedButton.Icon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/buscar_dispositivos"
-        app:icon="@drawable/ic_bluetooth_connected"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

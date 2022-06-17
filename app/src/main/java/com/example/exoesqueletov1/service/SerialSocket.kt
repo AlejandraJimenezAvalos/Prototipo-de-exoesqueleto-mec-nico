@@ -17,9 +17,9 @@ class SerialSocket : Runnable {
     private val disconnectBroadcastReceiver: BroadcastReceiver
     private var context: Context? = null
     private var listener: SerialListener? = null
-    private var device: BluetoothDevice? = null
-    private var socket: BluetoothSocket? = null
     private var connected = false
+    private var socket: BluetoothSocket? = null
+    var device: BluetoothDevice? = null
 
     /**
      * connect-success and most connect-errors are returned asynchronously to listener

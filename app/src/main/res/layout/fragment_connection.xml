@@ -9,13 +9,14 @@
     tools:context=".ui.fragments.connection.ConnectionFragment">
 
     <TextView
-        android:id="@+id/textView27"
+        android:id="@+id/text_title_card_profile"
         style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/paciente"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,9 +27,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView27">
+        app:layout_constraintTop_toBottomOf="@+id/text_title_card_profile">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -106,8 +108,7 @@
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="8sp"
                 android:layout_marginEnd="16sp"
-                app:layout_constraintTop_toBottomOf="@+id/textView8"
-                tools:layout_editor_absoluteX="16dp">
+                app:layout_constraintTop_toBottomOf="@+id/textView8">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -131,113 +132,115 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/switch_walk_exercise" />
 
-                    <TextView
-                        android:id="@+id/text_steps"
-                        style="@style/TextAppearance.Material3.BodySmall"
-                        android:layout_width="0sp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pasos"
-                        app:layout_constraintEnd_toStartOf="@+id/text_time"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/switch_step_time" />
-
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/slider_step"
-                        android:layout_width="0sp"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/pasos"
-                        android:stepSize="1.0"
-                        android:valueFrom="5.0"
-                        android:valueTo="30.0"
-                        app:layout_constraintEnd_toEndOf="@+id/text_steps"
-                        app:layout_constraintStart_toStartOf="@+id/text_steps"
-                        app:layout_constraintTop_toBottomOf="@+id/text_steps" />
-
-                    <TextView
-                        android:id="@+id/text_time"
-                        style="@style/TextAppearance.Material3.BodySmall"
-                        android:layout_width="0sp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tiempo"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/text_steps"
-                        app:layout_constraintTop_toTopOf="@+id/text_steps" />
-
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/slider_time"
-                        android:layout_width="0sp"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="@string/tiempo"
-                        android:stepSize="1.0"
-                        android:valueFrom="1.0"
-                        android:valueTo="10.0"
-                        app:layout_constraintEnd_toEndOf="@+id/text_time"
-                        app:layout_constraintStart_toStartOf="@+id/text_time"
-                        app:layout_constraintTop_toBottomOf="@+id/text_time" />
-
-                    <TextView
-                        android:id="@+id/text_repetition"
-                        style="@style/TextAppearance.Material3.BodySmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8sp"
-                        android:text="@string/repeticiones"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/slider_step" />
-
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/slider_repetition"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/repeticiones"
-                        android:stepSize="1.0"
-                        android:valueFrom="1.0"
-                        android:valueTo="10.0"
-                        app:layout_constraintTop_toBottomOf="@+id/text_repetition"
-                        tools:layout_editor_absoluteX="16dp" />
+                        app:layout_constraintTop_toBottomOf="@+id/switch_step_time"
+                        tools:layout_editor_absoluteX="16dp">
 
-                    <TextView
-                        android:id="@+id/text_aternaciones"
-                        style="@style/TextAppearance.Material3.BodySmall"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8sp"
-                        android:text="@string/alternaciones"
-                        app:layout_constraintTop_toBottomOf="@+id/slider_repetition" />
+                        <TextView
+                            android:id="@+id/text_steps"
+                            style="@style/TextAppearance.Material3.BodySmall"
+                            android:layout_width="0sp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pasos"
+                            app:layout_constraintEnd_toStartOf="@+id/text_time"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/chipGroup"
-                        style="@style/Widget.MaterialComponents.ChipGroup"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8sp"
-                        app:layout_constraintTop_toBottomOf="@+id/text_aternaciones">
+                        <com.google.android.material.slider.Slider
+                            android:id="@+id/slider_step"
+                            android:layout_width="0sp"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/pasos"
+                            android:stepSize="1.0"
+                            android:valueFrom="5.0"
+                            android:valueTo="30.0"
+                            app:layout_constraintEnd_toEndOf="@+id/text_steps"
+                            app:layout_constraintStart_toStartOf="@+id/text_steps"
+                            app:layout_constraintTop_toBottomOf="@+id/text_steps" />
 
-                        <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                        <TextView
+                            android:id="@+id/text_time"
+                            style="@style/TextAppearance.Material3.BodySmall"
+                            android:layout_width="0sp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tiempo"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/text_steps"
+                            app:layout_constraintTop_toTopOf="@+id/text_steps" />
+
+                        <com.google.android.material.slider.Slider
+                            android:id="@+id/slider_time"
+                            android:layout_width="0sp"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/tiempo"
+                            android:stepSize="1.0"
+                            android:valueFrom="1.0"
+                            android:valueTo="10.0"
+                            app:layout_constraintEnd_toEndOf="@+id/text_time"
+                            app:layout_constraintStart_toStartOf="@+id/text_time"
+                            app:layout_constraintTop_toBottomOf="@+id/text_time" />
+
+                        <TextView
+                            android:id="@+id/text_repetition"
+                            style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:text="@string/derecha" />
+                            android:layout_marginTop="8sp"
+                            android:text="@string/repeticiones"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/slider_step" />
 
-                        <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
-                            android:layout_width="wrap_content"
+                        <com.google.android.material.slider.Slider
+                            android:id="@+id/slider_repetition"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/izquierda" />
+                            android:contentDescription="@string/repeticiones"
+                            android:stepSize="1.0"
+                            android:valueFrom="1.0"
+                            android:valueTo="10.0"
+                            app:layout_constraintTop_toBottomOf="@+id/text_repetition"
+                            tools:layout_editor_absoluteX="16dp" />
 
-                        <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
-                            android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/text_aternaciones"
+                            style="@style/TextAppearance.Material3.BodySmall"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/ambas" />
-                    </com.google.android.material.chip.ChipGroup>
+                            android:layout_marginTop="8sp"
+                            android:text="@string/alternaciones"
+                            app:layout_constraintTop_toBottomOf="@+id/slider_repetition" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipGroup"
+                            style="@style/Widget.MaterialComponents.ChipGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8sp"
+                            app:layout_constraintTop_toBottomOf="@+id/text_aternaciones">
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="@string/derecha" />
+
+                            <com.google.android.material.chip.Chip
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/izquierda" />
+
+                        </com.google.android.material.chip.ChipGroup>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <ImageView
                         android:id="@+id/image_play"
                         android:layout_width="42sp"
                         android:layout_height="42sp"
-                        android:layout_marginTop="8sp"
                         android:background="@drawable/border_withe"
                         android:contentDescription="@string/play"
                         android:padding="4sp"
@@ -245,7 +248,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/image_pause"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
                     <ImageView
                         android:id="@+id/image_pause"

@@ -14,7 +14,10 @@
         android:id="@+id/item_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8sp">
+        android:paddingTop="8sp"
+        android:paddingBottom="8sp"
+        android:paddingStart="16sp"
+        android:paddingEnd="16sp">
 
         <ImageView
             android:id="@+id/imageView10"

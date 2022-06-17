@@ -4,7 +4,7 @@
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:id="@+id/textView27"
+            android:id="@+id/text_title_card_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
@@ -21,7 +21,7 @@
             android:elevation="64sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+            app:layout_constraintTop_toBottomOf="@+id/text_title_card_profile" />
         <Constraint
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
@@ -84,7 +84,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_profile" />
         <Constraint
-            android:id="@+id/textView27"
+            android:id="@+id/text_title_card_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
@@ -94,7 +94,7 @@
             app:layout_constraintBottom_toTopOf="@+id/card_profile"
             app:layout_constraintStart_toStartOf="parent" />
         <Constraint
-            android:id="@+id/textView27"
+            android:id="@+id/text_title_card_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"

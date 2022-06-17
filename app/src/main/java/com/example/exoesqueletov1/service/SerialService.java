@@ -42,8 +42,7 @@ public class SerialService extends Service implements SerialListener {
 
     private SerialListener serialListener;
     private boolean connected;
-    private String notificationMsg;
-
+    private SerialSocket socket;
 
 
     private static class QueueItem {
@@ -78,16 +77,16 @@ public class SerialService extends Service implements SerialListener {
         return binder;
     }
 
-    public void connect(SerialListener listener, String notificationMsg) {
+    public void connect(SerialListener listener, SerialSocket socket) {
         this.serialListener = listener;
         connected = true;
-        this.notificationMsg = notificationMsg;
+        this.socket = socket;
     }
 
     public void disconnect() {
         serialListener = null;
         connected = false;
-        notificationMsg = null;
+        socket = null;
     }
 
     public void attach(SerialListener listener) {
@@ -149,12 +148,9 @@ public class SerialService extends Service implements SerialListener {
     }
 
     private void createNotification() {
-        NotificationChannel nc;
-        NotificationManager nm;
-        nc = new NotificationChannel(Constants.NOTIFICATION_CHANNEL,
-                "Background service", NotificationManager.IMPORTANCE_LOW);
+        NotificationChannel nc = new NotificationChannel(Constants.NOTIFICATION_CHANNEL, "Background service", NotificationManager.IMPORTANCE_LOW);
         nc.setShowBadge(false);
-        nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         nm.createNotificationChannel(nc);
         Intent disconnectIntent = new Intent()
                 .setAction(Constants.INTENT_ACTION_DISCONNECT);
@@ -162,27 +158,18 @@ public class SerialService extends Service implements SerialListener {
                 .setClassName(this, Constants.INTENT_CLASS_MAIN_ACTIVITY)
                 .setAction(Intent.ACTION_MAIN)
                 .addCategory(Intent.CATEGORY_LAUNCHER);
-        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent disconnectPendingIntent = PendingIntent.getBroadcast(this,
-                1, disconnectIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent restartPendingIntent = PendingIntent.getActivity(this, 1,
-                restartIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
-                Constants.NOTIFICATION_CHANNEL)
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent disconnectPendingIntent = PendingIntent.getBroadcast(this, 1, disconnectIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent restartPendingIntent = PendingIntent.getActivity(this, 1, restartIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        @SuppressLint("MissingPermission") NotificationCompat.Builder builder = new NotificationCompat.Builder(this, Constants.NOTIFICATION_CHANNEL)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setColor(getResources().getColor(R.color.pinkDark, null))
                 .setContentTitle(getResources().getString(R.string.app_name))
-                .setContentText(notificationMsg)
+                .setContentText(socket != null ? "Connected to " + socket.getDevice().getName() : "Background Service")
                 .setContentIntent(restartPendingIntent)
                 .setOngoing(true)
-                .addAction(new NotificationCompat.Action(R.drawable.ic_clear,
-                        getApplication().getApplicationContext().getString(R.string.desconectar),
-                        disconnectPendingIntent));
-        /*
-         @drawable/ic_notification created with Android Studio -> New -> Image Asset using
-         @color/colorPrimaryDark as background color
-         Android < API 21 does not support vectorDrawables in notifications, so both drawables
-         used here, are created as .png instead of .xml
-         */
+                .addAction(new NotificationCompat.Action(R.drawable.ic_clear, "Desconectar", disconnectPendingIntent));
+        // @drawable/ic_notification created with Android Studio -> New -> Image Asset using @color/colorPrimaryDark as background color
+        // Android < API 21 does not support vectorDrawables in notifications, so both drawables used here, are created as .png instead of .xml
         Notification notification = builder.build();
         startForeground(Constants.NOTIFY_MANAGER_START_FOREGROUND_SERVICE, notification);
     }

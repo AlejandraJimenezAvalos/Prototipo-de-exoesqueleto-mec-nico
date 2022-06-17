@@ -61,5 +61,10 @@
     <action
         android:id="@+id/global_action_to_connection_fragment"
         app:destination="@+id/connectionFragment" />
+    <action
+        android:id="@+id/action_global_navigation_paired_device"
+        app:destination="@id/navigation_paired_device"
+        app:enterAnim="@anim/fade_scale_animation"
+        app:exitAnim="@anim/fade_scale_animation" />
 
 </navigation>
