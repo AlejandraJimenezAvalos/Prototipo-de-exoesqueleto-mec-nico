@@ -7,6 +7,7 @@
         <item name="colorOnPrimary">@color/blueDark</item>
         <item name="colorPrimaryContainer">@color/pinkDark</item>
         <item name="colorOnPrimaryContainer">@color/blueDark</item>
+        <item name="android:colorAccent">@color/blueAccent</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/pink</item>
         <item name="colorSecondaryVariant">@color/pinkDark</item>
@@ -15,6 +16,7 @@
         <item name="android:statusBarColor">@color/blueDark</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/blueDark</item>
+        <item name="android:navigationBarColor">@color/blueDark</item>
 
         <item name="fontFamily">@font/font</item>
         <item name="android:fontFamily">@font/font</item>

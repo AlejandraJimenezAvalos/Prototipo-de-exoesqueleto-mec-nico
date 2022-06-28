@@ -44,6 +44,7 @@ import com.example.exoesqueletov1.ui.fragments.pairedDevises.adapter.PairedDevic
 import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Constants.Connection
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
+import com.example.exoesqueletov1.utils.Utils.getTypeUser
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.math.MathUtils
 import com.google.android.material.snackbar.Snackbar
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
     private var initialStart = true
     private var terminalState = false
     private var terminalVisibility = false
+    private var menuInflate = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +77,16 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         setContentView(binding.root)
 
         viewModel.userModel.observe(this) {
+            if (menuInflate) {
+                menuInflate = false
+                binding.navigationView.inflateMenu(
+                    when (it.user.getTypeUser()) {
+                        Constants.TypeUser.Admin -> R.menu.bottom_nav_menu
+                        Constants.TypeUser.Specialist -> R.menu.bottom_nav_menu_specialist
+                        Constants.TypeUser.Patient -> R.menu.bottom_nav_menu_patient
+                    }
+                )
+            }
             val navController = findNavController(R.id.nav_host_fragment_activity_main_bottom_other)
             binding.navigationView.setupWithNavController(navController)
 

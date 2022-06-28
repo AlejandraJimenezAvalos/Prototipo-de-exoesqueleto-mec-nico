@@ -41,8 +41,7 @@
                 android:background="@drawable/border_right"
                 android:backgroundTint="?android:attr/windowBackground"
                 app:behavior_hideable="true"
-                app:layout_behavior="@string/bottom_sheet_behavior"
-                app:menu="@menu/bottom_nav_menu" />
+                app:layout_behavior="@string/bottom_sheet_behavior" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

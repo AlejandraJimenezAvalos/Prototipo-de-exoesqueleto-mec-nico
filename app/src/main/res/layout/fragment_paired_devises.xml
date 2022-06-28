@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    android:padding="16sp">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/text_status"
@@ -47,8 +46,9 @@
         style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/blueAccent"
+        android:backgroundTint="?android:attr/colorAccent"
         android:visibility="visible"
+        android:layout_margin="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView9">
 

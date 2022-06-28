@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="16sp"
-        android:background="@drawable/border_right"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -26,8 +25,7 @@
             app:fabSize="mini"
             app:layout_constraintBottom_toBottomOf="@+id/card_image_profile"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_image_profile"
@@ -52,7 +50,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8sp"
             android:layout_marginEnd="8sp"
-            android:textColor="@color/white"
             style="@style/TextAppearance.Material3.BodyLarge"
             app:layout_constraintBottom_toBottomOf="@+id/card_image_profile"
             app:layout_constraintEnd_toStartOf="@+id/image_activity_chat_more"

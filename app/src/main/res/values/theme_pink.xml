@@ -12,9 +12,10 @@
         <item name="colorSecondaryVariant">@color/pinkDark</item>
         <item name="colorOnSecondary">@color/blueDark</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/blueDark</item>
+        <item name="android:statusBarColor">@color/pinkDark</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/pinkDark</item>
+        <item name="android:navigationBarColor">@color/pinkDark</item>
 
         <item name="fontFamily">@font/font</item>
         <item name="android:fontFamily">@font/font</item>
