@@ -46,9 +46,9 @@
         android:id="@+id/materialCardView3"
         style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
-        android:visibility="visible"
-        android:backgroundTint="@color/blueAccent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/blueAccent"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView9">
 

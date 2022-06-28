@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
@@ -19,6 +20,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -39,7 +44,8 @@ import com.example.exoesqueletov1.ui.fragments.pairedDevises.adapter.PairedDevic
 import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Constants.Connection
 import com.example.exoesqueletov1.utils.Utils.createLoadingDialog
-import com.example.exoesqueletov1.utils.Utils.getTypeUser
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.math.MathUtils
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
@@ -51,6 +57,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
+    private var previusId = 0
 
     private var serialSocket: SerialSocket? = null
     private var serialService: SerialService? = null
@@ -68,36 +75,64 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         setContentView(binding.root)
 
         viewModel.userModel.observe(this) {
-            val navView = when (it.user.getTypeUser()) {
-                Constants.TypeUser.Admin -> {
-                    binding.navViewPatient.visibility = View.GONE
-                    binding.navViewSpecialist.visibility = View.GONE
-                    binding.navView.visibility = View.VISIBLE
-                    terminalState = true
-                    binding.navView
-                }
-                Constants.TypeUser.Specialist -> {
-                    binding.navViewPatient.visibility = View.GONE
-                    binding.navViewSpecialist.visibility = View.VISIBLE
-                    binding.navView.visibility = View.GONE
-                    terminalState = false
-                    binding.navViewSpecialist
-                }
-                Constants.TypeUser.Patient -> {
-                    binding.navViewPatient.visibility = View.VISIBLE
-                    binding.navViewSpecialist.visibility = View.GONE
-                    binding.navView.visibility = View.GONE
-                    terminalState = false
-                    binding.navViewPatient
-                }
+            val navController = findNavController(R.id.nav_host_fragment_activity_main_bottom_other)
+            binding.navigationView.setupWithNavController(navController)
+
+            val bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+            binding.bottomAppBar.setNavigationOnClickListener {
+                bottomSheetBehavior.state =
+                    if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_HIDDEN) {
+                        binding.scrim.visibility = View.GONE
+                        BottomSheetBehavior.STATE_HIDDEN
+                    } else {
+                        binding.scrim.visibility = View.VISIBLE
+                        BottomSheetBehavior.STATE_COLLAPSED
+                    }
             }
-            val navController = findNavController(R.id.nav_host_fragment_activity_main_bottom)
-            navView.setupWithNavController(navController)
-            navController.addOnDestinationChangedListener { _, destination, _ ->
-                if (destination.id == R.id.navigation_paired_device && connection == Connection.True) {
-                    navController.navigate(R.id.global_action_to_connection_fragment)
+
+            binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+                val destinationId = when (menuItem.itemId) {
+                    R.id.navigation_home -> R.id.action_global_navigation_home
+                    R.id.navigation_profile -> R.id.action_global_navigation_profile
+                    R.id.navigation_message -> R.id.action_global_navigation_message
+                    R.id.navigation_paired_device -> R.id.action_global_navigation_paired_device
+                    R.id.navigation_work -> R.id.action_global_navigation_work
+                    else -> R.id.action_global_navigation_home
                 }
+
+                if (destinationId != previusId) navController.navigate(destinationId)
+
+                menuItem.isChecked = true
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                previusId = destinationId
+                binding.scrim.visibility = View.GONE
+                true
             }
+
+            binding.scrim.setOnClickListener {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                binding.scrim.visibility = View.GONE
+            }
+
+            bottomSheetBehavior.addBottomSheetCallback(object :
+                BottomSheetBehavior.BottomSheetCallback() {
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                    val baseColor = Color.BLACK
+                    // 60% opacity
+                    val baseAlpha =
+                        ResourcesCompat.getFloat(resources, R.dimen.material_emphasis_medium)
+                    // Map slideOffset from [-1.0, 1.0] to [0.0, 1.0]
+                    val offset = (slideOffset - (-1f)) / (1f - (-1f)) * (1f - 0f) + 0f
+                    val alpha = MathUtils.lerp(0f, 255f, offset * baseAlpha).toInt()
+                    val color = Color.argb(alpha, baseColor.red, baseColor.green, baseColor.blue)
+                    binding.scrim.setBackgroundColor(color)
+                }
+
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                }
+            })
         }
         viewModel.result.observe(this) {
             it.status.createLoadingDialog(
@@ -110,7 +145,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
                 errorDialog.show(supportFragmentManager, MainActivity::class.java.name)
             }
         }
-        binding.topAppBar.setOnMenuItemClickListener {
+        binding.bottomAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.sing_out -> {
                     if (connection == Connection.False) {
@@ -121,14 +156,12 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
                     true
                 }
                 R.id.disconect -> {
-                    if (connection == Connection.True) {
+                    if (connection != Connection.True) {
                         disconnect()
                         it.icon = getDrawable(R.drawable.ic_round_bluetooth_disabled_24)
-                        it.icon.setTint(R.color.white)
                     } else if (deviceAddress.isNotEmpty()) {
                         connect()
                         it.icon = getDrawable(R.drawable.ic_bluetooth_connected)
-                        it.icon.setTint(R.color.white)
                     }
 
                     true
@@ -143,7 +176,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && checkPermissions(Constants.PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, Constants.PERMISSIONS, 1)
         } else onAttach()
-        binding.buttonStop.setOnClickListener { send("stop") }
+        //binding.buttonStop.setOnClickListener { send("stop") }
     }
 
     override fun onRequestPermissionsResult(
@@ -183,11 +216,11 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun getDevice(device: ExoskeletonQuery) {
         if (terminalState) {
-            binding.buttonCloseTerminal.setOnClickListener {
+            /*binding.buttonCloseTerminal.setOnClickListener {
                 binding.terminal.visibility =
                     if (binding.terminal.visibility == View.VISIBLE) View.GONE else View.VISIBLE
                 terminalVisibility = !terminalVisibility
-            }
+            }*/
         }
         binding.terminal.movementMethod = ScrollingMovementMethod.getInstance()
         deviceAddress = device.mac
@@ -196,7 +229,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
             ForegroundColorSpan(getColor(R.color.green)), 0,
             spn.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        binding.textNameDevice.text = device.name
+        //binding.textNameDevice.text = device.name
         binding.terminal.append(spn)
         binding.terminal.append("   ID:      ${device.id}\n")
         binding.terminal.append("   Name:    ${device.name}\n")
@@ -270,7 +303,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
 
     override fun onServiceDisconnected(name: ComponentName?) {
         serialService = null
-        binding.buttonStop.visibility = View.GONE
+        //binding.buttonStop.visibility = View.GONE
     }
 
     /**
@@ -281,10 +314,10 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         status("connected")
         connection = Connection.True
         EventBus.getDefault().post(BluetoothResource.connect())
-        binding.buttonStop.visibility = View.VISIBLE
-        binding.constraintLayout2.visibility = View.GONE
+        //binding.buttonStop.visibility = View.VISIBLE
+        //binding.constraintLayout2.visibility = View.GONE
         binding.terminal.visibility = if (terminalVisibility) View.VISIBLE else View.GONE
-        binding.buttonCloseTerminal.visibility = View.VISIBLE
+        //binding.buttonCloseTerminal.visibility = View.VISIBLE
         //send("WALK_MINUTES")
     }
 
@@ -335,10 +368,10 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         serialSocket!!.disconnect()
         serialSocket = null
         EventBus.getDefault().post(BluetoothResource.disconnected())
-        binding.buttonStop.visibility = View.GONE
-        binding.buttonCloseTerminal.visibility = View.GONE
+        //binding.buttonStop.visibility = View.GONE
+        //binding.buttonCloseTerminal.visibility = View.GONE
         binding.terminal.visibility = View.GONE
-        binding.constraintLayout2.visibility = View.VISIBLE
+        //binding.constraintLayout2.visibility = View.VISIBLE
     }
 
     private fun send(str: String) {

@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="ThemePink" parent="Theme.Material3.Dark.NoActionBar">
@@ -12,7 +12,7 @@
         <item name="colorSecondaryVariant">@color/pinkDark</item>
         <item name="colorOnSecondary">@color/blueDark</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/pinkDark</item>
+        <item name="android:statusBarColor">@color/blueDark</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/pinkDark</item>
 

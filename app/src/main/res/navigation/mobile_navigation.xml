@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/navigation_home">
+
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.exoesqueletov1.ui.fragments.profile.ProfileFragment"
@@ -60,11 +61,30 @@
 
     <action
         android:id="@+id/global_action_to_connection_fragment"
-        app:destination="@+id/connectionFragment" />
+        app:destination="@+id/connectionFragment"
+        app:enterAnim="@anim/fab_scale_up" />
+    <action
+        android:id="@+id/action_global_navigation_profile"
+        app:destination="@id/navigation_profile"
+        app:enterAnim="@anim/fab_scale_up" />
+    <action
+        android:id="@+id/action_global_navigation_message"
+        app:destination="@id/navigation_message"
+        app:enterAnim="@anim/fab_scale_up" />
     <action
         android:id="@+id/action_global_navigation_paired_device"
         app:destination="@id/navigation_paired_device"
-        app:enterAnim="@anim/fade_scale_animation"
-        app:exitAnim="@anim/fade_scale_animation" />
+        app:enterAnim="@anim/fab_scale_up" />
+    <action
+        android:id="@+id/action_global_navigation_work"
+        app:destination="@id/navigation_work"
+        app:enterAnim="@anim/fab_scale_up" />
+    <action
+        android:id="@+id/action_global_navigation_home"
+        app:destination="@id/navigation_home"
+        app:enterAnim="@anim/fab_scale_up"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/mobile_navigation"
+        app:popUpToInclusive="true" />
 
 </navigation>
