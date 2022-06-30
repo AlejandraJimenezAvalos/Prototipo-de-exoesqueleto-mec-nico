@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,22 +9,29 @@
         android:layout_height="match_parent"
         android:padding="16sp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_dialog_request"
-            android:layout_width="48sp"
-            android:layout_height="48sp"
-            android:src="@drawable/ic_profile"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="48sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_dialog_request_description"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_dialog_request_name" />
+            app:layout_constraintTop_toTopOf="@+id/text_dialog_request_name">
+
+            <ImageView
+                android:id="@+id/image_dialog_request"
+                android:layout_width="48sp"
+                android:layout_height="48sp"
+                android:src="@drawable/ic_profile" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/text_dialog_request_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16sp"
             android:text="@string/nombre"
-            app:layout_constraintStart_toEndOf="@+id/image_dialog_request"
+            android:layout_marginStart="16sp"
+            app:layout_constraintStart_toEndOf="@+id/cardView6"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -46,11 +52,11 @@
 
         <Button
             android:id="@+id/button_dialog_request_cancel"
+            style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16sp"
             android:layout_marginEnd="8sp"
-            style="@style/Widget.Material3.Button.ElevatedButton"
             android:text="@string/cancelar"
             app:layout_constraintEnd_toStartOf="@+id/button_dialog_request_add"
             app:layout_constraintHorizontal_bias="0.5"

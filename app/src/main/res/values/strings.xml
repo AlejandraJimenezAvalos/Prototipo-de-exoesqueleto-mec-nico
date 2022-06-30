@@ -79,6 +79,8 @@ Si no lo encuentra, busque en el apartado del correo no deseado.</string>
     <string name="operacion_exitosa">Operación exitosa</string>
     <string name="messages">Messages</string>
     <string name="chats">Chats</string>
+    <string name="work">work</string>
+    <string name="proceedings">proceedings</string>
     <string name="buscar">Buscar</string>
     <string name="agregar">Agregar</string>
     <string name="more_info">Da click para ver mas informacion</string>

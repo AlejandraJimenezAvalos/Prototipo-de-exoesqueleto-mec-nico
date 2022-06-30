@@ -127,7 +127,7 @@ object Utils {
         if (!this.isChecked) Constants.TypeUser.Specialist.toString()
         else Constants.TypeUser.Patient.toString()
 
-    private fun RadioButton.getGender() =
+    fun RadioButton.getGender() =
         if (this.isChecked) Constants.Gender.Woman.toString()
         else Constants.Gender.Man.toString()
 
@@ -160,13 +160,13 @@ object Utils {
     fun ProfileModel.isEquals(profileModel: ProfileModel?, state: (Boolean) -> Unit) {
         if (profileModel == null) state.invoke(false)
         else {
-            val idState          = (id == profileModel.id)
-            val addressState     = (address == profileModel.address)
-            val cellState        = (cell == profileModel.cell)
-            val emailState       = (email == profileModel.email)
-            val nameState        = (name == profileModel.name)
-            val phoneState       = (phone == profileModel.phone)
-            val schoolState      = (school == profileModel.school)
+            val idState = (id == profileModel.id)
+            val addressState = (address == profileModel.address)
+            val cellState = (cell == profileModel.cell)
+            val emailState = (email == profileModel.email)
+            val nameState = (name == profileModel.name)
+            val phoneState = (phone == profileModel.phone)
+            val schoolState = (school == profileModel.school)
             val descriptionState = (description == profileModel.description)
             state.invoke(idState && addressState && cellState && emailState && nameState && phoneState && schoolState && descriptionState)
         }
@@ -177,5 +177,9 @@ object Utils {
         val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         return formatter.format(this)
     }
+
+    fun String.getOrigin() =
+        if (this == Constants.Origin.Create.toString()) Constants.Origin.Create
+        else Constants.Origin.User
 
 }

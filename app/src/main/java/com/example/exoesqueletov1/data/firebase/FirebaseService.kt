@@ -1,26 +1,27 @@
 package com.example.exoesqueletov1.data.firebase
 
 import android.util.Log
-import com.example.exoesqueletov1.data.models.ExoskeletonModel
+import com.example.exoesqueletov1.data.models.*
 import com.example.exoesqueletov1.data.models.ExoskeletonModel.Companion.toExoskeleton
-import com.example.exoesqueletov1.data.models.MessageModel
 import com.example.exoesqueletov1.data.models.MessageModel.Companion.toMessage
-import com.example.exoesqueletov1.data.models.ProfileModel
+import com.example.exoesqueletov1.data.models.PatientModel.Companion.toPatientModel
 import com.example.exoesqueletov1.data.models.ProfileModel.Companion.toProfile
-import com.example.exoesqueletov1.data.models.UserModel
 import com.example.exoesqueletov1.data.models.UserModel.Companion.toUserModel
+import com.example.exoesqueletov1.domain.UserRepository
 import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Constants.COLLECTION_EXOSKELETON
 import com.example.exoesqueletov1.utils.Constants.COLLECTION_MESSAGES
+import com.example.exoesqueletov1.utils.Constants.COLLECTION_PATIENT
 import com.example.exoesqueletov1.utils.Constants.COLLECTION_PROFILE
 import com.example.exoesqueletov1.utils.Constants.COLLECTION_USER
+import com.example.exoesqueletov1.utils.Constants.ID_USER
 import com.example.exoesqueletov1.utils.Resource
 import com.example.exoesqueletov1.utils.Utils.getTypeUser
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import javax.inject.Inject
 
-class FirebaseService @Inject constructor() {
+class FirebaseService @Inject constructor(private val userRepository: UserRepository) {
 
     private val db = Firebase.firestore
 
@@ -70,8 +71,8 @@ class FirebaseService @Inject constructor() {
             }
     }
 
-    fun getProfile(id: String, result: (Resource<ProfileModel>) -> Unit) {
-        val userProfile = db.collection(COLLECTION_PROFILE).document(id)
+    fun getProfile(result: (Resource<ProfileModel>) -> Unit) {
+        val userProfile = db.collection(COLLECTION_PROFILE).document(userRepository.getId())
         result.invoke(Resource.loading())
         userProfile.addSnapshotListener { value, error ->
             if (error != null) {
@@ -89,7 +90,7 @@ class FirebaseService @Inject constructor() {
     fun setProfile(profileModel: ProfileModel, resource: (Resource<Void>) -> Unit) {
         resource.invoke(Resource.loading())
         db.collection(COLLECTION_PROFILE)
-            .document(profileModel.id).set(profileModel)
+            .document(userRepository.getId()).set(profileModel)
             .addOnFailureListener {
                 resource.invoke(Resource.error(it))
             }.addOnSuccessListener {
@@ -97,10 +98,10 @@ class FirebaseService @Inject constructor() {
             }
     }
 
-    fun getMessages(id: String, result: (Resource<MessageModel>) -> Unit) {
+    fun getMessages(result: (Resource<MessageModel>) -> Unit) {
         result.invoke(Resource.loading())
         db.collection(COLLECTION_MESSAGES)
-            .whereEqualTo(Constants.FROM, id)
+            .whereEqualTo(Constants.FROM, userRepository.getId())
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     result.invoke(Resource.error(error))
@@ -115,7 +116,7 @@ class FirebaseService @Inject constructor() {
             }
 
         db.collection(COLLECTION_MESSAGES)
-            .whereEqualTo(Constants.TO, id)
+            .whereEqualTo(Constants.TO, userRepository.getId())
             .addSnapshotListener { value, error ->
                 if (error != null) {
                     result.invoke(Resource.error(error))
@@ -143,8 +144,8 @@ class FirebaseService @Inject constructor() {
 
     }
 
-    fun getExoskeleton(id: String, user: String, result: (Resource<ExoskeletonModel>) -> Unit) {
-        if (user.getTypeUser() == Constants.TypeUser.Admin) {
+    fun getExoskeleton(result: (Resource<ExoskeletonModel>) -> Unit) {
+        if (userRepository.getType().getTypeUser() == Constants.TypeUser.Admin) {
             db.collection(COLLECTION_EXOSKELETON).addSnapshotListener { value, error ->
                 if (error != null) {
                     result.invoke(Resource.error(error))
@@ -162,7 +163,8 @@ class FirebaseService @Inject constructor() {
                 } else result.invoke(Resource.notExist())
             }
         } else {
-            db.collection(COLLECTION_EXOSKELETON).whereEqualTo(Constants.USER_ID, id)
+            db.collection(COLLECTION_EXOSKELETON)
+                .whereEqualTo(Constants.USER_ID, userRepository.getId())
                 .addSnapshotListener { value, error ->
                     if (error != null) {
                         result.invoke(Resource.error(error))
@@ -191,4 +193,62 @@ class FirebaseService @Inject constructor() {
                 result.invoke(Resource.error(it))
             }
     }
+
+    fun getPatient(result: (Resource<PatientModel>) -> Unit) {
+        when (userRepository.getType().getTypeUser()) {
+            Constants.TypeUser.Specialist -> {
+                result.invoke(Resource.loading())
+                db.collection(COLLECTION_PATIENT).whereEqualTo(ID_USER, userRepository.getId())
+                    .addSnapshotListener { value, error ->
+                        if (error != null) {
+                            result.invoke(Resource.error(error))
+                            Log.e(
+                                FirebaseService::class.java.name,
+                                "Error Snapshot getPatient()",
+                                error
+                            )
+                            return@addSnapshotListener
+                        }
+                        if (value != null && !value.isEmpty) {
+                            for (document in value) {
+                                if (document.exists())
+                                    result.invoke(Resource.success(document.toPatientModel()!!))
+                            }
+                        } else result.invoke(Resource.notExist())
+                    }
+            }
+            Constants.TypeUser.Admin -> {
+                db.collection(COLLECTION_PATIENT).addSnapshotListener { value, error ->
+                    if (error != null) {
+                        result.invoke(Resource.error(error))
+                        Log.e(
+                            FirebaseService::class.java.name,
+                            "Error Snapshot getPatient()",
+                            error
+                        )
+                        return@addSnapshotListener
+                    }
+                    if (value != null && !value.isEmpty) {
+                        for (document in value) {
+                            if (document.exists())
+                                result.invoke(Resource.success(document.toPatientModel()!!))
+                        }
+                    } else result.invoke(Resource.notExist())
+                }
+            }
+            else -> {}
+        }
+
+    }
+
+    fun setPatient(patientModel: PatientModel, result: (Resource<Void>) -> Unit) {
+        result.invoke(Resource.loading())
+        db.collection(COLLECTION_PATIENT).document(patientModel.id)
+            .set(patientModel).addOnSuccessListener {
+                result.invoke(Resource.success(it))
+            }.addOnFailureListener {
+                result.invoke(Resource.error(it))
+            }
+    }
+
 }

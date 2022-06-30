@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
 import com.example.exoesqueletov1.domain.DataRepository
+import com.example.exoesqueletov1.domain.UserRepository
 import com.example.exoesqueletov1.utils.Resource
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
@@ -16,7 +17,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val dataRepository: DataRepository) : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val dataRepository: DataRepository,
+    private val userRepository: UserRepository
+) : ViewModel() {
 
     private val auth = FirebaseAuth.getInstance()
 
@@ -34,6 +38,7 @@ class LoginViewModel @Inject constructor(private val dataRepository: DataReposit
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     auth.currentUser!!
+                    userRepository.setId(auth.currentUser!!.uid)
                     viewModelScope.launch {
                         withContext(Dispatchers.IO) {
                             dataRepository.insertNewUser(

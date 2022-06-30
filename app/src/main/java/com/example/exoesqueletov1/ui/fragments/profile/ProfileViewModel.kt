@@ -1,15 +1,12 @@
 package com.example.exoesqueletov1.ui.fragments.profile
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.exoesqueletov1.data.models.ProfileModel
 import com.example.exoesqueletov1.data.models.UserModel
 import com.example.exoesqueletov1.domain.DataRepository
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.example.exoesqueletov1.domain.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,9 +14,12 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val dataRepository: DataRepository) :
+class ProfileViewModel @Inject constructor(
+    private val dataRepository: DataRepository,
+    userRepository: UserRepository
+) :
     ViewModel() {
-    private val id = Firebase.auth.currentUser!!.uid
+    private val id = userRepository.getId()
 
     val profile = MediatorLiveData<ProfileModel>().apply {
         addSource(dataRepository.getProfile(id)) {

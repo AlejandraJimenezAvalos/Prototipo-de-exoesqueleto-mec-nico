@@ -1,12 +1,10 @@
 package com.example.exoesqueletov1.domain
 
+import androidx.lifecycle.LiveData
 import com.example.exoesqueletov1.data.local.dao.Dao
 import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
-import com.example.exoesqueletov1.data.models.ExoskeletonModel
-import com.example.exoesqueletov1.data.models.MessageModel
-import com.example.exoesqueletov1.data.models.ProfileModel
-import com.example.exoesqueletov1.data.models.UserModel
+import com.example.exoesqueletov1.data.models.*
 import javax.inject.Inject
 
 class DataRepository @Inject constructor(private val dao: Dao) {
@@ -25,6 +23,7 @@ class DataRepository @Inject constructor(private val dao: Dao) {
         dao.deleteChats()
         dao.deleteMessages()
         dao.deleteExoskeleton()
+        dao.deletePatients()
     }
 
     fun insertNewUser(usersEntity: UsersEntity) = dao.insertNewUser(usersEntity)
@@ -48,4 +47,9 @@ class DataRepository @Inject constructor(private val dao: Dao) {
         dao.insertExoskeleton(exoskeletonModel)
 
     fun getExoskeleton() = dao.getExoskeleton()
+
+    fun insertPatient(patientModel: PatientModel) = dao.insertPatient(patientModel)
+    fun getPatients(): LiveData<List<PatientModel>> = dao.getPatients()
+    fun getPatient(id: String): LiveData<PatientModel> = dao.getPatient(id)
+    fun deletePatients() = dao.deletePatients()
 }

@@ -7,9 +7,9 @@ import com.example.exoesqueletov1.data.firebase.FirebaseService
 import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.models.UserModel
 import com.example.exoesqueletov1.domain.DataRepository
+import com.example.exoesqueletov1.domain.UserRepository
 import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Resource
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,9 +21,10 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val firebaseService: FirebaseService,
-    private val dataRepository: DataRepository
+    private val dataRepository: DataRepository,
+    userRepository: UserRepository
 ) : ViewModel() {
-    private val id = FirebaseAuth.getInstance().currentUser!!.uid
+    private val id = userRepository.getId()
     val result = MediatorLiveData<Resource<UserModel>>()
     val userModel: MediatorLiveData<UserModel>
 
@@ -31,13 +32,14 @@ class MainViewModel @Inject constructor(
 
         firebaseService.getUser(id) {
             if (it.status == Constants.Status.Success) {
-                if (it.data!!.id == id) getExoskeleton(it.data.user)
+                if (it.data!!.id == id) getExoskeleton()
                 viewModelScope.launch {
                     withContext(Dispatchers.IO) {
                         dataRepository.insertUser(it.data)
                     }
                 }
                 if (it.data.id == id) {
+                    userRepository.setUsertype(it.data.user)
                     result.addSource(dataRepository.getUsers(id)) { user ->
                         viewModelScope.launch {
                             withContext(Dispatchers.IO) {
@@ -50,7 +52,8 @@ class MainViewModel @Inject constructor(
             }
             result.postValue(it)
         }
-        firebaseService.getProfile(id) {
+
+        firebaseService.getProfile {
             if (it.status == Constants.Status.Success)
                 viewModelScope.launch {
                     withContext(Dispatchers.IO) {
@@ -60,7 +63,7 @@ class MainViewModel @Inject constructor(
             if (it.status == Constants.Status.Failure)
                 result.postValue(Resource.error(it.exception!!))
         }
-        firebaseService.getMessages(id) {
+        firebaseService.getMessages {
             if (it.status == Constants.Status.Failure) result.postValue(Resource.error(it.exception!!))
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
@@ -68,6 +71,18 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
+
+        firebaseService.getPatient {
+            if (it.status == Constants.Status.Success) {
+                viewModelScope.launch {
+                    withContext(Dispatchers.IO) {
+                        dataRepository.insertPatient(it.data!!)
+                    }
+                }
+            }
+            if (it.status == Constants.Status.Failure) result.postValue(Resource.error(it.exception!!))
+        }
+
         userModel = MediatorLiveData<UserModel>().apply {
             addSource(dataRepository.getUser(id)) {
                 if (it != null) {
@@ -105,10 +120,20 @@ class MainViewModel @Inject constructor(
             }
         }
 
+        userModel.addSource(dataRepository.getPatients()) {
+            it.forEach { patient ->
+                firebaseService.setPatient(patient) { resultPatient ->
+                    if (resultPatient.status == Constants.Status.Failure) {
+                        result.postValue(Resource.error(resultPatient.exception!!))
+                    }
+                }
+            }
+        }
+
     }
 
-    private fun getExoskeleton(user: String) {
-        firebaseService.getExoskeleton(id, user) {
+    private fun getExoskeleton() {
+        firebaseService.getExoskeleton {
             if (it.status == Constants.Status.Failure) result.postValue(Resource.error(it.exception!!))
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {

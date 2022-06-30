@@ -13,7 +13,9 @@ object Constants {
     enum class TypeUser { Admin, Specialist, Patient }
     enum class SingInPagerNavigation { Login, SingIn }
     enum class StatusDevice { Emparejado, Cercano }
+    enum class Origin { User, Create }
 
+    const val COLLECTION_PATIENT = "patient"
     const val COLLECTION_PROFILE = "profile"
     const val COLLECTION_USER = "user"
     const val COLLECTION_MESSAGES = "messages"
@@ -41,6 +43,11 @@ object Constants {
     const val TO = "to"
     const val MESSAGE = "message"
     const val STATUS = "status"
+    const val YEARS_OLD = "yearsOld"
+    const val OCCUPATION = "occupation"
+    const val BACKGROUND = "background"
+    const val FAMILY_BACKGROUND = "familyBackground"
+    const val ORIGIN = "origin"
 
     @RequiresApi(Build.VERSION_CODES.S)
     val PERMISSIONS = arrayOf(

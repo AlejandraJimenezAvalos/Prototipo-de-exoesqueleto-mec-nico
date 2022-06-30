@@ -7,10 +7,7 @@ import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
 import com.example.exoesqueletov1.data.local.query.ExoskeletonQuery
 import com.example.exoesqueletov1.data.local.query.GroupsQuery
-import com.example.exoesqueletov1.data.models.ExoskeletonModel
-import com.example.exoesqueletov1.data.models.MessageModel
-import com.example.exoesqueletov1.data.models.ProfileModel
-import com.example.exoesqueletov1.data.models.UserModel
+import com.example.exoesqueletov1.data.models.*
 
 @Dao
 interface Dao {
@@ -94,5 +91,17 @@ interface Dao {
 
     @Query("DELETE FROM exoskeleton")
     fun deleteExoskeleton()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPatient(patientModel: PatientModel)
+
+    @Query("SELECT * FROM patient")
+    fun getPatients(): LiveData<List<PatientModel>>
+
+    @Query("SELECT * FROM patient WHERE id == :id")
+    fun getPatient(id: String): LiveData<PatientModel>
+
+    @Query("DELETE FROM PATIENT")
+    fun deletePatients()
 
 }

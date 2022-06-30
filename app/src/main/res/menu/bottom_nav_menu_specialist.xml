@@ -17,7 +17,7 @@
         android:title="@string/emparejar" />
 
     <item
-        android:id="@+id/navigation_work"
+        android:id="@+id/navigation_message"
         android:icon="@drawable/ic_work"
         android:title="@string/pacientes" />
 

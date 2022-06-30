@@ -11,11 +11,6 @@
         android:label="NewProfileFragment"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/worksFragment"
-        android:name="com.example.exoesqueletov1.ui.fragments.WorksFragment"
-        android:label="WorksFragment"
-        tools:layout="@layout/fragment_works" />
-    <fragment
         android:id="@+id/navigation_work"
         android:name="com.example.exoesqueletov1.ui.fragments.AssignWorkFragment"
         android:label="AssignWorkFragment"
@@ -27,7 +22,12 @@
         tools:layout="@layout/fragment_chats">
         <action
             android:id="@+id/action_messageFragment_to_chatActivity"
-            app:destination="@id/chatActivity" />
+            app:destination="@id/chatActivity"
+            app:enterAnim="@anim/fab_scale_up" />
+        <action
+            android:id="@+id/action_navigation_message_to_patientFragment"
+            app:destination="@id/patientFragment"
+            app:enterAnim="@anim/fab_scale_up" />
     </fragment>
     <fragment
         android:id="@+id/navigation_home"
@@ -41,7 +41,8 @@
         tools:layout="@layout/fragment_paired_devises">
         <action
             android:id="@+id/action_navigation_paired_device_to_connectionFragment"
-            app:destination="@id/connectionFragment" />
+            app:destination="@id/connectionFragment"
+            app:enterAnim="@anim/fab_scale_up" />
     </fragment>
     <fragment
         android:id="@+id/nav_user"
@@ -86,5 +87,11 @@
         app:launchSingleTop="true"
         app:popUpTo="@+id/mobile_navigation"
         app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/patientFragment"
+        android:name="com.example.exoesqueletov1.ui.fragments.patient.PatientFragment"
+        android:label="fragment_patient"
+        app:enterAnim="@anim/fab_scale_up"
+        tools:layout="@layout/fragment_patient" />
 
 </navigation>

@@ -7,14 +7,14 @@
 
         <variable
             name="chat"
-            type="com.example.exoesqueletov1.data.local.entity.ChatsEntity" />
+            type="com.example.exoesqueletov1.data.models.PatientModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/item_chat"
         android:layout_width="match_parent"
-        android:layout_marginBottom="8sp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8sp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,7 +25,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="24sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -33,10 +32,10 @@
                     android:id="@+id/image_item_chat"
                     android:layout_width="48sp"
                     android:layout_height="48sp"
-                    android:scaleType="centerCrop"
                     android:contentDescription="@string/image_profile"
-                    tools:src="@tools:sample/avatars"
-                    android:src="@drawable/ic_profile" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_profile"
+                    tools:src="@tools:sample/avatars" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -44,26 +43,59 @@
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/text_item_chat_message"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="16sp"
+                android:layout_marginEnd="8sp"
                 android:text="@{chat.name}"
+                android:maxLines="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_chat"
                 app:layout_constraintStart_toEndOf="@+id/card_image_profile_item_chat"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/full_names" />
 
-            <TextView
-                android:id="@+id/text_item_chat_message"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/image_proceedings"
+                android:layout_width="42sp"
+                android:layout_height="42sp"
+                android:layout_marginEnd="8sp"
+                android:contentDescription="@string/proceedings"
+                android:padding="8sp"
+                android:src="@drawable/ic_round_assignment_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="16sp"
-                android:maxLines="1"
-                android:text="@{chat.message}"
-                app:layout_constraintStart_toStartOf="@+id/text_item_chat_name"
-                app:layout_constraintTop_toBottomOf="@+id/text_item_chat_name"
-                tools:text="@tools:sample/lorem/random" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_walk"
+                android:layout_width="42sp"
+                android:layout_height="42sp"
+                android:contentDescription="@string/walk"
+                android:padding="8sp"
+                android:src="@drawable/ic_work"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_proceedings"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_add"
+                android:layout_width="42sp"
+                android:layout_height="42sp"
+                android:contentDescription="@string/work"
+                android:padding="8sp"
+                android:src="@drawable/ic_round_post_add_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_walk"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_chat"
+                android:layout_width="42sp"
+                android:layout_height="42sp"
+                android:contentDescription="@string/chats"
+                android:padding="8sp"
+                android:src="@drawable/ic_mail"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_add"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

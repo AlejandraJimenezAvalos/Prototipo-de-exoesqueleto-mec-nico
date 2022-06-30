@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exoesqueletov1.R
-import com.example.exoesqueletov1.data.local.entity.ChatsEntity
-import com.example.exoesqueletov1.data.models.MessageModel
+import com.example.exoesqueletov1.data.models.PatientModel
 
 class ChatsAdapter(
-    private val list: MutableList<ChatsEntity>,
-    private val onClick: (ChatsEntity) -> Unit
+    private val list: MutableList<PatientModel>,
+    private val onClick: (PatientModel) -> Unit
 ) :
     RecyclerView.Adapter<ChatsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ChatsViewHolder(
