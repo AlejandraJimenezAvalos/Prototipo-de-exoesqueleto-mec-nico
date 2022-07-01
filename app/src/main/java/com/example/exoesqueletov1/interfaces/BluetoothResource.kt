@@ -39,6 +39,6 @@ data class BluetoothResource(
             BluetoothResource(Constants.StatusBluetoothDevice.Error, null, exception)
 
         fun read(data: BluetoothResponse) =
-            BluetoothResource(Constants.StatusBluetoothDevice.Read, null, null)
+            BluetoothResource(Constants.StatusBluetoothDevice.Read, data, null)
     }
 }
