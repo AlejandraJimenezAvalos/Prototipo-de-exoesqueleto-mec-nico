@@ -178,6 +178,27 @@ object Utils {
         return formatter.format(this)
     }
 
+    fun TextInputLayout.isValidPhone(lada: TextInputLayout): Boolean {
+        val phoneValidation =
+            Pattern.compile(
+                "^\\s*(?:\\+?(\\d{1,3}))?" +
+                        "[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*\$"
+            )
+        val phone = "${lada.getText()}${this.getText()}"
+        return if (phone.isEmpty()) {
+            this.error = null
+            true
+        } else {
+            if (phoneValidation.matcher(phone).matches()) {
+                this.error = null
+                true
+            } else {
+                this.error = "No es un telefono valido"
+                false
+            }
+        }
+    }
+
     fun String.getOrigin() =
         if (this == Constants.Origin.Create.toString()) Constants.Origin.Create
         else Constants.Origin.User

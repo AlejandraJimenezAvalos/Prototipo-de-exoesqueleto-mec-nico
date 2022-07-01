@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
-    private var previusId = 0
+    private var previusId = R.id.navigation_home
 
     private var serialSocket: SerialSocket? = null
     private var serialService: SerialService? = null
@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val navController = findNavController(R.id.nav_host_fragment_activity_main_bottom_other)
 
         viewModel.userModel.observe(this) {
             if (menuInflate) {
@@ -87,7 +88,6 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
                     }
                 )
             }
-            val navController = findNavController(R.id.nav_host_fragment_activity_main_bottom_other)
             binding.navigationView.setupWithNavController(navController)
 
             val bottomSheetBehavior = BottomSheetBehavior.from(binding.navigationView)
@@ -114,7 +114,9 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
                     else -> R.id.action_global_navigation_home
                 }
 
-                if (destinationId != previusId) navController.navigate(destinationId)
+                if (destinationId != previusId) {
+                    navController.navigate(destinationId)
+                }
 
                 menuItem.isChecked = true
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -189,6 +191,18 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
             ActivityCompat.requestPermissions(this, Constants.PERMISSIONS, 1)
         } else onAttach()
         //binding.buttonStop.setOnClickListener { send("stop") }
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val destinationId = when (destination.id) {
+                R.id.navigation_home -> destination.id
+                R.id.navigation_profile -> destination.id
+                R.id.navigation_message -> destination.id
+                R.id.navigation_paired_device -> destination.id
+                R.id.navigation_work -> destination.id
+                else -> previusId
+            }
+            previusId = destinationId
+
+        }
     }
 
     override fun onRequestPermissionsResult(
