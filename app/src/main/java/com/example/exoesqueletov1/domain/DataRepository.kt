@@ -24,6 +24,7 @@ class DataRepository @Inject constructor(private val dao: Dao) {
         dao.deleteMessages()
         dao.deleteExoskeleton()
         dao.deletePatients()
+        dao.deleteExpedints()
     }
 
     fun insertNewUser(usersEntity: UsersEntity) = dao.insertNewUser(usersEntity)
@@ -52,4 +53,9 @@ class DataRepository @Inject constructor(private val dao: Dao) {
     fun getPatients(): LiveData<List<PatientModel>> = dao.getPatients()
     fun getPatient(id: String): LiveData<PatientModel> = dao.getPatient(id)
     fun deletePatients() = dao.deletePatients()
+
+    fun getExpedient() = dao.getExpedient()
+    fun setExpedients(list: List<ExpedientModel>) = list.forEach { dao.setExpedient(it) }
+    fun setExpedient(expedientModel: ExpedientModel) = dao.setExpedient(expedientModel)
+
 }

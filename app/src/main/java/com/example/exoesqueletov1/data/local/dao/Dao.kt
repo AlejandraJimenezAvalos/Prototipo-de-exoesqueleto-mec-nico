@@ -101,7 +101,16 @@ interface Dao {
     @Query("SELECT * FROM patient WHERE id == :id")
     fun getPatient(id: String): LiveData<PatientModel>
 
-    @Query("DELETE FROM PATIENT")
+    @Query("DELETE FROM patient")
     fun deletePatients()
+
+    @Query("SELECT * FROM expedient")
+    fun getExpedient(): LiveData<List<ExpedientModel>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun setExpedient(expedientModel: ExpedientModel)
+
+    @Query("DELETE FROM expedient")
+    fun deleteExpedints()
 
 }

@@ -3,6 +3,7 @@ package com.example.exoesqueletov1.data.firebase
 import android.util.Log
 import com.example.exoesqueletov1.data.models.*
 import com.example.exoesqueletov1.data.models.ExoskeletonModel.Companion.toExoskeleton
+import com.example.exoesqueletov1.data.models.ExpedientModel.Companion.toExpedientModel
 import com.example.exoesqueletov1.data.models.MessageModel.Companion.toMessage
 import com.example.exoesqueletov1.data.models.PatientModel.Companion.toPatientModel
 import com.example.exoesqueletov1.data.models.ProfileModel.Companion.toProfile
@@ -10,6 +11,7 @@ import com.example.exoesqueletov1.data.models.UserModel.Companion.toUserModel
 import com.example.exoesqueletov1.domain.UserRepository
 import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Constants.COLLECTION_EXOSKELETON
+import com.example.exoesqueletov1.utils.Constants.COLLECTION_EXPEDIENT
 import com.example.exoesqueletov1.utils.Constants.COLLECTION_MESSAGES
 import com.example.exoesqueletov1.utils.Constants.COLLECTION_PATIENT
 import com.example.exoesqueletov1.utils.Constants.COLLECTION_PROFILE
@@ -249,6 +251,63 @@ class FirebaseService @Inject constructor(private val userRepository: UserReposi
             }.addOnFailureListener {
                 result.invoke(Resource.error(it))
             }
+    }
+
+    fun setExpedient(expedientModel: ExpedientModel, result: (Resource<Void>) -> Unit) {
+        result.invoke(Resource.loading())
+        db.collection(Constants.COLLECTION_EXPEDIENT).document(expedientModel.id)
+            .set(expedientModel).addOnSuccessListener {
+                result.invoke(Resource.success(it))
+            }.addOnFailureListener {
+                result.invoke(Resource.error(it))
+            }
+    }
+
+    fun getExpedient(result: (Resource<ExpedientModel>) -> Unit) {
+        when (userRepository.getType().getTypeUser()) {
+            Constants.TypeUser.Specialist -> {
+                result.invoke(Resource.loading())
+                db.collection(COLLECTION_EXPEDIENT).whereEqualTo(ID_USER, userRepository.getId())
+                    .addSnapshotListener { value, error ->
+                        if (error != null) {
+                            result.invoke(Resource.error(error))
+                            Log.e(
+                                FirebaseService::class.java.name,
+                                "Error Snapshot getPatient()",
+                                error
+                            )
+                            return@addSnapshotListener
+                        }
+                        if (value != null && !value.isEmpty) {
+                            for (document in value) {
+                                if (document.exists())
+                                    result.invoke(Resource.success(document.toExpedientModel()!!))
+                            }
+                        } else result.invoke(Resource.notExist())
+                    }
+            }
+            Constants.TypeUser.Admin -> {
+                db.collection(COLLECTION_EXPEDIENT).addSnapshotListener { value, error ->
+                    if (error != null) {
+                        result.invoke(Resource.error(error))
+                        Log.e(
+                            FirebaseService::class.java.name,
+                            "Error Snapshot getPatient()",
+                            error
+                        )
+                        return@addSnapshotListener
+                    }
+                    if (value != null && !value.isEmpty) {
+                        for (document in value) {
+                            if (document.exists())
+                                result.invoke(Resource.success(document.toExpedientModel()!!))
+                        }
+                    } else result.invoke(Resource.notExist())
+                }
+            }
+            else -> {}
+        }
+
     }
 
 }

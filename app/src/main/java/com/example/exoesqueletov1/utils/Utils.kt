@@ -199,6 +199,10 @@ object Utils {
         }
     }
 
+    fun String.getGender() =
+        if (this == Constants.Gender.Woman.toString()) Constants.Gender.Woman
+        else Constants.Gender.Man
+
     fun String.getOrigin() =
         if (this == Constants.Origin.Create.toString()) Constants.Origin.Create
         else Constants.Origin.User

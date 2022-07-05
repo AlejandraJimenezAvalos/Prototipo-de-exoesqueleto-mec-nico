@@ -14,12 +14,14 @@ object Constants {
     enum class SingInPagerNavigation { Login, SingIn }
     enum class StatusDevice { Emparejado, Cercano }
     enum class Origin { User, Create }
+    enum class TypeData { Antecedents, Habits, Scar }
 
     const val COLLECTION_PATIENT = "patient"
     const val COLLECTION_PROFILE = "profile"
     const val COLLECTION_USER = "user"
     const val COLLECTION_MESSAGES = "messages"
     const val COLLECTION_EXOSKELETON = "exoskeleton"
+    const val COLLECTION_EXPEDIENT = "expedient"
     const val ID = "id"
     const val ADDRESS = "address"
     const val CELL = "cell"
@@ -48,6 +50,11 @@ object Constants {
     const val BACKGROUND = "background"
     const val FAMILY_BACKGROUND = "familyBackground"
     const val ORIGIN = "origin"
+    const val BIRTHDAY = "birthday"
+    const val VALUE = "value"
+    const val ID_PATINT = "idPatient"
+    const val TYPE = "type"
+    const val LADA = "lada"
 
     @RequiresApi(Build.VERSION_CODES.S)
     val PERMISSIONS = arrayOf(

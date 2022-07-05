@@ -83,6 +83,17 @@ class MainViewModel @Inject constructor(
             if (it.status == Constants.Status.Failure) result.postValue(Resource.error(it.exception!!))
         }
 
+        firebaseService.getExpedient {
+            if (it.status == Constants.Status.Success) {
+                viewModelScope.launch {
+                    withContext(Dispatchers.IO) {
+                        dataRepository.setExpedient(it.data!!)
+                    }
+                }
+            }
+            if (it.status == Constants.Status.Failure) result.postValue(Resource.error(it.exception!!))
+        }
+
         userModel = MediatorLiveData<UserModel>().apply {
             addSource(dataRepository.getUser(id)) {
                 if (it != null) {
@@ -115,6 +126,16 @@ class MainViewModel @Inject constructor(
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        userModel.addSource(dataRepository.getExpedient()) {
+            it.forEach { expedient ->
+                firebaseService.setExpedient(expedient) { resultExpedient ->
+                    if (resultExpedient.status == Constants.Status.Failure) {
+                        result.postValue(Resource.error(resultExpedient.exception!!))
                     }
                 }
             }

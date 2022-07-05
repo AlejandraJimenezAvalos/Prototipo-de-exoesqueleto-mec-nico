@@ -18,8 +18,9 @@ import com.example.exoesqueletov1.data.models.*
         ChatsEntity::class,
         ExoskeletonModel::class,
         PatientModel::class,
+        ExpedientModel::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
@@ -28,6 +29,11 @@ import com.example.exoesqueletov1.data.models.*
             to = 3,
             spec = com.example.exoesqueletov1.data.db.RoomDatabase.AutoMigrationPatient::class
         ),
+        AutoMigration(
+            from = 3,
+            to = 4,
+            spec = com.example.exoesqueletov1.data.db.RoomDatabase.AutoMigrationPatient2::class
+        )
     ],
 )
 abstract class RoomDatabase : RoomDatabase() {
@@ -53,6 +59,26 @@ abstract class RoomDatabase : RoomDatabase() {
     class AutoMigrationPatient : AutoMigrationSpec {
         @Override
         override fun onPostMigrate(db: SupportSQLiteDatabase) {
+        }
+    }
+
+    @RenameColumn(
+        tableName = "patient",
+        fromColumnName = "yearsOld",
+        toColumnName = "birthday"
+    )
+    @DeleteColumn(
+        tableName = "patient",
+        columnName = "familyBackground"
+    )
+    @DeleteColumn(
+        tableName = "patient",
+        columnName = "background"
+    )
+    class AutoMigrationPatient2 : AutoMigrationSpec {
+        @Override
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            super.onPostMigrate(db)
         }
     }
 }
