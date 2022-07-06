@@ -8,7 +8,7 @@ import com.example.exoesqueletov1.BuildConfig
 object Constants {
 
     enum class Status { Success, Failure, Canceled, Loading, NotExist }
-    enum class Gender { Woman, Man }
+    enum class Gender { Femenino, Masculino }
     enum class ActionUsers { Delete, LogIn }
     enum class TypeUser { Admin, Specialist, Patient }
     enum class SingInPagerNavigation { Login, SingIn }

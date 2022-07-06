@@ -38,9 +38,8 @@ class ChatsFragment : Fragment() {
         val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.fab_scale_up)
         binding.addPatient.startAnimation(animation)
         val list = mutableListOf<PatientModel>()
-        val adapter = ChatsAdapter(list) {
-            viewModel.savePatient(it.id, it.name)
-            findNavController().navigate(R.id.action_messageFragment_to_chatActivity)
+        val adapter = ChatsAdapter(list) { data ->
+            viewModel.savePatient(data.id, data.name)
         }
         binding.recyclerChats.layoutManager = LinearLayoutManager(context, VERTICAL, false)
         binding.recyclerChats.setHasFixedSize(true)

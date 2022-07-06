@@ -28,6 +28,10 @@
             android:id="@+id/action_navigation_message_to_patientFragment"
             app:destination="@id/patientFragment"
             app:enterAnim="@anim/fab_scale_up" />
+        <action
+            android:id="@+id/action_navigation_message_to_patientFragment2"
+            app:destination="@id/patientFragment2"
+            app:enterAnim="@anim/fab_scale_up" />
     </fragment>
     <fragment
         android:id="@+id/navigation_home"
@@ -93,5 +97,10 @@
         android:label="fragment_patient"
         app:enterAnim="@anim/fab_scale_up"
         tools:layout="@layout/fragment_add_patient" />
+    <fragment
+        android:id="@+id/patientFragment2"
+        android:name="com.example.exoesqueletov1.ui.fragments.patient.PatientFragment"
+        android:label="fragment_patient"
+        tools:layout="@layout/fragment_patient" />
 
 </navigation>

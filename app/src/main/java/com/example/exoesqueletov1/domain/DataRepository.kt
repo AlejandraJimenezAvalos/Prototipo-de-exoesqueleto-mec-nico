@@ -57,5 +57,5 @@ class DataRepository @Inject constructor(private val dao: Dao) {
     fun getExpedient() = dao.getExpedient()
     fun setExpedients(list: List<ExpedientModel>) = list.forEach { dao.setExpedient(it) }
     fun setExpedient(expedientModel: ExpedientModel) = dao.setExpedient(expedientModel)
-
+    fun getExpedients(id: String) = dao.getExpedients(id)
 }

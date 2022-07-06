@@ -93,8 +93,8 @@ class AddPatientFragment : Fragment() {
                     name = binding.layoutNombre.getText()
                     birthday = binding.layoutEdad.getText()
                     gender =
-                        if (binding.radioWomen.isChecked) Constants.Gender.Woman.toString()
-                        else Constants.Gender.Man.toString()
+                        if (binding.radioWomen.isChecked) Constants.Gender.Femenino.toString()
+                        else Constants.Gender.Masculino.toString()
                     occupation = binding.layoutOccupation.getText()
                 }
                 startAnimation(
@@ -231,7 +231,7 @@ class AddPatientFragment : Fragment() {
         binding.patient = patientTemporary
         patientTemporary.apply {
             if (idPatient.isEmpty()) idPatient = UUID.randomUUID().toString()
-            if (gender.getGender() == Constants.Gender.Woman) binding.radioWomen.isChecked = true
+            if (gender.getGender() == Constants.Gender.Femenino) binding.radioWomen.isChecked = true
             else binding.radioMen.isChecked = true
         }
     }

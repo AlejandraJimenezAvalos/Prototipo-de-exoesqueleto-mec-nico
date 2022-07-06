@@ -17,6 +17,8 @@ class PatientRepository @Inject constructor(@Named("patient") private val shared
         patient.invoke(getString(Constants.ID), getString(Constants.NAME))
     }
 
+    fun getId() = getString(Constants.ID)
+
     fun removePatient() {
         "".setString(Constants.ID)
         "".setString(Constants.NAME)

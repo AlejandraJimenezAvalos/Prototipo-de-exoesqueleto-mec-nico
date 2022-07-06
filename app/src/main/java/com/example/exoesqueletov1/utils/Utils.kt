@@ -128,8 +128,8 @@ object Utils {
         else Constants.TypeUser.Patient.toString()
 
     fun RadioButton.getGender() =
-        if (this.isChecked) Constants.Gender.Woman.toString()
-        else Constants.Gender.Man.toString()
+        if (this.isChecked) Constants.Gender.Femenino.toString()
+        else Constants.Gender.Masculino.toString()
 
     fun FragmentProfileBinding.getProfileBinding(profile: (ProfileModel) -> Unit) {
         val id = Firebase.auth.currentUser!!.uid
@@ -200,8 +200,8 @@ object Utils {
     }
 
     fun String.getGender() =
-        if (this == Constants.Gender.Woman.toString()) Constants.Gender.Woman
-        else Constants.Gender.Man
+        if (this == Constants.Gender.Femenino.toString()) Constants.Gender.Femenino
+        else Constants.Gender.Masculino
 
     fun String.getOrigin() =
         if (this == Constants.Origin.Create.toString()) Constants.Origin.Create

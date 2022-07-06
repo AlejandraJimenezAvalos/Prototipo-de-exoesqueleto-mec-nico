@@ -13,4 +13,5 @@
     <color name="error">#DD0000</color>
     <color name="black">#000000</color>
     <color name="itemColor">#F2F2F2</color>
+    <color name="color_card">#7A3B455A</color>
 </resources>

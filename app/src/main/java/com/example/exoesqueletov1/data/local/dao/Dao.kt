@@ -107,6 +107,9 @@ interface Dao {
     @Query("SELECT * FROM expedient")
     fun getExpedient(): LiveData<List<ExpedientModel>>
 
+    @Query("SELECT * FROM expedient WHERE idPatient == :id")
+    fun getExpedients(id: String): LiveData<List<ExpedientModel>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun setExpedient(expedientModel: ExpedientModel)
 
