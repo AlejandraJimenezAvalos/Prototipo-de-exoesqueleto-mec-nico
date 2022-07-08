@@ -6,16 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.exoesqueletov1.data.local.sharedpreferences.ConsultationTemporary
 import com.example.exoesqueletov1.databinding.FragmentMedicalConsultationBinding
 import com.example.exoesqueletov1.ui.dialogs.DialogEvaluacion
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class MedicalConsultationFragment : Fragment() {
 
     private lateinit var binding: FragmentMedicalConsultationBinding
-
     private lateinit var viewModel: MedicalConsultationViewModel
+    private var consultationTemporary = ConsultationTemporary()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +37,19 @@ class MedicalConsultationFragment : Fragment() {
             val dialog = DialogEvaluacion()
             dialog.show(childFragmentManager, "")
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        consultationTemporary = viewModel.getConsultation()
+        if (consultationTemporary.id.isEmpty()) consultationTemporary.id =
+            UUID.randomUUID().toString()
+        binding.consultation = consultationTemporary
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.saveConsultation(consultationTemporary)
     }
 
 }

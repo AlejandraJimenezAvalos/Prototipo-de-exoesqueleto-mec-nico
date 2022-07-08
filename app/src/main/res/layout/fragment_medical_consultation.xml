@@ -8,6 +8,10 @@
         <variable
             name="patient"
             type="com.example.exoesqueletov1.data.models.PatientModel" />
+
+        <variable
+            name="consultation"
+            type="com.example.exoesqueletov1.data.local.sharedpreferences.ConsultationTemporary" />
     </data>
 
     <ScrollView
@@ -174,6 +178,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textAutoCorrect"
+                            android:text="@{consultation.motivo}"
                             android:maxLines="10" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -191,6 +196,7 @@
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@{consultation.sintomatologia}"
                             android:inputType="textAutoCorrect"
                             android:maxLines="10" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -243,6 +249,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
+                            android:text="@{consultation.pesoKg}"
                             android:textAlignment="textEnd"
                             tools:text="180" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -261,31 +268,18 @@
                         android:id="@+id/layout_peso_g"
                         android:layout_width="0sp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toStartOf="@+id/textView38"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView11"
                         app:layout_constraintTop_toBottomOf="@+id/textView36"
                         app:suffixText="g">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
+                            android:text="@{consultation.pesoG}"
                             android:layout_height="wrap_content"
                             android:inputType="number"
                             tools:text="36" />
                     </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        android:id="@+id/textView38"
-                        style="@style/TextAppearance.Material3.BodyLarge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8sp"
-                        android:text="kg"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/layout_peso_g"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/layout_peso_g" />
 
                     <TextView
                         android:id="@+id/textView37"
@@ -312,6 +306,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
+                            android:text="@{consultation.estaturaM}"
                             android:textAlignment="textEnd"
                             tools:text="1" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -330,7 +325,7 @@
                         android:id="@+id/textInputLayout6"
                         android:layout_width="0sp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toStartOf="@+id/textView39"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView11"
                         app:layout_constraintTop_toBottomOf="@+id/textView37"
                         app:suffixText="cm">
@@ -339,22 +334,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
+                            android:text="@{consultation.estaturaCm}"
                             tools:text="68" />
                     </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        android:id="@+id/textView39"
-                        style="@style/TextAppearance.Material3.BodyLarge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8sp"
-                        android:text="m"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout6"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textInputLayout6" />
 
                     <TextView
                         android:id="@+id/textView40"
@@ -377,6 +359,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@{consultation.talla}"
                             android:inputType="number"
                             tools:text="16" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -412,6 +395,7 @@
                         android:layout_width="0sp"
                         android:layout_height="match_parent"
                         android:text="Libre"
+                        android:checked="@{consultation.libre}"
                         app:layout_constraintEnd_toStartOf="@+id/check_espasticas"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -422,6 +406,7 @@
                         android:layout_width="0sp"
                         android:layout_height="match_parent"
                         android:text="Claudicante"
+                        android:checked="@{consultation.claudicante}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/check_libre" />
 
@@ -431,6 +416,7 @@
                         android:layout_width="0sp"
                         android:layout_height="match_parent"
                         android:text="Con ayuda"
+                        android:checked="@{consultation.conAyuda}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/check_claudicante" />
 
@@ -450,6 +436,7 @@
                         android:layout_width="0sp"
                         android:layout_height="match_parent"
                         android:text="Atáxica"
+                        android:checked="@{consultation.ataxica}"
                         app:layout_constraintStart_toEndOf="@+id/check_libre"
                         app:layout_constraintTop_toBottomOf="@+id/check_espasticas" />
 
@@ -465,6 +452,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
+                            android:text="@{consultation.observaciones}"
                             android:layout_height="wrap_content"
                             android:inputType="textAutoCorrect"
                             android:maxLines="10" />
@@ -510,6 +498,7 @@
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="@{consultation.reflejos}"
                             android:inputType="textAutoCorrect"
                             android:maxLines="10" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -528,6 +517,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
+                            android:text="@{consultation.sensibilidad}"
                             android:layout_height="wrap_content"
                             android:inputType="textAutoCorrect"
                             android:maxLines="10" />
@@ -539,6 +529,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8sp"
+                        android:text="@{consultation.lenguaje}"
                         android:hint="Lenguaje / Orientación"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -547,6 +538,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
+                            android:text="@{consultation.reflejos}"
                             android:layout_height="wrap_content"
                             android:inputType="textAutoCorrect"
                             android:maxLines="10" />
@@ -568,6 +560,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textAutoCorrect"
+                            android:text="@{consultation.otros}"
                             android:maxLines="10" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -1316,6 +1309,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation}"
                         android:text="Duda o vacila o múltiples intentos para comenzar." />
 
                     <TextView
@@ -1329,6 +1323,7 @@
                         android:id="@+id/check_pie_derecho_sobrepasa"
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
+                        android:checked="@{consultation.pieDerechoNoSobrepasa}"
                         android:layout_height="wrap_content"
                         android:text="El pie derecho no sobrepasaal izquierdo con el paso en la fase balanceo." />
 
@@ -2253,7 +2248,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="A. Posición en tándem completo." />
+                        android:text="C. Posición en tándem completo." />
 
                     <RadioGroup
                         android:layout_width="match_parent"
@@ -2336,6 +2331,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="8sp"
+                android:layout_marginBottom="16sp"
                 android:layout_marginEnd="16sp"
                 android:backgroundTint="?android:attr/colorAccent">
 
