@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.exoesqueletov1.R
+import com.example.exoesqueletov1.data.local.sharedpreferences.PatientTemporary
 import com.example.exoesqueletov1.data.models.ExpedientModel
-import com.example.exoesqueletov1.data.sharedpreferences.PatientTemporary
 import com.example.exoesqueletov1.databinding.FragmentAddPatientBinding
 import com.example.exoesqueletov1.ui.fragments.add_patient.adapter.ExpedientAdapter
 import com.example.exoesqueletov1.utils.Constants

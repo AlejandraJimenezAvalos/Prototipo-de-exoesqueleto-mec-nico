@@ -6,27 +6,35 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.exoesqueletov1.R
+import com.example.exoesqueletov1.databinding.FragmentMedicalConsultationBinding
+import com.example.exoesqueletov1.ui.dialogs.DialogEvaluacion
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MedicalConsultationFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MedicalConsultationFragment()
-    }
+    private lateinit var binding: FragmentMedicalConsultationBinding
 
     private lateinit var viewModel: MedicalConsultationViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_medical_consultation, container, false)
+    ): View {
+        binding = FragmentMedicalConsultationBinding.inflate(layoutInflater, container, false)
+        viewModel = ViewModelProvider(this)[MedicalConsultationViewModel::class.java]
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MedicalConsultationViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.patient.observe(viewLifecycleOwner) {
+            binding.patient = it
+        }
+        binding.imageInfo1.setOnClickListener {
+            val dialog = DialogEvaluacion()
+            dialog.show(childFragmentManager, "")
+        }
     }
 
 }

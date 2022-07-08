@@ -7,7 +7,7 @@
 
         <variable
             name="patient"
-            type="com.example.exoesqueletov1.data.sharedpreferences.PatientTemporary" />
+            type="com.example.exoesqueletov1.data.local.sharedpreferences.PatientTemporary" />
     </data>
 
 

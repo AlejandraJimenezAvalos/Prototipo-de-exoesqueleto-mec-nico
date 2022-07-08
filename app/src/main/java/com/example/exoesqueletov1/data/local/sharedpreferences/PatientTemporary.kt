@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.data.sharedpreferences
+package com.example.exoesqueletov1.data.local.sharedpreferences
 
 import com.example.exoesqueletov1.data.models.ExpedientModel
 

@@ -2,9 +2,9 @@ package com.example.exoesqueletov1.ui.fragments.add_patient
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.exoesqueletov1.data.local.sharedpreferences.PatientTemporary
 import com.example.exoesqueletov1.data.models.ExpedientModel
 import com.example.exoesqueletov1.data.models.PatientModel
-import com.example.exoesqueletov1.data.sharedpreferences.PatientTemporary
 import com.example.exoesqueletov1.domain.DataRepository
 import com.example.exoesqueletov1.domain.PatientTemporaryRepository
 import com.example.exoesqueletov1.domain.UserRepository

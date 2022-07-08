@@ -22,6 +22,9 @@ class ChatsViewHolder(val view: View, private val chat: (PatientModel) -> Unit) 
             view.findNavController().navigate(R.id.action_messageFragment_to_chatActivity)
         }
         binding.imageAdd.setOnClickListener {
+            chat.invoke(patientModel)
+            view.findNavController()
+                .navigate(R.id.action_navigation_message_to_medicalConsultationFragment)
         }
         binding.imageWalk.setOnClickListener {
 

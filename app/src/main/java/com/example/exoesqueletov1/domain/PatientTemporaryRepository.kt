@@ -1,7 +1,7 @@
 package com.example.exoesqueletov1.domain
 
 import android.content.SharedPreferences
-import com.example.exoesqueletov1.data.sharedpreferences.PatientTemporary
+import com.example.exoesqueletov1.data.local.sharedpreferences.PatientTemporary
 import com.example.exoesqueletov1.utils.Constants.ADDRESS
 import com.example.exoesqueletov1.utils.Constants.BIRTHDAY
 import com.example.exoesqueletov1.utils.Constants.EMAIL

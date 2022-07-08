@@ -46,4 +46,10 @@ object Module {
         return context.getSharedPreferences("formPatient", Context.MODE_PRIVATE)
     }
 
+    @Provides
+    @Named("consultationTemporary")
+    fun provideSharedPreferenceConsultationTemporary(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences("consultationTemporary", Context.MODE_PRIVATE)
+    }
+
 }
