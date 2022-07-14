@@ -17,7 +17,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.medical_consultation.MedicalConsultationFragment">
+        tools:context=".ui.fragments.medical_consultation.MedicalConsultationFragment"
+        tools:ignore="HardcodedText">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -178,8 +179,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textAutoCorrect"
-                            android:text="@{consultation.motivo}"
-                            android:maxLines="10" />
+                            android:maxLines="10"
+                            android:text="@{consultation.motivo}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -196,9 +197,9 @@
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{consultation.sintomatologia}"
                             android:inputType="textAutoCorrect"
-                            android:maxLines="10" />
+                            android:maxLines="10"
+                            android:text="@{consultation.sintomatologia}" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -275,9 +276,9 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:text="@{consultation.pesoG}"
                             android:layout_height="wrap_content"
                             android:inputType="number"
+                            android:text="@{consultation.pesoG}"
                             tools:text="36" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -294,7 +295,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/layout_peso_k" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayout5"
+                        android:id="@+id/layout_estatura_m"
                         android:layout_width="0sp"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toStartOf="@+id/imageView12"
@@ -317,12 +318,12 @@
                         android:layout_height="12sp"
                         android:padding="2sp"
                         android:src="@drawable/ic_baseline_circle_24"
-                        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout5"
-                        app:layout_constraintEnd_toStartOf="@+id/textInputLayout6"
-                        app:layout_constraintStart_toEndOf="@+id/textInputLayout5" />
+                        app:layout_constraintBottom_toBottomOf="@+id/layout_estatura_m"
+                        app:layout_constraintEnd_toStartOf="@+id/layout_estatura_cm"
+                        app:layout_constraintStart_toEndOf="@+id/layout_estatura_m" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayout6"
+                        android:id="@+id/layout_estatura_cm"
                         android:layout_width="0sp"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -348,9 +349,10 @@
                         android:drawablePadding="8sp"
                         android:text="Talla"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+                        app:layout_constraintTop_toBottomOf="@+id/layout_estatura_m" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_talla"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView40"
@@ -359,8 +361,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{consultation.talla}"
                             android:inputType="number"
+                            android:text="@{consultation.talla}"
                             tools:text="16" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -394,8 +396,8 @@
                         style="@style/TextAppearance.Material3.BodyMedium"
                         android:layout_width="0sp"
                         android:layout_height="match_parent"
-                        android:text="Libre"
                         android:checked="@{consultation.libre}"
+                        android:text="Libre"
                         app:layout_constraintEnd_toStartOf="@+id/check_espasticas"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -405,8 +407,8 @@
                         style="@style/TextAppearance.Material3.BodyMedium"
                         android:layout_width="0sp"
                         android:layout_height="match_parent"
-                        android:text="Claudicante"
                         android:checked="@{consultation.claudicante}"
+                        android:text="Claudicante"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/check_libre" />
 
@@ -415,8 +417,8 @@
                         style="@style/TextAppearance.Material3.BodyMedium"
                         android:layout_width="0sp"
                         android:layout_height="match_parent"
-                        android:text="Con ayuda"
                         android:checked="@{consultation.conAyuda}"
+                        android:text="Con ayuda"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/check_claudicante" />
 
@@ -426,6 +428,7 @@
                         android:layout_width="0sp"
                         android:layout_height="match_parent"
                         android:text="Espásticas"
+                        android:checked="@{consultation.espasticas}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/check_libre"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -435,8 +438,8 @@
                         style="@style/TextAppearance.Material3.BodyMedium"
                         android:layout_width="0sp"
                         android:layout_height="match_parent"
-                        android:text="Atáxica"
                         android:checked="@{consultation.ataxica}"
+                        android:text="Atáxica"
                         app:layout_constraintStart_toEndOf="@+id/check_libre"
                         app:layout_constraintTop_toBottomOf="@+id/check_espasticas" />
 
@@ -452,10 +455,10 @@
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
-                            android:text="@{consultation.observaciones}"
                             android:layout_height="wrap_content"
                             android:inputType="textAutoCorrect"
-                            android:maxLines="10" />
+                            android:maxLines="10"
+                            android:text="@{consultation.observaciones}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -498,9 +501,9 @@
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{consultation.reflejos}"
                             android:inputType="textAutoCorrect"
-                            android:maxLines="10" />
+                            android:maxLines="10"
+                            android:text="@{consultation.reflejos}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -517,10 +520,10 @@
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
-                            android:text="@{consultation.sensibilidad}"
                             android:layout_height="wrap_content"
                             android:inputType="textAutoCorrect"
-                            android:maxLines="10" />
+                            android:maxLines="10"
+                            android:text="@{consultation.sensibilidad}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -529,7 +532,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8sp"
-                        android:text="@{consultation.lenguaje}"
                         android:hint="Lenguaje / Orientación"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -538,10 +540,10 @@
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
-                            android:text="@{consultation.reflejos}"
                             android:layout_height="wrap_content"
                             android:inputType="textAutoCorrect"
-                            android:maxLines="10" />
+                            android:maxLines="10"
+                            android:text="@{consultation.lenguaje}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -560,8 +562,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textAutoCorrect"
-                            android:text="@{consultation.otros}"
-                            android:maxLines="10" />
+                            android:maxLines="10"
+                            android:text="@{consultation.otros}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -1309,7 +1311,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="@{consultation}"
+                        android:checked="@{consultation.inicioMarcha}"
                         android:text="Duda o vacila o múltiples intentos para comenzar." />
 
                     <TextView
@@ -1323,8 +1325,8 @@
                         android:id="@+id/check_pie_derecho_sobrepasa"
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
-                        android:checked="@{consultation.pieDerechoNoSobrepasa}"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.pieDerechoNoSobrepasa}"
                         android:text="El pie derecho no sobrepasaal izquierdo con el paso en la fase balanceo." />
 
                     <CheckBox
@@ -1332,6 +1334,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.pieDerechoNoLevanta}"
                         android:text="El pie derecho no se levanta completamente del suelo con el paso en la fase de balanceo." />
 
                     <CheckBox
@@ -1339,6 +1342,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.pieIzquierdoNoSobrepasa}"
                         android:text="El pie izquierdo no sobrepasa al derecho con el paso en la fase de balanceo." />
 
                     <CheckBox
@@ -1346,6 +1350,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.pieIzquierdoNoLevanta}"
                         android:text="El pie izquierdo no se levanta completamente del suelo con el paso en la fase de balanceo." />
 
                     <TextView
@@ -1360,6 +1365,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.longitud}"
                         android:text="La longitud del paso con el pie derecho e izquierdo es diferente (estimada)." />
 
                     <TextView
@@ -1374,6 +1380,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.continuidad}"
                         android:text="Para, o hay descontinuidad entre los pasos." />
 
 
@@ -1395,6 +1402,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.trayectoriaDesviacionAlta}"
                         android:text="Marcado desviación" />
 
                     <CheckBox
@@ -1402,6 +1410,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.trayectoriaDesviacionMedia}"
                         android:text="Desviación modelada, media o utiliza ayudas." />
 
                     <CheckBox
@@ -1409,6 +1418,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.trayectoriaDesviacionNula}"
                         android:text="Derecho sin utilizar ayudas." />
 
                     <TextView
@@ -1423,6 +1433,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.noBalanceoAlto}"
                         android:text="Marcado balanceo o utiliza ayudas" />
 
                     <CheckBox
@@ -1430,6 +1441,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.noBalanceoMedio}"
                         android:text="No balancea, pero hay flexión de rodillas, espalda o extención hacia afuera de los brazos" />
 
                     <CheckBox
@@ -1437,6 +1449,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.noBalanceoNulo}"
                         android:text="No balanceo ni flexión y tampoco utiliza ayudas." />
 
                     <TextView
@@ -1451,6 +1464,7 @@
                         style="@style/TextAppearance.Material3.BodySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checked="@{consultation.talones}"
                         android:text="Talones separados." />
 
                 </LinearLayout>
@@ -2097,6 +2111,7 @@
                         android:text="A. Posición con los pies juntos." />
 
                     <RadioGroup
+                        android:id="@+id/group_pies_juntos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16sp">
@@ -2111,7 +2126,7 @@
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="No se sostuvo durante 10 segundos" />
+                            android:text="Se sostuvo durante 10 segundos" />
 
                         <RadioButton
                             style="@style/TextAppearance.Material3.BodySmall"
@@ -2169,6 +2184,7 @@
                         android:text="A. Posición con los pies juntos." />
 
                     <RadioGroup
+                        android:id="@+id/group_a"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16sp">
@@ -2210,6 +2226,7 @@
                         android:text="B. Posición de semitándem." />
 
                     <RadioGroup
+                        android:id="@+id/group_b"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16sp">
@@ -2251,6 +2268,7 @@
                         android:text="C. Posición en tándem completo." />
 
                     <RadioGroup
+                        android:id="@+id/group_c"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16sp">
@@ -2308,6 +2326,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="number"
+                            android:text="@{consultation.segundos}"
                             tools:text="3" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -2331,8 +2350,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="8sp"
-                android:layout_marginBottom="16sp"
                 android:layout_marginEnd="16sp"
+                android:layout_marginBottom="16sp"
                 android:backgroundTint="?android:attr/colorAccent">
 
                 <LinearLayout
@@ -2350,7 +2369,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@{consultation.objetivos}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -2362,7 +2382,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@{consultation.hipotesis}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -2374,7 +2395,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@{consultation.estructuraCorporal}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -2386,7 +2408,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@{consultation.funcionCorporal}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -2398,7 +2421,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@{consultation.actividad}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -2410,7 +2434,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@{consultation.participacion}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -2422,7 +2447,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@{consultation.diagnostico}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -2434,7 +2460,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@{consultation.planAccion}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>

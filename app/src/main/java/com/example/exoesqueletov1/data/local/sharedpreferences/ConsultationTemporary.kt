@@ -13,7 +13,7 @@ class ConsultationTemporary {
     var libre = false
     var claudicante = false
     var conAyuda = false
-    var espasmos = false
+    var espasticas = false
     var ataxica = false
     var observaciones = ""
     var reflejos = ""
@@ -38,6 +38,7 @@ class ConsultationTemporary {
     var pieDerechoNoLevanta = false
     var pieIzquierdoNoSobrepasa = false
     var pieIzquierdoNoLevanta = false
+    var simetria = false // posiblemente no existe
     var longitud = false
     var continuidad = false
     var trayectoriaDesviacionAlta = false
@@ -47,7 +48,7 @@ class ConsultationTemporary {
     var noBalanceoMedio = false
     var noBalanceoNulo = false
     var talones = false
-    var list = mutableListOf<GradosObservaciones>()
+    var listOfGrados = mutableListOf<GradosObservaciones>()
     var pruebasEquilibrio = 0
     var pruebasEquilibrioA = 0
     var pruebasEquilibrioB = 0
@@ -55,6 +56,7 @@ class ConsultationTemporary {
     var segundosMenor10 = false
     var segundos = ""
     var objetivos = ""
+    var hipotesis = ""
     var estructuraCorporal = ""
     var funcionCorporal = ""
     var actividad = ""

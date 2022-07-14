@@ -11,6 +11,10 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
 
     fun saveConsultation(consultationTemporary: ConsultationTemporary) {
         consultationTemporary.apply {
+            for (i in listOfGrados.indices) {
+                listOfGrados[i].observaciones.setString("observaciones${listOfGrados[i].position}")
+                listOfGrados[i].grados.setString("grados${listOfGrados[i].position}")
+            }
             id.setString("id")
             idPatient.setString("idPatient")
             motivo.setString("motivo")
@@ -23,7 +27,7 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
             libre.setBoolean("libre")
             claudicante.setBoolean("claudicante")
             conAyuda.setBoolean("conAyuda")
-            espasmos.setBoolean("espasmos")
+            espasticas.setBoolean("espasticas")
             ataxica.setBoolean("ataxica")
             observaciones.setString("observaciones")
             reflejos.setString("reflejos")
@@ -48,6 +52,7 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
             pieDerechoNoLevanta.setBoolean("pieDerechoNoLevanta")
             pieIzquierdoNoSobrepasa.setBoolean("pieIzquierdoNoSobrepasa")
             pieIzquierdoNoLevanta.setBoolean("pieIzquierdoNoLevanta")
+            simetria.setBoolean("simetria")
             longitud.setBoolean("longitud")
             continuidad.setBoolean("continuidad")
             trayectoriaDesviacionAlta.setBoolean("trayectoriaDesviacionAlta")
@@ -57,10 +62,6 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
             noBalanceoMedio.setBoolean("noBalanceoMedio")
             noBalanceoNulo.setBoolean("noBalanceoNulo")
             talones.setBoolean("talones")
-            for (i in list.indices) {
-                list[i].observaciones.setString("observaciones$i")
-                list[i].grados.setString("grados$i")
-            }
             pruebasEquilibrio.setInt("pruebasEquilibrio")
             pruebasEquilibrioA.setInt("pruebasEquilibrioA")
             pruebasEquilibrioB.setInt("pruebasEquilibrioB")
@@ -68,6 +69,7 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
             segundosMenor10.setBoolean("segundosMenor10")
             segundos.setString("segundos")
             objetivos.setString("objetivos")
+            hipotesis.setString("hipotesis")
             estructuraCorporal.setString("estructuraCorporal")
             funcionCorporal.setString("funcionCorporal")
             actividad.setString("actividad")
@@ -79,14 +81,16 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
 
     fun getConsultation(): ConsultationTemporary {
         val listGrados = mutableListOf<GradosObservaciones>()
-        for (i in 0..49) {
+        for (i in 0..48) {
             val gradosObservaciones = GradosObservaciones()
             gradosObservaciones.observaciones = "observaciones$i".getString()
             gradosObservaciones.grados = "grados$i".getString()
+            gradosObservaciones.position = i
             listGrados.add(gradosObservaciones)
         }
         val consultationTemporary = ConsultationTemporary()
         consultationTemporary.apply {
+            listOfGrados.addAll(listGrados)
             id = "id".getString()
             idPatient = "idPatient".getString()
             motivo = "motivo".getString()
@@ -99,7 +103,7 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
             libre = "libre".getBoolean()
             claudicante = "claudicante".getBoolean()
             conAyuda = "conAyuda".getBoolean()
-            espasmos = "espasmos".getBoolean()
+            espasticas = "espasticas".getBoolean()
             ataxica = "ataxica".getBoolean()
             observaciones = "observaciones".getString()
             reflejos = "reflejos".getString()
@@ -124,6 +128,7 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
             pieDerechoNoLevanta = "pieDerechoNoLevanta".getBoolean()
             pieIzquierdoNoSobrepasa = "pieIzquierdoNoSobrepasa".getBoolean()
             pieIzquierdoNoLevanta = "pieIzquierdoNoLevanta".getBoolean()
+            simetria = "simetria".getBoolean()
             longitud = "longitud".getBoolean()
             continuidad = "continuidad".getBoolean()
             trayectoriaDesviacionAlta = "trayectoriaDesviacionAlta".getBoolean()
@@ -133,7 +138,6 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
             noBalanceoMedio = "noBalanceoMedio".getBoolean()
             noBalanceoNulo = "noBalanceoNulo".getBoolean()
             talones = "talones".getBoolean()
-            list.addAll(listGrados)
             pruebasEquilibrio = "pruebasEquilibrio".getInt()
             pruebasEquilibrioA = "pruebasEquilibrioA".getInt()
             pruebasEquilibrioB = "pruebasEquilibrioB".getInt()
@@ -141,6 +145,7 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
             segundosMenor10 = "segundosMenor10".getBoolean()
             segundos = "segundos".getString()
             objetivos = "objetivos".getString()
+            hipotesis = "hipotesis".getString()
             estructuraCorporal = "estructuraCorporal".getString()
             funcionCorporal = "funcionCorporal".getString()
             actividad = "actividad".getString()
