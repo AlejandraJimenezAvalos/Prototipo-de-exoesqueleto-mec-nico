@@ -5,9 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.CheckBox
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.exoesqueletov1.R
 import com.example.exoesqueletov1.data.local.sharedpreferences.ConsultationTemporary
 import com.example.exoesqueletov1.data.local.sharedpreferences.GradosObservaciones
 import com.example.exoesqueletov1.databinding.FragmentMedicalConsultationBinding
@@ -15,6 +19,7 @@ import com.example.exoesqueletov1.databinding.SectionGradosObservacionesBinding
 import com.example.exoesqueletov1.ui.dialogs.DialogEvaluacion
 import com.example.exoesqueletov1.utils.Utils.getText
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -25,6 +30,8 @@ class MedicalConsultationFragment : Fragment() {
     private lateinit var viewModel: MedicalConsultationViewModel
     private var consultationTemporary = ConsultationTemporary()
     private val list = mutableListOf<SectionGradosObservacionesBinding>()
+    private lateinit var startAnimation: Animation
+    private lateinit var endAnimation: Animation
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +44,10 @@ class MedicalConsultationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        startAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fab_scale_up)
+        endAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fab_scale_down)
+        startAnimation.duration = 1000
+        endAnimation.duration = 400
         viewModel.patient.observe(viewLifecycleOwner) {
             binding.patient = it
         }
@@ -53,71 +64,37 @@ class MedicalConsultationFragment : Fragment() {
             UUID.randomUUID().toString()
         binding.consultation = consultationTemporary
 
-        binding.chipDolor.setOnCheckedStateChangeListener { _, checkedIds ->
-            checkedIds.forEach {
-                val chip = binding.chipDolor.getChildAt(it) as Chip
-                if (chip.isChecked) consultationTemporary.dolor = chip.text.toString()
-            }
+        binding.chipDolor.setOnCheckedChangeListener { group, checkedId ->
+            consultationTemporary.dolor = getSelectedText(group, checkedId)
         }
-        binding.chipMusculoSI.setOnCheckedStateChangeListener { _, checkedIds ->
-            checkedIds.forEach {
-                val chip = binding.chipMusculoSI.getChildAt(it) as Chip
-                if (chip.isChecked)
-                    consultationTemporary.musculoSuperiorIzquierdo = chip.text.toString()
-            }
+        binding.chipMusculoSI.setOnCheckedChangeListener { group, checkedId ->
+            consultationTemporary.musculoSuperiorIzquierdo = getSelectedText(group, checkedId)
         }
-        binding.chipMusculoSD.setOnCheckedStateChangeListener { _, checkedIds ->
-            checkedIds.forEach {
-                val chip = binding.chipMusculoSD.getChildAt(it) as Chip
-                if (chip.isChecked)
-                    consultationTemporary.musculoSuperiorDerecho = chip.text.toString()
-            }
+        binding.chipMusculoSD.setOnCheckedChangeListener { group, checkedId ->
+            consultationTemporary.musculoSuperiorDerecho = getSelectedText(group, checkedId)
         }
-        binding.chipMusculoII.setOnCheckedStateChangeListener { _, checkedIds ->
-            checkedIds.forEach {
-                val chip = binding.chipMusculoII.getChildAt(it) as Chip
-                if (chip.isChecked)
-                    consultationTemporary.musculoInferiorIzquierdo = chip.text.toString()
-            }
+        binding.chipMusculoII.setOnCheckedChangeListener { group, checkedId ->
+            consultationTemporary.musculoInferiorIzquierdo = getSelectedText(group, checkedId)
         }
-        binding.chipMusculoID.setOnCheckedStateChangeListener { _, checkedIds ->
-            checkedIds.forEach {
-                val chip = binding.chipMusculoID.getChildAt(it) as Chip
-                if (chip.isChecked)
-                    consultationTemporary.musculoInferiorDerecho = chip.text.toString()
-            }
+        binding.chipMusculoID.setOnCheckedChangeListener { group, checkedId ->
+            consultationTemporary.musculoInferiorDerecho = getSelectedText(group, checkedId)
         }
-        binding.chipTroncoD.setOnCheckedStateChangeListener { _, checkedIds ->
-            checkedIds.forEach {
-                val chip = binding.chipTroncoD.getChildAt(it) as Chip
-                if (chip.isChecked)
-                    consultationTemporary.troncoDerecho = chip.text.toString()
-            }
+        binding.chipTroncoD.setOnCheckedChangeListener { group, checkedId ->
+            consultationTemporary.troncoDerecho = getSelectedText(group, checkedId)
         }
-        binding.chipTroncoI.setOnCheckedStateChangeListener { _, checkedIds ->
-            checkedIds.forEach {
-                val chip = binding.chipTroncoI.getChildAt(it) as Chip
-                if (chip.isChecked)
-                    consultationTemporary.troncoIzquierdo = chip.text.toString()
-            }
+
+        binding.chipTroncoI.setOnCheckedChangeListener { group, checkedId ->
+            consultationTemporary.troncoIzquierdo = getSelectedText(group, checkedId)
         }
-        binding.chipCuelloI.setOnCheckedStateChangeListener { _, checkedIds ->
-            checkedIds.forEach {
-                val chip = binding.chipCuelloI.getChildAt(it) as Chip
-                if (chip.isChecked)
-                    consultationTemporary.cuelloIzquierdo = chip.text.toString()
-            }
+        binding.chipCuelloI.setOnCheckedChangeListener { group, checkedId ->
+            consultationTemporary.cuelloIzquierdo = getSelectedText(group, checkedId)
         }
-        binding.chipCuelloD.setOnCheckedStateChangeListener { _, checkedIds ->
-            checkedIds.forEach {
-                val chip = binding.chipCuelloD.getChildAt(it) as Chip
-                if (chip.isChecked)
-                    consultationTemporary.cuelloDerecho = chip.text.toString()
-            }
+        binding.chipCuelloD.setOnCheckedChangeListener { group, checkedId ->
+            consultationTemporary.cuelloDerecho = getSelectedText(group, checkedId)
         }
 
         binding.groupPiesJuntos.setOnCheckedChangeListener { group, checkedId ->
-            val radio = group.getChildAt(checkedId)!! as RadioButton
+            val radio = group.findViewById<RadioButton>(checkedId)!!
             consultationTemporary.pruebasEquilibrio = when (radio.text) {
                 "No se sostuvo durante 10 segundos" -> 1
                 "Se sostuvo durante 10 segundos" -> 2
@@ -126,7 +103,7 @@ class MedicalConsultationFragment : Fragment() {
             }
         }
         binding.groupA.setOnCheckedChangeListener { group, checkedId ->
-            val radio = group.getChildAt(checkedId)!! as RadioButton
+            val radio = group.findViewById<RadioButton>(checkedId)!!
             consultationTemporary.pruebasEquilibrioA = when (radio.text) {
                 "No se sostuvo durante 10 segundos" -> 1
                 "Se sostuvo durante 10 segundos" -> 2
@@ -135,7 +112,7 @@ class MedicalConsultationFragment : Fragment() {
             }
         }
         binding.groupB.setOnCheckedChangeListener { group, checkedId ->
-            val radio = group.getChildAt(checkedId)!! as RadioButton
+            val radio = group.findViewById<RadioButton>(checkedId)!!
             consultationTemporary.pruebasEquilibrioB = when (radio.text) {
                 "No se sostuvo durante 10 segundos" -> 1
                 "Se sostuvo durante 10 segundos" -> 2
@@ -144,8 +121,8 @@ class MedicalConsultationFragment : Fragment() {
             }
         }
         binding.groupC.setOnCheckedChangeListener { group, checkedId ->
-            val radio = group.getChildAt(checkedId)!! as RadioButton
-            consultationTemporary.pruebasEquilibrio = when (radio.text) {
+            val radio = group.findViewById<RadioButton>(checkedId)!!
+            consultationTemporary.pruebasEquilibrioC = when (radio.text) {
                 "Se sostuvo durante 10 segundos" -> 1
                 "No se sostuvo durante 3 a 9 segundos" -> 2
                 "No se sostuvo durante 3 segundos" -> 3
@@ -215,6 +192,60 @@ class MedicalConsultationFragment : Fragment() {
                 )
             }
 
+        binding.switchSegundos.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) startAnimation(binding.layoutSegundos)
+            else startEndAnimation(binding.layoutSegundos)
+        }
+
+        binding.apply {
+            checkConsult.setListener(cardConsult)
+            checkFisicalExploration.setListener(cardFisicalExploration)
+            checkMarcha.setListener(cardMarcha)
+            checkDiagnostico.setListener(cardDiagnostico)
+            checkPain.setListener(cardPain)
+            checkEvalucionMuscular.setListener(cardEvalucionMuscular)
+            checkAnalisisMarcha.setListener(cardAnalisisMarcha)
+            checkEvaluacionPostura.setListener(cardEvaluacionPostura)
+            checkForm1.setListener(cardForm1)
+            checkForm2.setListener(cardForm2)
+            checkPlan.setListener(cardPlan)
+        }
+
+    }
+
+    private fun CheckBox.setListener(view: View) {
+        this.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) startAnimation(view)
+            else startEndAnimation(view)
+        }
+    }
+
+    private fun startAnimation(view: View) {
+        view.visibility = View.VISIBLE
+        view.startAnimation(startAnimation)
+    }
+
+    private fun startEndAnimation(view: View) {
+        endAnimation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                view.visibility = View.GONE
+                endAnimation.setAnimationListener(null)
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+            }
+
+        })
+        view.startAnimation(endAnimation)
+    }
+
+
+    private fun getSelectedText(chipGroup: ChipGroup, id: Int): String {
+        val mySelection = chipGroup.findViewById<Chip>(id)
+        return mySelection?.text?.toString() ?: ""
     }
 
     override fun onPause() {

@@ -36,6 +36,7 @@
         android:id="@+id/add_patient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16sp"
         android:text="Crear paciente"
         app:icon="@drawable/ic_round_person_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
