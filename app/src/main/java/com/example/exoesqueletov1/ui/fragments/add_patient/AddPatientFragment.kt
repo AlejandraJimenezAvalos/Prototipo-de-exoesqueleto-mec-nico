@@ -268,6 +268,4 @@ class AddPatientFragment : Fragment() {
         old.startAnimation(endAnimation)
         progressControl++
     }
-
-
 }

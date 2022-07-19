@@ -38,7 +38,6 @@ class ConsultationTemporary {
     var pieDerechoNoLevanta = false
     var pieIzquierdoNoSobrepasa = false
     var pieIzquierdoNoLevanta = false
-    var simetria = false // posiblemente no existe
     var longitud = false
     var continuidad = false
     var trayectoriaDesviacionAlta = false
@@ -63,4 +62,24 @@ class ConsultationTemporary {
     var participacion = ""
     var diagnostico = ""
     var plan = ""
+
+    fun getDolorInt() = if (dolor.isEmpty()) 11 else dolor.toInt()
+    fun getMusculoSuperiorIzquierdoInt() =
+        if (musculoSuperiorIzquierdo.isEmpty()) 11 else musculoSuperiorIzquierdo.toInt()
+
+    fun getMusculoSuperiorDerechoInt() =
+        if (musculoSuperiorDerecho.isEmpty()) 11 else musculoSuperiorDerecho.toInt()
+
+    fun getMusculoInferiorIzquierdoInt() =
+        if (musculoInferiorIzquierdo.isEmpty()) 11 else musculoInferiorIzquierdo.toInt()
+
+    fun getMusculoInferiorDerechoInt() =
+        if (musculoInferiorDerecho.isEmpty()) 11 else musculoInferiorDerecho.toInt()
+
+    fun getTroncoIzquierdoInt() = if (troncoIzquierdo.isEmpty()) 11 else troncoIzquierdo.toInt()
+    fun getTroncoDerechoInt() = if (troncoDerecho.isEmpty()) 11 else troncoDerecho.toInt()
+    fun getCuelloIzquierdoInt() = if (cuelloIzquierdo.isEmpty()) 11 else cuelloIzquierdo.toInt()
+    fun getCuelloDerechoInt() = if (cuelloDerecho.isEmpty()) 11 else cuelloDerecho.toInt()
+
+
 }

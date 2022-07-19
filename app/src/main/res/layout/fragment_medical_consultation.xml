@@ -141,15 +141,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <CheckBox
+                android:id="@+id/check_consult"
                 style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:text="Datos de la consulta" />
+                android:button="@drawable/switch_custom"
+                android:checked="true"
+                android:text="  Datos de la consulta" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_Consult"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -178,7 +182,7 @@
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textAutoCorrect"
+                            android:inputType="textAutoComplete"
                             android:maxLines="10"
                             android:text="@{consultation.motivo}" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -197,22 +201,26 @@
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textAutoCorrect"
+                            android:inputType="textMultiLine"
                             android:maxLines="10"
                             android:text="@{consultation.sintomatologia}" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <CheckBox
+                android:id="@+id/check_fisical_exploration"
                 style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:text="Exploración física" />
+                android:button="@drawable/switch_custom"
+                android:checked="true"
+                android:text="  Exploración física" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_FisicalExploration"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -247,6 +255,7 @@
                         app:suffixText="Kg">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
@@ -275,6 +284,7 @@
                         app:suffixText="g">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
@@ -304,6 +314,7 @@
                         app:suffixText="m">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
@@ -332,6 +343,7 @@
                         app:suffixText="cm">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
@@ -359,6 +371,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView40">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
@@ -369,15 +382,19 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <CheckBox
+                android:id="@+id/check_marcha"
                 style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:text="Marcha / Deambulación" />
+                android:button="@drawable/switch_custom"
+                android:checked="true"
+                android:text="  Marcha / Deambulación" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_Marcha"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -427,8 +444,8 @@
                         style="@style/TextAppearance.Material3.BodyMedium"
                         android:layout_width="0sp"
                         android:layout_height="match_parent"
-                        android:text="Espásticas"
                         android:checked="@{consultation.espasticas}"
+                        android:text="Espásticas"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/check_libre"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -456,7 +473,7 @@
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textAutoCorrect"
+                            android:inputType="textMultiLine"
                             android:maxLines="10"
                             android:text="@{consultation.observaciones}" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -465,15 +482,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <CheckBox
+                android:id="@+id/check_diagnostico"
                 style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:text="Diagnóstico médico en rehabilitación" />
+                android:button="@drawable/switch_custom"
+                android:checked="true"
+                android:text="  Diagnóstico médico en rehabilitación" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_Diagnostico"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -501,7 +522,7 @@
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textAutoCorrect"
+                            android:inputType="textMultiLine"
                             android:maxLines="10"
                             android:text="@{consultation.reflejos}" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -521,7 +542,7 @@
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textAutoCorrect"
+                            android:inputType="textMultiLine"
                             android:maxLines="10"
                             android:text="@{consultation.sensibilidad}" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -541,7 +562,7 @@
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textAutoCorrect"
+                            android:inputType="textMultiLine"
                             android:maxLines="10"
                             android:text="@{consultation.lenguaje}" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -561,7 +582,7 @@
                             style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textAutoCorrect"
+                            android:inputType="textMultiLine"
                             android:maxLines="10"
                             android:text="@{consultation.otros}" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -570,15 +591,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <CheckBox
+                android:id="@+id/check_pain"
                 style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:text="Escala de dolor" />
+                android:button="@drawable/switch_custom"
+                android:checked="true"
+                android:text="  Escala de dolor" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_Pain"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -616,69 +641,91 @@
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_dolor_10"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getDolorInt() == 10}"
                             android:text="10" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_dolor_9"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getDolorInt() == 9}"
                             android:text="9" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_dolor_8"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getDolorInt() == 8}"
                             android:text="8" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_dolor_7"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getDolorInt() == 7}"
                             android:text="7" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_dolor_6"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getDolorInt() == 6}"
                             android:text="6" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_dolor_5"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getDolorInt() == 5}"
                             android:text="5" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_dolor_4"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getDolorInt() == 4}"
                             android:text="4" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_dolor_3"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getDolorInt() == 3}"
                             android:text="3" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_dolor_2"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getDolorInt() == 2}"
                             android:text="2" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_dolor_1"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getDolorInt() == 1}"
                             android:text="1" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_dolor_0"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getDolorInt() == 0}"
                             android:text="0" />
 
                     </com.google.android.material.chip.ChipGroup>
@@ -687,15 +734,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <CheckBox
+                android:id="@+id/check_evalucion_muscular"
                 style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:text="Evaluación muscular" />
+                android:button="@drawable/switch_custom"
+                android:checked="true"
+                android:text="  Evaluación muscular" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_EvalucionMuscular"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -755,39 +806,51 @@
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoSI_5"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoSuperiorIzquierdoInt() == 5}"
                             android:text="5" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoSI_4"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoSuperiorIzquierdoInt() == 4}"
                             android:text="4" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoSI_3"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoSuperiorIzquierdoInt() == 3}"
                             android:text="3" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoSI_2"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoSuperiorIzquierdoInt() == 2}"
                             android:text="2" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoSI_1"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoSuperiorIzquierdoInt() == 1}"
                             android:text="1" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoSI_0"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoSuperiorIzquierdoInt() == 0}"
                             android:text="0" />
 
                     </com.google.android.material.chip.ChipGroup>
@@ -814,39 +877,51 @@
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoSD_5"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoSuperiorDerechoInt() == 5}"
                             android:text="5" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoSD_4"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoSuperiorDerechoInt() == 4}"
                             android:text="4" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoSD_3"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoSuperiorDerechoInt() == 3}"
                             android:text="3" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoSD_2"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoSuperiorDerechoInt() == 2}"
                             android:text="2" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoSD_1"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoSuperiorDerechoInt() == 1}"
                             android:text="1" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoSD_0"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoSuperiorDerechoInt() == 0}"
                             android:text="0" />
 
                     </com.google.android.material.chip.ChipGroup>
@@ -873,39 +948,51 @@
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoII_5"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoInferiorIzquierdoInt() == 5}"
                             android:text="5" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoII_4"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoInferiorIzquierdoInt() == 4}"
                             android:text="4" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoII_3"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoInferiorIzquierdoInt() == 3}"
                             android:text="3" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoII_2"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoInferiorIzquierdoInt() == 2}"
                             android:text="2" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoII_1"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoInferiorIzquierdoInt() == 1}"
                             android:text="1" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoII_0"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoInferiorIzquierdoInt() == 0}"
                             android:text="0" />
 
                     </com.google.android.material.chip.ChipGroup>
@@ -932,39 +1019,51 @@
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoID_5"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoInferiorDerechoInt() == 5}"
                             android:text="5" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoID_4"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoInferiorDerechoInt() == 4}"
                             android:text="4" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoID_3"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoInferiorDerechoInt() == 3}"
                             android:text="3" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoID_2"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoInferiorDerechoInt() == 2}"
                             android:text="2" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoID_1"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoInferiorDerechoInt() == 1}"
                             android:text="1" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_musculoID_0"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getMusculoInferiorDerechoInt() == 0}"
                             android:text="0" />
 
                     </com.google.android.material.chip.ChipGroup>
@@ -991,39 +1090,51 @@
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_troncoI_5"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getTroncoIzquierdoInt() == 5}"
                             android:text="5" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_troncoI_4"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getTroncoIzquierdoInt() == 4}"
                             android:text="4" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_troncoI_3"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getTroncoIzquierdoInt() == 3}"
                             android:text="3" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_troncoI_2"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getTroncoIzquierdoInt() == 2}"
                             android:text="2" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_troncoI_1"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getTroncoIzquierdoInt() == 1}"
                             android:text="1" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_troncoI_0"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getTroncoIzquierdoInt() == 0}"
                             android:text="0" />
 
                     </com.google.android.material.chip.ChipGroup>
@@ -1050,39 +1161,51 @@
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_troncoD_5"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getTroncoDerechoInt() == 5}"
                             android:text="5" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_troncoD_4"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getTroncoDerechoInt() == 4}"
                             android:text="4" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_troncoD_3"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getTroncoDerechoInt() == 3}"
                             android:text="3" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_troncoD_2"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getTroncoDerechoInt() == 2}"
                             android:text="2" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_troncoD_1"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getTroncoDerechoInt() == 1}"
                             android:text="1" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_troncoD_0"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getTroncoDerechoInt() == 0}"
                             android:text="0" />
 
                     </com.google.android.material.chip.ChipGroup>
@@ -1109,39 +1232,51 @@
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_CuelloI_5"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getCuelloIzquierdoInt() == 5}"
                             android:text="5" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_CuelloI_4"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getCuelloIzquierdoInt() == 4}"
                             android:text="4" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_CuelloI_3"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getCuelloIzquierdoInt() == 3}"
                             android:text="3" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_CuelloI_2"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getCuelloIzquierdoInt() == 2}"
                             android:text="2" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_CuelloI_1"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getCuelloIzquierdoInt() == 1}"
                             android:text="1" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_CuelloI_0"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getCuelloIzquierdoInt() == 0}"
                             android:text="0" />
 
                     </com.google.android.material.chip.ChipGroup>
@@ -1168,39 +1303,51 @@
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_CuelloD_5"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getCuelloDerechoInt() == 5}"
                             android:text="5" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_CuelloD_4"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getCuelloDerechoInt() == 4}"
                             android:text="4" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_CuelloD_3"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getCuelloDerechoInt() == 3}"
                             android:text="3" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_CuelloD_2"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getCuelloDerechoInt() == 2}"
                             android:text="2" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_CuelloD_1"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getCuelloDerechoInt() == 1}"
                             android:text="1" />
 
                         <com.google.android.material.chip.Chip
-                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:id="@+id/chip_CuelloD_0"
+                            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.getCuelloDerechoInt() == 0}"
                             android:text="0" />
 
                     </com.google.android.material.chip.ChipGroup>
@@ -1216,9 +1363,11 @@
                         app:layout_constraintTop_toBottomOf="@+id/chip_CuelloD">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@{consultation.valoracionInicial}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -1233,9 +1382,11 @@
                         app:layout_constraintTop_toBottomOf="@+id/layout_valoracion">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@{consultation.subjetivo}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -1250,9 +1401,11 @@
                         app:layout_constraintTop_toBottomOf="@+id/layout_subjetivo">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@{consultation.analisis}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -1267,9 +1420,11 @@
                         app:layout_constraintTop_toBottomOf="@+id/layout_analisis">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textMultiLine"
+                            android:text="@{consultation.planAccion}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -1277,15 +1432,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <CheckBox
+                android:id="@+id/check_analisis_marcha"
                 style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:text="Análisis de la marcha" />
+                android:button="@drawable/switch_custom"
+                android:checked="true"
+                android:text="  Análisis de la marcha" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_AnalisisMarcha"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1471,15 +1630,19 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <CheckBox
+                android:id="@+id/check_evaluacion_postura"
                 style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:text="Evaluación en la Postura" />
+                android:button="@drawable/switch_custom"
+                android:checked="true"
+                android:text="  Evaluación en la Postura" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_EvaluacionPostura"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -2067,16 +2230,20 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <CheckBox
+                android:id="@+id/check_form1"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
                 android:layout_marginEnd="16sp"
-                android:text="Formulario de valoración de la batería breve de valoración funcional" />
+                android:button="@drawable/switch_custom"
+                android:checked="true"
+                android:text="  Formulario de valoración de la batería breve de valoración funcional" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_Form1"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -2120,18 +2287,21 @@
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrio == 1}"
                             android:text="No se sostuvo durante 10 segundos" />
 
                         <RadioButton
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrio == 2}"
                             android:text="Se sostuvo durante 10 segundos" />
 
                         <RadioButton
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrio == 3}"
                             android:text="No lo intento" />
 
                     </RadioGroup>
@@ -2140,16 +2310,20 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <CheckBox
+                android:id="@+id/check_form2"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
                 android:layout_marginEnd="16sp"
-                android:text="Formulario de valoración de la batería breve de valoración funcional" />
+                android:button="@drawable/switch_custom"
+                android:checked="true"
+                android:text="  Formulario de valoración de la batería breve de valoración funcional" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_Form2"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -2194,6 +2368,7 @@
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrioA == 1}"
                             android:text="No se sostuvo durante 10 segundos" />
 
                         <RadioButton
@@ -2201,6 +2376,7 @@
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrioA == 2}"
                             android:text="Se sostuvo durante 10 segundos" />
 
                         <RadioButton
@@ -2208,6 +2384,7 @@
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrioA == 3}"
                             android:text="No lo intento" />
 
                     </RadioGroup>
@@ -2236,6 +2413,7 @@
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrioB == 1}"
                             android:text="No se sostuvo durante 10 segundos" />
 
                         <RadioButton
@@ -2243,6 +2421,7 @@
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrioB == 2}"
                             android:text="Se sostuvo durante 10 segundos" />
 
                         <RadioButton
@@ -2250,6 +2429,7 @@
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrioB == 3}"
                             android:text="No lo intento" />
 
                     </RadioGroup>
@@ -2278,6 +2458,7 @@
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrioC == 1}"
                             android:text="Se sostuvo durante 10 segundos" />
 
                         <RadioButton
@@ -2285,6 +2466,7 @@
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrioC == 2}"
                             android:text="No se sostuvo durante 3 a 9 segundos" />
 
                         <RadioButton
@@ -2292,6 +2474,7 @@
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrioC == 3}"
                             android:text="No se sostuvo durante 3 segundos" />
 
                         <RadioButton
@@ -2299,6 +2482,7 @@
                             style="@style/TextAppearance.Material3.BodySmall"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:checked="@{consultation.pruebasEquilibrioC == 4}"
                             android:text="No lo intento" />
 
                     </RadioGroup>
@@ -2308,21 +2492,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8sp"
+                        android:checked="@{consultation.segundosMenor10}"
                         android:text="¿El número de segundos fue menor a 10?" />
-
-                    <TextView
-                        style="@style/TextAppearance.Material3.BodyMedium"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Número de segundos con equilibrio si es inferior a 10 segundos" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_segundos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         app:suffixText="segundos">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="number"
@@ -2335,16 +2516,20 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+            <CheckBox
+                android:id="@+id/check_plan"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
                 android:layout_marginEnd="16sp"
-                android:text="Plan Analítico de Atención Integral de Terapia Física" />
+                android:button="@drawable/switch_custom"
+                android:checked="true"
+                android:text="  Plan Analítico de Atención Integral de Terapia Física" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_Plan"
                 style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -2367,6 +2552,7 @@
                         android:hint="Objetivos">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="textMultiLine"
@@ -2380,6 +2566,7 @@
                         android:hint="Hipotesis">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="textMultiLine"
@@ -2393,6 +2580,7 @@
                         android:hint="Estructura Corporal">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="textMultiLine"
@@ -2406,6 +2594,7 @@
                         android:hint="Funsión Corporal">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="textMultiLine"
@@ -2419,6 +2608,7 @@
                         android:hint="Actividad">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="textMultiLine"
@@ -2432,6 +2622,7 @@
                         android:hint="Participación">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="textMultiLine"
@@ -2445,6 +2636,7 @@
                         android:hint="Diagnóstico">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="textMultiLine"
@@ -2458,10 +2650,11 @@
                         android:hint="Plan">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextAppearance.Material3.BodyMedium"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:inputType="textMultiLine"
-                            android:text="@{consultation.planAccion}" />
+                            android:text="@{consultation.plan}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
