@@ -35,6 +35,7 @@
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/ic_help.xml" value="0.2145" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/ic_home.xml" value="0.2145" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2145" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/ic_info_solid.xml" value="0.134" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/ic_lock.xml" value="0.2145" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/ic_mail.xml" value="0.2135" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/ic_message.xml" value="0.2145" />
@@ -70,8 +71,11 @@
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/ic_walk_background.xml" value="0.2145" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/ic_weight_scale_solid.xml" value="0.1585" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/ic_work.xml" value="0.2145" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/icon_button.xml" value="0.134" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/icon_button_custom.xml" value="0.1785" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/layout_border_right.xml" value="0.2145" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/layout_border_right_top_bottom.xml" value="0.2145" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/list_colors.xml" value="0.134" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/mini_connection.xml" value="0.2035" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/notification_backround.xml" value="0.2145" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/drawable/round_add_20.xml" value="0.2145" />
@@ -119,7 +123,7 @@
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_log_in.xml" value="0.20729166666666668" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_log_up.xml" value="0.20729166666666668" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_log_up_profile.xml" value="0.20729166666666668" />
-        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_login.xml" value="0.75" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_login.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_manage_patint.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_medical_consultation.xml" value="0.1" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_menu.xml" value="0.20729166666666668" />
@@ -140,6 +144,7 @@
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/fragment_works.xml" value="0.20729166666666668" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_bluetooth_devices.xml" value="0.33" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_chat.xml" value="0.25" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_evaluacion_postura.xml" value="0.5" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_expedient.xml" value="0.13531047265987026" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_menu.xml" value="0.5" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_my_message.xml" value="0.25" />
@@ -151,7 +156,7 @@
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/item_your_message.xml" value="0.33" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/list_item_withe.xml" value="0.33" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/nav_header_main.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/prueba.xml" value="0.1675929884566054" />
+        <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/prueba.xml" value="0.36465116279069765" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/section_grados_observaciones.xml" value="0.33" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/sing_in_fragment.xml" value="0.22" />
         <entry key="..\:/Users/aejimenez/AndroidStudioProjects/Imports/Mechanical-exoskeleton-prototype/app/src/main/res/layout/sing_up_fragment.xml" value="0.20729166666666668" />

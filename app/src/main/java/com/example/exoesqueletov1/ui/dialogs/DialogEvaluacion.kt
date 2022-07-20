@@ -1,26 +1,34 @@
 package com.example.exoesqueletov1.ui.dialogs
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AppCompatDialogFragment
+import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import com.example.exoesqueletov1.R
 
-class DialogEvaluacion() :
-    AppCompatDialogFragment() {
+class DialogEvaluacion() : DialogFragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        //binding = DialogEvaluacionBinding.inflate(inflater, container, false)
+        return inflater.inflate(R.layout.dialog_evaluacion, container, false)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //setStyle(DialogFragment.STYLE_NO_INPUT, R.style.MaterialAlertDialog_Material3_Title_Panel)
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val view: View
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        val inflater: LayoutInflater = requireActivity().layoutInflater
-        view = inflater.inflate(R.layout.dialog_evaluacion, null)
-        builder.setView(view)
-
-        builder.setPositiveButton("Aceptar") { dialog, _ ->
-            dialog.dismiss()
-        }
-        return builder.create()
+        val dialog = super.onCreateDialog(savedInstanceState)
+        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        return dialog
     }
+
+
 }

@@ -16,10 +16,10 @@ import com.example.exoesqueletov1.data.local.sharedpreferences.ConsultationTempo
 import com.example.exoesqueletov1.data.local.sharedpreferences.GradosObservaciones
 import com.example.exoesqueletov1.databinding.FragmentMedicalConsultationBinding
 import com.example.exoesqueletov1.databinding.SectionGradosObservacionesBinding
-import com.example.exoesqueletov1.ui.dialogs.DialogEvaluacion
 import com.example.exoesqueletov1.utils.Utils.getText
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -52,8 +52,29 @@ class MedicalConsultationFragment : Fragment() {
             binding.patient = it
         }
         binding.imageInfo1.setOnClickListener {
-            val dialog = DialogEvaluacion()
-            dialog.show(childFragmentManager, "")
+            MaterialAlertDialogBuilder(requireContext())
+                .setIcon(R.drawable.ic_round_assignment_24)
+                .setTitle("Evalucación")
+                .setMessage(
+                    "La fuerza del paciente esta graduada en una escala del 0 al 5\n\n\n" +
+                            "5 Fuerza muscular normal contra la resistencia completa.\n\n" +
+                            "4 La fuerza muscular esta reducida, pero la contracción muscular " +
+                            "puede realizar un movimiento articular contra la resistencia.\n\n" +
+                            "3 La fuerza muscular está reducida tanto que el movimiento " +
+                            "articular solo puede realizarse contra la gravedad, sin la " +
+                            "resistencia del examinador. Por ejemplo, la articulación del " +
+                            "codo puede moverse desde extensión completa hasta flexión " +
+                            "completa, comenzando con el brazo suspendido al lado del cuerpo.\n\n" +
+                            "2 Movimiento activo que no puede vencer la fuerza de gavedad. Por " +
+                            "ejemplo, el codo puede flexionarse completamente solo cuando el " +
+                            "brazo es mantenido en un plano horizontal.\n\n" +
+                            "1 Esbozo de contracción muscular.\n\n" +
+                            "0 Ausencia de contracción muscular."
+                )
+                .setPositiveButton("Aceptar") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
     }
 
