@@ -141,6 +141,7 @@ class MedicalConsultationFragment : Fragment() {
                     "${consultationTemporary.listOfGrados[i].grados} ${consultationTemporary.listOfGrados[i].observaciones}"
                 )
             }
+
         // List of section grados/observaciones
         binding.apply {
             list.add(lateralCabeza)
