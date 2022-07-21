@@ -8,6 +8,7 @@ import com.example.exoesqueletov1.data.local.dao.Dao
 import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
 import com.example.exoesqueletov1.data.models.*
+import com.example.exoesqueletov1.data.models.consultation.*
 
 @Database(
     entities = [
@@ -19,8 +20,17 @@ import com.example.exoesqueletov1.data.models.*
         ExoskeletonModel::class,
         PatientModel::class,
         ExpedientModel::class,
+        Analisis::class,
+        ConsultationData::class,
+        EvaluacionMuscular::class,
+        EvaluacionMusculo::class,
+        EvaluacionPostura::class,
+        ExploracionFisica::class,
+        Marcha::class,
+        Plan::class,
+        ValoracionFuncional::class,
     ],
-    version = 4,
+    version = 5,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
@@ -33,6 +43,10 @@ import com.example.exoesqueletov1.data.models.*
             from = 3,
             to = 4,
             spec = com.example.exoesqueletov1.data.db.RoomDatabase.AutoMigrationPatient2::class
+        ),
+        AutoMigration(
+            from = 4,
+            to = 5
         )
     ],
 )

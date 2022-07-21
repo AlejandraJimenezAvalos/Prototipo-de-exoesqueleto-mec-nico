@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.exoesqueletov1.utils.Constants.ID_PATINT
+import com.example.exoesqueletov1.utils.Constants.ID_PATIENT
 import com.example.exoesqueletov1.utils.Constants.ID_USER
 import com.example.exoesqueletov1.utils.Constants.NAME
 import com.example.exoesqueletov1.utils.Constants.TYPE
@@ -16,7 +16,7 @@ data class ExpedientModel(
     @PrimaryKey(autoGenerate = false) val id: String,
     @ColumnInfo(name = VALUE) val value: String,
     @ColumnInfo(name = NAME) val name: String,
-    @ColumnInfo(name = ID_PATINT) val idPatient: String,
+    @ColumnInfo(name = ID_PATIENT) val idPatient: String,
     @ColumnInfo(name = TYPE) val type: String,
     @ColumnInfo(name = ID_USER) val idUser: String,
 ) {
@@ -26,7 +26,7 @@ data class ExpedientModel(
                 id,
                 getString(VALUE)!!,
                 getString(NAME)!!,
-                getString(ID_PATINT)!!,
+                getString(ID_PATIENT)!!,
                 getString(TYPE)!!,
                 getString(ID_USER)!!,
             )

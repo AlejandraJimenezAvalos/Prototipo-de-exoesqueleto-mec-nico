@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.fragments.medical_consultation.MedicalConsultationFragment">
 
     <data>
 
@@ -2221,86 +2222,6 @@
                         <include
                             android:id="@+id/pie_cavo"
                             layout="@layout/section_grados_observaciones" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <CheckBox
-                    android:id="@+id/check_form1"
-                    style="@style/TextAppearance.Material3.BodyLarge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16sp"
-                    android:layout_marginTop="16sp"
-                    android:layout_marginEnd="16sp"
-                    android:button="@drawable/switch_custom"
-                    android:checked="true"
-                    android:text="Formulario de valoración de la batería breve de valoración funcional" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_Form1"
-                    style="@style/Widget.Material3.CardView.Elevated"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16sp"
-                    android:layout_marginTop="8sp"
-                    android:layout_marginEnd="16sp"
-                    android:backgroundTint="?android:attr/colorAccent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16sp">
-
-                        <TextView
-                            style="@style/TextAppearance.Material3.BodyMedium"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Pruebas de equilibrio" />
-
-                        <TextView
-                            style="@style/TextAppearance.Material3.BodySmall"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16sp"
-                            android:text="El sujeto debe de ser capaz de ponerse de pie, sin ayuda de bastones o andadores." />
-
-                        <TextView
-                            style="@style/TextAppearance.Material3.BodySmall"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="A. Posición con los pies juntos." />
-
-                        <RadioGroup
-                            android:id="@+id/group_pies_juntos"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16sp">
-
-                            <RadioButton
-                                style="@style/TextAppearance.Material3.BodySmall"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:checked="@{consultation.pruebasEquilibrio == 1}"
-                                android:text="No se sostuvo durante 10 segundos" />
-
-                            <RadioButton
-                                style="@style/TextAppearance.Material3.BodySmall"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:checked="@{consultation.pruebasEquilibrio == 2}"
-                                android:text="Se sostuvo durante 10 segundos" />
-
-                            <RadioButton
-                                style="@style/TextAppearance.Material3.BodySmall"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:checked="@{consultation.pruebasEquilibrio == 3}"
-                                android:text="No lo intento" />
-
-                        </RadioGroup>
 
                     </LinearLayout>
 

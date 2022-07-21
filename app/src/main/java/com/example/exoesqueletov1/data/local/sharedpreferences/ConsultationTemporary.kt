@@ -48,7 +48,6 @@ class ConsultationTemporary {
     var noBalanceoNulo = false
     var talones = false
     var listOfGrados = mutableListOf<GradosObservaciones>()
-    var pruebasEquilibrio = 0
     var pruebasEquilibrioA = 0
     var pruebasEquilibrioB = 0
     var pruebasEquilibrioC = 0

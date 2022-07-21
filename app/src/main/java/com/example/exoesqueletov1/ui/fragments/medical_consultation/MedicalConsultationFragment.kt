@@ -113,16 +113,6 @@ class MedicalConsultationFragment : Fragment() {
         binding.chipCuelloD.setOnCheckedChangeListener { group, checkedId ->
             consultationTemporary.cuelloDerecho = getSelectedText(group, checkedId)
         }
-
-        binding.groupPiesJuntos.setOnCheckedChangeListener { group, checkedId ->
-            val radio = group.findViewById<RadioButton>(checkedId)!!
-            consultationTemporary.pruebasEquilibrio = when (radio.text) {
-                "No se sostuvo durante 10 segundos" -> 1
-                "Se sostuvo durante 10 segundos" -> 2
-                "No lo intento" -> 3
-                else -> 1
-            }
-        }
         binding.groupA.setOnCheckedChangeListener { group, checkedId ->
             val radio = group.findViewById<RadioButton>(checkedId)!!
             consultationTemporary.pruebasEquilibrioA = when (radio.text) {
@@ -229,7 +219,6 @@ class MedicalConsultationFragment : Fragment() {
             checkEvalucionMuscular.setListener(cardEvalucionMuscular)
             checkAnalisisMarcha.setListener(cardAnalisisMarcha)
             checkEvaluacionPostura.setListener(cardEvaluacionPostura)
-            checkForm1.setListener(cardForm1)
             checkForm2.setListener(cardForm2)
             checkPlan.setListener(cardPlan)
         }

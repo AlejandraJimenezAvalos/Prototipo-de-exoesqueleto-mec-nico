@@ -6,7 +6,7 @@ import com.example.exoesqueletov1.utils.Constants.ADDRESS
 import com.example.exoesqueletov1.utils.Constants.BIRTHDAY
 import com.example.exoesqueletov1.utils.Constants.EMAIL
 import com.example.exoesqueletov1.utils.Constants.GENDER
-import com.example.exoesqueletov1.utils.Constants.ID_PATINT
+import com.example.exoesqueletov1.utils.Constants.ID_PATIENT
 import com.example.exoesqueletov1.utils.Constants.LADA
 import com.example.exoesqueletov1.utils.Constants.NAME
 import com.example.exoesqueletov1.utils.Constants.OCCUPATION
@@ -27,7 +27,7 @@ class PatientTemporaryRepository @Inject constructor(@Named("formPatient") priva
             phone.setString(PHONE)
             address.setString(ADDRESS)
             lada.setString(LADA)
-            idPatient.setString(ID_PATINT)
+            idPatient.setString(ID_PATIENT)
         }
     }
 
@@ -42,7 +42,7 @@ class PatientTemporaryRepository @Inject constructor(@Named("formPatient") priva
             phone = getString(PHONE)
             lada = getString(LADA)
             address = getString(ADDRESS)
-            idPatient = getString(ID_PATINT)
+            idPatient = getString(ID_PATIENT)
         }
         return patient
     }
@@ -56,7 +56,7 @@ class PatientTemporaryRepository @Inject constructor(@Named("formPatient") priva
         "".setString(PHONE)
         "".setString(ADDRESS)
         "".setString(LADA)
-        "".setString(ID_PATINT)
+        "".setString(ID_PATIENT)
     }
 
     private fun String.setString(key: String) = editor.putString(key, this).apply()
