@@ -1,6 +1,12 @@
 package com.example.exoesqueletov1.data.local.sharedpreferences
 
+import com.example.exoesqueletov1.databinding.FragmentMedicalConsultationBinding
+import com.example.exoesqueletov1.databinding.SectionGradosObservacionesBinding
+import com.example.exoesqueletov1.utils.Constants
+import com.example.exoesqueletov1.utils.Utils.getText
+
 class ConsultationTemporary {
+    // region Declaration of variables
     var id = ""
     var idPatient = ""
     var motivo = ""
@@ -47,7 +53,7 @@ class ConsultationTemporary {
     var noBalanceoMedio = false
     var noBalanceoNulo = false
     var talones = false
-    var listOfGrados = mutableListOf<GradosObservaciones>()
+    var listOfGrados = mutableListOf<EvaluacionPosturaTemporary>()
     var pruebasEquilibrioA = 0
     var pruebasEquilibrioB = 0
     var pruebasEquilibrioC = 0
@@ -61,6 +67,7 @@ class ConsultationTemporary {
     var participacion = ""
     var diagnostico = ""
     var plan = ""
+    // endregion
 
     fun getDolorInt() = if (dolor.isEmpty()) 11 else dolor.toInt()
     fun getMusculoSuperiorIzquierdoInt() =
@@ -80,5 +87,82 @@ class ConsultationTemporary {
     fun getCuelloIzquierdoInt() = if (cuelloIzquierdo.isEmpty()) 11 else cuelloIzquierdo.toInt()
     fun getCuelloDerechoInt() = if (cuelloDerecho.isEmpty()) 11 else cuelloDerecho.toInt()
 
+    companion object {
+        /**
+         * Method used by get data of the layout
+         * @param list as a list of views and contains Evaluacion de postura data
+         */
+        fun FragmentMedicalConsultationBinding.getConsultationTemporary(
+            list: List<SectionGradosObservacionesBinding>
+        ): ConsultationTemporary {
+            val consultationTemporary = ConsultationTemporary()
+            val listConsultation = mutableListOf<EvaluacionPosturaTemporary>()
+            consultationTemporary.listOfGrados.clear()
+            listConsultation.clear()
+            for (i in list.indices) {
+                val sectionBinding = list[i]
+                val evaluacionPosturaTemporary = EvaluacionPosturaTemporary()
+                evaluacionPosturaTemporary.grados = sectionBinding.layoutGrados.getText()
+                evaluacionPosturaTemporary.observaciones =
+                    sectionBinding.layoutObservaciones.getText()
+                evaluacionPosturaTemporary.position = i
+                evaluacionPosturaTemporary.name = Constants.names[i]
+
+                if (evaluacionPosturaTemporary.isNotEmpty())
+                    listConsultation.add(evaluacionPosturaTemporary)
+            }
+            consultationTemporary.motivo = layoutMotivo.getText()
+            consultationTemporary.sintomatologia = layoutSintomatologia.getText()
+            consultationTemporary.pesoKg = layoutPesoK.getText()
+            consultationTemporary.pesoG = layoutPesoG.getText()
+            consultationTemporary.talla = layoutTalla.getText()
+            consultationTemporary.estaturaM = layoutEstaturaM.getText()
+            consultationTemporary.estaturaCm = layoutEstaturaCm.getText()
+            consultationTemporary.libre = checkLibre.isChecked
+            consultationTemporary.claudicante = checkClaudicante.isChecked
+            consultationTemporary.conAyuda = checkConAyuda.isChecked
+            consultationTemporary.espasticas = checkEspasticas.isChecked
+            consultationTemporary.ataxica = checkAtaxica.isChecked
+            consultationTemporary.observaciones = layoutObservaciones.getText()
+            consultationTemporary.reflejos = layoutReflejos.getText()
+            consultationTemporary.sensibilidad = layoutSensibilidad.getText()
+            consultationTemporary.lenguaje = layoutLenguaje.getText()
+            consultationTemporary.otros = layoutOtros.getText()
+            consultationTemporary.valoracionInicial = layoutValoracion.getText()
+            consultationTemporary.subjetivo = layoutSubjetivo.getText()
+            consultationTemporary.analisis = layoutAnalisis.getText()
+            consultationTemporary.planAccion = layoutPlan.getText()
+            consultationTemporary.inicioMarcha = checkStart.isChecked
+            consultationTemporary.pieDerechoNoSobrepasa = checkPieDerechoSobrepasa.isChecked
+            consultationTemporary.pieDerechoNoLevanta = checkPieDerechoSobrepasa.isChecked
+            consultationTemporary.pieIzquierdoNoSobrepasa = checkPieIzquierdoSobrepasa.isChecked
+            consultationTemporary.pieIzquierdoNoLevanta =
+                checkPieIzquierdoLevantamiento.isChecked
+            consultationTemporary.longitud = checkLogitudPaso.isChecked
+            consultationTemporary.continuidad = checkContinuidadPaso.isChecked
+            consultationTemporary.trayectoriaDesviacionAlta =
+                checkTayectoriaDesviacionMarcada.isChecked
+            consultationTemporary.trayectoriaDesviacionMedia =
+                checkTrayectoriaDesviacionModerada.isChecked
+            consultationTemporary.trayectoriaDesviacionNula =
+                checkTayectoriaDesviacion.isChecked
+            consultationTemporary.noBalanceoAlto = checkTroncoBalanceoAyuda.isChecked
+            consultationTemporary.noBalanceoMedio = checkTroncoFlexion.isChecked
+            consultationTemporary.noBalanceoNulo = checkTroncoNada.isChecked
+            consultationTemporary.talones = checkTalonesSeparados.isChecked
+            consultationTemporary.listOfGrados.addAll(listConsultation)
+            consultationTemporary.segundosMenor10 = switchSegundos.isChecked
+            consultationTemporary.segundos = layoutSegundos.getText()
+            consultationTemporary.objetivos = layoutObjetivos.getText()
+            consultationTemporary.hipotesis = layoutHipotesis.getText()
+            consultationTemporary.estructuraCorporal = layoutEstructuraCorporal.getText()
+            consultationTemporary.funcionCorporal = layoutFunsionCorporal.getText()
+            consultationTemporary.actividad = layoutActividad.getText()
+            consultationTemporary.participacion = layoutParticipacion.getText()
+            consultationTemporary.diagnostico = layoutDiagnostico.getText()
+            consultationTemporary.plan = layoutPlanFinal.getText()
+            return consultationTemporary
+        }
+    }
 
 }

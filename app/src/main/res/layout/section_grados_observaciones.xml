@@ -6,7 +6,7 @@
 
         <variable
             name="datos"
-            type="com.example.exoesqueletov1.data.local.sharedpreferences.GradosObservaciones" />
+            type="com.example.exoesqueletov1.data.local.sharedpreferences.EvaluacionPosturaTemporary" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

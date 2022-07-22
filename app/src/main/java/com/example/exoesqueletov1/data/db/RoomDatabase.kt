@@ -44,10 +44,7 @@ import com.example.exoesqueletov1.data.models.consultation.*
             to = 4,
             spec = com.example.exoesqueletov1.data.db.RoomDatabase.AutoMigrationPatient2::class
         ),
-        AutoMigration(
-            from = 4,
-            to = 5
-        )
+        AutoMigration(from = 4, to = 5)
     ],
 )
 abstract class RoomDatabase : RoomDatabase() {

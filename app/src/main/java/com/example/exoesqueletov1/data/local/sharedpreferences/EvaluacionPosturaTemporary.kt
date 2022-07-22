@@ -1,9 +1,10 @@
 package com.example.exoesqueletov1.data.local.sharedpreferences
 
-class GradosObservaciones {
+class EvaluacionPosturaTemporary {
     var grados = ""
     var observaciones = ""
     var position = 0
+    var name = ""
 
-    fun isNotEmpty() = grados.isNotEmpty() && observaciones.isNotEmpty()
+    fun isNotEmpty() = grados.isNotEmpty() || observaciones.isNotEmpty()
 }

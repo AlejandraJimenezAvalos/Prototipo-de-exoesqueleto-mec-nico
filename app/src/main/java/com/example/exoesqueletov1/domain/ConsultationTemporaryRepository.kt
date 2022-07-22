@@ -2,7 +2,7 @@ package com.example.exoesqueletov1.domain
 
 import android.content.SharedPreferences
 import com.example.exoesqueletov1.data.local.sharedpreferences.ConsultationTemporary
-import com.example.exoesqueletov1.data.local.sharedpreferences.GradosObservaciones
+import com.example.exoesqueletov1.data.local.sharedpreferences.EvaluacionPosturaTemporary
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -78,13 +78,13 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
     }
 
     fun getConsultation(): ConsultationTemporary {
-        val listGrados = mutableListOf<GradosObservaciones>()
+        val listGrados = mutableListOf<EvaluacionPosturaTemporary>()
         for (i in 0..48) {
-            val gradosObservaciones = GradosObservaciones()
-            gradosObservaciones.observaciones = "observaciones$i".getString()
-            gradosObservaciones.grados = "grados$i".getString()
-            gradosObservaciones.position = i
-            listGrados.add(gradosObservaciones)
+            val evaluacionPosturaTemporary = EvaluacionPosturaTemporary()
+            evaluacionPosturaTemporary.observaciones = "observaciones$i".getString()
+            evaluacionPosturaTemporary.grados = "grados$i".getString()
+            evaluacionPosturaTemporary.position = i
+            listGrados.add(evaluacionPosturaTemporary)
         }
         val consultationTemporary = ConsultationTemporary()
         consultationTemporary.apply {

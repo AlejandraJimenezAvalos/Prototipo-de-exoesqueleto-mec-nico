@@ -1,10 +1,15 @@
 package com.example.exoesqueletov1.utils
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.util.Patterns
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.AutoCompleteTextView
 import android.widget.RadioButton
 import androidx.fragment.app.FragmentManager
+import com.example.exoesqueletov1.R
 import com.example.exoesqueletov1.data.models.ProfileModel
 import com.example.exoesqueletov1.data.models.UserModel
 import com.example.exoesqueletov1.databinding.FragmentProfileBinding
@@ -24,6 +29,7 @@ private const val PASSWORD_VALIDATION =
 private const val ERROR_BLANK = "No puede quedarse en blanco."
 
 object Utils {
+
     fun String.getTypeUser() = when (this) {
         Constants.TypeUser.Admin.toString() -> Constants.TypeUser.Admin
         Constants.TypeUser.Specialist.toString() -> Constants.TypeUser.Specialist
@@ -208,4 +214,54 @@ object Utils {
         if (this == Constants.Origin.Create.toString()) Constants.Origin.Create
         else Constants.Origin.User
 
+    fun View.startEndAnimation(activity: Activity) {
+        val endAnimation = AnimationUtils.loadAnimation(activity, R.anim.fab_scale_down)
+        endAnimation.duration = 400
+        endAnimation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                visibility = View.GONE
+                endAnimation.setAnimationListener(null)
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+            }
+
+        })
+        startAnimation(endAnimation)
+    }
+
+    fun View.startFirstAnimation(activity: Activity) {
+        val startAnimation = AnimationUtils.loadAnimation(activity, R.anim.fab_scale_up)
+        startAnimation.duration = 1000
+        visibility = View.VISIBLE
+        startAnimation(startAnimation)
+    }
+
+    fun View.startAnimationEndAndStart(new: View, activity: Activity, end: (Boolean) -> Unit) {
+        val old = this
+        val startAnimation = AnimationUtils.loadAnimation(activity, R.anim.fab_scale_up)
+        val endAnimation = AnimationUtils.loadAnimation(activity, R.anim.fab_scale_down)
+        startAnimation.duration = 1000
+        endAnimation.duration = 400
+        endAnimation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                old.visibility = View.GONE
+                new.visibility = View.VISIBLE
+                new.startAnimation(startAnimation)
+                endAnimation.setAnimationListener(null)
+                end.invoke(true)
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+            }
+
+        })
+        this.startAnimation(endAnimation)
+    }
 }

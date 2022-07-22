@@ -10,7 +10,7 @@ class ExpedientAdapter(val list: List<ExpedientModel>) :
     RecyclerView.Adapter<ExpedientViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ExpedientViewHolder(
         LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_two_field, parent, false)
+            .inflate(R.layout.item_expedient, parent, false)
     )
 
     override fun onBindViewHolder(holder: ExpedientViewHolder, position: Int) =

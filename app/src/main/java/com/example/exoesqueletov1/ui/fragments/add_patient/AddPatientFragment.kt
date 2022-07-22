@@ -5,8 +5,6 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,6 +20,7 @@ import com.example.exoesqueletov1.utils.Utils.isNotEmpty
 import com.example.exoesqueletov1.utils.Utils.isValidEmail
 import com.example.exoesqueletov1.utils.Utils.isValidPhone
 import com.example.exoesqueletov1.utils.Utils.setText
+import com.example.exoesqueletov1.utils.Utils.startAnimationEndAndStart
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.ktx.auth
@@ -38,8 +37,6 @@ class AddPatientFragment : Fragment() {
     private lateinit var viewModel: AddPatientViewModel
     private lateinit var date: Date
     private var patientTemporary = PatientTemporary()
-    private lateinit var endAnimation: Animation
-    private lateinit var startAnimation: Animation
     private val list = mutableListOf<ExpedientModel>()
     private var progressControl = 0
 
@@ -55,10 +52,6 @@ class AddPatientFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         patientTemporary.idPatient = UUID.randomUUID().toString()
-        endAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fab_scale_down)
-        startAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fab_scale_up)
-        endAnimation.duration = 400
-        startAnimation.duration = 1000
         date = SimpleDateFormat("yyyy-MM-dd").parse("2000-01-01")!!
 
         val adapter = ExpedientAdapter(list)
@@ -97,12 +90,13 @@ class AddPatientFragment : Fragment() {
                         else Constants.Gender.Masculino.toString()
                     occupation = binding.layoutOccupation.getText()
                 }
-                startAnimation(
+                startAnimations(
                     binding.cardPersonalData,
                     binding.cardContactData,
-                    "Datos de contacto",
-                    "1/5",
-                    20
+                    title = "Datos de contacto",
+                    progressIndicator = "1/5",
+                    progress = 20,
+                    null
                 )
             }
         }
@@ -129,22 +123,24 @@ class AddPatientFragment : Fragment() {
                 binding.layoutLada.error = null
             }
             if (status) {
-                startAnimation(
+                startAnimations(
                     binding.cardContactData,
                     binding.cardOtherData,
-                    "Antecedentes patológicos y heredofamiliares",
-                    "2/5",
-                    40
+                    title = "Antecedentes patológicos y heredofamiliares",
+                    progressIndicator = "2/5",
+                    progress = 40,
+                    null
                 )
             }
         }
         binding.buttonOmitir.setOnClickListener {
-            startAnimation(
+            startAnimations(
                 binding.cardContactData,
                 binding.cardOtherData,
-                "Antecedentes patológicos y heredofamiliares",
-                "2/5",
-                40
+                title = "Antecedentes patológicos y heredofamiliares",
+                progressIndicator = "2/5",
+                progress = 40,
+                null
             )
         }
         binding.buttonAdd.setOnClickListener {
@@ -178,33 +174,37 @@ class AddPatientFragment : Fragment() {
             binding.apply {
                 when (progressControl) {
                     2 -> {
-                        startAnimation(
+                        startAnimations(
                             cardOtherData,
                             cardOtherData,
-                            "Habitos de salud",
-                            "3/5",
-                            60
-                        )
-                        patientTemporary.listAntecedents.addAll(list)
-                        list.clear()
-                        binding.textSugerencias.text =
-                            "Sugerencias: Tabaquismo, Alcoholismo, Drogas, Actividades física, automedicasión, etc."
-                        binding.recyclerView3.visibility = View.GONE
+                            title = "Habitos de salud",
+                            progressIndicator = "3/5",
+                            progress = 60
+                        ) {
+                            patientTemporary.listAntecedents.addAll(list)
+                            list.clear()
+                            binding.textSugerencias.text =
+                                "Sugerencias: Tabaquismo, Alcoholismo, Drogas, Actividades física, automedicasión, etc."
+                            binding.recyclerView3.visibility = View.GONE
+                            null
+                        }
                     }
                     3 -> {
-                        startAnimation(
-                            cardOtherData,
-                            cardOtherData,
-                            "Cicatrices quirúrgicas",
-                            "4/5",
-                            80
-                        )
-                        patientTemporary.listHabits.addAll(list)
-                        list.clear()
-                        binding.textSugerencias.text =
-                            "Sugerencias: Sitio, Retractil, Queloidem Abierta, con adherencia, hipertrófica, etc."
-                        binding.recyclerView3.visibility = View.GONE
-                        binding.buttonOk.visibility = View.GONE
+                        startAnimations(
+                            old = cardOtherData,
+                            new = cardOtherData,
+                            title = "Cicatrices quirúrgicas",
+                            progressIndicator = "4/5",
+                            progress = 80,
+                        ) {
+                            patientTemporary.listHabits.addAll(list)
+                            list.clear()
+                            binding.textSugerencias.text =
+                                "Sugerencias: Sitio, Retractil, Queloidem Abierta, con adherencia, hipertrófica, etc."
+                            binding.recyclerView3.visibility = View.GONE
+                            binding.buttonOk.visibility = View.GONE
+                            null
+                        }
                     }
                 }
             }
@@ -217,6 +217,24 @@ class AddPatientFragment : Fragment() {
             viewModel.saveUser(patientTemporary)
             val status = findNavController().popBackStack()
             if (!status) findNavController().navigate(R.id.action_global_navigation_message)
+        }
+    }
+
+    private fun startAnimations(
+        old: MaterialCardView,
+        new: MaterialCardView,
+        title: String,
+        progressIndicator: String,
+        progress: Int,
+        function: ((Boolean) -> Unit?)?
+    ) {
+        old.startAnimationEndAndStart(new, requireActivity()) {
+            progressControl++
+            if (function != null) function.invoke(it)
+            binding.textProgress.text = progressIndicator
+            binding.progress.progress = progress
+            binding.textTitle.text = title
+            if (progressControl == 4) binding.buttonSave.visibility = View.VISIBLE
         }
     }
 
@@ -236,36 +254,4 @@ class AddPatientFragment : Fragment() {
         }
     }
 
-    private fun startAnimation(
-        old: MaterialCardView,
-        new: MaterialCardView,
-        title: String,
-        progressIndicator: String,
-        progress: Int
-    ) {
-        endAnimation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation?) {
-            }
-
-            override fun onAnimationEnd(animation: Animation?) {
-                old.visibility = View.GONE
-                new.visibility = View.VISIBLE
-                binding.textProgress.text = progressIndicator
-                binding.progress.progress = progress
-                binding.textTitle.text = title
-                new.startAnimation(startAnimation)
-                endAnimation.setAnimationListener(null)
-                if (progressControl == 4) {
-                    binding.buttonSave.startAnimation(startAnimation)
-                    binding.buttonSave.visibility = View.VISIBLE
-                }
-            }
-
-            override fun onAnimationRepeat(animation: Animation?) {
-            }
-
-        })
-        old.startAnimation(endAnimation)
-        progressControl++
-    }
 }

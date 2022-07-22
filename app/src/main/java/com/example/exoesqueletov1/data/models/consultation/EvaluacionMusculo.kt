@@ -17,7 +17,6 @@ data class EvaluacionMusculo(
     @ColumnInfo(name = Constants.ID_EVALUACION_MUSCULAR) val idEvaluacionMuscular: String,
     @ColumnInfo(name = Constants.ZONA) val zona: String,
     @ColumnInfo(name = Constants.VALOR) val valor: Int,
-    @ColumnInfo(name = Constants.OBSERVACIONES) val observaciones: String
 ) : Parcelable {
     companion object {
         fun DocumentSnapshot.getEvaluacionMusculo() = try {
@@ -26,7 +25,6 @@ data class EvaluacionMusculo(
                 getString(Constants.ID_EVALUACION_MUSCULAR)!!,
                 getString(Constants.ZONA)!!,
                 getField<Int>(Constants.VALOR)!!,
-                getString(Constants.OBSERVACIONES)!!,
             )
         } catch (e: Exception) {
             Log.e("Error_to_getEvaluacionMusculo", "Error to convert EvaluacionMusculo", e)
