@@ -18,6 +18,7 @@ data class Diagnostico(
     @ColumnInfo(name = Constants.SENSIBIDAD) val sensibilidad: String,
     @ColumnInfo(name = Constants.LENGUAJE) val lenguaje: String,
     @ColumnInfo(name = Constants.OTROS) val otros: String,
+    @ColumnInfo(name = Constants.DATE, defaultValue = "") val date: String,
 ) : Parcelable {
     companion object {
         fun DocumentSnapshot.getDiagnostico() = try {
@@ -28,6 +29,7 @@ data class Diagnostico(
                 getString(Constants.SENSIBIDAD)!!,
                 getString(Constants.LENGUAJE)!!,
                 getString(Constants.OTROS)!!,
+                getString(Constants.DATE)!!,
             )
         } catch (e: Exception) {
             Log.e("Error_to_getDiagnostico", "Error to convert getDiagnostico", e)

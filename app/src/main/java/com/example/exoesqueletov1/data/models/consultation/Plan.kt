@@ -22,6 +22,7 @@ data class Plan(
     @ColumnInfo(name = Constants.PARTICIPACION) val participacion: String,
     @ColumnInfo(name = Constants.DIAGNOSTICO) val diagnostico: String,
     @ColumnInfo(name = Constants.PLAN) val plan: String,
+    @ColumnInfo(name = Constants.DATE, defaultValue = "") val date: String,
 ) : Parcelable {
     companion object {
         fun DocumentSnapshot.getPlan() = try {
@@ -36,6 +37,7 @@ data class Plan(
                 getString(Constants.PARTICIPACION)!!,
                 getString(Constants.DIAGNOSTICO)!!,
                 getString(Constants.PLAN)!!,
+                getString(Constants.DATE)!!,
             )
         } catch (e: Exception) {
             Log.e("Error_to_getPlan", "Error to convert getPlan", e)

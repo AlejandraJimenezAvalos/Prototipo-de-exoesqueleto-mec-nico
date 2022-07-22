@@ -26,11 +26,12 @@ import com.example.exoesqueletov1.data.models.consultation.*
         EvaluacionMusculo::class,
         EvaluacionPostura::class,
         ExploracionFisica::class,
+        Diagnostico::class,
         Marcha::class,
         Plan::class,
         ValoracionFuncional::class,
     ],
-    version = 5,
+    version = 6,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
@@ -44,7 +45,8 @@ import com.example.exoesqueletov1.data.models.consultation.*
             to = 4,
             spec = com.example.exoesqueletov1.data.db.RoomDatabase.AutoMigrationPatient2::class
         ),
-        AutoMigration(from = 4, to = 5)
+        AutoMigration(from = 4, to = 5),
+        AutoMigration(from = 5, to = 6)
     ],
 )
 abstract class RoomDatabase : RoomDatabase() {

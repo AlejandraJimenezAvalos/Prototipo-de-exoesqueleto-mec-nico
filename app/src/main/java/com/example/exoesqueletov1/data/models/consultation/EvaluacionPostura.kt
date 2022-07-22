@@ -18,6 +18,7 @@ data class EvaluacionPostura(
     @ColumnInfo(name = Constants.VISTA) val vista: String,
     @ColumnInfo(name = Constants.GRADOS) val grados: Int,
     @ColumnInfo(name = Constants.OBSERVACIONES) val observaciones: String,
+    @ColumnInfo(name = Constants.DATE, defaultValue = "") val date: String,
 ) : Parcelable {
     companion object {
         fun DocumentSnapshot.getEvaluacionPostura() = try {
@@ -27,6 +28,7 @@ data class EvaluacionPostura(
                 getString(Constants.VISTA)!!,
                 getField<Int>(Constants.GRADOS)!!,
                 getString(Constants.OBSERVACIONES)!!,
+                getString(Constants.DATE)!!,
             )
         } catch (e: Exception) {
             Log.e("Error_to_EvaluacionPostura", "Error to convert EvaluacionPostura", e)

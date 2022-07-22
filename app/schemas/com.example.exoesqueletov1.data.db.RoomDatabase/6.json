@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 5,
-    "identityHash": "95fefe44427cc927d75adfab9c6aac8b",
+    "version": 6,
+    "identityHash": "cfb0ec39e38706e264d32d614912b98f",
     "entities": [
       {
         "tableName": "user",
@@ -422,7 +422,7 @@
       },
       {
         "tableName": "analisis",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idMarcha` TEXT NOT NULL, `zona` TEXT NOT NULL, `valor` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idMarcha` TEXT NOT NULL, `zona` TEXT NOT NULL, `valor` INTEGER NOT NULL, `date` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -447,6 +447,13 @@
             "columnName": "valor",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -460,7 +467,7 @@
       },
       {
         "tableName": "consultations",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idPatient` TEXT NOT NULL, `idExploracion` TEXT NOT NULL, `idMarcha` TEXT NOT NULL, `idDiagnostico` TEXT NOT NULL, `idEvaluacionMuscular` TEXT NOT NULL, `idAnalisis` TEXT NOT NULL, `idEvaluacionPostura` TEXT NOT NULL, `idValoracionFuncional` TEXT NOT NULL, `idPlan` TEXT NOT NULL, `motivo` TEXT NOT NULL, `sintomatologia` TEXT NOT NULL, `dolor` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idPatient` TEXT NOT NULL, `idExploracion` TEXT NOT NULL, `idMarcha` TEXT NOT NULL, `idDiagnostico` TEXT NOT NULL, `idEvaluacionMuscular` TEXT NOT NULL, `idAnalisis` TEXT NOT NULL, `idEvaluacionPostura` TEXT NOT NULL, `idValoracionFuncional` TEXT NOT NULL, `idPlan` TEXT NOT NULL, `motivo` TEXT NOT NULL, `sintomatologia` TEXT NOT NULL, `dolor` TEXT NOT NULL, `date` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -539,6 +546,13 @@
             "columnName": "dolor",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -552,7 +566,7 @@
       },
       {
         "tableName": "evaluacion_muscular",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `valoracion` TEXT NOT NULL, `subjetivo` TEXT NOT NULL, `analisis` TEXT NOT NULL, `planAccion` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `valoracion` TEXT NOT NULL, `subjetivo` TEXT NOT NULL, `analisis` TEXT NOT NULL, `planAccion` TEXT NOT NULL, `date` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -589,6 +603,13 @@
             "columnName": "planAccion",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -602,7 +623,7 @@
       },
       {
         "tableName": "evaluacion_musculo",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idEvaluacionMuscular` TEXT NOT NULL, `zona` TEXT NOT NULL, `valor` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idEvaluacionMuscular` TEXT NOT NULL, `zona` TEXT NOT NULL, `valor` INTEGER NOT NULL, `date` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -627,6 +648,13 @@
             "columnName": "valor",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -640,7 +668,7 @@
       },
       {
         "tableName": "evaluacion_postura",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `vista` TEXT NOT NULL, `grados` INTEGER NOT NULL, `observaciones` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `vista` TEXT NOT NULL, `grados` INTEGER NOT NULL, `observaciones` TEXT NOT NULL, `date` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -671,6 +699,13 @@
             "columnName": "observaciones",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -684,7 +719,7 @@
       },
       {
         "tableName": "exploracion_fisica",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `pesoKg` INTEGER NOT NULL, `pesoG` INTEGER NOT NULL, `estaturaM` INTEGER NOT NULL, `estaturaCm` INTEGER NOT NULL, `talla` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `pesoKg` INTEGER NOT NULL, `pesoG` INTEGER NOT NULL, `estaturaM` INTEGER NOT NULL, `estaturaCm` INTEGER NOT NULL, `talla` TEXT NOT NULL, `date` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -727,6 +762,13 @@
             "columnName": "talla",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -740,7 +782,7 @@
       },
       {
         "tableName": "diagnostico",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `reflejos` TEXT NOT NULL, `sensibilidad` TEXT NOT NULL, `lenguaje` TEXT NOT NULL, `otros` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `reflejos` TEXT NOT NULL, `sensibilidad` TEXT NOT NULL, `lenguaje` TEXT NOT NULL, `otros` TEXT NOT NULL, `date` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -777,6 +819,13 @@
             "columnName": "otros",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -790,7 +839,7 @@
       },
       {
         "tableName": "marcha",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `libre` INTEGER NOT NULL, `claudante` INTEGER NOT NULL, `conAyuda` INTEGER NOT NULL, `espaticas` INTEGER NOT NULL, `ataxica` INTEGER NOT NULL, `observaciones` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `libre` INTEGER NOT NULL, `claudante` INTEGER NOT NULL, `conAyuda` INTEGER NOT NULL, `espaticas` INTEGER NOT NULL, `ataxica` INTEGER NOT NULL, `observaciones` TEXT NOT NULL, `date` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -839,6 +888,13 @@
             "columnName": "observaciones",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -852,7 +908,7 @@
       },
       {
         "tableName": "plan",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `objetivos` TEXT NOT NULL, `hipotesis` TEXT NOT NULL, `estructura` TEXT NOT NULL, `funsion` TEXT NOT NULL, `actividad` TEXT NOT NULL, `participacion` TEXT NOT NULL, `diagnostico` TEXT NOT NULL, `plan` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `objetivos` TEXT NOT NULL, `hipotesis` TEXT NOT NULL, `estructura` TEXT NOT NULL, `funsion` TEXT NOT NULL, `actividad` TEXT NOT NULL, `participacion` TEXT NOT NULL, `diagnostico` TEXT NOT NULL, `plan` TEXT NOT NULL, `date` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -913,6 +969,13 @@
             "columnName": "plan",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -926,7 +989,7 @@
       },
       {
         "tableName": "valoracion_funcional",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `respuestaA` TEXT NOT NULL, `respuestaB` TEXT NOT NULL, `respuestaC` TEXT NOT NULL, `stateSegundos` INTEGER NOT NULL, `segundos` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `idConsult` TEXT NOT NULL, `respuestaA` TEXT NOT NULL, `respuestaB` TEXT NOT NULL, `respuestaC` TEXT NOT NULL, `stateSegundos` INTEGER NOT NULL, `segundos` INTEGER NOT NULL, `date` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -969,6 +1032,13 @@
             "columnName": "segundos",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -984,7 +1054,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '95fefe44427cc927d75adfab9c6aac8b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cfb0ec39e38706e264d32d614912b98f')"
     ]
   }
 }

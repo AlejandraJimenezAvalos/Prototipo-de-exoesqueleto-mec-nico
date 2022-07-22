@@ -2,12 +2,17 @@ package com.example.exoesqueletov1.ui.fragments.medical_consultation
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.exoesqueletov1.data.local.sharedpreferences.ConsultationTemporary
+import com.example.exoesqueletov1.data.models.Consultation
 import com.example.exoesqueletov1.data.models.PatientModel
 import com.example.exoesqueletov1.domain.ConsultationTemporaryRepository
 import com.example.exoesqueletov1.domain.DataRepository
 import com.example.exoesqueletov1.domain.PatientRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,6 +25,14 @@ class MedicalConsultationViewModel @Inject constructor(
     fun getConsultation() = consultationTemporaryRepository.getConsultation()
     fun saveConsultation(consultationTemporary: ConsultationTemporary) =
         consultationTemporaryRepository.saveConsultation(consultationTemporary)
+
+    fun saveConsultation(consultation: Consultation) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                dataRepository.setConsultation(consultation)
+            }
+        }
+    }
 
     val patient = MediatorLiveData<PatientModel>().apply {
         addSource(dataRepository.getPatient(patientRepository.getId())) {

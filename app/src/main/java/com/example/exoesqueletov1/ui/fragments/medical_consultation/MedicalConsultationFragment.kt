@@ -10,7 +10,10 @@ import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.exoesqueletov1.R
+import com.example.exoesqueletov1.data.local.sharedpreferences.ConsultationTemporary
 import com.example.exoesqueletov1.data.local.sharedpreferences.ConsultationTemporary.Companion.getConsultationTemporary
+import com.example.exoesqueletov1.data.local.sharedpreferences.ConsultationTemporary.Companion.isValid
+import com.example.exoesqueletov1.data.models.Consultation.Companion.getConsultation
 import com.example.exoesqueletov1.databinding.FragmentMedicalConsultationBinding
 import com.example.exoesqueletov1.databinding.SectionGradosObservacionesBinding
 import com.example.exoesqueletov1.utils.Utils.startEndAnimation
@@ -27,6 +30,7 @@ class MedicalConsultationFragment : Fragment() {
     private lateinit var binding: FragmentMedicalConsultationBinding
     private lateinit var viewModel: MedicalConsultationViewModel
     private val list = mutableListOf<SectionGradosObservacionesBinding>()
+    private lateinit var consultationTemporary: ConsultationTemporary
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,12 +71,22 @@ class MedicalConsultationFragment : Fragment() {
                 }
                 .show()
         }
+        binding.fabAddData.setOnClickListener {
+            if (binding.isValid()) {
+                viewModel.saveConsultation(
+                    binding.getConsultationTemporary(
+                        list,
+                        consultationTemporary
+                    ).getConsultation()
+                )
+            }
+        }
     }
 
     // region Write Temporary Data
     override fun onStart() {
         super.onStart()
-        val consultationTemporary = viewModel.getConsultation()
+        consultationTemporary = viewModel.getConsultation()
         if (consultationTemporary.id.isEmpty()) consultationTemporary.id =
             UUID.randomUUID().toString()
         binding.consultation = consultationTemporary
@@ -223,7 +237,7 @@ class MedicalConsultationFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        viewModel.saveConsultation(binding.getConsultationTemporary(list))
+        viewModel.saveConsultation(binding.getConsultationTemporary(list, consultationTemporary))
     }
 
     private fun CheckBox.setListener(view: View) {

@@ -1,17 +1,21 @@
 package com.example.exoesqueletov1.data.local.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.Query
+import androidx.room.Update
 import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
 import com.example.exoesqueletov1.data.local.query.ExoskeletonQuery
 import com.example.exoesqueletov1.data.local.query.GroupsQuery
 import com.example.exoesqueletov1.data.models.*
+import com.example.exoesqueletov1.data.models.consultation.*
 
 @Dao
 interface Dao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertUser(userModel: UserModel)
 
     @Update
@@ -23,7 +27,7 @@ interface Dao {
     @Query("DELETE FROM user")
     fun deleteUser()
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertProfile(profileModel: ProfileModel)
 
     @Update
@@ -35,7 +39,7 @@ interface Dao {
     @Query("DELETE FROM profile")
     fun deleteProfile()
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertNewUser(usersEntity: UsersEntity)
 
     @Query("SELECT * FROM users")
@@ -53,7 +57,7 @@ interface Dao {
     @Query("DELETE FROM users")
     fun deleteEverything()
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertMessage(messageModel: MessageModel)
 
     @Query("SELECT DISTINCT `from`, `to` FROM messages WHERE `from` == :id OR `to` == :id")
@@ -71,7 +75,7 @@ interface Dao {
     @Query("DELETE FROM messages")
     fun deleteMessages()
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertChat(chatsEntity: ChatsEntity)
 
     @Query("SELECT * FROM chats")
@@ -83,7 +87,7 @@ interface Dao {
     @Query("DELETE FROM chats")
     fun deleteChats()
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertExoskeleton(exoskeletonModel: ExoskeletonModel)
 
     @Query("SELECT id AS id, mac AS mac, userId AS userId, (SELECT name FROM user WHERE id == userId) AS name, 'Emparejado' AS status FROM exoskeleton")
@@ -92,7 +96,7 @@ interface Dao {
     @Query("DELETE FROM exoskeleton")
     fun deleteExoskeleton()
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun insertPatient(patientModel: PatientModel)
 
     @Query("SELECT * FROM patient")
@@ -110,10 +114,70 @@ interface Dao {
     @Query("SELECT * FROM expedient WHERE idPatient == :id")
     fun getExpedients(id: String): LiveData<List<ExpedientModel>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = REPLACE)
     fun setExpedient(expedientModel: ExpedientModel)
 
     @Query("DELETE FROM expedient")
     fun deleteExpedints()
+
+    @Insert(onConflict = REPLACE)
+    fun insertConsultation(consultationData: ConsultationData)
+
+    @Query("DELETE FROM consultations")
+    fun deleteConsultations()
+
+    @Insert(onConflict = REPLACE)
+    fun insertExploracionFisica(exploracionFisica: ExploracionFisica)
+
+    @Query("DELETE FROM exploracion_fisica")
+    fun deleteExploracionFisica()
+
+    @Insert(onConflict = REPLACE)
+    fun insertEvaluacionPostura(evaluacionPostura: EvaluacionPostura)
+
+    @Query("DELETE FROM evaluacion_postura")
+    fun deleteEvaluacionPostura()
+
+    @Insert(onConflict = REPLACE)
+    fun insertDiagnostico(diagnostico: Diagnostico)
+
+    @Query("DELETE FROM diagnostico")
+    fun deleteDiagnostico()
+
+    @Insert(onConflict = REPLACE)
+    fun insertEvaluacionMuscular(evaluacionMuscular: EvaluacionMuscular)
+
+    @Query("DELETE FROM evaluacion_muscular")
+    fun deleteEvaluacionMuscular()
+
+    @Insert(onConflict = REPLACE)
+    fun insertEvaluacionMusculo(evaluacionMusculo: EvaluacionMusculo)
+
+    @Query("DELETE FROM evaluacion_musculo")
+    fun deleteEvaluacionMusculo()
+
+    @Insert(onConflict = REPLACE)
+    fun insertMarcha(marcha: Marcha)
+
+    @Query("DELETE FROM marcha")
+    fun deleteEvaluacionMarcha()
+
+    @Insert(onConflict = REPLACE)
+    fun insertAnalisis(analisis: Analisis)
+
+    @Query("DELETE FROM analisis")
+    fun deleteAnalisis()
+
+    @Insert(onConflict = REPLACE)
+    fun insertValoracionFuncional(valoracionFuncional: ValoracionFuncional)
+
+    @Query("DELETE FROM valoracion_funcional")
+    fun deleteValoracionFuncional()
+
+    @Insert(onConflict = REPLACE)
+    fun insertPlan(plan: Plan)
+
+    @Query("DELETE FROM `plan`")
+    fun deletePlan()
 
 }

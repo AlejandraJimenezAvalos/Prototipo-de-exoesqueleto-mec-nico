@@ -20,6 +20,7 @@ data class Marcha(
     @ColumnInfo(name = Constants.ESPATICAS) val espaticas: Boolean,
     @ColumnInfo(name = Constants.ATAXICA) val ataxica: Boolean,
     @ColumnInfo(name = Constants.OBSERVACIONES) val observaciones: String,
+    @ColumnInfo(name = Constants.DATE, defaultValue = "") val date: String,
 ) : Parcelable {
     companion object {
         fun DocumentSnapshot.getMarcha() = try {
@@ -32,6 +33,7 @@ data class Marcha(
                 getBoolean(Constants.ESPATICAS)!!,
                 getBoolean(Constants.ATAXICA)!!,
                 getString(Constants.OBSERVACIONES)!!,
+                getString(Constants.DATE)!!,
             )
         } catch (e: Exception) {
             Log.e("Error_to_getMarcha", "Error to convert getMarcha", e)

@@ -20,6 +20,7 @@ data class ExploracionFisica(
     @ColumnInfo(name = Constants.ESTATURA_M) val estaturaM: Int,
     @ColumnInfo(name = Constants.ESTATURA_CM) val estaturaCm: Int,
     @ColumnInfo(name = Constants.TALLA) val talla: String,
+    @ColumnInfo(name = Constants.DATE, defaultValue = "") val date: String,
 ) : Parcelable {
     companion object {
         fun DocumentSnapshot.toExploracionFisica() = try {
@@ -31,6 +32,7 @@ data class ExploracionFisica(
                 getField<Int>(Constants.ESTATURA_M)!!,
                 getField<Int>(Constants.ESTATURA_CM)!!,
                 getString(Constants.TALLA)!!,
+                getString(Constants.DATE)!!,
             )
         } catch (e: Exception) {
             Log.e("Error_to_ExploracionFisica", "Error to convert ExploracionFisica", e)

@@ -103,8 +103,7 @@ object Utils {
             false
         }
 
-    fun TextInputLayout.getText() =
-        editText!!.text.toString().trim().ifBlank { "" }
+    fun TextInputLayout.getText() = editText!!.text.toString().trim().ifBlank { "" }
 
     fun TextInputLayout.setText(s: String) {
         editText!!.setText(s)

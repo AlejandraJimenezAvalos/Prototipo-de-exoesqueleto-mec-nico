@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.exoesqueletov1.utils.Constants.DATE
 import com.example.exoesqueletov1.utils.Constants.DOLOR
 import com.example.exoesqueletov1.utils.Constants.ID_ANALISIS
 import com.example.exoesqueletov1.utils.Constants.ID_DIAGNOSTICO
@@ -24,7 +25,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ConsultationData(
     @PrimaryKey(autoGenerate = false) val id: String,
-    @ColumnInfo(name = ID_PATIENT) val idPatient: String,
+    @ColumnInfo(name = ID_PATIENT) var idPatient: String,
     @ColumnInfo(name = ID_EXPLORACION) val idExploracion: String,
     @ColumnInfo(name = ID_MARCHA) val idMarcha: String,
     @ColumnInfo(name = ID_DIAGNOSTICO) val idDiagnostico: String,
@@ -36,6 +37,7 @@ data class ConsultationData(
     @ColumnInfo(name = MOTIVO) val motivo: String,
     @ColumnInfo(name = SINTOMATOLOGIA) val sintomatologia: String,
     @ColumnInfo(name = DOLOR) val dolor: String,
+    @ColumnInfo(name = DATE, defaultValue = "") val date: String,
 ) : Parcelable {
     companion object {
         fun DocumentSnapshot.toConsultationData() =
@@ -54,6 +56,7 @@ data class ConsultationData(
                     getString(MOTIVO)!!,
                     getString(SINTOMATOLOGIA)!!,
                     getString(DOLOR)!!,
+                    getString(DATE)!!,
                 )
             } catch (e: Exception) {
                 Log.e("Error_to_ConsultationData", "Error to convert ConsultationData", e)

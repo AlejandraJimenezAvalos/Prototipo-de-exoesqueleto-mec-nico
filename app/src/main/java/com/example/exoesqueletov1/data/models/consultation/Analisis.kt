@@ -16,6 +16,7 @@ data class Analisis(
     @ColumnInfo(name = Constants.ID_MARCHA) val idMarcha: String,
     @ColumnInfo(name = Constants.ZONA) val zona: String,
     @ColumnInfo(name = Constants.VALOR) val valor: Boolean,
+    @ColumnInfo(name = Constants.DATE, defaultValue = "") val date: String,
 ) : Parcelable {
     companion object {
         fun DocumentSnapshot.getAnalisis() = try {
@@ -24,6 +25,7 @@ data class Analisis(
                 getString(Constants.ID_MARCHA)!!,
                 getString(Constants.ZONA)!!,
                 getBoolean(Constants.VALOR)!!,
+                getString(Constants.DATE)!!,
             )
         } catch (e: Exception) {
             Log.e("Error_to_getAnalisis", "Error to convert getAnalisis", e)

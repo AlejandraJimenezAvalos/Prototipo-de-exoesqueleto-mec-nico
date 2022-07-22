@@ -7,7 +7,10 @@ import com.example.exoesqueletov1.data.local.entity.UsersEntity
 import com.example.exoesqueletov1.data.models.*
 import javax.inject.Inject
 
-class DataRepository @Inject constructor(private val dao: Dao) {
+class DataRepository @Inject constructor(
+    private val dao: Dao,
+    val patientRepository: PatientRepository
+) {
     fun insertUser(userModel: UserModel) = dao.insertUser(userModel)
     fun updateUser(userModel: UserModel) = dao.updateUser(userModel)
     fun getUser(id: String) = dao.getUser(id)
@@ -58,4 +61,24 @@ class DataRepository @Inject constructor(private val dao: Dao) {
     fun setExpedients(list: List<ExpedientModel>) = list.forEach { dao.setExpedient(it) }
     fun setExpedient(expedientModel: ExpedientModel) = dao.setExpedient(expedientModel)
     fun getExpedients(id: String) = dao.getExpedients(id)
+
+    fun setConsultation(consultation: Consultation) {
+        consultation.consultationData.idPatient = patientRepository.getId()
+        dao.insertConsultation(consultation.consultationData)
+        dao.insertExploracionFisica(consultation.exploracionFisica)
+        consultation.listEvaluacionPostura.forEach {
+            dao.insertEvaluacionPostura(it)
+        }
+        dao.insertDiagnostico(consultation.diagnostico)
+        dao.insertEvaluacionMuscular(consultation.evaluacionMuscular)
+        consultation.listEvaluacionMusculo.forEach {
+            dao.insertEvaluacionMusculo(it)
+        }
+        dao.insertMarcha(consultation.marcha)
+        consultation.listAnalisis.forEach {
+            dao.insertAnalisis(it)
+        }
+        dao.insertValoracionFuncional(consultation.valoracionFuncional)
+        dao.insertPlan(consultation.plan)
+    }
 }

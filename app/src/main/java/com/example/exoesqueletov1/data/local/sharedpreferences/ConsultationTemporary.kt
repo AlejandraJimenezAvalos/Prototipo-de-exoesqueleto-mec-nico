@@ -4,6 +4,7 @@ import com.example.exoesqueletov1.databinding.FragmentMedicalConsultationBinding
 import com.example.exoesqueletov1.databinding.SectionGradosObservacionesBinding
 import com.example.exoesqueletov1.utils.Constants
 import com.example.exoesqueletov1.utils.Utils.getText
+import com.example.exoesqueletov1.utils.Utils.isNotEmpty
 
 class ConsultationTemporary {
     // region Declaration of variables
@@ -93,9 +94,9 @@ class ConsultationTemporary {
          * @param list as a list of views and contains Evaluacion de postura data
          */
         fun FragmentMedicalConsultationBinding.getConsultationTemporary(
-            list: List<SectionGradosObservacionesBinding>
+            list: List<SectionGradosObservacionesBinding>,
+            consultationTemporary: ConsultationTemporary
         ): ConsultationTemporary {
-            val consultationTemporary = ConsultationTemporary()
             val listConsultation = mutableListOf<EvaluacionPosturaTemporary>()
             consultationTemporary.listOfGrados.clear()
             listConsultation.clear()
@@ -162,6 +163,29 @@ class ConsultationTemporary {
             consultationTemporary.diagnostico = layoutDiagnostico.getText()
             consultationTemporary.plan = layoutPlanFinal.getText()
             return consultationTemporary
+        }
+
+        fun FragmentMedicalConsultationBinding.isValid(): Boolean {
+            return (
+                    this.layoutMotivo.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutSintomatologia.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutPesoK.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutPesoG.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutEstaturaM.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutEstaturaCm.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutTalla.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutReflejos.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutSensibilidad.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutLenguaje.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutObjetivos.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutHipotesis.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutEstructuraCorporal.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutFunsionCorporal.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutActividad.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutParticipacion.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutDiagnostico.isNotEmpty("Este campo es requerido.") &&
+                            this.layoutPlan.isNotEmpty("Este campo es requerido.")
+                    )
         }
     }
 

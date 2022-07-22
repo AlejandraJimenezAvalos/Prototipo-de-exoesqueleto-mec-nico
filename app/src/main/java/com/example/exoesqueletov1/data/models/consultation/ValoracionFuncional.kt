@@ -20,6 +20,7 @@ data class ValoracionFuncional(
     @ColumnInfo(name = Constants.RESPUESTA_C) val respuestaC: String,
     @ColumnInfo(name = Constants.STATE_SEGUNDOS) val stateSegundos: Boolean,
     @ColumnInfo(name = Constants.SEGUNDOS) val segundos: Int,
+    @ColumnInfo(name = Constants.DATE, defaultValue = "") val date: String,
 ) : Parcelable {
     companion object {
         fun DocumentSnapshot.getValoracionFuncional() = try {
@@ -31,6 +32,7 @@ data class ValoracionFuncional(
                 getString(Constants.RESPUESTA_C)!!,
                 getBoolean(Constants.STATE_SEGUNDOS)!!,
                 getField<Int>(Constants.SEGUNDOS)!!,
+                getString(Constants.DATE)!!,
             )
         } catch (e: Exception) {
             Log.e(

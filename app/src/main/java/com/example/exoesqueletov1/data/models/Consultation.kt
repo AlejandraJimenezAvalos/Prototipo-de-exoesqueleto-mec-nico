@@ -2,6 +2,7 @@ package com.example.exoesqueletov1.data.models
 
 import com.example.exoesqueletov1.data.local.sharedpreferences.ConsultationTemporary
 import com.example.exoesqueletov1.data.models.consultation.*
+import com.example.exoesqueletov1.utils.Utils.toDate
 import java.util.*
 
 class Consultation {
@@ -37,6 +38,7 @@ class Consultation {
                 motivo,
                 sintomatologia,
                 dolor,
+                Date().toDate(),
             )
             consultation.consultationData = consultationData
             // endregion
@@ -49,6 +51,7 @@ class Consultation {
                 estaturaM.toInt(),
                 estaturaCm.toInt(),
                 talla,
+                Date().toDate(),
             )
             // endregion
             // region save: Diagnostico
@@ -59,6 +62,7 @@ class Consultation {
                 sensibilidad,
                 lenguaje,
                 otros,
+                Date().toDate(),
             )
             //endregion
             // region save: EvaluacionMuscular
@@ -69,6 +73,7 @@ class Consultation {
                 subjetivo,
                 analisis,
                 planAccion,
+                Date().toDate(),
             )
             // endregion
             // region save: Marcha
@@ -81,6 +86,7 @@ class Consultation {
                 espasticas,
                 ataxica,
                 observaciones,
+                Date().toDate(),
             )
             // endregion
             // region save: ValoracionFuncional
@@ -92,6 +98,7 @@ class Consultation {
                 pruebasEquilibrioC.toString(),
                 segundosMenor10,
                 segundos.toInt(),
+                Date().toDate(),
             )
             // endregion
             // region save: Plan
@@ -106,6 +113,7 @@ class Consultation {
                 participacion,
                 diagnostico,
                 plan,
+                Date().toDate(),
             )
             //endregion
             // region save: List EvaluacionMusculo
@@ -114,7 +122,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idEvaluacionMuscular,
                     "Musculo superior izquierdo",
-                    musculoSuperiorIzquierdo.toInt()
+                    musculoSuperiorIzquierdo.toInt(),
+                    Date().toDate()
                 )
             )
             listEvaluacionMusculo.add(
@@ -122,7 +131,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idEvaluacionMuscular,
                     "Musculo superior derecho",
-                    musculoSuperiorDerecho.toInt()
+                    musculoSuperiorDerecho.toInt(),
+                    Date().toDate()
                 )
             )
             listEvaluacionMusculo.add(
@@ -130,7 +140,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idEvaluacionMuscular,
                     "Musculo inferior izquierdo",
-                    musculoInferiorIzquierdo.toInt()
+                    musculoInferiorIzquierdo.toInt(),
+                    Date().toDate()
                 )
             )
             listEvaluacionMusculo.add(
@@ -138,7 +149,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idEvaluacionMuscular,
                     "Musculo inferior derecho",
-                    musculoInferiorDerecho.toInt()
+                    musculoInferiorDerecho.toInt(),
+                    Date().toDate()
                 )
             )
             listEvaluacionMusculo.add(
@@ -146,7 +158,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idEvaluacionMuscular,
                     "Tronco izquierdo",
-                    troncoIzquierdo.toInt()
+                    troncoIzquierdo.toInt(),
+                    Date().toDate()
                 )
             )
             listEvaluacionMusculo.add(
@@ -154,7 +167,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idEvaluacionMuscular,
                     "Tronco derecho",
-                    troncoDerecho.toInt()
+                    troncoDerecho.toInt(),
+                    Date().toDate()
                 )
             )
             listEvaluacionMusculo.add(
@@ -162,7 +176,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idEvaluacionMuscular,
                     "Cuello izquierdo",
-                    cuelloIzquierdo.toInt()
+                    cuelloIzquierdo.toInt(),
+                    Date().toDate()
                 )
             )
             listEvaluacionMusculo.add(
@@ -170,7 +185,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idEvaluacionMuscular,
                     "Cuello derecho",
-                    cuelloDerecho.toInt()
+                    cuelloDerecho.toInt(),
+                    Date().toDate()
                 )
             )
             consultation.listEvaluacionMusculo = listEvaluacionMusculo
@@ -183,8 +199,9 @@ class Consultation {
                         UUID.randomUUID().toString(),
                         consultationData.idEvaluacionMuscular,
                         it.name,
-                        it.grados.toInt(),
+                        if (it.grados.isNotEmpty()) it.grados.toInt() else 0,
                         it.observaciones,
+                        Date().toDate(),
                     )
                 )
             }
@@ -197,7 +214,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "Duda o vacila o múltiples intentos para comenzar.",
-                    inicioMarcha
+                    inicioMarcha,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -205,7 +223,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "El pie derecho no sobrepasaal izquierdo con el paso en la fase balanceo.",
-                    pieDerechoNoSobrepasa
+                    pieDerechoNoSobrepasa,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -213,7 +232,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "El pie derecho no se levanta completamente del suelo con el paso en la fase de balanceo.",
-                    pieDerechoNoLevanta
+                    pieDerechoNoLevanta,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -221,7 +241,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "El pie izquierdo no sobrepasa al derecho con el paso en la fase de balanceo.",
-                    pieIzquierdoNoSobrepasa
+                    pieIzquierdoNoSobrepasa,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -229,7 +250,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "El pie izquierdo no se levanta completamente del suelo con el paso en la fase de balanceo.",
-                    pieIzquierdoNoLevanta
+                    pieIzquierdoNoLevanta,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -237,7 +259,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "La longitud del paso con el pie derecho e izquierdo es diferente (estimada).",
-                    longitud
+                    longitud,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -245,7 +268,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "Para, o hay descontinuidad entre los pasos.",
-                    continuidad
+                    continuidad,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -253,7 +277,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "Marcado desviación",
-                    trayectoriaDesviacionAlta
+                    trayectoriaDesviacionAlta,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -261,7 +286,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "Desviación modelada, media o utiliza ayudas.",
-                    trayectoriaDesviacionMedia
+                    trayectoriaDesviacionMedia,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -269,7 +295,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "Derecho sin utilizar ayudas.",
-                    trayectoriaDesviacionNula
+                    trayectoriaDesviacionNula,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -277,7 +304,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "Marcado balanceo o utiliza ayudas",
-                    noBalanceoAlto
+                    noBalanceoAlto,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -285,7 +313,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "No balancea, pero hay flexión de rodillas, espalda o extención hacia afuera de los brazos",
-                    noBalanceoMedio
+                    noBalanceoMedio,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -293,7 +322,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "No balanceo ni flexión y tampoco utiliza ayudas.",
-                    noBalanceoNulo
+                    noBalanceoNulo,
+                    Date().toDate(),
                 )
             )
             listAnalisis.add(
@@ -301,7 +331,8 @@ class Consultation {
                     UUID.randomUUID().toString(),
                     consultationData.idMarcha,
                     "Talones separados.",
-                    talones
+                    talones,
+                    Date().toDate(),
                 )
             )
             consultation.listAnalisis = listAnalisis
@@ -309,4 +340,4 @@ class Consultation {
             return consultation
         }
     }
-}
+}// 2022-07-22 17:05:41

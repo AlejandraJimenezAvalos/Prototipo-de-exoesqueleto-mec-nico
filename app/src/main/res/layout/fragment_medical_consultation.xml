@@ -255,6 +255,7 @@
                             android:id="@+id/layout_peso_k"
                             android:layout_width="0sp"
                             android:layout_height="wrap_content"
+                            app:errorEnabled="true"
                             app:layout_constraintEnd_toStartOf="@+id/imageView11"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView36"
@@ -284,6 +285,7 @@
                             android:id="@+id/layout_peso_g"
                             android:layout_width="0sp"
                             android:layout_height="wrap_content"
+                            app:errorEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView11"
                             app:layout_constraintTop_toBottomOf="@+id/textView36"
@@ -314,6 +316,7 @@
                             android:id="@+id/layout_estatura_m"
                             android:layout_width="0sp"
                             android:layout_height="wrap_content"
+                            app:errorEnabled="true"
                             app:layout_constraintEnd_toStartOf="@+id/imageView12"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView37"
@@ -343,6 +346,7 @@
                             android:id="@+id/layout_estatura_cm"
                             android:layout_width="0sp"
                             android:layout_height="wrap_content"
+                            app:errorEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView11"
                             app:layout_constraintTop_toBottomOf="@+id/textView37"
@@ -373,6 +377,7 @@
                             android:id="@+id/layout_talla"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            app:errorEnabled="true"
                             app:layout_constraintStart_toStartOf="@+id/textView40"
                             app:layout_constraintTop_toBottomOf="@+id/textView40">
 
@@ -470,6 +475,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Observaciones y otros"
+                            app:errorEnabled="true"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/check_con_ayuda">
 
@@ -516,6 +522,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Reflejos"
+                            app:errorEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
@@ -536,6 +543,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8sp"
                             android:hint="Sensibilidad"
+                            app:errorEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/layout_reflejos">
@@ -556,6 +564,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8sp"
                             android:hint="Lenguaje / Orientación"
+                            app:errorEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/layout_sensibilidad">
@@ -576,6 +585,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8sp"
                             android:hint="Otros"
+                            app:errorEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/layout_lenguaje">
@@ -1359,6 +1369,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16sp"
                             android:hint="Valoración inicial"
+                            app:errorEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/chip_CuelloD">
@@ -1378,6 +1389,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8sp"
                             android:hint="Subjetivo"
+                            app:errorEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/layout_valoracion">
@@ -1397,6 +1409,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8sp"
                             android:hint="Análisis"
+                            app:errorEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/layout_subjetivo">
@@ -1416,6 +1429,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8sp"
                             android:hint="Plan de acción"
+                            app:errorEnabled="true"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/layout_analisis">
@@ -2417,6 +2431,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="gone"
+                            app:errorEnabled="true"
                             app:suffixText="segundos">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -2466,7 +2481,8 @@
                             android:id="@+id/layout_objetivos"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Objetivos">
+                            android:hint="Objetivos"
+                            app:errorEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 style="@style/TextAppearance.Material3.BodyMedium"
@@ -2480,7 +2496,8 @@
                             android:id="@+id/layout_hipotesis"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Hipotesis">
+                            android:hint="Hipotesis"
+                            app:errorEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 style="@style/TextAppearance.Material3.BodyMedium"
@@ -2494,7 +2511,8 @@
                             android:id="@+id/layout_estructura_corporal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Estructura Corporal">
+                            android:hint="Estructura Corporal"
+                            app:errorEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 style="@style/TextAppearance.Material3.BodyMedium"
@@ -2508,7 +2526,8 @@
                             android:id="@+id/layout_funsion_corporal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Funsión Corporal">
+                            android:hint="Funsión Corporal"
+                            app:errorEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 style="@style/TextAppearance.Material3.BodyMedium"
@@ -2522,7 +2541,8 @@
                             android:id="@+id/layout_actividad"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Actividad">
+                            android:hint="Actividad"
+                            app:errorEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 style="@style/TextAppearance.Material3.BodyMedium"
@@ -2536,7 +2556,8 @@
                             android:id="@+id/layout_participacion"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Participación">
+                            android:hint="Participación"
+                            app:errorEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 style="@style/TextAppearance.Material3.BodyMedium"
@@ -2550,7 +2571,8 @@
                             android:id="@+id/layout_diagnostico"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Diagnóstico">
+                            android:hint="Diagnóstico"
+                            app:errorEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 style="@style/TextAppearance.Material3.BodyMedium"
@@ -2564,7 +2586,8 @@
                             android:id="@+id/layout_plan_final"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Plan">
+                            android:hint="Plan"
+                            app:errorEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 style="@style/TextAppearance.Material3.BodyMedium"
@@ -2583,6 +2606,7 @@
         </ScrollView>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab_add_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16sp"
