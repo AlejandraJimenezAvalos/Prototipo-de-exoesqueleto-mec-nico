@@ -5,6 +5,7 @@ import com.example.exoesqueletov1.data.local.dao.Dao
 import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
 import com.example.exoesqueletov1.data.models.*
+import com.example.exoesqueletov1.data.models.consultation.*
 import javax.inject.Inject
 
 class DataRepository @Inject constructor(
@@ -93,5 +94,29 @@ class DataRepository @Inject constructor(
     }
 
     fun getConsultation() = dao.getConsultation(patientRepository.getId())
+
+    fun insertConsultation(consultationData: ConsultationData) =
+        dao.insertConsultation(consultationData)
+
+    fun insertExploracionFisica(exploracionFisica: ExploracionFisica) =
+        dao.insertExploracionFisica(exploracionFisica)
+
+    fun insertEvaluacionPostura(evaluacionPostura: EvaluacionPostura) =
+        dao.insertEvaluacionPostura(evaluacionPostura)
+
+    fun insertDiagnostico(diagnostico: Diagnostico) = dao.insertDiagnostico(diagnostico)
+    fun insertEvaluacionMuscular(evaluacionMuscular: EvaluacionMuscular) =
+        dao.insertEvaluacionMuscular(evaluacionMuscular)
+
+    fun insertEvaluacionMusculo(evaluacionMusculo: EvaluacionMusculo) =
+        dao.insertEvaluacionMusculo(evaluacionMusculo)
+
+    fun insertMarcha(marcha: Marcha) = dao.insertMarcha(marcha)
+    fun insertValoracionFuncional(valoracionFuncional: ValoracionFuncional) =
+        dao.insertValoracionFuncional(valoracionFuncional)
+
+    fun insertPlan(plan: Plan) = dao.insertPlan(plan)
+
+    fun insertAnalisis(analisis: Analisis) = dao.insertAnalisis(analisis)
 
 }

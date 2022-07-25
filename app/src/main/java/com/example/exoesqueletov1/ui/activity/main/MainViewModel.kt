@@ -52,7 +52,6 @@ class MainViewModel @Inject constructor(
             }
             result.postValue(it)
         }
-
         firebaseService.getProfile {
             if (it.status == Constants.Status.Success)
                 viewModelScope.launch {
@@ -63,7 +62,6 @@ class MainViewModel @Inject constructor(
             if (it.status == Constants.Status.Failure)
                 result.postValue(Resource.error(it.exception!!))
         }
-
         firebaseService.getMessages {
             if (it.status == Constants.Status.Failure) result.postValue(Resource.error(it.exception!!))
             viewModelScope.launch {
@@ -72,7 +70,6 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
-
         firebaseService.getPatient {
             if (it.status == Constants.Status.Success) {
                 viewModelScope.launch {
@@ -83,7 +80,6 @@ class MainViewModel @Inject constructor(
             }
             if (it.status == Constants.Status.Failure) result.postValue(Resource.error(it.exception!!))
         }
-
         firebaseService.getExpedient {
             if (it.status == Constants.Status.Success) {
                 viewModelScope.launch {
@@ -93,6 +89,140 @@ class MainViewModel @Inject constructor(
                 }
             }
             if (it.status == Constants.Status.Failure) result.postValue(Resource.error(it.exception!!))
+        }
+        firebaseService.getConsultation { resource ->
+            if (resource.status == Constants.Status.Success) {
+                viewModelScope.launch {
+                    withContext(Dispatchers.IO) {
+                        dataRepository.insertConsultation(resource.data!!)
+
+                        val idConsultation = resource.data.id
+
+                        firebaseService.getMarcha(idConsultation) { resourceMarcha ->
+                            if (resourceMarcha.status == Constants.Status.Success) {
+                                viewModelScope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        dataRepository.insertMarcha(resourceMarcha.data!!)
+                                        firebaseService.getAnalisis(resourceMarcha.data!!.id) { resource1 ->
+                                            if (resource1.status == Constants.Status.Success) {
+                                                viewModelScope.launch {
+                                                    withContext(Dispatchers.IO) {
+                                                        dataRepository.insertAnalisis(resource1.data!!)
+                                                    }
+                                                }
+                                            }
+                                            if (resource1.status == Constants.Status.Failure)
+                                                result.postValue(Resource.error(resource1.exception!!))
+                                        }
+                                    }
+                                }
+                            }
+                            if (resourceMarcha.status == Constants.Status.Failure)
+                                result.postValue(Resource.error(resourceMarcha.exception!!))
+                        }
+
+                        firebaseService.getEvaluacionMuscular(idConsultation) { resource1 ->
+                            if (resource1.status == Constants.Status.Success) {
+                                viewModelScope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        dataRepository.insertEvaluacionMuscular(resource1.data!!)
+                                        firebaseService.getEvaluacionMusculo(resource1.data.id) { resourceMusculo ->
+                                            if (resourceMusculo.status == Constants.Status.Success) {
+                                                viewModelScope.launch {
+                                                    withContext(Dispatchers.IO) {
+                                                        dataRepository.insertEvaluacionMusculo(
+                                                            resourceMusculo.data!!
+                                                        )
+                                                    }
+                                                }
+                                            }
+                                            if (resourceMusculo.status == Constants.Status.Failure)
+                                                result.postValue(Resource.error(resourceMusculo.exception!!))
+                                        }
+                                    }
+                                }
+                            }
+                            if (resource1.status == Constants.Status.Failure)
+                                result.postValue(Resource.error(resource1.exception!!))
+                        }
+
+                        firebaseService.getEvaluacionMuscular(idConsultation) { resource1 ->
+                            if (resource1.status == Constants.Status.Success) {
+                                viewModelScope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        dataRepository.insertEvaluacionMuscular(resource1.data!!)
+                                    }
+                                }
+                            }
+                            if (resource1.status == Constants.Status.Failure)
+                                result.postValue(Resource.error(resource1.exception!!))
+                        }
+
+                        firebaseService.getEvaluacionPostura(idConsultation) { resource1 ->
+                            if (resource1.status == Constants.Status.Success) {
+                                viewModelScope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        dataRepository.insertEvaluacionPostura(resource1.data!!)
+                                    }
+                                }
+                            }
+                            if (resource1.status == Constants.Status.Failure)
+                                result.postValue(Resource.error(resource1.exception!!))
+                        }
+
+                        firebaseService.getExploracionFisica(idConsultation) { resource1 ->
+                            if (resource1.status == Constants.Status.Success) {
+                                viewModelScope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        dataRepository.insertExploracionFisica(resource1.data!!)
+                                    }
+                                }
+                            }
+                            if (resource1.status == Constants.Status.Failure)
+                                result.postValue(Resource.error(resource1.exception!!))
+                        }
+
+                        firebaseService.getDiagnostico(idConsultation) { resource1 ->
+                            if (resource1.status == Constants.Status.Success) {
+                                viewModelScope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        dataRepository.insertDiagnostico(resource1.data!!)
+                                    }
+                                }
+                            }
+                            if (resource1.status == Constants.Status.Failure)
+                                result.postValue(Resource.error(resource1.exception!!))
+                        }
+
+                        firebaseService.getValoracionFuncional(idConsultation) { resource1 ->
+                            if (resource1.status == Constants.Status.Success) {
+                                viewModelScope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        dataRepository.insertValoracionFuncional(resource1.data!!)
+                                    }
+                                }
+                            }
+                            if (resource1.status == Constants.Status.Failure)
+                                result.postValue(Resource.error(resource1.exception!!))
+                        }
+
+                        firebaseService.getPlan(idConsultation) { resource1 ->
+                            if (resource1.status == Constants.Status.Success) {
+                                viewModelScope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        dataRepository.insertPlan(resource1.data!!)
+                                    }
+                                }
+                            }
+                            if (resource1.status == Constants.Status.Failure)
+                                result.postValue(Resource.error(resource1.exception!!))
+                        }
+
+                    }
+                }
+            }
+            if (resource.status == Constants.Status.Failure)
+                result.postValue(Resource.error(resource.exception!!))
         }
 
         userModel = MediatorLiveData<UserModel>().apply {
@@ -131,7 +261,6 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
-
         userModel.addSource(dataRepository.getExpedient()) {
             it.forEach { expedient ->
                 firebaseService.setExpedient(expedient) { (status, _, exception) ->
@@ -141,7 +270,6 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
-
         userModel.addSource(dataRepository.getPatients()) {
             it.forEach { patient ->
                 firebaseService.setPatient(patient) { (status, _, exception) ->
@@ -151,14 +279,12 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
-
         userModel.addSource(dataRepository.getConsultation()) {
             if (it.isNotEmpty()) firebaseService.setConsultation(it) { (status, _, exception) ->
                 if (status == Constants.Status.Failure)
                     result.postValue(Resource.error(exception!!))
             }
         }
-
     }
 
     private fun getExoskeleton() {
