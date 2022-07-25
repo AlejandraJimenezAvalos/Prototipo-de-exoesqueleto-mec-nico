@@ -1,15 +1,14 @@
 package com.example.exoesqueletov1.data.local.dao
 
 import androidx.lifecycle.LiveData
+import androidx.room.*
 import androidx.room.Dao
-import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
-import androidx.room.Update
 import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
 import com.example.exoesqueletov1.data.local.query.ExoskeletonQuery
 import com.example.exoesqueletov1.data.local.query.GroupsQuery
+import com.example.exoesqueletov1.data.local.relations.ConsultationRelation
 import com.example.exoesqueletov1.data.models.*
 import com.example.exoesqueletov1.data.models.consultation.*
 
@@ -126,11 +125,17 @@ interface Dao {
     @Query("DELETE FROM consultations")
     fun deleteConsultations()
 
+    @Query("SELECT * FROM consultations WHERE idPatient == :idPatient")
+    fun getConsultations(idPatient: String): LiveData<List<ConsultationData>>
+
     @Insert(onConflict = REPLACE)
     fun insertExploracionFisica(exploracionFisica: ExploracionFisica)
 
     @Query("DELETE FROM exploracion_fisica")
     fun deleteExploracionFisica()
+
+    @Query("SELECT * FROM exploracion_fisica WHERE idConsult == :idConsult")
+    fun getExploracionFisica(idConsult: String): LiveData<ExploracionFisica>
 
     @Insert(onConflict = REPLACE)
     fun insertEvaluacionPostura(evaluacionPostura: EvaluacionPostura)
@@ -138,11 +143,17 @@ interface Dao {
     @Query("DELETE FROM evaluacion_postura")
     fun deleteEvaluacionPostura()
 
+    @Query("SELECT * FROM evaluacion_postura WHERE idConsult == :idConsult")
+    fun getEvaluacionPostura(idConsult: String): LiveData<List<EvaluacionPostura>>
+
     @Insert(onConflict = REPLACE)
     fun insertDiagnostico(diagnostico: Diagnostico)
 
     @Query("DELETE FROM diagnostico")
     fun deleteDiagnostico()
+
+    @Query("SELECT * FROM diagnostico WHERE idConsult == :idConsult")
+    fun getDiagnostico(idConsult: String): LiveData<Diagnostico>
 
     @Insert(onConflict = REPLACE)
     fun insertEvaluacionMuscular(evaluacionMuscular: EvaluacionMuscular)
@@ -150,17 +161,26 @@ interface Dao {
     @Query("DELETE FROM evaluacion_muscular")
     fun deleteEvaluacionMuscular()
 
+    @Query("SELECT * FROM evaluacion_muscular WHERE idConsult == :idConsult")
+    fun getEvaluacionMuscular(idConsult: String): LiveData<EvaluacionMuscular>
+
     @Insert(onConflict = REPLACE)
     fun insertEvaluacionMusculo(evaluacionMusculo: EvaluacionMusculo)
 
     @Query("DELETE FROM evaluacion_musculo")
     fun deleteEvaluacionMusculo()
 
+    @Query("SELECT * FROM evaluacion_musculo WHERE idEvaluacionMuscular == :idEvaluacionMuscular")
+    fun getEvaluacionMusculo(idEvaluacionMuscular: String): LiveData<List<EvaluacionMusculo>>
+
     @Insert(onConflict = REPLACE)
     fun insertMarcha(marcha: Marcha)
 
     @Query("DELETE FROM marcha")
-    fun deleteEvaluacionMarcha()
+    fun deleteMarcha()
+
+    @Query("SELECT * FROM marcha WHERE idConsult == :idConsult")
+    fun getMarcha(idConsult: String): LiveData<Marcha>
 
     @Insert(onConflict = REPLACE)
     fun insertAnalisis(analisis: Analisis)
@@ -168,16 +188,29 @@ interface Dao {
     @Query("DELETE FROM analisis")
     fun deleteAnalisis()
 
+    @Query("SELECT * FROM analisis WHERE idMarcha == :idMarcha")
+    fun getAnalisis(idMarcha: String): LiveData<Analisis>
+
     @Insert(onConflict = REPLACE)
     fun insertValoracionFuncional(valoracionFuncional: ValoracionFuncional)
 
     @Query("DELETE FROM valoracion_funcional")
     fun deleteValoracionFuncional()
 
+    @Query("SELECT * FROM valoracion_funcional WHERE idConsult == :idConsult")
+    fun getValoracionFuncional(idConsult: String): LiveData<ValoracionFuncional>
+
     @Insert(onConflict = REPLACE)
     fun insertPlan(plan: Plan)
 
     @Query("DELETE FROM `plan`")
     fun deletePlan()
+
+    @Query("SELECT * FROM `plan` WHERE idConsult == :idConsult")
+    fun getPlan(idConsult: String): LiveData<Plan>
+
+    @Transaction
+    @Query("SELECT * FROM consultations WHERE idPatient == :idPatient")
+    fun getConsultation(idPatient: String): LiveData<List<ConsultationRelation>>
 
 }

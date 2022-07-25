@@ -28,6 +28,16 @@ class DataRepository @Inject constructor(
         dao.deleteExoskeleton()
         dao.deletePatients()
         dao.deleteExpedints()
+        dao.deleteConsultations()
+        dao.deleteExploracionFisica()
+        dao.deleteEvaluacionPostura()
+        dao.deleteDiagnostico()
+        dao.deleteEvaluacionMuscular()
+        dao.deleteEvaluacionMusculo()
+        dao.deleteMarcha()
+        dao.deleteAnalisis()
+        dao.deleteValoracionFuncional()
+        dao.deletePlan()
     }
 
     fun insertNewUser(usersEntity: UsersEntity) = dao.insertNewUser(usersEntity)
@@ -81,4 +91,7 @@ class DataRepository @Inject constructor(
         dao.insertValoracionFuncional(consultation.valoracionFuncional)
         dao.insertPlan(consultation.plan)
     }
+
+    fun getConsultation() = dao.getConsultation(patientRepository.getId())
+
 }

@@ -1,6 +1,7 @@
 package com.example.exoesqueletov1.data.firebase
 
 import android.util.Log
+import com.example.exoesqueletov1.data.local.relations.ConsultationRelation
 import com.example.exoesqueletov1.data.models.*
 import com.example.exoesqueletov1.data.models.ExoskeletonModel.Companion.toExoskeleton
 import com.example.exoesqueletov1.data.models.ExpedientModel.Companion.toExpedientModel
@@ -255,7 +256,7 @@ class FirebaseService @Inject constructor(private val userRepository: UserReposi
 
     fun setExpedient(expedientModel: ExpedientModel, result: (Resource<Void>) -> Unit) {
         result.invoke(Resource.loading())
-        db.collection(Constants.COLLECTION_EXPEDIENT).document(expedientModel.id)
+        db.collection(COLLECTION_EXPEDIENT).document(expedientModel.id)
             .set(expedientModel).addOnSuccessListener {
                 result.invoke(Resource.success(it))
             }.addOnFailureListener {
@@ -307,6 +308,10 @@ class FirebaseService @Inject constructor(private val userRepository: UserReposi
             }
             else -> {}
         }
+
+    }
+
+    fun setConsultation(it: List<ConsultationRelation>?, function: (Resource<Void>) -> Unit) {
 
     }
 

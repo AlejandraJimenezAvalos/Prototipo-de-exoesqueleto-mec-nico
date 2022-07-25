@@ -10,6 +10,7 @@ class ConsultationTemporary {
     // region Declaration of variables
     var id = ""
     var idPatient = ""
+    var idUser = ""
     var motivo = ""
     var sintomatologia = ""
     var pesoKg = ""

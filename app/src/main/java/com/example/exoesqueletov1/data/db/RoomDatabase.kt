@@ -31,7 +31,7 @@ import com.example.exoesqueletov1.data.models.consultation.*
         Plan::class,
         ValoracionFuncional::class,
     ],
-    version = 6,
+    version = 8,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
@@ -46,7 +46,13 @@ import com.example.exoesqueletov1.data.models.consultation.*
             spec = com.example.exoesqueletov1.data.db.RoomDatabase.AutoMigrationPatient2::class
         ),
         AutoMigration(from = 4, to = 5),
-        AutoMigration(from = 5, to = 6)
+        AutoMigration(from = 5, to = 6),
+        AutoMigration(
+            from = 6,
+            to = 7,
+            spec = com.example.exoesqueletov1.data.db.RoomDatabase.DeleteColums::class
+        ),
+        AutoMigration(from = 7, to = 8)
     ],
 )
 abstract class RoomDatabase : RoomDatabase() {
@@ -92,6 +98,44 @@ abstract class RoomDatabase : RoomDatabase() {
         @Override
         override fun onPostMigrate(db: SupportSQLiteDatabase) {
             super.onPostMigrate(db)
+        }
+    }
+
+    @DeleteColumn(
+        tableName = "consultations",
+        columnName = "idExploracion"
+    )
+    @DeleteColumn(
+        tableName = "consultations",
+        columnName = "idMarcha"
+    )
+    @DeleteColumn(
+        tableName = "consultations",
+        columnName = "idDiagnostico"
+    )
+    @DeleteColumn(
+        tableName = "consultations",
+        columnName = "idEvaluacionMuscular"
+    )
+    @DeleteColumn(
+        tableName = "consultations",
+        columnName = "idAnalisis"
+    )
+    @DeleteColumn(
+        tableName = "consultations",
+        columnName = "idEvaluacionPostura"
+    )
+    @DeleteColumn(
+        tableName = "consultations",
+        columnName = "idValoracionFuncional"
+    )
+    @DeleteColumn(
+        tableName = "consultations",
+        columnName = "idPlan"
+    )
+    class DeleteColums : AutoMigrationSpec {
+        @Override
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
         }
     }
 }

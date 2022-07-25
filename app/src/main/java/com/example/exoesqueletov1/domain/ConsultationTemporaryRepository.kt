@@ -74,6 +74,7 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
             participacion.setString("participacion")
             diagnostico.setString("diagnostico")
             plan.setString("plan")
+            idUser.setString("idUser")
         }
     }
 
@@ -148,6 +149,7 @@ class ConsultationTemporaryRepository @Inject constructor(@Named("consultationTe
             participacion = "participacion".getString()
             diagnostico = "diagnostico".getString()
             plan = "plan".getString()
+            idUser = "idUser".getString()
         }
         return consultationTemporary
     }

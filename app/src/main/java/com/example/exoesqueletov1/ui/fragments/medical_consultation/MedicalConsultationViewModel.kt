@@ -9,6 +9,7 @@ import com.example.exoesqueletov1.data.models.PatientModel
 import com.example.exoesqueletov1.domain.ConsultationTemporaryRepository
 import com.example.exoesqueletov1.domain.DataRepository
 import com.example.exoesqueletov1.domain.PatientRepository
+import com.example.exoesqueletov1.domain.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,14 +20,20 @@ import javax.inject.Inject
 class MedicalConsultationViewModel @Inject constructor(
     private val dataRepository: DataRepository,
     private val patientRepository: PatientRepository,
+    private val userRepository: UserRepository,
     private val consultationTemporaryRepository: ConsultationTemporaryRepository,
 ) : ViewModel() {
 
     fun getConsultation() = consultationTemporaryRepository.getConsultation()
-    fun saveConsultation(consultationTemporary: ConsultationTemporary) =
+    fun saveConsultation(consultationTemporary: ConsultationTemporary) {
+        consultationTemporary.idUser = userRepository.getId()
+        consultationTemporary.idPatient = patientRepository.getId()
         consultationTemporaryRepository.saveConsultation(consultationTemporary)
+    }
 
     fun saveConsultation(consultation: Consultation) {
+        consultation.consultationData.idPatient = patientRepository.getId()
+        consultation.consultationData.idUser = userRepository.getId()
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 dataRepository.setConsultation(consultation)
