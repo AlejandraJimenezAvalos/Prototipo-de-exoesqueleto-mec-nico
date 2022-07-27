@@ -13,6 +13,10 @@ class PatientRepository @Inject constructor(@Named("patient") private val shared
         name.setString(Constants.NAME)
     }
 
+    fun setConsultationId(id: String) = id.setString(Constants.ID_CONSULT)
+
+    fun getConsultationId() = getString(Constants.ID_CONSULT)
+
     fun getPatient(patient: (String, String) -> Unit) {
         patient.invoke(getString(Constants.ID), getString(Constants.NAME))
     }

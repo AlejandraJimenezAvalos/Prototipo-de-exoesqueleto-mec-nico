@@ -351,48 +351,60 @@ class FirebaseService @Inject constructor(private val userRepository: UserReposi
                 .addOnFailureListener {
                     function.invoke(Resource.error(it))
                 }
-            rfMarcha.document(consultation.marcha!!.marcha!!.id).set(consultation.marcha.marcha!!)
-                .addOnFailureListener {
-                    function.invoke(Resource.error(it))
-                }
-            rfMuscular.document(consultation.evaluacionMuscular!!.evaluacionMuscular!!.id)
-                .set(consultation.evaluacionMuscular.evaluacionMuscular!!).addOnFailureListener {
-                    function.invoke(Resource.error(it))
-                }
-            consultation.evaluacionPostura!!.forEach { evaluacionPostura ->
-                rfPostura.document(evaluacionPostura.id).set(evaluacionPostura)
+            if (consultation.marcha != null && consultation.marcha.marcha != null)
+                rfMarcha.document(consultation.marcha!!.marcha!!.id)
+                    .set(consultation.marcha.marcha!!)
                     .addOnFailureListener {
                         function.invoke(Resource.error(it))
                     }
-            }
-            rfExploracion.document(consultation.exploracionFisica!!.id)
-                .set(consultation.exploracionFisica)
-                .addOnFailureListener {
-                    function.invoke(Resource.error(it))
-                }
-            rfDiagnostico.document(consultation.diagnostico!!.id).set(consultation.diagnostico)
-                .addOnFailureListener {
-                    function.invoke(Resource.error(it))
-                }
-            rfValoracion.document(consultation.valoracionFuncional!!.id)
-                .set(consultation.valoracionFuncional)
-                .addOnFailureListener {
-                    function.invoke(Resource.error(it))
-                }
-            rfPlan.document(consultation.plan!!.id).set(consultation.plan).addOnFailureListener {
-                function.invoke(Resource.error(it))
-            }
-            consultation.evaluacionMuscular.evaluacionMusculo!!.forEach { evaluacionMusculo ->
-                rfMusculo.document(evaluacionMusculo.id).set(evaluacionMusculo)
+            if (consultation.evaluacionMuscular != null && consultation.evaluacionMuscular.evaluacionMuscular != null)
+                rfMuscular.document(consultation.evaluacionMuscular!!.evaluacionMuscular!!.id)
+                    .set(consultation.evaluacionMuscular.evaluacionMuscular!!)
                     .addOnFailureListener {
                         function.invoke(Resource.error(it))
                     }
-            }
-            consultation.marcha.analisis!!.forEach { analisis ->
-                rfAnalisis.document(analisis.id).set(analisis).addOnFailureListener {
+            if (consultation.evaluacionPostura != null)
+                consultation.evaluacionPostura!!.forEach { evaluacionPostura ->
+                    rfPostura.document(evaluacionPostura.id).set(evaluacionPostura)
+                        .addOnFailureListener {
+                            function.invoke(Resource.error(it))
+                        }
+                }
+            if (consultation.exploracionFisica != null)
+                rfExploracion.document(consultation.exploracionFisica!!.id)
+                    .set(consultation.exploracionFisica)
+                    .addOnFailureListener {
+                        function.invoke(Resource.error(it))
+                    }
+            if (consultation.diagnostico != null)
+                rfDiagnostico.document(consultation.diagnostico.id)
+                    .set(consultation.diagnostico)
+                    .addOnFailureListener {
+                        function.invoke(Resource.error(it))
+                    }
+            if (consultation.valoracionFuncional != null)
+                rfValoracion.document(consultation.valoracionFuncional.id)
+                    .set(consultation.valoracionFuncional)
+                    .addOnFailureListener {
+                        function.invoke(Resource.error(it))
+                    }
+            if (consultation.plan != null) rfPlan.document(consultation.plan.id)
+                .set(consultation.plan).addOnFailureListener {
                     function.invoke(Resource.error(it))
                 }
-            }
+            if (consultation.evaluacionMuscular != null && consultation.evaluacionMuscular.evaluacionMusculo != null)
+                consultation.evaluacionMuscular.evaluacionMusculo!!.forEach { evaluacionMusculo ->
+                    rfMusculo.document(evaluacionMusculo.id).set(evaluacionMusculo)
+                        .addOnFailureListener {
+                            function.invoke(Resource.error(it))
+                        }
+                }
+            if (consultation.marcha != null && consultation.marcha.analisis != null)
+                consultation.marcha.analisis.forEach { analisis ->
+                    rfAnalisis.document(analisis.id).set(analisis).addOnFailureListener {
+                        function.invoke(Resource.error(it))
+                    }
+                }
         }
     }
 
@@ -624,7 +636,6 @@ class FirebaseService @Inject constructor(private val userRepository: UserReposi
                     }
                 } else result.invoke(Resource.notExist())
             }
-        val rfAnalisis = db.collection(COLLECTION_ANALISIS)
     }
 
 }

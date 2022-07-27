@@ -10,230 +10,248 @@
             type="com.example.exoesqueletov1.data.models.PatientModel" />
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.fragments.patient.PatientFragment">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView7"
+            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="16sp"
+            android:backgroundTint="?android:attr/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView7"
-                style="@style/Widget.Material3.CardView.Elevated"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16sp"
-                android:backgroundTint="?android:attr/colorAccent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardView8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:layout_width="100sp"
-                            android:layout_height="100sp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_profile"
-                            tools:src="@tools:sample/avatars" />
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:id="@+id/text_name"
-                        style="@style/TextAppearance.Material3.BodyMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16sp"
-                        android:layout_marginTop="8sp"
-                        android:layout_marginEnd="16sp"
-                        android:text="@{patient.name}"
-                        app:layout_constraintStart_toEndOf="@+id/cardView8"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@tools:sample/full_names" />
-
-                    <TextView
-                        android:id="@+id/text_date_title"
-                        style="@style/TextAppearance.Material3.BodyMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fecha de nacimiento"
-                        app:layout_constraintStart_toStartOf="@+id/text_name"
-                        app:layout_constraintTop_toBottomOf="@+id/text_name" />
-
-                    <TextView
-                        android:id="@+id/textView43"
-                        style="@style/TextAppearance.Material3.BodySmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8sp"
-                        android:text="@{patient.birthday}"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_date_title"
-                        app:layout_constraintStart_toEndOf="@+id/text_date_title"
-                        app:layout_constraintTop_toBottomOf="@+id/text_name"
-                        tools:text="@tools:sample/date/ddmmyy" />
-
-                    <TextView
-                        android:id="@+id/text_gender_title"
-                        style="@style/TextAppearance.Material3.BodyMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sexo"
-                        app:layout_constraintStart_toStartOf="@+id/text_name"
-                        app:layout_constraintTop_toBottomOf="@+id/text_date_title" />
-
-                    <TextView
-                        style="@style/TextAppearance.Material3.BodySmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8sp"
-                        android:text="@{patient.gender}"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_gender_title"
-                        app:layout_constraintStart_toEndOf="@+id/text_gender_title"
-                        app:layout_constraintTop_toTopOf="@+id/text_gender_title"
-                        tools:text="Masculino" />
-
-                    <TextView
-                        android:id="@+id/text_occupation_title"
-                        style="@style/TextAppearance.Material3.BodyMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ocupación"
-                        app:layout_constraintStart_toStartOf="@+id/text_gender_title"
-                        app:layout_constraintTop_toBottomOf="@+id/text_gender_title" />
-
-                    <TextView
-                        style="@style/TextAppearance.Material3.BodySmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8sp"
-                        android:text="@{patient.occupation}"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_occupation_title"
-                        app:layout_constraintStart_toEndOf="@+id/text_occupation_title"
-                        app:layout_constraintTop_toTopOf="@+id/text_occupation_title"
-                        tools:text="Programador" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView9"
-                style="@style/Widget.Material3.CardView.Elevated"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16sp"
-                android:backgroundTint="?android:attr/colorAccent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView7">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView8"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16sp">
-
-                    <TextView
-                        android:id="@+id/text_address"
-                        style="@style/TextAppearance.Material3.BodyMedium"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_home"
-                        android:drawablePadding="16sp"
-                        android:maxLines="2"
-                        android:text="@{patient.address}"
-                        tools:text="@tools:sample/lorem/random" />
-
-                    <TextView
-                        android:id="@+id/text_phone"
-                        style="@style/TextAppearance.Material3.BodyMedium"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8sp"
-                        android:drawableStart="@drawable/ic_phone"
-                        android:drawablePadding="16sp"
-                        android:maxLines="2"
-                        android:text="@{patient.phone}"
-                        tools:text="@tools:sample/us_phones" />
-
-                    <TextView
-                        android:id="@+id/text_email"
-                        style="@style/TextAppearance.Material3.BodyMedium"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8sp"
-                        android:drawableStart="@drawable/ic_mail"
-                        android:drawablePadding="16sp"
-                        android:maxLines="2"
-                        android:text="@{patient.email}"
-                        tools:text="email@email.com" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView10"
-                style="@style/Widget.Material3.CardView.Elevated"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16sp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="?android:attr/colorAccent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView9">
-
-                <androidx.constraintlayout.motion.widget.MotionLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutDescription="@xml/fragment_patient_scene">
-
-                    <TextView
-                        android:id="@+id/title"
-                        style="@style/TextAppearance.Material3.BodyLarge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Datos generales del expediente"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:id="@+id/image_more"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_round_keyboard_arrow_down_24"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_width="100sp"
+                        android:layout_height="100sp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_profile"
+                        tools:src="@tools:sample/avatars" />
+                </androidx.cardview.widget.CardView>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_expedient"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16sp"
-                        android:orientation="vertical"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintTop_toBottomOf="@+id/image_more"
-                        tools:itemCount="3"
-                        tools:layout_editor_absoluteX="16dp"
-                        tools:listitem="@layout/item_expedient" />
+                <TextView
+                    android:id="@+id/text_name"
+                    style="@style/TextAppearance.Material3.BodyMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginTop="8sp"
+                    android:layout_marginEnd="16sp"
+                    android:text="@{patient.name}"
+                    app:layout_constraintStart_toEndOf="@+id/cardView8"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/full_names" />
 
-                </androidx.constraintlayout.motion.widget.MotionLayout>
+                <TextView
+                    android:id="@+id/text_date_title"
+                    style="@style/TextAppearance.Material3.BodyMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de nacimiento"
+                    app:layout_constraintStart_toStartOf="@+id/text_name"
+                    app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
-            </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/textView43"
+                    style="@style/TextAppearance.Material3.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8sp"
+                    android:text="@{patient.birthday}"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_date_title"
+                    app:layout_constraintStart_toEndOf="@+id/text_date_title"
+                    app:layout_constraintTop_toBottomOf="@+id/text_name"
+                    tools:text="@tools:sample/date/ddmmyy" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/text_gender_title"
+                    style="@style/TextAppearance.Material3.BodyMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sexo"
+                    app:layout_constraintStart_toStartOf="@+id/text_name"
+                    app:layout_constraintTop_toBottomOf="@+id/text_date_title" />
 
-    </ScrollView>
+                <TextView
+                    style="@style/TextAppearance.Material3.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8sp"
+                    android:text="@{patient.gender}"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_gender_title"
+                    app:layout_constraintStart_toEndOf="@+id/text_gender_title"
+                    app:layout_constraintTop_toTopOf="@+id/text_gender_title"
+                    tools:text="Masculino" />
+
+                <TextView
+                    android:id="@+id/text_occupation_title"
+                    style="@style/TextAppearance.Material3.BodyMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ocupación"
+                    app:layout_constraintStart_toStartOf="@+id/text_gender_title"
+                    app:layout_constraintTop_toBottomOf="@+id/text_gender_title" />
+
+                <TextView
+                    style="@style/TextAppearance.Material3.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8sp"
+                    android:text="@{patient.occupation}"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_occupation_title"
+                    app:layout_constraintStart_toEndOf="@+id/text_occupation_title"
+                    app:layout_constraintTop_toTopOf="@+id/text_occupation_title"
+                    tools:text="Programador" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView9"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16sp"
+            android:layout_marginTop="8sp"
+            android:layout_marginEnd="16sp"
+            android:backgroundTint="?android:attr/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView7">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16sp">
+
+                <TextView
+                    android:id="@+id/text_address"
+                    style="@style/TextAppearance.Material3.BodyMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_home"
+                    android:drawablePadding="16sp"
+                    android:maxLines="2"
+                    android:text="@{patient.address}"
+                    tools:text="@tools:sample/lorem/random" />
+
+                <TextView
+                    android:id="@+id/text_phone"
+                    style="@style/TextAppearance.Material3.BodyMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8sp"
+                    android:drawableStart="@drawable/ic_phone"
+                    android:drawablePadding="16sp"
+                    android:maxLines="2"
+                    android:text="@{patient.phone}"
+                    tools:text="@tools:sample/us_phones" />
+
+                <TextView
+                    android:id="@+id/text_email"
+                    style="@style/TextAppearance.Material3.BodyMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8sp"
+                    android:drawableStart="@drawable/ic_mail"
+                    android:drawablePadding="16sp"
+                    android:maxLines="2"
+                    android:text="@{patient.email}"
+                    tools:text="email@email.com" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageButton
+            android:id="@+id/button_call"
+            android:layout_width="48sp"
+            android:layout_height="48sp"
+            android:background="@drawable/round_background"
+            android:backgroundTint="@color/list_colors_icon_background"
+            app:tint="@color/list_colors"
+            android:padding="8sp"
+            android:layout_marginTop="8sp"
+            android:src="@drawable/ic_phone"
+            app:layout_constraintEnd_toStartOf="@+id/button_send_email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView9"
+            android:contentDescription="call" />
+
+        <ImageButton
+            android:id="@+id/button_send_email"
+            android:layout_width="48sp"
+            android:contentDescription="mail"
+            android:layout_height="48sp"
+            android:background="@drawable/round_background"
+            android:backgroundTint="@color/list_colors_icon_background"
+            app:tint="@color/list_colors"
+            android:padding="8sp"
+            android:src="@drawable/ic_mail"
+            app:layout_constraintEnd_toStartOf="@+id/button_add_consult"
+            app:layout_constraintStart_toEndOf="@+id/button_call"
+            app:layout_constraintTop_toTopOf="@+id/button_call" />
+
+        <ImageButton
+            android:id="@+id/button_add_consult"
+            android:layout_width="48sp"
+            android:layout_height="48sp"
+            android:background="@drawable/round_background"
+            android:backgroundTint="@color/list_colors_icon_background"
+            app:tint="@color/list_colors"
+            android:padding="8sp"
+            android:contentDescription="cosultation"
+            android:src="@drawable/ic_round_post_add_24"
+            app:layout_constraintEnd_toStartOf="@+id/button_walk"
+            app:layout_constraintStart_toEndOf="@+id/button_send_email"
+            app:layout_constraintTop_toTopOf="@+id/button_call" />
+
+        <ImageButton
+            android:id="@+id/button_walk"
+            android:layout_width="48sp"
+            android:layout_height="48sp"
+            android:background="@drawable/round_background"
+            android:backgroundTint="@color/list_colors_icon_background"
+            android:contentDescription="walk"
+            app:tint="@color/list_colors"
+            android:padding="8sp"
+            android:src="@drawable/ic_work"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button_add_consult"
+            app:layout_constraintTop_toTopOf="@+id/button_call" />
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?android:attr/windowBackground"
+            app:layout_constraintTop_toBottomOf="@+id/button_call"
+            app:tabMode="fixed" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabs" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -122,11 +122,8 @@ object Utils {
         tag: String,
         loading: DialogLoading,
     ) {
-        if (this == Constants.Status.Loading) {
-            loading.show(fragmentManager, tag)
-        } else {
-            loading.dismiss()
-        }
+        if (this == Constants.Status.Loading) loading.show(fragmentManager, tag)
+        else if (fragmentManager.findFragmentByTag(tag) != null) loading.dismiss()
     }
 
     fun RadioButton.getTypeUser() =

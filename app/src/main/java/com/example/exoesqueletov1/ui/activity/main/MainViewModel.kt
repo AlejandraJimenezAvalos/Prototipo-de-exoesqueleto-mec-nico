@@ -279,7 +279,7 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
-        userModel.addSource(dataRepository.getConsultation()) {
+        userModel.addSource(dataRepository.getConsultations()) {
             if (it.isNotEmpty()) firebaseService.setConsultation(it) { (status, _, exception) ->
                 if (status == Constants.Status.Failure)
                     result.postValue(Resource.error(exception!!))

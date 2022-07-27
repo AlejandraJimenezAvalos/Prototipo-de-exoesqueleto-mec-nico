@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="musculo"
+            type="com.example.exoesqueletov1.data.models.consultation.EvaluacionMusculo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8sp">
+
+        <TextView
+            android:id="@+id/text_valor_numero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/pink"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/textView53"
+            style="@style/TextAppearance.Material3.BodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="8sp"
+            android:layout_height="wrap_content"
+            android:text="@{musculo.zona}"
+            app:layout_constraintStart_toEndOf="@+id/text_valor_numero"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Musculo superior derecho" />
+
+        <TextView
+            android:id="@+id/text_valor"
+            style="@style/TextAppearance.Material3.BodySmall"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView53"
+            app:layout_constraintTop_toBottomOf="@+id/textView53"
+            tools:maxLines="2"
+            tools:text="@tools:sample/lorem/random" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:id="@+id/divider"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_valor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

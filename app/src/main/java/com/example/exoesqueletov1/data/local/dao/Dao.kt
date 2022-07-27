@@ -210,7 +210,11 @@ interface Dao {
     fun getPlan(idConsult: String): LiveData<Plan>
 
     @Transaction
-    @Query("SELECT * FROM consultations WHERE idPatient == :idPatient")
-    fun getConsultation(idPatient: String): LiveData<List<ConsultationRelation>>
+    @Query("SELECT * FROM consultations WHERE id == :id")
+    fun getConsultationComplete(id: String): LiveData<ConsultationRelation>
+
+    @Transaction
+    @Query("SELECT * FROM consultations")
+    fun getConsultationsComplete(): LiveData<List<ConsultationRelation>>
 
 }

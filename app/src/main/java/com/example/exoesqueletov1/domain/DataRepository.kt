@@ -93,7 +93,7 @@ class DataRepository @Inject constructor(
         dao.insertPlan(consultation.plan)
     }
 
-    fun getConsultation() = dao.getConsultation(patientRepository.getId())
+    fun getConsultations() = dao.getConsultationsComplete()
 
     fun insertConsultation(consultationData: ConsultationData) =
         dao.insertConsultation(consultationData)
@@ -116,7 +116,11 @@ class DataRepository @Inject constructor(
         dao.insertValoracionFuncional(valoracionFuncional)
 
     fun insertPlan(plan: Plan) = dao.insertPlan(plan)
-
     fun insertAnalisis(analisis: Analisis) = dao.insertAnalisis(analisis)
+
+    fun getConsultationsByIdPatient() = dao.getConsultations(patientRepository.getId())
+
+    fun getConsultationComplete() =
+        dao.getConsultationComplete(patientRepository.getConsultationId())
 
 }

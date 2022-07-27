@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="postura"
+            type="com.example.exoesqueletov1.data.models.consultation.EvaluacionPostura" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16sp"
+        android:paddingEnd="16sp"
+        android:paddingBottom="8sp">
+
+        <TextView
+            android:id="@+id/textView53"
+            style="@style/TextAppearance.Material3.BodyMedium"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8sp"
+            android:text="@{postura.vista}"
+            app:layout_constraintEnd_toStartOf="@+id/text_grados"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Musculo superior derecho" />
+
+        <TextView
+            android:id="@+id/text_valor"
+            style="@style/TextAppearance.Material3.BodySmall"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16sp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="8sp"
+            android:text="@{postura.observaciones}"
+            app:layout_constraintEnd_toStartOf="@+id/text_grados"
+            app:layout_constraintStart_toStartOf="@+id/textView53"
+            app:layout_constraintTop_toBottomOf="@+id/textView53"
+            tools:maxLines="2"
+            tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/text_grados"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView56"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="45" />
+
+        <TextView
+            android:id="@+id/textView56"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="°"
+            android:textColor="?android:attr/colorPrimary"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_grados" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:id="@+id/divider"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_valor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

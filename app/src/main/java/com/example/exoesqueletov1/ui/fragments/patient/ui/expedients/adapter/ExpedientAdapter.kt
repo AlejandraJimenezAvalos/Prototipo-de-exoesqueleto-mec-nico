@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.ui.fragments.patient.adapter
+package com.example.exoesqueletov1.ui.fragments.patient.ui.expedients.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
