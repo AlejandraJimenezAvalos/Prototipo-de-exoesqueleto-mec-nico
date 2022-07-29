@@ -258,6 +258,31 @@ object Utils {
             }
 
         })
-        this.startAnimation(endAnimation)
+        old.startAnimation(endAnimation)
+    }
+
+    fun String.getConclusion() = when (this) {
+        Constants.Finalize.New.toString() -> Constants.Finalize.New
+        Constants.Finalize.Start.toString() -> Constants.Finalize.Start
+        Constants.Finalize.Finalize.toString() -> Constants.Finalize.Finalize
+        else -> Constants.Finalize.New
+    }
+
+    fun String.getType() = when (this) {
+        Constants.Type.Null.toString() -> Constants.Type.Null
+        Constants.Type.Caminata.toString() -> Constants.Type.Caminata
+        Constants.Type.Repeticiones.toString() -> Constants.Type.Repeticiones
+        else -> Constants.Type.Null
+    }
+
+    fun String.getModo() = when (this) {
+        Constants.Modo.Derecha.toString() -> Constants.Modo.Derecha
+        Constants.Modo.Izquierda.toString() -> Constants.Modo.Izquierda
+        Constants.Modo.Ambos.toString() -> Constants.Modo.Ambos
+        Constants.Modo.Null.toString() -> Constants.Modo.Null
+        Constants.Modo.Pasos.toString() -> Constants.Modo.Pasos
+        Constants.Modo.Minutos.toString() -> Constants.Modo.Minutos
+        Constants.Modo.Repeticiones.toString() -> Constants.Modo.Repeticiones
+        else -> Constants.Modo.Null
     }
 }

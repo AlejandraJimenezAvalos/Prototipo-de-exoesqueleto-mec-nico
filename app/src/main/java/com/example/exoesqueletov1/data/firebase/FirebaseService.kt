@@ -352,26 +352,26 @@ class FirebaseService @Inject constructor(private val userRepository: UserReposi
                     function.invoke(Resource.error(it))
                 }
             if (consultation.marcha != null && consultation.marcha.marcha != null)
-                rfMarcha.document(consultation.marcha!!.marcha!!.id)
-                    .set(consultation.marcha.marcha!!)
+                rfMarcha.document(consultation.marcha.marcha.id)
+                    .set(consultation.marcha.marcha)
                     .addOnFailureListener {
                         function.invoke(Resource.error(it))
                     }
             if (consultation.evaluacionMuscular != null && consultation.evaluacionMuscular.evaluacionMuscular != null)
-                rfMuscular.document(consultation.evaluacionMuscular!!.evaluacionMuscular!!.id)
-                    .set(consultation.evaluacionMuscular.evaluacionMuscular!!)
+                rfMuscular.document(consultation.evaluacionMuscular.evaluacionMuscular.id)
+                    .set(consultation.evaluacionMuscular.evaluacionMuscular)
                     .addOnFailureListener {
                         function.invoke(Resource.error(it))
                     }
             if (consultation.evaluacionPostura != null)
-                consultation.evaluacionPostura!!.forEach { evaluacionPostura ->
+                consultation.evaluacionPostura.forEach { evaluacionPostura ->
                     rfPostura.document(evaluacionPostura.id).set(evaluacionPostura)
                         .addOnFailureListener {
                             function.invoke(Resource.error(it))
                         }
                 }
             if (consultation.exploracionFisica != null)
-                rfExploracion.document(consultation.exploracionFisica!!.id)
+                rfExploracion.document(consultation.exploracionFisica.id)
                     .set(consultation.exploracionFisica)
                     .addOnFailureListener {
                         function.invoke(Resource.error(it))
@@ -410,6 +410,7 @@ class FirebaseService @Inject constructor(private val userRepository: UserReposi
 
     fun getConsultation(result: (Resource<ConsultationData>) -> Unit) {
         result.invoke(Resource.loading())
+
         db.collection(COLLECTION_CONSULTATION_DATA)
             .whereEqualTo(ID_USER, userRepository.getId()).addSnapshotListener { value, error ->
                 if (error != null) {

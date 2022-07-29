@@ -426,7 +426,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4sp"
                         android:layout_marginTop="4sp"
-                        tools:text="24"
+                        tools:text="36"
                         android:textSize="32sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"

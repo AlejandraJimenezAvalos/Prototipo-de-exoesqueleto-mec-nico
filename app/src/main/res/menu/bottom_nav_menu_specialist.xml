@@ -12,12 +12,7 @@
         android:title="@string/profile" />
 
     <item
-        android:id="@+id/navigation_paired_device"
-        android:icon="@drawable/ic_bluetooth"
-        android:title="@string/emparejar" />
-
-    <item
-        android:id="@+id/navigation_message"
+        android:id="@+id/navigation_patient"
         android:icon="@drawable/ic_work"
         android:title="@string/pacientes" />
 

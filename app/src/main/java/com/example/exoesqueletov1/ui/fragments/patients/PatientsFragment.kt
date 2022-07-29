@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.ui.fragments.chats
+package com.example.exoesqueletov1.ui.fragments.patients
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -13,22 +13,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import com.example.exoesqueletov1.R
 import com.example.exoesqueletov1.data.models.PatientModel
-import com.example.exoesqueletov1.databinding.FragmentChatsBinding
-import com.example.exoesqueletov1.ui.fragments.chats.adapter.ChatsAdapter
+import com.example.exoesqueletov1.databinding.FragmentPatientsBinding
+import com.example.exoesqueletov1.ui.fragments.patients.adapter.PatientsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ChatsFragment : Fragment() {
+class PatientsFragment : Fragment() {
 
-    private lateinit var binding: FragmentChatsBinding
-    private lateinit var viewModel: ChatViewModel
+    private lateinit var binding: FragmentPatientsBinding
+    private lateinit var viewModel: PatientsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this)[ChatViewModel::class.java]
-        binding = FragmentChatsBinding.inflate(layoutInflater, container, false)
+        viewModel = ViewModelProvider(this)[PatientsViewModel::class.java]
+        binding = FragmentPatientsBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -38,7 +38,7 @@ class ChatsFragment : Fragment() {
         val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.fab_scale_up)
         binding.addPatient.startAnimation(animation)
         val list = mutableListOf<PatientModel>()
-        val adapter = ChatsAdapter(list) { data ->
+        val adapter = PatientsAdapter(list) { data ->
             viewModel.savePatient(data.id, data.name)
         }
         binding.recyclerChats.layoutManager = LinearLayoutManager(context, VERTICAL, false)

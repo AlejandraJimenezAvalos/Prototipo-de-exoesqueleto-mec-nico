@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/id_exoesqueleto"
             tools:itemCount="2"
-            tools:listitem="@layout/item_chat" />
+            tools:listitem="@layout/item_patient" />
 
         <TextView
             android:id="@+id/textView13"

@@ -15,6 +15,9 @@ object Constants {
     enum class StatusDevice { Emparejado, Cercano }
     enum class Origin { User, Create }
     enum class TypeData { Antecedents, Habits, Scar }
+    enum class Type { Caminata, Repeticiones, Null }
+    enum class Modo { Derecha, Izquierda, Ambos, Pasos, Minutos, Repeticiones, Null }
+    enum class Finalize { New, Start, Finalize }
 
     const val COLLECTION_PATIENT = "patient"
     const val COLLECTION_PROFILE = "profile"
@@ -32,6 +35,7 @@ object Constants {
     const val COLLECTION_ANALISIS = "analisis"
     const val COLLECTION_VALORACION_FUNCIONAL = "valoracion_funcional"
     const val COLLECTION_PLAN = "plan"
+    const val COLECTION_RUTINA = "rutina"
     const val ID = "id"
     const val ADDRESS = "address"
     const val CELL = "cell"
@@ -109,6 +113,8 @@ object Constants {
     const val PARTICIPACION = "participacion"
     const val DIAGNOSTICO = "diagnostico"
     const val PLAN = "plan"
+    const val MODO = "modo"
+    const val FINALIZE = "finalize"
 
 
     @RequiresApi(Build.VERSION_CODES.S)

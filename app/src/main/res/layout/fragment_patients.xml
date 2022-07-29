@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_edit_text"
         tools:itemCount="20"
-        tools:listitem="@layout/item_chat" />
+        tools:listitem="@layout/item_patient" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_patient"

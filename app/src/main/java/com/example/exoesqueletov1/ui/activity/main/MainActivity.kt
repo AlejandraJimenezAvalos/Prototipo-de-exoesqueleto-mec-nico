@@ -108,9 +108,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
                 val destinationId = when (menuItem.itemId) {
                     R.id.navigation_home -> R.id.action_global_navigation_home
                     R.id.navigation_profile -> R.id.action_global_navigation_profile
-                    R.id.navigation_message -> R.id.action_global_navigation_message
-                    R.id.navigation_paired_device -> R.id.action_global_navigation_paired_device
-                    R.id.navigation_work -> R.id.action_global_navigation_work
+                    R.id.navigation_patient -> R.id.action_global_navigation_patients
                     else -> R.id.action_global_navigation_home
                 }
 
@@ -195,9 +193,9 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
             val destinationId = when (destination.id) {
                 R.id.navigation_home -> destination.id
                 R.id.navigation_profile -> destination.id
-                R.id.navigation_message -> destination.id
+                R.id.navigation_patient -> destination.id
                 R.id.navigation_paired_device -> destination.id
-                R.id.navigation_work -> destination.id
+                R.id.navigation_patient -> destination.id
                 else -> previusId
             }
             previusId = destinationId
@@ -443,7 +441,7 @@ class MainActivity : AppCompatActivity(), ServiceConnection, SerialListener {
         binding.terminal.append(spn)
         binding.terminal.append("${e.message}\n")
         val dialogOops = DialogOops(e.message)
-        dialogOops.show(supportFragmentManager, "WalkFragment")
+        dialogOops.show(supportFragmentManager, "RutinasFragment")
         disconnect()
     }
 

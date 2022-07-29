@@ -216,7 +216,7 @@ class AddPatientFragment : Fragment() {
             patientTemporary.listCicatriz.addAll(list)
             viewModel.saveUser(patientTemporary)
             val status = findNavController().popBackStack()
-            if (!status) findNavController().navigate(R.id.action_global_navigation_message)
+            if (!status) findNavController().navigate(R.id.action_global_navigation_patients)
         }
     }
 
