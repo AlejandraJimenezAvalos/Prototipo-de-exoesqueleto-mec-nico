@@ -9,7 +9,6 @@ class Data(consultation: ConsultationRelation) {
     val conAyuda = if (consultation.marcha!!.marcha!!.conAyuda) View.VISIBLE else View.GONE
     val espaticas = if (consultation.marcha!!.marcha!!.espaticas) View.VISIBLE else View.GONE
     val ataxica = if (consultation.marcha!!.marcha!!.ataxica) View.VISIBLE else View.GONE
-
     val dolor =
         when (consultation.consultation!!.dolor) {
             "0" -> "${consultation.consultation.dolor} Sin dolor"
@@ -25,9 +24,28 @@ class Data(consultation: ConsultationRelation) {
             "10" -> "${consultation.consultation.dolor} Dolor insoportable"
             else -> "0 Sin dolor"
         }
-
     val pesoKg = consultation.exploracionFisica!!.pesoKg.toString()
     val pesoG = consultation.exploracionFisica!!.pesoG.toString()
     val estaturaM = consultation.exploracionFisica!!.estaturaM.toString()
     val estaturaCm = consultation.exploracionFisica!!.estaturaCm.toString()
+
+    val respuestaA = when (consultation.valoracionFuncional!!.respuestaA) {
+        "1" -> "No se sostuvo durante 10 segundos."
+        "2" -> "Se sostuvo durante 10 segundos."
+        "3" -> "No lo intento."
+        else -> "Sin respuesta"
+    }
+    val respuestaB = when (consultation.valoracionFuncional!!.respuestaB) {
+        "1" -> "No se sostuvo durante 10 segundos."
+        "2" -> "Se sostuvo durante 10 segundos."
+        "3" -> "No lo intento."
+        else -> "Sin respuesta"
+    }
+    val respuestaC = when (consultation.valoracionFuncional!!.respuestaC) {
+        "1" -> "No se sostuvo durante 10 segundos."
+        "2" -> "Se sostuvo durante 10 segundos."
+        "3" -> "No se sostuvo durante 3 segundos."
+        "4" -> "No lo intento."
+        else -> "Sin respuesta"
+    }
 }

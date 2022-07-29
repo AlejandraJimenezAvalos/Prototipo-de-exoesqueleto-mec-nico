@@ -9,6 +9,7 @@ import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
 import com.example.exoesqueletov1.data.models.*
 import com.example.exoesqueletov1.data.models.consultation.*
+import com.example.exoesqueletov1.data.models.rutina.RutinaModel
 
 @Database(
     entities = [
@@ -30,8 +31,9 @@ import com.example.exoesqueletov1.data.models.consultation.*
         Marcha::class,
         Plan::class,
         ValoracionFuncional::class,
+        RutinaModel::class,
     ],
-    version = 8,
+    version = 9,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
@@ -52,7 +54,8 @@ import com.example.exoesqueletov1.data.models.consultation.*
             to = 7,
             spec = com.example.exoesqueletov1.data.db.RoomDatabase.DeleteColums::class
         ),
-        AutoMigration(from = 7, to = 8)
+        AutoMigration(from = 7, to = 8),
+        AutoMigration(from = 8, to = 9),
     ],
 )
 abstract class RoomDatabase : RoomDatabase() {

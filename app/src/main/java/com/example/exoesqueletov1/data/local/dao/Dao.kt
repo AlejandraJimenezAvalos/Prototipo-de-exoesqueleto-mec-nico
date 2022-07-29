@@ -11,6 +11,7 @@ import com.example.exoesqueletov1.data.local.query.GroupsQuery
 import com.example.exoesqueletov1.data.local.relations.ConsultationRelation
 import com.example.exoesqueletov1.data.models.*
 import com.example.exoesqueletov1.data.models.consultation.*
+import com.example.exoesqueletov1.data.models.rutina.RutinaModel
 
 @Dao
 interface Dao {
@@ -110,7 +111,7 @@ interface Dao {
     @Query("SELECT * FROM expedient")
     fun getExpedient(): LiveData<List<ExpedientModel>>
 
-    @Query("SELECT * FROM expedient WHERE idPatient == :id")
+    @Query("SELECT * FROM expedient WHERE idPatient == :id ORDER BY type")
     fun getExpedients(id: String): LiveData<List<ExpedientModel>>
 
     @Insert(onConflict = REPLACE)
@@ -216,5 +217,11 @@ interface Dao {
     @Transaction
     @Query("SELECT * FROM consultations")
     fun getConsultationsComplete(): LiveData<List<ConsultationRelation>>
+
+    @Insert(onConflict = REPLACE)
+    fun insertRutina(rutinaModel: RutinaModel)
+
+    @Query("SELECT * FROM rutina WHERE idPatient == :idPatient")
+    fun getRutinasByPatient(idPatient: String): LiveData<List<RutinaModel>>
 
 }

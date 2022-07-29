@@ -6,11 +6,13 @@ import com.example.exoesqueletov1.data.local.entity.ChatsEntity
 import com.example.exoesqueletov1.data.local.entity.UsersEntity
 import com.example.exoesqueletov1.data.models.*
 import com.example.exoesqueletov1.data.models.consultation.*
+import com.example.exoesqueletov1.data.models.rutina.RutinaModel
 import javax.inject.Inject
 
 class DataRepository @Inject constructor(
     private val dao: Dao,
-    val patientRepository: PatientRepository
+    private val patientRepository: PatientRepository,
+    private val userRepository: UserRepository,
 ) {
     fun insertUser(userModel: UserModel) = dao.insertUser(userModel)
     fun updateUser(userModel: UserModel) = dao.updateUser(userModel)
@@ -123,4 +125,11 @@ class DataRepository @Inject constructor(
     fun getConsultationComplete() =
         dao.getConsultationComplete(patientRepository.getConsultationId())
 
+    fun insertRutina(rutinaModel: RutinaModel) {
+        rutinaModel.userId = userRepository.getId()
+        rutinaModel.idPatient = patientRepository.getId()
+        dao.insertRutina(rutinaModel)
+    }
+
+    fun getRutinas() = dao.getRutinasByPatient(patientRepository.getId())
 }

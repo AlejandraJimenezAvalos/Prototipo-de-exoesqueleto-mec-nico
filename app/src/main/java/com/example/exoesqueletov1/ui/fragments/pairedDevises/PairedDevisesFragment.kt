@@ -20,7 +20,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exoesqueletov1.R
 import com.example.exoesqueletov1.data.local.query.ExoskeletonQuery
@@ -193,7 +192,7 @@ class PairedDevisesFragment : Fragment() {
     fun getStatus(resource: BluetoothResource) {
         when (resource.status) {
             Constants.StatusBluetoothDevice.Connected -> {
-                findNavController().navigate(R.id.action_navigation_paired_device_to_connectionFragment)
+                //findNavController().navigate(R.id.action_navigation_paired_device_to_connectionFragment)
             }
             Constants.StatusBluetoothDevice.ConnectionFailed -> {
                 binding.textStatus.text =

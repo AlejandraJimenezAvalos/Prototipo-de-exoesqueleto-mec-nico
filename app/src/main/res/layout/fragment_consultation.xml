@@ -117,9 +117,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4sp"
+                        android:text="@{data.dolor}"
                         android:textColor="@color/pink"
                         android:textStyle="bold"
-                        android:text="@{data.dolor}"
                         app:layout_constraintBottom_toBottomOf="@+id/textView55"
                         app:layout_constraintStart_toEndOf="@+id/textView55"
                         app:layout_constraintTop_toTopOf="@+id/textView55"
@@ -544,7 +544,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:spanCount="3"
+                        tools:itemCount="2"
                         tools:listitem="@layout/item_musculo" />
 
                 </LinearLayout>
@@ -573,6 +573,7 @@
                     android:paddingTop="16sp"
                     android:paddingBottom="8sp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="2"
                     tools:listitem="@layout/item_analisis" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -599,6 +600,7 @@
                     android:paddingTop="16sp"
                     android:paddingBottom="8sp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="2"
                     tools:listitem="@layout/item_postura" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -644,7 +646,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16sp"
                         android:layout_marginTop="4sp"
-                        android:text="@{consultationRelation.valoracionFuncional.respuestaA}"
+                        android:text="@{data.respuestaA}"
                         tools:text="Se sostuvo durante 10 segudnos" />
 
                     <TextView
@@ -661,7 +663,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16sp"
                         android:layout_marginTop="4sp"
-                        android:text="@{consultationRelation.valoracionFuncional.respuestaB}"
+                        android:text="@{data.respuestaB}"
                         tools:text="Se sostuvo durante 10 segudnos" />
 
                     <TextView
@@ -670,7 +672,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8sp"
                         android:layout_marginTop="16sp"
-                        android:text="Número de segundos con equilibrio si es inferior a los 1o segundos.\nC. Posición en támdem completo." />
+                        android:text="Número de segundos con equilibrio si es inferior a los 10 segundos.\nC. Posición en támdem completo." />
 
                     <TextView
                         style="@style/TextAppearance.Material3.BodySmall"
@@ -678,7 +680,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16sp"
                         android:layout_marginTop="4sp"
-                        android:text="@{consultationRelation.valoracionFuncional.respuestaC}"
+                        android:text="@{data.respuestaC}"
                         tools:text="Se sostuvo durante 10 segudnos" />
 
                 </LinearLayout>

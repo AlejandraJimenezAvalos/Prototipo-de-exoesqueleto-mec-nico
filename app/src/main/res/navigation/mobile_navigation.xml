@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_message">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -11,16 +11,10 @@
         android:label="NewProfileFragment"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/navigation_work"
-        android:name="com.example.exoesqueletov1.ui.fragments.AssignWorkFragment"
-        android:label="AssignWorkFragment"
-        tools:layout="@layout/fragment_assign_work" />
-    <fragment
-        android:id="@+id/navigation_message"
-        android:name="com.example.exoesqueletov1.ui.fragments.chats.ChatsFragment"
+        android:id="@+id/navigation_patient"
+        android:name="com.example.exoesqueletov1.ui.fragments.patients.PatientsFragment"
         android:label="MessageFragment"
-        app:enterAnim="@anim/fab_scale_up"
-        tools:layout="@layout/fragment_chats">
+        tools:layout="@layout/fragment_patients">
         <action
             android:id="@+id/action_navigation_message_to_patientFragment"
             app:destination="@id/patientFragment"
@@ -39,12 +33,7 @@
         android:id="@+id/navigation_paired_device"
         android:name="com.example.exoesqueletov1.ui.fragments.pairedDevises.PairedDevisesFragment"
         android:label="PairedDevisesFragment"
-        tools:layout="@layout/fragment_paired_devises">
-        <action
-            android:id="@+id/action_navigation_paired_device_to_connectionFragment"
-            app:destination="@id/connectionFragment"
-            app:enterAnim="@anim/fab_scale_up" />
-    </fragment>
+        tools:layout="@layout/fragment_paired_devises" />
     <fragment
         android:id="@+id/nav_user"
         android:name="com.example.exoesqueletov1.ui.fragments.user.UserFragment"
@@ -54,14 +43,17 @@
         android:id="@+id/chatActivity"
         android:name="com.example.exoesqueletov1.ui.activity.chat.ChatActivity"
         android:label="activity_chat"
-        app:enterAnim="@anim/fab_scale_up"
         tools:layout="@layout/activity_chat" />
     <fragment
         android:id="@+id/connectionFragment"
         android:name="com.example.exoesqueletov1.ui.fragments.connection.ConnectionFragment"
         android:label="fragment_connection"
-        app:enterAnim="@anim/fab_scale_up"
-        tools:layout="@layout/fragment_connection" />
+        tools:layout="@layout/fragment_connection">
+        <action
+            android:id="@+id/action_connectionFragment_to_navigation_paired_device"
+            app:destination="@id/navigation_paired_device"
+            app:enterAnim="@anim/fab_scale_up" />
+    </fragment>
 
     <action
         android:id="@+id/global_action_to_connection_fragment"
@@ -72,21 +64,18 @@
         app:destination="@id/navigation_profile"
         app:enterAnim="@anim/fab_scale_up" />
     <action
-        android:id="@+id/action_global_navigation_message"
-        app:destination="@id/navigation_message"
+        android:id="@+id/action_global_navigation_patients"
+        app:destination="@id/navigation_patient"
         app:enterAnim="@anim/fab_scale_up" />
     <action
         android:id="@+id/action_global_navigation_paired_device"
         app:destination="@id/navigation_paired_device"
         app:enterAnim="@anim/fab_scale_up" />
     <action
-        android:id="@+id/action_global_navigation_work"
-        app:destination="@id/navigation_work"
-        app:enterAnim="@anim/fab_scale_up" />
-    <action
         android:id="@+id/action_global_navigation_home"
         app:destination="@id/navigation_home"
         app:enterAnim="@anim/fab_scale_up"
+
         app:launchSingleTop="true"
         app:popUpTo="@+id/mobile_navigation"
         app:popUpToInclusive="true" />
@@ -94,36 +83,48 @@
         android:id="@+id/patientFragment"
         android:name="com.example.exoesqueletov1.ui.fragments.add_patient.AddPatientFragment"
         android:label="fragment_patient"
-        app:enterAnim="@anim/fab_scale_up"
         tools:layout="@layout/fragment_add_patient" />
     <fragment
         android:id="@+id/patientFragment2"
         android:name="com.example.exoesqueletov1.ui.fragments.patient.PatientFragment"
         android:label="fragment_patient"
-        app:enterAnim="@anim/fab_scale_up"
         tools:layout="@layout/fragment_patient">
         <action
             android:id="@+id/action_patientFragment2_to_consultationFragment"
-            app:destination="@id/consultationFragment" />
+            app:destination="@id/consultationFragment"
+            app:enterAnim="@anim/fab_scale_up" />
         <action
             android:id="@+id/action_patientFragment2_to_medicalConsultationFragment"
-            app:destination="@id/medicalConsultationFragment" />
+            app:destination="@id/medicalConsultationFragment"
+            app:enterAnim="@anim/fab_scale_up" />
         <action
             android:id="@+id/action_patientFragment2_to_chatActivity"
-            app:destination="@id/chatActivity" />
+            app:destination="@id/chatActivity"
+            app:enterAnim="@anim/fab_scale_up" />
+        <action
+            android:id="@+id/action_patientFragment2_to_asignaRutinasFragment"
+            app:destination="@id/asignaRutinasFragment"
+            app:enterAnim="@anim/fab_scale_up" />
     </fragment>
     <fragment
         android:id="@+id/medicalConsultationFragment"
         android:name="com.example.exoesqueletov1.ui.fragments.medical_consultation.MedicalConsultationFragment"
         android:label="fragment_medical_consultation"
-        app:enterAnim="@anim/fab_scale_up"
         tools:layout="@layout/fragment_medical_consultation" />
     <fragment
         android:id="@+id/consultationFragment"
         android:name="com.example.exoesqueletov1.ui.fragments.patient.ui.consultations.consultation.ConsultationFragment"
         android:label="fragment_consultation"
-        app:enterAnim="@anim/fab_scale_up"
         tools:layout="@layout/fragment_consultation" />
-
+    <fragment
+        android:id="@+id/asignaRutinasFragment"
+        android:name="com.example.exoesqueletov1.ui.fragments.asigna_rutinas.AsignaRutinasFragment"
+        android:label="fragment_asigna_rutinas"
+        tools:layout="@layout/fragment_asigna_rutinas">
+        <action
+            android:id="@+id/action_asignaRutinasFragment_to_connectionFragment"
+            app:destination="@id/connectionFragment"
+            app:enterAnim="@anim/fab_scale_up" />
+    </fragment>
 
 </navigation>

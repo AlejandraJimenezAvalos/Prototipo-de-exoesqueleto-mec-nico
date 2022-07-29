@@ -1,4 +1,4 @@
-package com.example.exoesqueletov1.ui.fragments.chats
+package com.example.exoesqueletov1.ui.fragments.patients
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ChatViewModel @Inject constructor(
+class PatientsViewModel @Inject constructor(
     private val dataRepository: DataRepository,
     private val patientRepository: PatientRepository,
     userRepository: UserRepository,
