@@ -43,11 +43,14 @@ class PatientFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val listFragment = listOf(
-            ConsultationsFragment() {
+            ConsultationsFragment {
                 viewModel.setConsultation(it.id)
                 findNavController().navigate(R.id.action_patientFragment2_to_consultationFragment)
             },
-            RutinasFragment(),
+            RutinasFragment() {
+                viewModel.goRutina(it)
+                findNavController().navigate(R.id.action_patientFragment2_to_navigation_paired_device)
+            },
             ExpedientsFragment(),
         )
         val adapter = ViewPagerAdapter(activity, listFragment)
@@ -65,7 +68,6 @@ class PatientFragment : Fragment() {
             findNavController().navigate(R.id.action_patientFragment2_to_asignaRutinasFragment)
         }
         binding.buttonClose.setOnClickListener {
-
             contactData = if (binding.cardContactData.visibility == View.GONE) {
                 binding.cardContactData.startFirstAnimation(requireActivity())
                 false

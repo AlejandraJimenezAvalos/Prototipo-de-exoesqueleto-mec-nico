@@ -224,4 +224,7 @@ interface Dao {
     @Query("SELECT * FROM rutina WHERE idPatient == :idPatient")
     fun getRutinasByPatient(idPatient: String): LiveData<List<RutinaModel>>
 
+    @Query("DELETE FROM rutina WHERE id == :idRutina")
+    fun deleteRutina(idRutina: String)
+
 }

@@ -19,6 +19,7 @@ object Constants {
     enum class Modo { Derecha, Izquierda, Ambos, Pasos, Minutos, Repeticiones, Null }
     enum class Finalize { New, Start, Finalize }
 
+    const val ID_RUTINA = "idRutina"
     const val COLLECTION_PATIENT = "patient"
     const val COLLECTION_PROFILE = "profile"
     const val COLLECTION_USER = "user"

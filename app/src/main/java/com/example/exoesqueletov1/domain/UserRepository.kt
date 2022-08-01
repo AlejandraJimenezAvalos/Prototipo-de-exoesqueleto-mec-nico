@@ -21,9 +21,13 @@ class UserRepository @Inject constructor(@Named("user") private val sharedPrefer
         user.invoke(getString(ID), getString(USER))
     }
 
+    fun getSubscription() = sharedPreferences.getBoolean("subscribed", false)
+    fun setSubscription() = sharedPreferences.edit().putBoolean("subscribed", true)
+
     fun logout() {
         "".setString(ID)
         "".setString(USER)
+        sharedPreferences.edit().putBoolean("subscribed", false)
     }
 
     private fun String.setString(key: String) = editor.putString(key, this).apply()

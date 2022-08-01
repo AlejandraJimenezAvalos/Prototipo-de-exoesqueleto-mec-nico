@@ -33,7 +33,11 @@
         android:id="@+id/navigation_paired_device"
         android:name="com.example.exoesqueletov1.ui.fragments.pairedDevises.PairedDevisesFragment"
         android:label="PairedDevisesFragment"
-        tools:layout="@layout/fragment_paired_devises" />
+        tools:layout="@layout/fragment_paired_devises">
+        <action
+            android:id="@+id/action_navigation_paired_device_to_connectionFragment"
+            app:destination="@id/connectionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_user"
         android:name="com.example.exoesqueletov1.ui.fragments.user.UserFragment"
@@ -48,17 +52,8 @@
         android:id="@+id/connectionFragment"
         android:name="com.example.exoesqueletov1.ui.fragments.connection.ConnectionFragment"
         android:label="fragment_connection"
-        tools:layout="@layout/fragment_connection">
-        <action
-            android:id="@+id/action_connectionFragment_to_navigation_paired_device"
-            app:destination="@id/navigation_paired_device"
-            app:enterAnim="@anim/fab_scale_up" />
-    </fragment>
+        tools:layout="@layout/fragment_connection" />
 
-    <action
-        android:id="@+id/global_action_to_connection_fragment"
-        app:destination="@+id/connectionFragment"
-        app:enterAnim="@anim/fab_scale_up" />
     <action
         android:id="@+id/action_global_navigation_profile"
         app:destination="@id/navigation_profile"
@@ -102,9 +97,11 @@
             app:destination="@id/chatActivity"
             app:enterAnim="@anim/fab_scale_up" />
         <action
+            android:id="@+id/action_patientFragment2_to_navigation_paired_device"
+            app:destination="@id/navigation_paired_device" />
+        <action
             android:id="@+id/action_patientFragment2_to_asignaRutinasFragment"
-            app:destination="@id/asignaRutinasFragment"
-            app:enterAnim="@anim/fab_scale_up" />
+            app:destination="@id/asignaRutinasFragment" />
     </fragment>
     <fragment
         android:id="@+id/medicalConsultationFragment"

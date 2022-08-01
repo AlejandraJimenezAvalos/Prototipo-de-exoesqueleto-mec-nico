@@ -8,20 +8,24 @@ import com.example.exoesqueletov1.R
 import com.example.exoesqueletov1.data.models.rutina.RutinaModel
 
 class RutinaAdapter(
-    private val list: MutableList<RutinaModel>,
-    private val function: (RutinaModel) -> Unit,
-    private val activity: Activity
+    val list: MutableList<RutinaModel>,
+    private val activity: Activity,
+    private val functionGo: (RutinaModel) -> Unit,
+    private val function: (RutinaModel, Boolean) -> Unit,
 ) :
     RecyclerView.Adapter<RutinaViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = RutinaViewHolder(
         LayoutInflater.from(parent.context)
             .inflate(R.layout.item_rutinas, parent, false),
         function,
+        functionGo,
         activity
     )
 
     override fun onBindViewHolder(holder: RutinaViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(list[position]) {
+            notifyItemRemoved(position)
+        }
     }
 
     override fun getItemCount() = list.size

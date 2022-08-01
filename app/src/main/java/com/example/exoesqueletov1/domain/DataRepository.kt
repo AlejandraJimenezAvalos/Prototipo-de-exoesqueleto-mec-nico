@@ -132,4 +132,5 @@ class DataRepository @Inject constructor(
     }
 
     fun getRutinas() = dao.getRutinasByPatient(patientRepository.getId())
+    fun deleteRutina(rutina: RutinaModel) = dao.deleteRutina(rutina.id)
 }

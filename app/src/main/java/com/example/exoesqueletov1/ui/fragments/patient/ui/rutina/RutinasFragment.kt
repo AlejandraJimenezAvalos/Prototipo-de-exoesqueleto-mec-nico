@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class RutinasFragment : Fragment() {
+class RutinasFragment(private val function: (RutinaModel) -> Unit) : Fragment() {
 
     private lateinit var binding: FragmentRutinaBinding
     private lateinit var viewModel: RutinaViewModel
@@ -40,9 +40,10 @@ class RutinasFragment : Fragment() {
             "",
         )
         val listRutinas = mutableListOf(blank)
-        val adapter = RutinaAdapter(listRutinas, {
-            viewModel.insertRutina(it)
-        }, requireActivity())
+        val adapter = RutinaAdapter(listRutinas, requireActivity(), function) { rutina, state ->
+            if (state) viewModel.insertRutina(rutina)
+            else viewModel.deleteRutina(rutina)
+        }
         binding.recyclerRutina.setHasFixedSize(true)
         binding.recyclerRutina.adapter = adapter
         viewModel.listRutinas.observe(viewLifecycleOwner) {
@@ -55,9 +56,9 @@ class RutinasFragment : Fragment() {
                 "",
                 "",
             )
-            listRutinas.clear()
-            listRutinas.addAll(it)
-            listRutinas.add(blank)
+            adapter.list.clear()
+            adapter.list.addAll(it)
+            adapter.list.add(blank)
             adapter.notifyDataSetChanged()
         }
     }

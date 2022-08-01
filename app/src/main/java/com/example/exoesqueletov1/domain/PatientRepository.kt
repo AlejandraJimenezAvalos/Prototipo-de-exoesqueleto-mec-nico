@@ -28,6 +28,11 @@ class PatientRepository @Inject constructor(@Named("patient") private val shared
         "".setString(Constants.NAME)
     }
 
+    fun saveRutina(idRutina: String) = idRutina.setString(Constants.ID_RUTINA)
+
+    fun getRutina() = getString(Constants.ID_RUTINA)
+
+
     private fun String.setString(key: String) = editor.putString(key, this).apply()
     private fun getString(key: String) = sharedPreferences.getString(key, "")!!
 }

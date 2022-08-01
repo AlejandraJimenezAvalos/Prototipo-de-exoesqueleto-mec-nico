@@ -115,7 +115,7 @@
                         app:tint="@color/list_colors" />
 
                     <ImageButton
-                        android:id="@+id/imageView13"
+                        android:id="@+id/button_delete"
                         android:layout_width="48sp"
                         android:layout_height="48sp"
                         android:background="@drawable/round_background"

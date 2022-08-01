@@ -38,8 +38,8 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:layout_width="100sp"
-                        android:layout_height="100sp"
+                        android:layout_width="75sp"
+                        android:layout_height="75sp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_profile"
                         tools:src="@tools:sample/avatars" />
@@ -59,34 +59,13 @@
                     tools:text="@tools:sample/full_names" />
 
                 <TextView
-                    android:id="@+id/text_date_title"
-                    style="@style/TextAppearance.Material3.BodyMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fecha de nacimiento"
-                    app:layout_constraintStart_toStartOf="@+id/text_name"
-                    app:layout_constraintTop_toBottomOf="@+id/text_name" />
-
-                <TextView
-                    android:id="@+id/textView43"
-                    style="@style/TextAppearance.Material3.BodySmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8sp"
-                    android:text="@{patient.birthday}"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_date_title"
-                    app:layout_constraintStart_toEndOf="@+id/text_date_title"
-                    app:layout_constraintTop_toBottomOf="@+id/text_name"
-                    tools:text="@tools:sample/date/ddmmyy" />
-
-                <TextView
                     android:id="@+id/text_gender_title"
                     style="@style/TextAppearance.Material3.BodyMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sexo"
                     app:layout_constraintStart_toStartOf="@+id/text_name"
-                    app:layout_constraintTop_toBottomOf="@+id/text_date_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
                 <TextView
                     style="@style/TextAppearance.Material3.BodySmall"
@@ -99,25 +78,7 @@
                     app:layout_constraintTop_toTopOf="@+id/text_gender_title"
                     tools:text="Masculino" />
 
-                <TextView
-                    android:id="@+id/text_occupation_title"
-                    style="@style/TextAppearance.Material3.BodyMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ocupación"
-                    app:layout_constraintStart_toStartOf="@+id/text_gender_title"
-                    app:layout_constraintTop_toBottomOf="@+id/text_gender_title" />
 
-                <TextView
-                    style="@style/TextAppearance.Material3.BodySmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8sp"
-                    android:text="@{patient.occupation}"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_occupation_title"
-                    app:layout_constraintStart_toEndOf="@+id/text_occupation_title"
-                    app:layout_constraintTop_toTopOf="@+id/text_occupation_title"
-                    tools:text="Programador" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
@@ -144,7 +105,7 @@
 
                 <TextView
                     android:id="@+id/text_address"
-                    style="@style/TextAppearance.Material3.BodyMedium"
+                    style="@style/TextAppearance.Material3.BodySmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_home"
@@ -155,7 +116,7 @@
 
                 <TextView
                     android:id="@+id/text_phone"
-                    style="@style/TextAppearance.Material3.BodyMedium"
+                    style="@style/TextAppearance.Material3.BodySmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8sp"
@@ -167,7 +128,7 @@
 
                 <TextView
                     android:id="@+id/text_email"
-                    style="@style/TextAppearance.Material3.BodyMedium"
+                    style="@style/TextAppearance.Material3.BodySmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8sp"
@@ -176,6 +137,30 @@
                     android:maxLines="2"
                     android:text="@{patient.email}"
                     tools:text="email@email.com" />
+
+                <TextView
+                    android:id="@+id/textView43"
+                    style="@style/TextAppearance.Material3.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8sp"
+                    android:drawableStart="@drawable/ic_round_cake_24"
+                    android:drawablePadding="16sp"
+                    android:text="@{patient.birthday}"
+                    tools:text="@tools:sample/date/ddmmyy" />
+
+                <TextView
+                    style="@style/TextAppearance.Material3.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8sp"
+                    android:drawableStart="@drawable/ic_round_work_24"
+                    android:drawablePadding="16sp"
+                    android:text="@{patient.occupation}"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_occupation_title"
+                    app:layout_constraintStart_toEndOf="@+id/text_occupation_title"
+                    app:layout_constraintTop_toTopOf="@+id/text_occupation_title"
+                    tools:text="Programador" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -247,14 +232,14 @@
             android:layout_height="48sp"
             android:background="@drawable/round_background"
             android:backgroundTint="@color/list_colors_icon_background"
-            app:tint="@color/list_colors"
             android:contentDescription="info"
             android:padding="8sp"
             android:src="@drawable/ic_round_info_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/button_walk"
-            app:layout_constraintTop_toTopOf="@+id/button_call" />
+            app:layout_constraintTop_toTopOf="@+id/button_call"
+            app:tint="@color/list_colors" />
 
 
         <com.google.android.material.tabs.TabLayout

@@ -22,7 +22,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val firebaseService: FirebaseService,
     private val dataRepository: DataRepository,
-    userRepository: UserRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
     private val id = userRepository.getId()
     val result = MediatorLiveData<Resource<UserModel>>()
@@ -48,10 +48,75 @@ class MainViewModel @Inject constructor(
                             }
                         }
                     }
+                    getOthers()
                 }
             }
             result.postValue(it)
         }
+
+        userModel = MediatorLiveData<UserModel>().apply {
+            addSource(dataRepository.getUser(id)) {
+                if (it != null) {
+                    value = it
+                }
+            }
+        }
+        userModel.addSource(dataRepository.getProfile(id)) {
+            if (it != null) {
+                firebaseService.setProfile(it) { (status, _, exception) ->
+                    if (status == Constants.Status.Failure)
+                        result.postValue(Resource.error(exception!!))
+                }
+            }
+        }
+        userModel.addSource(dataRepository.getGroups(id)) {
+            if (it.isNotEmpty()) {
+                it.forEach { (from, to) ->
+                    val idUser = if (to != id) to else from
+                    var name: String
+                    var message: String
+                    firebaseService.getUser(idUser) { (status, data) ->
+                        if (status == Constants.Status.Success) {
+                            val userData = data!!
+                            name = userData.name
+                            userModel.addSource(dataRepository.getMessage(idUser)) { messageModel ->
+                                if (messageModel != null) {
+                                    message = messageModel.message
+                                    addChat(idUser, name, message)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        userModel.addSource(dataRepository.getExpedient()) {
+            it.forEach { expedient ->
+                firebaseService.setExpedient(expedient) { (status, _, exception) ->
+                    if (status == Constants.Status.Failure) {
+                        result.postValue(Resource.error(exception!!))
+                    }
+                }
+            }
+        }
+        userModel.addSource(dataRepository.getPatients()) {
+            it.forEach { patient ->
+                firebaseService.setPatient(patient) { (status, _, exception) ->
+                    if (status == Constants.Status.Failure) {
+                        result.postValue(Resource.error(exception!!))
+                    }
+                }
+            }
+        }
+        userModel.addSource(dataRepository.getConsultations()) {
+            if (it.isNotEmpty()) firebaseService.setConsultation(it) { (status, _, exception) ->
+                if (status == Constants.Status.Failure)
+                    result.postValue(Resource.error(exception!!))
+            }
+        }
+    }
+
+    private fun getOthers() {
         firebaseService.getProfile {
             if (it.status == Constants.Status.Success)
                 viewModelScope.launch {
@@ -224,67 +289,6 @@ class MainViewModel @Inject constructor(
             if (resource.status == Constants.Status.Failure)
                 result.postValue(Resource.error(resource.exception!!))
         }
-
-        userModel = MediatorLiveData<UserModel>().apply {
-            addSource(dataRepository.getUser(id)) {
-                if (it != null) {
-                    value = it
-                }
-            }
-        }
-        userModel.addSource(dataRepository.getProfile(id)) {
-            if (it != null) {
-                firebaseService.setProfile(it) { (status, _, exception) ->
-                    if (status == Constants.Status.Failure)
-                        result.postValue(Resource.error(exception!!))
-                }
-            }
-        }
-        userModel.addSource(dataRepository.getGroups(id)) {
-            if (it.isNotEmpty()) {
-                it.forEach { (from, to) ->
-                    val idUser = if (to != id) to else from
-                    var name: String
-                    var message: String
-                    firebaseService.getUser(idUser) { (status, data) ->
-                        if (status == Constants.Status.Success) {
-                            val userData = data!!
-                            name = userData.name
-                            userModel.addSource(dataRepository.getMessage(idUser)) { messageModel ->
-                                if (messageModel != null) {
-                                    message = messageModel.message
-                                    addChat(idUser, name, message)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        userModel.addSource(dataRepository.getExpedient()) {
-            it.forEach { expedient ->
-                firebaseService.setExpedient(expedient) { (status, _, exception) ->
-                    if (status == Constants.Status.Failure) {
-                        result.postValue(Resource.error(exception!!))
-                    }
-                }
-            }
-        }
-        userModel.addSource(dataRepository.getPatients()) {
-            it.forEach { patient ->
-                firebaseService.setPatient(patient) { (status, _, exception) ->
-                    if (status == Constants.Status.Failure) {
-                        result.postValue(Resource.error(exception!!))
-                    }
-                }
-            }
-        }
-        userModel.addSource(dataRepository.getConsultations()) {
-            if (it.isNotEmpty()) firebaseService.setConsultation(it) { (status, _, exception) ->
-                if (status == Constants.Status.Failure)
-                    result.postValue(Resource.error(exception!!))
-            }
-        }
     }
 
     private fun getExoskeleton() {
@@ -305,6 +309,7 @@ class MainViewModel @Inject constructor(
             }
         }
         Firebase.auth.signOut()
+        userRepository.logout()
     }
 
     private fun addChat(idUser: String, name: String, message: String) {

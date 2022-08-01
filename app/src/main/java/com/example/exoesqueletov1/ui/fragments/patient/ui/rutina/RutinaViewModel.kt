@@ -29,4 +29,12 @@ class RutinaViewModel @Inject constructor(private val dataRepository: DataReposi
         }
     }
 
+    fun deleteRutina(rutina: RutinaModel) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                dataRepository.deleteRutina(rutina)
+            }
+        }
+    }
+
 }
